@@ -1,26 +1,74 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Backgrounds */
+  --color-cream: #F5F0E8;
+  --color-cream-card: #EDE8D8;
+  --color-cream-border: #D4C9B0;
+
+  /* Navy scale */
+  --color-navy-900: #1E3A5F;
+  --color-navy-700: #2563A8;
+  --color-navy-500: #4A90D9;
+  --color-navy-100: #DBEAFE;
+
+  /* Text */
+  --color-text-heading: #1A1F2E;
+  --color-text-body: #374151;
+  --color-text-muted: #6B7280;
+
+  /* CRAFT component accent colors */
+  --color-craft-c: #1E3A5F;
+  --color-craft-r: #2563A8;
+  --color-craft-a: #059669;
+  --color-craft-f: #7C3AED;
+  --color-craft-t: #B45309;
+
+  /* Semantic */
+  --color-success: #059669;
+  --color-warning: #D97706;
+  --color-error: #DC2626;
+  --color-score-high: #059669;
+  --color-score-mid: #D97706;
+  --color-score-low: #DC2626;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-cream: var(--color-cream);
+  --color-cream-card: var(--color-cream-card);
+  --color-cream-border: var(--color-cream-border);
+  --color-navy-900: var(--color-navy-900);
+  --color-navy-700: var(--color-navy-700);
+  --color-navy-500: var(--color-navy-500);
+  --color-navy-100: var(--color-navy-100);
+  --color-text-heading: var(--color-text-heading);
+  --color-text-body: var(--color-text-body);
+  --color-text-muted: var(--color-text-muted);
+  --color-craft-c: var(--color-craft-c);
+  --color-craft-r: var(--color-craft-r);
+  --color-craft-a: var(--color-craft-a);
+  --color-craft-f: var(--color-craft-f);
+  --color-craft-t: var(--color-craft-t);
+  --color-success: var(--color-success);
+  --color-warning: var(--color-warning);
+  --color-error: var(--color-error);
+  --color-score-high: var(--color-score-high);
+  --color-score-mid: var(--color-score-mid);
+  --color-score-low: var(--color-score-low);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-display: var(--font-playfair-display);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains-mono);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-cream);
+  color: var(--color-text-body);
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }

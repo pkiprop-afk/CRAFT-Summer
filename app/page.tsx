@@ -1,65 +1,115 @@
-import Image from "next/image";
+import { Card } from "@/components/ui/Card";
+import { CRAFTExplainer } from "@/components/craft/CRAFTExplainer";
+
+const RUBRIC_ROWS = [
+  {
+    label: "Constraint Adherence",
+    points: 4,
+    description: "Did the response follow the explicit constraints of the task?",
+  },
+  {
+    label: "Logical Accuracy",
+    points: 4,
+    description: "Is the reasoning or factual content of the response correct?",
+  },
+  {
+    label: "Completeness",
+    points: 2,
+    description: "Does the response address every required element of the task?",
+  },
+];
+
+const STUDY_DESIGN = [
+  {
+    title: "Design",
+    body: "Within-task paired comparison — same task, two prompt conditions",
+  },
+  {
+    title: "Hypothesis",
+    body: "CRAFT prompts produce higher Task Adherence & Accuracy scores",
+  },
+  {
+    title: "Test Models",
+    body: "Claude 3.5 Sonnet, GPT-4o (the models being prompted)",
+  },
+  {
+    title: "Evaluation",
+    body: "Blind scoring by LLM judge using a fixed three-metric rubric",
+  },
+];
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <div className="space-y-16 pb-12">
+      {/* Hero */}
+      <section className="space-y-5">
+        <h1 className="text-4xl font-display font-bold text-text-heading">
+          Assessing the CRAFT Framework
+        </h1>
+        <p className="text-lg text-text-muted max-w-2xl">
+          A structured prompt engineering benchmark study — Peter Kiprop, advised by Prof. Vlad
+          Veksler
+        </p>
+        <div className="flex gap-3">
+          <div className="rounded-lg bg-cream-card border border-cream-border px-4 py-2 text-sm font-medium text-text-heading">
+            50 Benchmark Tasks
+          </div>
+          <div className="rounded-lg bg-cream-card border border-cream-border px-4 py-2 text-sm font-medium text-text-heading">
+            6 Domains
+          </div>
+        </div>
+      </section>
+
+      {/* Research Summary */}
+      <section className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div>
+          <h2 className="text-2xl font-display font-bold text-text-heading mb-3">
+            Research Summary
+          </h2>
+          <p className="text-base text-text-body">
+            This study evaluates whether structured, CRAFT-formatted prompts improve output
+            consistency and constraint adherence relative to unstructured prompts of equivalent
+            intent. Fifty benchmark tasks spanning six professional domains are each run under
+            two prompt conditions — baseline and CRAFT — against the same test model. Outputs
+            are anonymized and scored by an LLM judge against a fixed three-metric rubric,
+            enabling a within-task paired comparison of the two conditions.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <div className="space-y-3">
+          {RUBRIC_ROWS.map((row) => (
+            <div
+              key={row.label}
+              className="flex items-center gap-4 rounded-lg bg-cream-card border border-cream-border px-4 py-3"
+            >
+              <span className="shrink-0 inline-flex items-center justify-center rounded-full bg-navy-700 text-white text-xs font-semibold w-10 h-10 font-mono">
+                {row.points}
+              </span>
+              <div>
+                <p className="text-sm font-semibold text-text-heading">{row.label}</p>
+                <p className="text-xs text-text-muted">{row.description}</p>
+              </div>
+            </div>
+          ))}
         </div>
-      </main>
+      </section>
+
+      {/* CRAFT Framework Explainer */}
+      <CRAFTExplainer />
+
+      {/* Study Design at a Glance */}
+      <section className="space-y-4">
+        <h2 className="text-2xl font-display font-bold text-text-heading">
+          Study Design at a Glance
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {STUDY_DESIGN.map((item) => (
+            <Card key={item.title} accentColor="var(--color-navy-700)">
+              <p className="text-sm font-semibold text-text-heading mb-1">{item.title}</p>
+              <p className="text-sm text-text-body">{item.body}</p>
+            </Card>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
