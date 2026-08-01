@@ -54,3 +54,14 @@ export const DOMAIN_ACCENT_VAR: Record<Domain, string> = {
   education: "var(--color-craft-t)",
   communication: "var(--color-craft-r)",
 };
+
+// Resolved hex equivalents of DOMAIN_ACCENT_VAR, for contexts (e.g. SVG chart
+// fills) where a live CSS custom property is not reliably resolved.
+export const DOMAIN_ACCENT_HEX: Record<Domain, string> = {
+  coding: "#1E3A5F",
+  data_analysis: "#2563A8",
+  finance: "#059669",
+  policy: "#7C3AED",
+  education: "#B45309",
+  communication: "#2563A8",
+};
