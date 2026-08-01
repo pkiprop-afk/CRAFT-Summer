@@ -49,11 +49,7 @@ export function ScatterPlot({ data }: ScatterPlotProps) {
           fontSize={12}
         />
         <ZAxis range={[80, 80]} />
-        <Tooltip
-          cursor={{ strokeDasharray: "3 3" }}
-          formatter={(value: number) => value}
-          labelFormatter={() => ""}
-        />
+        <Tooltip cursor={{ strokeDasharray: "3 3" }} />
         <Legend wrapperStyle={{ fontSize: 12 }} />
         <ReferenceLine
           segment={[
