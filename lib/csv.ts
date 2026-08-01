@@ -11,9 +11,9 @@ function escapeCell(value: string): string {
   return value;
 }
 
-export function toCsv<T extends Record<string, unknown>>(rows: T[]): string {
+export function toCsv<T extends object>(rows: T[]): string {
   if (rows.length === 0) return "";
-  const columns = Object.keys(rows[0]);
+  const columns = Object.keys(rows[0]) as Array<keyof T>;
   const lines = [columns.join(",")];
   for (const row of rows) {
     lines.push(columns.map((col) => escapeCell(cellToString(row[col]))).join(","));
