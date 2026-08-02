@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BookOpen, LayoutGrid, ListChecks, Play, BarChart2, Download, type LucideIcon } from "lucide-react";
+import { BookOpen, LayoutGrid, ListChecks, Play, Layers, BarChart2, Download, type LucideIcon } from "lucide-react";
 
 interface NavItem {
   label: string;
@@ -15,6 +15,7 @@ const NAV_ITEMS: NavItem[] = [
   { label: "Task Library", href: "/tasks", icon: LayoutGrid },
   { label: "Progress", href: "/progress", icon: ListChecks },
   { label: "Prompt Runner", href: "/run", icon: Play },
+  { label: "Batch Runner", href: "/batch", icon: Layers },
   { label: "Results", href: "/results", icon: BarChart2 },
   { label: "Export", href: "/export", icon: Download },
 ];

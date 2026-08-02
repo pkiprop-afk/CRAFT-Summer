@@ -1,0 +1,323 @@
+"use client";
+
+import { useEffect, useMemo, useState } from "react";
+import { Layers } from "lucide-react";
+import { BatchTaskSelector } from "@/components/batch/BatchTaskSelector";
+import { BatchJobList } from "@/components/batch/BatchJobList";
+import { Button } from "@/components/ui/Button";
+import { Select } from "@/components/ui/Select";
+import { runWithConcurrency } from "@/lib/concurrency";
+import { generateOutputId, generateResultId } from "@/lib/anonymize";
+import {
+  buildBatchJobs,
+  isTaskReadyForScope,
+  type BatchJob,
+  type ConditionScope,
+} from "@/lib/batch";
+import type { PromptCondition, ResultRecord, TaskRecord } from "@/types";
+
+type TestModel = "claude-3-5-sonnet" | "gpt-4o";
+type BatchEvaluator = "gemini-1.5-pro" | "claude-3-5-sonnet";
+
+// Cap on simultaneous in-flight model/evaluator calls, to avoid overwhelming
+// the upstream APIs or their rate limits during a batch run.
+const CONCURRENCY_LIMIT = 3;
+
+export default function BatchRunnerPage() {
+  const [tasks, setTasks] = useState<TaskRecord[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
+
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+  const [conditionScope, setConditionScope] = useState<ConditionScope>("both");
+  const [testModel, setTestModel] = useState<TestModel>("claude-3-5-sonnet");
+  const [temperature, setTemperature] = useState(0.2);
+  const [maxTokens, setMaxTokens] = useState(2000);
+  const [systemPrompt, setSystemPrompt] = useState("You are a helpful assistant.");
+  const [evaluatorChoice, setEvaluatorChoice] = useState<BatchEvaluator>("gemini-1.5-pro");
+
+  const [jobs, setJobs] = useState<BatchJob[]>([]);
+  const [isRunning, setIsRunning] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/tasks")
+      .then((r) => r.json())
+      .then(setTasks)
+      .catch(() => setLoadError("Failed to load tasks. Try refreshing the page."))
+      .finally(() => setLoading(false));
+  }, []);
+
+  // A task that's no longer ready for the active condition scope shouldn't
+  // remain silently selected — prune it and let the checkbox reflect that.
+  useEffect(() => {
+    setSelectedIds((prev) => {
+      const next = new Set<string>();
+      for (const id of prev) {
+        const task = tasks.find((t) => t.task_id === id);
+        if (task && isTaskReadyForScope(task, conditionScope)) next.add(id);
+      }
+      return next;
+    });
+  }, [conditionScope, tasks]);
+
+  function toggleTask(taskId: string) {
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(taskId)) next.delete(taskId);
+      else next.add(taskId);
+      return next;
+    });
+  }
+
+  function selectAllReady() {
+    setSelectedIds(
+      new Set(tasks.filter((t) => isTaskReadyForScope(t, conditionScope)).map((t) => t.task_id))
+    );
+  }
+
+  function clearSelection() {
+    setSelectedIds(new Set());
+  }
+
+  const pendingJobCount = useMemo(
+    () => buildBatchJobs(tasks, selectedIds, conditionScope).length,
+    [tasks, selectedIds, conditionScope]
+  );
+
+  async function runJob(task: TaskRecord, condition: PromptCondition, jobIndex: number) {
+    function updateJob(patch: Partial<BatchJob>) {
+      setJobs((prev) => prev.map((j, i) => (i === jobIndex ? { ...j, ...patch } : j)));
+    }
+
+    updateJob({ status: "running" });
+    const prompt = condition === "baseline" ? task.baseline_prompt : task.craft_prompt;
+
+    try {
+      const runResponse = await fetch("/api/run", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          task_id: task.task_id,
+          prompt,
+          model: testModel,
+          temperature,
+          max_tokens: maxTokens,
+          system_prompt: systemPrompt,
+        }),
+      });
+      const runData = await runResponse.json();
+      if (!runResponse.ok) throw new Error(runData.error ?? "Run failed");
+
+      const timestamp = Date.now();
+      const output: string = runData.output;
+      const anonymizedOutputId = generateOutputId(task.task_id, condition, testModel, timestamp);
+
+      updateJob({ status: "evaluating" });
+
+      const evalResponse = await fetch("/api/evaluate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          task_description: task.task_description,
+          expected_constraints: task.expected_constraints,
+          rubric_notes: task.rubric_notes,
+          model_response: output,
+          evaluator: evaluatorChoice,
+        }),
+      });
+      const evalData = await evalResponse.json();
+      if (!evalResponse.ok) throw new Error(evalData.error ?? "Evaluation failed");
+
+      const result: ResultRecord = {
+        result_id: generateResultId(),
+        task_id: task.task_id,
+        test_model: testModel,
+        prompt_condition: condition,
+        anonymized_output_id: anonymizedOutputId,
+        raw_output: output,
+        constraint_adherence: evalData.constraint_adherence,
+        logical_accuracy: evalData.logical_accuracy,
+        completeness: evalData.completeness,
+        total_score: evalData.total,
+        justification: evalData.justification,
+        evaluator_model: evaluatorChoice,
+        temperature,
+        run_timestamp: new Date(timestamp).toISOString(),
+      };
+
+      const saveResponse = await fetch("/api/results", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(result),
+      });
+      if (!saveResponse.ok) throw new Error("Failed to save result");
+
+      updateJob({ status: "done", total_score: evalData.total });
+    } catch (err) {
+      updateJob({ status: "failed", error: err instanceof Error ? err.message : "Job failed" });
+    }
+  }
+
+  async function handleStartBatch() {
+    const newJobs = buildBatchJobs(tasks, selectedIds, conditionScope);
+    if (newJobs.length === 0) return;
+
+    setJobs(newJobs);
+    setIsRunning(true);
+
+    await runWithConcurrency(newJobs, CONCURRENCY_LIMIT, async (job, index) => {
+      const task = tasks.find((t) => t.task_id === job.task_id);
+      if (!task) {
+        setJobs((prev) =>
+          prev.map((j, i) =>
+            i === index ? { ...j, status: "failed", error: "Task not found" } : j
+          )
+        );
+        return;
+      }
+      await runJob(task, job.condition, index);
+    });
+
+    setIsRunning(false);
+  }
+
+  if (loading) {
+    return <p className="text-sm text-text-muted">Loading tasks…</p>;
+  }
+
+  if (loadError) {
+    return <p className="text-sm text-error">{loadError}</p>;
+  }
+
+  return (
+    <div className="space-y-10">
+      <h1 className="text-2xl font-display font-bold text-text-heading">Batch Runner</h1>
+
+      <section className="space-y-4">
+        <h2 className="text-lg font-semibold text-text-heading">
+          Step 1 — Select Tasks and Condition
+        </h2>
+        <div className="flex items-center gap-4">
+          {(["baseline", "craft", "both"] as ConditionScope[]).map((scope) => (
+            <label key={scope} className="flex items-center gap-2 text-sm text-text-body capitalize">
+              <input
+                type="radio"
+                checked={conditionScope === scope}
+                onChange={() => setConditionScope(scope)}
+                disabled={isRunning}
+              />
+              {scope}
+            </label>
+          ))}
+        </div>
+
+        <BatchTaskSelector
+          tasks={tasks}
+          conditionScope={conditionScope}
+          selectedIds={selectedIds}
+          onToggle={toggleTask}
+          onSelectAllReady={selectAllReady}
+          onClearSelection={clearSelection}
+        />
+      </section>
+
+      <section className="space-y-4">
+        <h2 className="text-lg font-semibold text-text-heading">
+          Step 2 — Run Settings and Evaluator
+        </h2>
+
+        <div className="flex items-center gap-4">
+          <label className="flex items-center gap-2 text-sm text-text-body">
+            <input
+              type="radio"
+              checked={testModel === "claude-3-5-sonnet"}
+              onChange={() => setTestModel("claude-3-5-sonnet")}
+              disabled={isRunning}
+            />
+            Claude 3.5 Sonnet
+          </label>
+          <label className="flex items-center gap-2 text-sm text-text-body">
+            <input
+              type="radio"
+              checked={testModel === "gpt-4o"}
+              onChange={() => setTestModel("gpt-4o")}
+              disabled={isRunning}
+            />
+            GPT-4o
+          </label>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-medium text-text-heading mb-1">Temperature</label>
+            <input
+              type="number"
+              min={0}
+              max={1}
+              step={0.1}
+              value={temperature}
+              disabled={isRunning}
+              onChange={(e) => setTemperature(Number(e.target.value))}
+              className="w-full rounded-lg border border-cream-border bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-navy-500 disabled:opacity-50"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-text-heading mb-1">Max Tokens</label>
+            <input
+              type="number"
+              min={1}
+              value={maxTokens}
+              disabled={isRunning}
+              onChange={(e) => setMaxTokens(Number(e.target.value))}
+              className="w-full rounded-lg border border-cream-border bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-navy-500 disabled:opacity-50"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-text-heading mb-1">System Prompt</label>
+          <textarea
+            value={systemPrompt}
+            disabled={isRunning}
+            onChange={(e) => setSystemPrompt(e.target.value)}
+            rows={2}
+            className="w-full rounded-lg border border-cream-border bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-navy-500 disabled:opacity-50"
+          />
+          <p className="mt-1 text-xs text-text-muted">
+            Keep neutral — do not advantage either prompt condition.
+          </p>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-text-heading mb-1">Evaluator Model</label>
+          <Select
+            value={evaluatorChoice}
+            disabled={isRunning}
+            onChange={(e) => setEvaluatorChoice(e.target.value as BatchEvaluator)}
+          >
+            <option value="gemini-1.5-pro">Gemini 1.5 Pro (recommended)</option>
+            <option value="claude-3-5-sonnet">Claude 3.5 Sonnet</option>
+          </Select>
+          <p className="mt-1 text-xs text-text-muted">
+            Every run in this batch is evaluated automatically with the same evaluator, and saved
+            only if both the run and the evaluation succeed. Gemini is recommended — using Claude
+            as both test model and evaluator introduces family bias.
+          </p>
+        </div>
+      </section>
+
+      <section className="space-y-4">
+        <h2 className="text-lg font-semibold text-text-heading">Step 3 — Confirm and Run</h2>
+
+        <Button onClick={handleStartBatch} disabled={isRunning || pendingJobCount === 0}>
+          <Layers size={16} />
+          {isRunning
+            ? "Running batch…"
+            : `Start Batch (${pendingJobCount} job${pendingJobCount === 1 ? "" : "s"})`}
+        </Button>
+
+        {jobs.length > 0 && <BatchJobList jobs={jobs} />}
+      </section>
+    </div>
+  );
+}
