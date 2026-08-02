@@ -13,8 +13,8 @@
       "Respond in plain prose, no code blocks"
     ],
     "rubric_notes": "Award full constraint adherence only if the response stays in prose and identifies the specific line. Award full logical accuracy only if the off-by-one or semantic error is correctly named. Completeness requires addressing all five constraints.",
-    "baseline_prompt": "",
-    "craft_prompt": ""
+    "baseline_prompt": "Find the bug in this function and explain it in plain prose.",
+    "craft_prompt": "Context: reviewing a small Python utility function. Role: senior Python code reviewer. Actions: identify the buggy line and explain the bug. Format: plain prose only. Tone: precise, technical."
   },
   {
     "task_id": "T002",
@@ -32,8 +32,8 @@
       "No bullet points in the body"
     ],
     "rubric_notes": "Award constraint adherence only if subject line is present, word count is under 200, and no bullets appear in the email body. Award full logical accuracy if the cause-explanation is plausible and the timeline is concrete. Completeness requires all five content elements.",
-    "baseline_prompt": "",
-    "craft_prompt": ""
+    "baseline_prompt": "Write an email about a shipping delay.",
+    "craft_prompt": "Context: 48-hour delay caused by a supplier issue. Role: logistics manager. Actions: draft an email with subject line, apology, cause, revised timeline, next steps. Format: subject line + prose body, max 200 words, no bullets. Tone: professional and empathetic."
   },
   {
     "task_id": "T003",
