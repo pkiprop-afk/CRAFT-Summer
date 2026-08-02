@@ -35,6 +35,8 @@ export default function TaskLibraryPage() {
   const [tasks, setTasks] = useState<TaskRecord[]>([]);
   const [results, setResults] = useState<ResultRecord[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
+  const [importError, setImportError] = useState<string | null>(null);
   const [activeDomain, setActiveDomain] = useState<Domain | "all">("all");
   const [search, setSearch] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -48,6 +50,7 @@ export default function TaskLibraryPage() {
         setTasks(taskData);
         setResults(resultData);
       })
+      .catch(() => setLoadError("Failed to load tasks. Try refreshing the page."))
       .finally(() => setLoading(false));
   }, []);
 
@@ -66,34 +69,42 @@ export default function TaskLibraryPage() {
   async function handleImport(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
-    const text = await file.text();
+    setImportError(null);
 
-    let imported: TaskRecord[] = [];
-    if (file.name.endsWith(".json")) {
-      imported = JSON.parse(text);
-    } else {
-      const rows = parseCsv(text);
-      imported = rows.map((row) => ({
-        task_id: row.task_id,
-        domain: row.domain as Domain,
-        source: row.source,
-        task_description: row.task_description,
-        task_input: row.task_input,
-        expected_constraints: parseImportedConstraints(row.expected_constraints),
-        rubric_notes: row.rubric_notes,
-        baseline_prompt: row.baseline_prompt ?? "",
-        craft_prompt: row.craft_prompt ?? "",
-      }));
+    try {
+      const text = await file.text();
+
+      let imported: TaskRecord[] = [];
+      if (file.name.endsWith(".json")) {
+        imported = JSON.parse(text);
+      } else {
+        const rows = parseCsv(text);
+        imported = rows.map((row) => ({
+          task_id: row.task_id,
+          domain: row.domain as Domain,
+          source: row.source,
+          task_description: row.task_description,
+          task_input: row.task_input,
+          expected_constraints: parseImportedConstraints(row.expected_constraints),
+          rubric_notes: row.rubric_notes,
+          baseline_prompt: row.baseline_prompt ?? "",
+          craft_prompt: row.craft_prompt ?? "",
+        }));
+      }
+
+      const response = await fetch("/api/tasks", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(imported),
+      });
+      if (!response.ok) throw new Error("Import request failed");
+      const updatedTasks = await response.json();
+      setTasks(updatedTasks);
+    } catch {
+      setImportError("Could not import that file. Check it matches the expected CSV/JSON schema.");
+    } finally {
+      e.target.value = "";
     }
-
-    const response = await fetch("/api/tasks", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(imported),
-    });
-    const updatedTasks = await response.json();
-    setTasks(updatedTasks);
-    e.target.value = "";
   }
 
   return (
@@ -141,8 +152,12 @@ export default function TaskLibraryPage() {
         />
       </div>
 
+      {importError && <p className="text-sm text-error">{importError}</p>}
+
       {loading ? (
         <p className="text-sm text-text-muted">Loading tasks…</p>
+      ) : loadError ? (
+        <p className="text-sm text-error">{loadError}</p>
       ) : filteredTasks.length === 0 ? (
         <p className="text-sm text-text-muted">No tasks match the current filter.</p>
       ) : (

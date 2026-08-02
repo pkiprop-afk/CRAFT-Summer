@@ -15,6 +15,7 @@ export default function ResultsPage() {
   const [tasks, setTasks] = useState<TaskRecord[]>([]);
   const [results, setResults] = useState<ResultRecord[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState(TABS[0]);
 
   useEffect(() => {
@@ -26,6 +27,7 @@ export default function ResultsPage() {
         setTasks(taskData);
         setResults(resultData);
       })
+      .catch(() => setLoadError("Failed to load results. Try refreshing the page."))
       .finally(() => setLoading(false));
   }, []);
 
@@ -113,6 +115,10 @@ export default function ResultsPage() {
 
   if (loading) {
     return <p className="text-sm text-text-muted">Loading results…</p>;
+  }
+
+  if (loadError) {
+    return <p className="text-sm text-error">{loadError}</p>;
   }
 
   return (

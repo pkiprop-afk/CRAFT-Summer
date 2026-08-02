@@ -31,11 +31,15 @@ export default function PromptRunnerPage() {
 
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [saveError, setSaveError] = useState<string | null>(null);
+
+  const [tasksLoadError, setTasksLoadError] = useState<string | null>(null);
 
   useEffect(() => {
     fetch("/api/tasks")
       .then((r) => r.json())
-      .then(setTasks);
+      .then(setTasks)
+      .catch(() => setTasksLoadError("Failed to load tasks. Try refreshing the page."));
   }, []);
 
   const selectedTask = useMemo(
@@ -57,6 +61,7 @@ export default function PromptRunnerPage() {
     setEvaluationError(null);
     setManualPasteText("");
     setSaved(false);
+    setSaveError(null);
   }
 
   async function handleRun() {
@@ -134,6 +139,7 @@ export default function PromptRunnerPage() {
   async function handleSave() {
     if (!selectedTask || !output || !anonymizedOutputId || !runTimestamp) return;
     setSaving(true);
+    setSaveError(null);
     const result: ResultRecord = {
       result_id: generateResultId(),
       task_id: selectedTask.task_id,
@@ -150,18 +156,26 @@ export default function PromptRunnerPage() {
       temperature,
       run_timestamp: runTimestamp,
     };
-    await fetch("/api/results", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(result),
-    });
-    setSaving(false);
-    setSaved(true);
+    try {
+      const response = await fetch("/api/results", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(result),
+      });
+      if (!response.ok) throw new Error("Save request failed");
+      setSaved(true);
+    } catch {
+      setSaveError("Failed to save the result. Try again.");
+    } finally {
+      setSaving(false);
+    }
   }
 
   return (
     <div className="space-y-10">
       <h1 className="text-2xl font-display font-bold text-text-heading">Prompt Runner</h1>
+
+      {tasksLoadError && <p className="text-sm text-error">{tasksLoadError}</p>}
 
       <PromptRunner
         tasks={tasks}
@@ -226,6 +240,7 @@ export default function PromptRunnerPage() {
             onSave={handleSave}
             saving={saving}
             saved={saved}
+            saveError={saveError}
             canSave={Boolean(output)}
           />
         </section>

@@ -27,12 +27,13 @@ export function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="w-60 shrink-0 bg-navy-900 text-cream flex flex-col">
-      <div className="px-5 py-6 border-b border-white/10">
-        <p className="text-sm font-semibold leading-tight">CRAFT Benchmark</p>
-        <p className="text-xs text-cream/60 leading-tight mt-1">Peter Kiprop</p>
+    <aside className="w-16 md:w-60 shrink-0 bg-navy-900 text-cream flex flex-col">
+      <div className="px-2 md:px-5 py-6 border-b border-white/10">
+        <p className="hidden md:block text-sm font-semibold leading-tight">CRAFT Benchmark</p>
+        <p className="hidden md:block text-xs text-cream/60 leading-tight mt-1">Peter Kiprop</p>
+        <p className="md:hidden text-center text-sm font-semibold leading-tight">CB</p>
       </div>
-      <nav className="flex-1 px-3 py-4 space-y-1">
+      <nav className="flex-1 px-2 md:px-3 py-4 space-y-1">
         {NAV_ITEMS.map((item) => {
           const active = isActive(pathname, item.href);
           const Icon = item.icon;
@@ -40,14 +41,15 @@ export function Sidebar() {
             <Link
               key={item.href}
               href={item.href}
-              className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+              title={item.label}
+              className={`flex items-center justify-center md:justify-start gap-3 rounded-lg px-2 md:px-3 py-2 text-sm font-medium transition-colors ${
                 active
                   ? "bg-cream text-navy-900"
                   : "text-cream/80 hover:bg-white/10 hover:text-cream"
               }`}
             >
               <Icon size={18} strokeWidth={2} />
-              {item.label}
+              <span className="hidden md:inline">{item.label}</span>
             </Link>
           );
         })}

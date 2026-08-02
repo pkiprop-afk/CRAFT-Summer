@@ -18,6 +18,7 @@ interface EvaluationPanelProps {
   onSave: () => void;
   saving: boolean;
   saved: boolean;
+  saveError: string | null;
   canSave: boolean;
 }
 
@@ -62,6 +63,7 @@ export function EvaluationPanel({
   onSave,
   saving,
   saved,
+  saveError,
   canSave,
 }: EvaluationPanelProps) {
   return (
@@ -139,6 +141,7 @@ export function EvaluationPanel({
           {saving ? "Saving…" : "Save Result"}
         </Button>
         {saved && <span className="text-sm text-success">Saved</span>}
+        {saveError && <span className="text-sm text-error">{saveError}</span>}
       </div>
     </section>
   );

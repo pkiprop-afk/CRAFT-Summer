@@ -12,10 +12,15 @@ export default function ExportPage() {
     Promise.all([
       fetch("/api/tasks").then((r) => r.json()),
       fetch("/api/results").then((r) => r.json()),
-    ]).then(([tasks, results]) => {
-      setTaskCount(tasks.length);
-      setResultCount(results.length);
-    });
+    ])
+      .then(([tasks, results]) => {
+        setTaskCount(tasks.length);
+        setResultCount(results.length);
+      })
+      .catch(() => {
+        setTaskCount(null);
+        setResultCount(null);
+      });
   }, []);
 
   const exports = [

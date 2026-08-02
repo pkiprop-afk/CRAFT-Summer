@@ -14,8 +14,10 @@ export default function TaskDetailPage() {
   const [task, setTask] = useState<TaskRecord | null>(null);
   const [results, setResults] = useState<ResultRecord[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [saveError, setSaveError] = useState<string | null>(null);
 
   useEffect(() => {
     Promise.all([
@@ -26,6 +28,7 @@ export default function TaskDetailPage() {
         setTask(tasks.find((t) => t.task_id === params.task_id) ?? null);
         setResults(allResults.filter((r) => r.task_id === params.task_id));
       })
+      .catch(() => setLoadError("Failed to load this task. Try refreshing the page."))
       .finally(() => setLoading(false));
   }, [params.task_id]);
 
@@ -33,17 +36,28 @@ export default function TaskDetailPage() {
     if (!task) return;
     setSaving(true);
     setSaved(false);
-    await fetch(`/api/tasks/${task.task_id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(task),
-    });
-    setSaving(false);
-    setSaved(true);
+    setSaveError(null);
+    try {
+      const response = await fetch(`/api/tasks/${task.task_id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(task),
+      });
+      if (!response.ok) throw new Error("Save request failed");
+      setSaved(true);
+    } catch {
+      setSaveError("Failed to save changes. Try again.");
+    } finally {
+      setSaving(false);
+    }
   }
 
   if (loading) {
     return <p className="text-sm text-text-muted">Loading task…</p>;
+  }
+
+  if (loadError) {
+    return <p className="text-sm text-error">{loadError}</p>;
   }
 
   if (!task) {
@@ -74,6 +88,7 @@ export default function TaskDetailPage() {
               {saving ? "Saving…" : "Save Changes"}
             </Button>
             {saved && <span className="text-sm text-success">Saved</span>}
+            {saveError && <span className="text-sm text-error">{saveError}</span>}
           </div>
         </div>
 
