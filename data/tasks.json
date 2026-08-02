@@ -13,7 +13,7 @@
       "Respond in plain prose, no code blocks"
     ],
     "rubric_notes": "Award full constraint adherence only if the response stays in prose and identifies the specific line. Award full logical accuracy only if the off-by-one or semantic error is correctly named. Completeness requires addressing all five constraints.",
-    "baseline_prompt": "Find the bug in this function and explain it in plain prose.",
+    "baseline_prompt": "",
     "craft_prompt": ""
   },
   {
