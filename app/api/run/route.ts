@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
 import { callClaude } from "@/lib/models/claude";
 import { callOpenAI } from "@/lib/models/openai";
+import { getTask } from "@/lib/db";
 
 interface RunRequestBody {
+  task_id: string;
   prompt: string;
   model: "claude-3-5-sonnet" | "gpt-4o";
   temperature: number;
@@ -12,7 +14,27 @@ interface RunRequestBody {
 
 export async function POST(request: Request) {
   const body: RunRequestBody = await request.json();
-  const { prompt, model, temperature, max_tokens, system_prompt } = body;
+  const { task_id, prompt, model, temperature, max_tokens, system_prompt } = body;
+
+  const task = await getTask(task_id);
+  if (!task) {
+    return NextResponse.json({ error: "Task not found" }, { status: 404 });
+  }
+
+  const missingPrompts: string[] = [];
+  if (!task.baseline_prompt) missingPrompts.push("baseline");
+  if (!task.craft_prompt) missingPrompts.push("craft");
+  if (missingPrompts.length > 0) {
+    return NextResponse.json(
+      {
+        error: `Run blocked: this task is missing its ${missingPrompts.join(" and ")} prompt${
+          missingPrompts.length > 1 ? "s" : ""
+        }. Both baseline and CRAFT prompts must be authored before either condition can be run.`,
+        missing_prompts: missingPrompts,
+      },
+      { status: 409 }
+    );
+  }
 
   const start = Date.now();
   let output: string;

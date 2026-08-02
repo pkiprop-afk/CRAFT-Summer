@@ -54,6 +54,13 @@ export function PromptRunner({
     return acc;
   }, {});
 
+  const missingPrompts: string[] = [];
+  if (selectedTask) {
+    if (!selectedTask.baseline_prompt) missingPrompts.push("Baseline");
+    if (!selectedTask.craft_prompt) missingPrompts.push("CRAFT");
+  }
+  const blockedByBalance = missingPrompts.length > 0;
+
   return (
     <div className="space-y-8">
       {/* Step 1 */}
@@ -112,6 +119,16 @@ export function PromptRunner({
             ) : (
               <p className="rounded-md bg-warning/10 border border-warning/30 px-3 py-2 text-sm text-warning">
                 This prompt has not been authored yet. Return to Task Library to write it first.
+              </p>
+            )}
+
+            {blockedByBalance && (
+              <p className="rounded-md bg-error/10 border border-error/30 px-3 py-2 text-sm text-error">
+                Run blocked: this task is missing its {missingPrompts.join(" and ")} prompt
+                {missingPrompts.length > 1 ? "s" : ""}. Both baseline and CRAFT prompts must be
+                authored before either condition can be run, to keep the paired comparison
+                balanced. Return to Task Library to write the missing prompt
+                {missingPrompts.length > 1 ? "s" : ""}.
               </p>
             )}
           </>
@@ -186,7 +203,7 @@ export function PromptRunner({
           </p>
         </div>
 
-        <Button onClick={onRun} disabled={running || !selectedPromptText}>
+        <Button onClick={onRun} disabled={running || !selectedPromptText || blockedByBalance}>
           <Play size={16} />
           {running ? "Running…" : "Run Prompt"}
         </Button>

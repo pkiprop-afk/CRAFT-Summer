@@ -66,6 +66,7 @@ export default function PromptRunnerPage() {
 
   async function handleRun() {
     if (!selectedTask || !selectedPromptText) return;
+    if (!selectedTask.baseline_prompt || !selectedTask.craft_prompt) return;
     resetRunState();
     setRunning(true);
     try {
@@ -73,6 +74,7 @@ export default function PromptRunnerPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          task_id: selectedTask.task_id,
           prompt: selectedPromptText,
           model: testModel,
           temperature,
