@@ -29,6 +29,10 @@ export interface TaskRecord {
 export type PromptCondition = "baseline" | "craft";
 
 export interface ResultRecord {
+  // Non-canonical: a collision-safe primary key, kept deliberately separate
+  // from anonymized_output_id (which is a blinding token, not an identifier,
+  // and is timestamp-based so it is not collision-safe under concurrent runs).
+  result_id: string;
   task_id: string;
   model_name: string;
   prompt_condition: PromptCondition;

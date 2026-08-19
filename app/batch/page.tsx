@@ -7,7 +7,7 @@ import { BatchJobList } from "@/components/batch/BatchJobList";
 import { Button } from "@/components/ui/Button";
 import { Select } from "@/components/ui/Select";
 import { runWithConcurrency } from "@/lib/concurrency";
-import { generateOutputId } from "@/lib/anonymize";
+import { generateOutputId, generateResultId } from "@/lib/anonymize";
 import {
   buildBatchJobs,
   isTaskReadyForScope,
@@ -151,6 +151,7 @@ export default function BatchRunnerPage() {
       if (!evalResponse.ok) throw new Error(evalData.error ?? "Evaluation failed");
 
       const result: ResultRecord = {
+        result_id: generateResultId(),
         task_id: task.task_id,
         model_name: testModel,
         prompt_condition: condition,

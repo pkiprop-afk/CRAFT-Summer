@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Copy } from "lucide-react";
 import { PromptRunner, type TestModel } from "@/components/runner/PromptRunner";
 import { EvaluationPanel, type EvaluatorChoice } from "@/components/runner/EvaluationPanel";
-import { generateOutputId } from "@/lib/anonymize";
+import { generateOutputId, generateResultId } from "@/lib/anonymize";
 import { parseEvaluatorResponse, type ParsedEvaluation } from "@/lib/evaluator";
 import type { PromptCondition, ResultRecord, TaskRecord } from "@/types";
 
@@ -152,6 +152,7 @@ export default function PromptRunnerPage() {
         (r) => r.task_id === selectedTask.task_id && r.prompt_condition === condition
       ).length + 1;
     const result: ResultRecord = {
+      result_id: generateResultId(),
       task_id: selectedTask.task_id,
       model_name: testModel,
       prompt_condition: condition,

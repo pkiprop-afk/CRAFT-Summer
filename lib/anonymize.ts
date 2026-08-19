@@ -8,3 +8,7 @@ export function generateOutputId(
 ): string {
   return `OUT-${taskId}-${condition}-${model}-${timestamp}`;
 }
+
+export function generateResultId(): string {
+  return `RES-${crypto.randomUUID()}`;
+}

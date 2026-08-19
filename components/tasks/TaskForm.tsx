@@ -1,5 +1,14 @@
 import { Plus, Trash2 } from "lucide-react";
+import { assembleCraftPrompt } from "@/lib/craft";
 import { DOMAIN_LABELS, type TaskRecord } from "@/types";
+
+const CRAFT_COMPONENT_FIELDS = [
+  ["craft_context", "Context"],
+  ["craft_role", "Role"],
+  ["craft_actions", "Actions"],
+  ["craft_format", "Format"],
+  ["craft_tone", "Tone"],
+] as const;
 
 interface TaskFormProps {
   task: TaskRecord;
@@ -17,6 +26,11 @@ function DeferredCallout() {
 export function TaskForm({ task, onChange }: TaskFormProps) {
   function set<K extends keyof TaskRecord>(key: K, value: TaskRecord[K]) {
     onChange({ ...task, [key]: value });
+  }
+
+  function setCraftComponent(key: (typeof CRAFT_COMPONENT_FIELDS)[number][0], value: string) {
+    const next = { ...task, [key]: value };
+    onChange({ ...next, craft_prompt: assembleCraftPrompt(next) });
   }
 
   function setConstraint(index: number, value: string) {
@@ -147,16 +161,31 @@ export function TaskForm({ task, onChange }: TaskFormProps) {
         />
       </div>
 
+      <div className="space-y-4">
+        <h2 className="text-lg font-semibold text-text-heading">CRAFT Components</h2>
+        {CRAFT_COMPONENT_FIELDS.map(([key, label]) => (
+          <div key={key}>
+            <label className="block text-sm font-semibold text-text-heading mb-1">{label}</label>
+            <textarea
+              value={task[key]}
+              onChange={(e) => setCraftComponent(key, e.target.value)}
+              rows={3}
+              className="w-full rounded-lg border border-cream-border bg-white px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-navy-500"
+            />
+          </div>
+        ))}
+      </div>
+
       <div>
         <label className="block text-sm font-semibold text-text-heading mb-1">
-          CRAFT Prompt
+          CRAFT Prompt <span className="font-normal text-text-muted">(derived, read-only)</span>
         </label>
         {!task.craft_prompt && <DeferredCallout />}
         <textarea
           value={task.craft_prompt}
-          onChange={(e) => set("craft_prompt", e.target.value)}
+          readOnly
           rows={8}
-          className="mt-2 w-full rounded-lg border border-cream-border bg-white px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-navy-500"
+          className="mt-2 w-full rounded-lg border border-cream-border bg-cream-card px-3 py-2 text-sm font-mono text-text-muted cursor-not-allowed focus:outline-none"
         />
       </div>
     </div>
