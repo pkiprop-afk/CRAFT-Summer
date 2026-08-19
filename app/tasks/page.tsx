@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Upload } from "lucide-react";
 import { TaskCard } from "@/components/tasks/TaskCard";
 import { Button } from "@/components/ui/Button";
-import { parseCsv } from "@/lib/csv";
+import type { TaskImportError } from "@/lib/taskImport";
 import { DOMAIN_LABELS, type Domain, type ResultRecord, type TaskRecord } from "@/types";
 
 const DOMAIN_TABS: Array<{ label: string; value: Domain | "all" }> = [
@@ -17,18 +17,11 @@ const DOMAIN_TABS: Array<{ label: string; value: Domain | "all" }> = [
   { label: "Communication", value: "communication" },
 ];
 
-function parseImportedConstraints(raw: string): string[] {
-  if (!raw) return [];
-  try {
-    const parsed = JSON.parse(raw);
-    if (Array.isArray(parsed)) return parsed.map(String);
-  } catch {
-    // fall through to pipe-delimited parsing
-  }
-  return raw
-    .split("|")
-    .map((s) => s.trim())
-    .filter(Boolean);
+interface ImportReport {
+  importedCount: number;
+  rejectedCount: number;
+  totalRows: number;
+  errors: TaskImportError[];
 }
 
 export default function TaskLibraryPage() {
@@ -37,6 +30,7 @@ export default function TaskLibraryPage() {
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [importError, setImportError] = useState<string | null>(null);
+  const [importReport, setImportReport] = useState<ImportReport | null>(null);
   const [activeDomain, setActiveDomain] = useState<Domain | "all">("all");
   const [search, setSearch] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -70,46 +64,36 @@ export default function TaskLibraryPage() {
     const file = e.target.files?.[0];
     if (!file) return;
     setImportError(null);
+    setImportReport(null);
 
     try {
-      const text = await file.text();
+      const body = new FormData();
+      body.append("file", file);
+      const response = await fetch("/api/tasks/import", { method: "POST", body });
+      const data = await response.json();
 
-      let imported: TaskRecord[] = [];
-      if (file.name.endsWith(".json")) {
-        imported = JSON.parse(text);
-      } else {
-        const rows = parseCsv(text);
-        imported = rows.map((row) => ({
-          task_id: row.task_id,
-          domain: row.domain as Domain,
-          source_or_origin: row.source_or_origin,
-          task_title: row.task_title,
-          task_description: row.task_description,
-          task_input: row.task_input,
-          baseline_prompt: row.baseline_prompt ?? "",
-          craft_context: row.craft_context ?? "",
-          craft_role: row.craft_role ?? "",
-          craft_actions: row.craft_actions ?? "",
-          craft_format: row.craft_format ?? "",
-          craft_tone: row.craft_tone ?? "",
-          craft_prompt: row.craft_prompt ?? "",
-          expected_constraints: parseImportedConstraints(row.expected_constraints),
-          rubric_notes: row.rubric_notes,
-          difficulty_level: row.difficulty_level ?? "",
-          requires_external_knowledge: row.requires_external_knowledge === "true",
-        }));
+      if (!response.ok) {
+        setImportError(data.error ?? "Import failed.");
+        if (typeof data.importedCount === "number") {
+          setImportReport({
+            importedCount: data.importedCount,
+            rejectedCount: data.rejectedCount,
+            totalRows: data.totalRows,
+            errors: data.errors ?? [],
+          });
+        }
+        return;
       }
 
-      const response = await fetch("/api/tasks", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(imported),
+      setTasks(data.tasks);
+      setImportReport({
+        importedCount: data.importedCount,
+        rejectedCount: data.rejectedCount,
+        totalRows: data.totalRows,
+        errors: data.errors,
       });
-      if (!response.ok) throw new Error("Import request failed");
-      const updatedTasks = await response.json();
-      setTasks(updatedTasks);
     } catch {
-      setImportError("Could not import that file. Check it matches the expected CSV/JSON schema.");
+      setImportError("Could not reach the import endpoint. Try again.");
     } finally {
       e.target.value = "";
     }
@@ -124,7 +108,7 @@ export default function TaskLibraryPage() {
           <input
             ref={fileInputRef}
             type="file"
-            accept=".csv,.json"
+            accept=".csv,.xlsx"
             className="hidden"
             onChange={handleImport}
           />
@@ -161,6 +145,24 @@ export default function TaskLibraryPage() {
       </div>
 
       {importError && <p className="text-sm text-error">{importError}</p>}
+
+      {importReport && (
+        <div className="rounded-lg border border-cream-border bg-cream-card px-4 py-3 text-sm space-y-2">
+          <p className="font-medium text-text-heading">
+            Import: {importReport.importedCount} imported, {importReport.rejectedCount} rejected
+            (of {importReport.totalRows} rows)
+          </p>
+          {importReport.errors.length > 0 && (
+            <ul className="space-y-1 text-xs text-text-muted max-h-48 overflow-y-auto font-mono">
+              {importReport.errors.map((err) => (
+                <li key={err.row}>
+                  Row {err.row} ({err.task_id}): {err.reasons.join("; ")}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      )}
 
       {loading ? (
         <p className="text-sm text-text-muted">Loading tasks…</p>
