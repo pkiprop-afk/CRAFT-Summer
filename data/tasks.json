@@ -2,9 +2,17 @@
   {
     "task_id": "T001",
     "domain": "coding",
-    "source": "HumanEval/3 (adapted)",
+    "source_or_origin": "HumanEval/3 (adapted)",
+    "task_title": "Debug the running balance function",
     "task_description": "A function is provided that tracks a running bank account balance across a list of deposit and withdrawal transactions. Identify the bug in the function and explain how it produces incorrect results.",
     "task_input": "def below_zero(operations: List[int]) -> bool:\n    balance = 0\n    for op in operations:\n        balance += op\n        if balance < 0:\n            return True\n    return False",
+    "baseline_prompt": "",
+    "craft_context": "",
+    "craft_role": "",
+    "craft_actions": "",
+    "craft_format": "",
+    "craft_tone": "",
+    "craft_prompt": "",
     "expected_constraints": [
       "Identify the specific line containing the bug",
       "Explain what the bug causes",
@@ -13,15 +21,23 @@
       "Respond in plain prose, no code blocks"
     ],
     "rubric_notes": "Award full constraint adherence only if the response stays in prose and identifies the specific line. Award full logical accuracy only if the off-by-one or semantic error is correctly named. Completeness requires addressing all five constraints.",
-    "baseline_prompt": "",
-    "craft_prompt": ""
+    "difficulty_level": "",
+    "requires_external_knowledge": false
   },
   {
     "task_id": "T002",
     "domain": "communication",
-    "source": "Original",
+    "source_or_origin": "Original",
+    "task_title": "Draft a service-delay client email",
     "task_description": "Draft a professional email from a logistics manager to a key client explaining a 48-hour service delay caused by a supplier issue outside the firm's control.",
     "task_input": "",
+    "baseline_prompt": "",
+    "craft_context": "",
+    "craft_role": "",
+    "craft_actions": "",
+    "craft_format": "",
+    "craft_tone": "",
+    "craft_prompt": "",
     "expected_constraints": [
       "Include a subject line",
       "Acknowledge the delay and apologize",
@@ -32,15 +48,23 @@
       "No bullet points in the body"
     ],
     "rubric_notes": "Award constraint adherence only if subject line is present, word count is under 200, and no bullets appear in the email body. Award full logical accuracy if the cause-explanation is plausible and the timeline is concrete. Completeness requires all five content elements.",
-    "baseline_prompt": "",
-    "craft_prompt": ""
+    "difficulty_level": "",
+    "requires_external_knowledge": false
   },
   {
     "task_id": "T003",
     "domain": "data_analysis",
-    "source": "Original",
+    "source_or_origin": "Original",
+    "task_title": "Identify top category and lowest quarter",
     "task_description": "A dataset shows monthly sales figures for five product categories across Q1–Q4. Identify the top-performing category, the lowest quarter overall, and recommend one data-driven action for the underperforming category.",
     "task_input": "Category | Q1 | Q2 | Q3 | Q4\nElectronics | 82000 | 91000 | 87000 | 110000\nApparel | 45000 | 52000 | 48000 | 61000\nHome Goods | 33000 | 29000 | 31000 | 38000\nSports | 27000 | 41000 | 55000 | 49000\nBooks | 18000 | 16000 | 14000 | 21000",
+    "baseline_prompt": "",
+    "craft_context": "",
+    "craft_role": "",
+    "craft_actions": "",
+    "craft_format": "",
+    "craft_tone": "",
+    "craft_prompt": "",
     "expected_constraints": [
       "Name the top-performing category with supporting figures",
       "Name the lowest quarter with supporting figures",
@@ -49,7 +73,7 @@
       "Response in three clearly labeled sections"
     ],
     "rubric_notes": "Top category is Electronics (total 370000). Lowest single quarter is Books Q3 (14000) or by category-quarter comparison. Award full constraint adherence only if three labeled sections are present and exactly one recommendation is given.",
-    "baseline_prompt": "",
-    "craft_prompt": ""
+    "difficulty_level": "",
+    "requires_external_knowledge": false
   }
 ]

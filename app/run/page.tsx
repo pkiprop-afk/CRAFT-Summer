@@ -4,12 +4,13 @@ import { useEffect, useMemo, useState } from "react";
 import { Copy } from "lucide-react";
 import { PromptRunner, type TestModel } from "@/components/runner/PromptRunner";
 import { EvaluationPanel, type EvaluatorChoice } from "@/components/runner/EvaluationPanel";
-import { generateOutputId, generateResultId } from "@/lib/anonymize";
+import { generateOutputId } from "@/lib/anonymize";
 import { parseEvaluatorResponse, type ParsedEvaluation } from "@/lib/evaluator";
 import type { PromptCondition, ResultRecord, TaskRecord } from "@/types";
 
 export default function PromptRunnerPage() {
   const [tasks, setTasks] = useState<TaskRecord[]>([]);
+  const [results, setResults] = useState<ResultRecord[]>([]);
   const [selectedTaskId, setSelectedTaskId] = useState("");
   const [condition, setCondition] = useState<PromptCondition>("baseline");
   const [testModel, setTestModel] = useState<TestModel>("claude-3-5-sonnet");
@@ -40,6 +41,10 @@ export default function PromptRunnerPage() {
       .then((r) => r.json())
       .then(setTasks)
       .catch(() => setTasksLoadError("Failed to load tasks. Try refreshing the page."));
+    fetch("/api/results")
+      .then((r) => r.json())
+      .then(setResults)
+      .catch(() => {});
   }, []);
 
   const selectedTask = useMemo(
@@ -142,21 +147,26 @@ export default function PromptRunnerPage() {
     if (!selectedTask || !output || !anonymizedOutputId || !runTimestamp) return;
     setSaving(true);
     setSaveError(null);
+    const runNumber =
+      results.filter(
+        (r) => r.task_id === selectedTask.task_id && r.prompt_condition === condition
+      ).length + 1;
     const result: ResultRecord = {
-      result_id: generateResultId(),
       task_id: selectedTask.task_id,
-      test_model: testModel,
+      model_name: testModel,
       prompt_condition: condition,
-      anonymized_output_id: anonymizedOutputId,
-      raw_output: output,
-      constraint_adherence: evaluation?.constraint_adherence ?? 0,
-      logical_accuracy: evaluation?.logical_accuracy ?? 0,
-      completeness: evaluation?.completeness ?? 0,
-      total_score: evaluation?.total ?? 0,
-      justification: evaluation?.justification ?? "",
-      evaluator_model: evaluation ? evaluatorChoice : "none",
+      run_number: runNumber,
       temperature,
-      run_timestamp: runTimestamp,
+      run_date: runTimestamp,
+      raw_model_output: output,
+      anonymized_output_id: anonymizedOutputId,
+      constraint_adherence_score_0_4: evaluation?.constraint_adherence ?? 0,
+      logical_accuracy_score_0_4: evaluation?.logical_accuracy ?? 0,
+      completeness_score_0_2: evaluation?.completeness ?? 0,
+      total_score_0_10: evaluation?.total ?? 0,
+      evaluator_model: evaluation ? evaluatorChoice : "none",
+      evaluator_justification: evaluation?.justification ?? "",
+      notes: "",
     };
     try {
       const response = await fetch("/api/results", {
@@ -165,6 +175,7 @@ export default function PromptRunnerPage() {
         body: JSON.stringify(result),
       });
       if (!response.ok) throw new Error("Save request failed");
+      setResults((prev) => [...prev, result]);
       setSaved(true);
     } catch {
       setSaveError("Failed to save the result. Try again.");

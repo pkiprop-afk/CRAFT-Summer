@@ -9,32 +9,41 @@ export type Domain =
 export interface TaskRecord {
   task_id: string;
   domain: Domain;
-  source: string;
+  source_or_origin: string;
+  task_title: string;
   task_description: string;
   task_input: string;
+  baseline_prompt: string;
+  craft_context: string;
+  craft_role: string;
+  craft_actions: string;
+  craft_format: string;
+  craft_tone: string;
+  craft_prompt: string;
   expected_constraints: string[];
   rubric_notes: string;
-  baseline_prompt: string;
-  craft_prompt: string;
+  difficulty_level: string;
+  requires_external_knowledge: boolean;
 }
 
 export type PromptCondition = "baseline" | "craft";
 
 export interface ResultRecord {
-  result_id: string;
   task_id: string;
-  test_model: string;
+  model_name: string;
   prompt_condition: PromptCondition;
-  anonymized_output_id: string;
-  raw_output: string;
-  constraint_adherence: number;
-  logical_accuracy: number;
-  completeness: number;
-  total_score: number;
-  justification: string;
-  evaluator_model: string;
+  run_number: number;
   temperature: number;
-  run_timestamp: string;
+  run_date: string;
+  raw_model_output: string;
+  anonymized_output_id: string;
+  constraint_adherence_score_0_4: number;
+  logical_accuracy_score_0_4: number;
+  completeness_score_0_2: number;
+  total_score_0_10: number;
+  evaluator_model: string;
+  evaluator_justification: string;
+  notes: string;
 }
 
 export const DOMAIN_LABELS: Record<Domain, string> = {

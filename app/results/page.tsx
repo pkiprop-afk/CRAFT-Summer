@@ -40,8 +40,8 @@ export default function ResultsPage() {
   const baselineResults = useMemo(() => byCondition(results, "baseline"), [results]);
   const craftResults = useMemo(() => byCondition(results, "craft"), [results]);
 
-  const meanBaseline = round(mean(baselineResults.map((r) => r.total_score)));
-  const meanCraft = round(mean(craftResults.map((r) => r.total_score)));
+  const meanBaseline = round(mean(baselineResults.map((r) => r.total_score_0_10)));
+  const meanCraft = round(mean(craftResults.map((r) => r.total_score_0_10)));
   const delta = round(meanCraft - meanBaseline);
 
   const scatterData: ScatterDatum[] = useMemo(() => {
@@ -54,8 +54,8 @@ export default function ResultsPage() {
         data.push({
           task_id: taskId,
           domain,
-          baseline: pair.baseline.total_score,
-          craft: pair.craft.total_score,
+          baseline: pair.baseline.total_score_0_10,
+          craft: pair.craft.total_score_0_10,
         });
       }
     }
@@ -63,11 +63,11 @@ export default function ResultsPage() {
   }, [results, taskDomainById]);
 
   const modelChartData: GroupedBarDatum[] = useMemo(() => {
-    const models = Array.from(new Set(results.map((r) => r.test_model)));
+    const models = Array.from(new Set(results.map((r) => r.model_name)));
     return models.map((model) => ({
       category: model,
-      baseline: round(mean(baselineResults.filter((r) => r.test_model === model).map((r) => r.total_score))),
-      craft: round(mean(craftResults.filter((r) => r.test_model === model).map((r) => r.total_score))),
+      baseline: round(mean(baselineResults.filter((r) => r.model_name === model).map((r) => r.total_score_0_10))),
+      craft: round(mean(craftResults.filter((r) => r.model_name === model).map((r) => r.total_score_0_10))),
     }));
   }, [results, baselineResults, craftResults]);
 
@@ -77,8 +77,8 @@ export default function ResultsPage() {
       const taskIds = new Set(tasks.filter((t) => t.domain === domain).map((t) => t.task_id));
       const domainBaseline = baselineResults.filter((r) => taskIds.has(r.task_id));
       const domainCraft = craftResults.filter((r) => taskIds.has(r.task_id));
-      const meanB = round(mean(domainBaseline.map((r) => r.total_score)));
-      const meanC = round(mean(domainCraft.map((r) => r.total_score)));
+      const meanB = round(mean(domainBaseline.map((r) => r.total_score_0_10)));
+      const meanC = round(mean(domainCraft.map((r) => r.total_score_0_10)));
       return {
         domain,
         nTasks: taskIds.size,
@@ -99,17 +99,17 @@ export default function ResultsPage() {
     {
       label: "Constraint Adherence",
       max: 4,
-      key: "constraint_adherence" as const,
+      key: "constraint_adherence_score_0_4" as const,
     },
     {
       label: "Logical Accuracy",
       max: 4,
-      key: "logical_accuracy" as const,
+      key: "logical_accuracy_score_0_4" as const,
     },
     {
       label: "Completeness",
       max: 2,
-      key: "completeness" as const,
+      key: "completeness_score_0_2" as const,
     },
   ];
 

@@ -82,13 +82,21 @@ export default function TaskLibraryPage() {
         imported = rows.map((row) => ({
           task_id: row.task_id,
           domain: row.domain as Domain,
-          source: row.source,
+          source_or_origin: row.source_or_origin,
+          task_title: row.task_title,
           task_description: row.task_description,
           task_input: row.task_input,
+          baseline_prompt: row.baseline_prompt ?? "",
+          craft_context: row.craft_context ?? "",
+          craft_role: row.craft_role ?? "",
+          craft_actions: row.craft_actions ?? "",
+          craft_format: row.craft_format ?? "",
+          craft_tone: row.craft_tone ?? "",
+          craft_prompt: row.craft_prompt ?? "",
           expected_constraints: parseImportedConstraints(row.expected_constraints),
           rubric_notes: row.rubric_notes,
-          baseline_prompt: row.baseline_prompt ?? "",
-          craft_prompt: row.craft_prompt ?? "",
+          difficulty_level: row.difficulty_level ?? "",
+          requires_external_knowledge: row.requires_external_knowledge === "true",
         }));
       }
 
@@ -169,7 +177,7 @@ export default function TaskLibraryPage() {
                 key={task.task_id}
                 task={task}
                 hasResults={taskResults.length > 0}
-                hasScores={taskResults.some((r) => Boolean(r.justification))}
+                hasScores={taskResults.some((r) => Boolean(r.evaluator_justification))}
               />
             );
           })}

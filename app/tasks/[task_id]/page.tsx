@@ -117,13 +117,13 @@ export default function TaskDetailPage() {
                   </thead>
                   <tbody>
                     {results.map((r) => (
-                      <tr key={r.result_id} className="border-t border-cream-border font-mono">
-                        <td className="px-3 py-2">{r.test_model}</td>
+                      <tr key={r.anonymized_output_id} className="border-t border-cream-border font-mono">
+                        <td className="px-3 py-2">{r.model_name}</td>
                         <td className="px-3 py-2">{r.prompt_condition}</td>
-                        <td className="px-3 py-2">{r.constraint_adherence}/4</td>
-                        <td className="px-3 py-2">{r.logical_accuracy}/4</td>
-                        <td className="px-3 py-2">{r.completeness}/2</td>
-                        <td className="px-3 py-2 font-semibold">{r.total_score}/10</td>
+                        <td className="px-3 py-2">{r.constraint_adherence_score_0_4}/4</td>
+                        <td className="px-3 py-2">{r.logical_accuracy_score_0_4}/4</td>
+                        <td className="px-3 py-2">{r.completeness_score_0_2}/2</td>
+                        <td className="px-3 py-2 font-semibold">{r.total_score_0_10}/10</td>
                       </tr>
                     ))}
                   </tbody>

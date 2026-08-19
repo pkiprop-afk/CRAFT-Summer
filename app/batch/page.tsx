@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Layers } from "lucide-react";
 import { BatchTaskSelector } from "@/components/batch/BatchTaskSelector";
 import { BatchJobList } from "@/components/batch/BatchJobList";
 import { Button } from "@/components/ui/Button";
 import { Select } from "@/components/ui/Select";
 import { runWithConcurrency } from "@/lib/concurrency";
-import { generateOutputId, generateResultId } from "@/lib/anonymize";
+import { generateOutputId } from "@/lib/anonymize";
 import {
   buildBatchJobs,
   isTaskReadyForScope,
@@ -39,13 +39,35 @@ export default function BatchRunnerPage() {
   const [jobs, setJobs] = useState<BatchJob[]>([]);
   const [isRunning, setIsRunning] = useState(false);
 
+  // Tracks the next run_number per task_id+condition, seeded from existing
+  // results, so concurrent batch jobs never collide on the same run_number.
+  const runNumberCounts = useRef<Map<string, number>>(new Map());
+
   useEffect(() => {
     fetch("/api/tasks")
       .then((r) => r.json())
       .then(setTasks)
       .catch(() => setLoadError("Failed to load tasks. Try refreshing the page."))
       .finally(() => setLoading(false));
+    fetch("/api/results")
+      .then((r) => r.json())
+      .then((existing: ResultRecord[]) => {
+        const counts = new Map<string, number>();
+        for (const r of existing) {
+          const key = `${r.task_id}::${r.prompt_condition}`;
+          counts.set(key, Math.max(counts.get(key) ?? 0, r.run_number));
+        }
+        runNumberCounts.current = counts;
+      })
+      .catch(() => {});
   }, []);
+
+  function nextRunNumber(taskId: string, condition: PromptCondition): number {
+    const key = `${taskId}::${condition}`;
+    const next = (runNumberCounts.current.get(key) ?? 0) + 1;
+    runNumberCounts.current.set(key, next);
+    return next;
+  }
 
   // A task that's no longer ready for the active condition scope shouldn't
   // remain silently selected — prune it and let the checkbox reflect that.
@@ -129,20 +151,21 @@ export default function BatchRunnerPage() {
       if (!evalResponse.ok) throw new Error(evalData.error ?? "Evaluation failed");
 
       const result: ResultRecord = {
-        result_id: generateResultId(),
         task_id: task.task_id,
-        test_model: testModel,
+        model_name: testModel,
         prompt_condition: condition,
-        anonymized_output_id: anonymizedOutputId,
-        raw_output: output,
-        constraint_adherence: evalData.constraint_adherence,
-        logical_accuracy: evalData.logical_accuracy,
-        completeness: evalData.completeness,
-        total_score: evalData.total,
-        justification: evalData.justification,
-        evaluator_model: evaluatorChoice,
+        run_number: nextRunNumber(task.task_id, condition),
         temperature,
-        run_timestamp: new Date(timestamp).toISOString(),
+        run_date: new Date(timestamp).toISOString(),
+        raw_model_output: output,
+        anonymized_output_id: anonymizedOutputId,
+        constraint_adherence_score_0_4: evalData.constraint_adherence,
+        logical_accuracy_score_0_4: evalData.logical_accuracy,
+        completeness_score_0_2: evalData.completeness,
+        total_score_0_10: evalData.total,
+        evaluator_model: evaluatorChoice,
+        evaluator_justification: evalData.justification,
+        notes: "",
       };
 
       const saveResponse = await fetch("/api/results", {

@@ -50,10 +50,21 @@ export function TaskForm({ task, onChange }: TaskFormProps) {
             <dd className="text-text-heading">{DOMAIN_LABELS[task.domain]}</dd>
           </div>
           <div>
-            <dt className="text-xs text-text-muted">source</dt>
-            <dd className="text-text-heading">{task.source}</dd>
+            <dt className="text-xs text-text-muted">source_or_origin</dt>
+            <dd className="text-text-heading">{task.source_or_origin}</dd>
           </div>
         </dl>
+      </div>
+
+      <div>
+        <label className="block text-sm font-semibold text-text-heading mb-1">
+          Task Title
+        </label>
+        <input
+          value={task.task_title}
+          onChange={(e) => set("task_title", e.target.value)}
+          className="w-full rounded-lg border border-cream-border bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-navy-500"
+        />
       </div>
 
       <div>
