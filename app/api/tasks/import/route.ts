@@ -1,12 +1,14 @@
 import { NextResponse } from "next/server";
-import { saveTasks } from "@/lib/db";
+import { getTasks, saveTasks } from "@/lib/db";
 import { parseCsv } from "@/lib/csv";
 import { parseXlsxRows } from "@/lib/xlsxParse";
 import { validateTaskRows, type TaskImportRow } from "@/lib/taskImport";
+import { computeTaskDiff, parseImportMode } from "@/lib/taskDiff";
 
 export async function POST(request: Request) {
   const url = new URL(request.url);
   const dryRun = url.searchParams.get("dryRun") === "true";
+  const mode = parseImportMode(url.searchParams.get("mode"));
   const requestedSheet = url.searchParams.get("sheet") ?? undefined;
 
   const formData = await request.formData();
@@ -46,6 +48,7 @@ export async function POST(request: Request) {
       {
         error: "No rows found in the uploaded file.",
         dryRun,
+        mode,
         sheetName,
         availableSheets,
         importedCount: 0,
@@ -58,9 +61,12 @@ export async function POST(request: Request) {
   }
 
   const result = validateTaskRows(rows);
+  const existing = await getTasks();
+  const { diff, resultingTasks } = computeTaskDiff(existing, result.tasks, mode);
 
   const report = {
     dryRun,
+    mode,
     sheetName,
     availableSheets,
     importedCount: result.importedCount,
@@ -73,9 +79,12 @@ export async function POST(request: Request) {
     constraintReports: result.constraintReports,
     constraintFlaggedCount: result.constraintFlaggedCount,
     ignoredCraftPromptRows: result.ignoredCraftPromptRows,
+    diff,
+    existingCount: existing.length,
+    resultingCount: resultingTasks.length,
   };
 
-  // Dry run: report only, never touch the store.
+  // Dry run: report and diff only, never touch the store.
   if (dryRun) {
     return NextResponse.json({ ...report, written: false, tasks: result.tasks });
   }
@@ -91,7 +100,7 @@ export async function POST(request: Request) {
     );
   }
 
-  await saveTasks(result.tasks);
+  await saveTasks(resultingTasks);
 
-  return NextResponse.json({ ...report, written: true, tasks: result.tasks });
+  return NextResponse.json({ ...report, written: true, tasks: resultingTasks });
 }
