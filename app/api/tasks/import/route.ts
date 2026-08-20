@@ -5,6 +5,10 @@ import { parseXlsxRows } from "@/lib/xlsxParse";
 import { validateTaskRows, type TaskImportRow } from "@/lib/taskImport";
 
 export async function POST(request: Request) {
+  const url = new URL(request.url);
+  const dryRun = url.searchParams.get("dryRun") === "true";
+  const requestedSheet = url.searchParams.get("sheet") ?? undefined;
+
   const formData = await request.formData();
   const file = formData.get("file");
 
@@ -13,9 +17,15 @@ export async function POST(request: Request) {
   }
 
   let rows: TaskImportRow[];
+  let sheetName: string | null = null;
+  let availableSheets: string[] = [];
+
   try {
     if (file.name.toLowerCase().endsWith(".xlsx")) {
-      rows = await parseXlsxRows(await file.arrayBuffer());
+      const parsed = await parseXlsxRows(await file.arrayBuffer(), requestedSheet);
+      rows = parsed.rows;
+      sheetName = parsed.sheetName;
+      availableSheets = parsed.availableSheets;
     } else if (file.name.toLowerCase().endsWith(".csv")) {
       rows = parseCsv(await file.text());
     } else {
@@ -33,21 +43,49 @@ export async function POST(request: Request) {
 
   if (rows.length === 0) {
     return NextResponse.json(
-      { error: "No rows found in the uploaded file.", importedCount: 0, rejectedCount: 0, totalRows: 0, errors: [] },
+      {
+        error: "No rows found in the uploaded file.",
+        dryRun,
+        sheetName,
+        availableSheets,
+        importedCount: 0,
+        rejectedCount: 0,
+        totalRows: 0,
+        errors: [],
+      },
       { status: 400 }
     );
   }
 
   const result = validateTaskRows(rows);
 
+  const report = {
+    dryRun,
+    sheetName,
+    availableSheets,
+    importedCount: result.importedCount,
+    rejectedCount: result.rejectedCount,
+    totalRows: result.totalRows,
+    errors: result.errors,
+    headerNormalizations: result.headerNormalizations,
+    domainMappings: result.domainMappings,
+    domainMappedCount: result.domainMappedCount,
+    constraintReports: result.constraintReports,
+    constraintFlaggedCount: result.constraintFlaggedCount,
+    ignoredCraftPromptRows: result.ignoredCraftPromptRows,
+  };
+
+  // Dry run: report only, never touch the store.
+  if (dryRun) {
+    return NextResponse.json({ ...report, written: false, tasks: result.tasks });
+  }
+
   if (result.importedCount === 0) {
     return NextResponse.json(
       {
+        ...report,
         error: "Every row failed validation — the existing task registry was not modified.",
-        importedCount: 0,
-        rejectedCount: result.rejectedCount,
-        totalRows: result.totalRows,
-        errors: result.errors,
+        written: false,
       },
       { status: 422 }
     );
@@ -55,11 +93,5 @@ export async function POST(request: Request) {
 
   await saveTasks(result.tasks);
 
-  return NextResponse.json({
-    importedCount: result.importedCount,
-    rejectedCount: result.rejectedCount,
-    totalRows: result.totalRows,
-    errors: result.errors,
-    tasks: result.tasks,
-  });
+  return NextResponse.json({ ...report, written: true, tasks: result.tasks });
 }
