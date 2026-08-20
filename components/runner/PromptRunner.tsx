@@ -28,6 +28,7 @@ interface PromptRunnerProps {
   onSystemPromptChange: (value: string) => void;
   onRun: () => void;
   running: boolean;
+  keyBlocked: boolean;
 }
 
 export function PromptRunner({
@@ -48,6 +49,7 @@ export function PromptRunner({
   onSystemPromptChange,
   onRun,
   running,
+  keyBlocked,
 }: PromptRunnerProps) {
   const grouped = tasks.reduce<Record<string, TaskRecord[]>>((acc, task) => {
     (acc[task.domain] ??= []).push(task);
@@ -203,7 +205,17 @@ export function PromptRunner({
           </p>
         </div>
 
-        <Button onClick={onRun} disabled={running || !selectedPromptText || blockedByBalance}>
+        {keyBlocked && (
+          <p className="rounded-md bg-error/10 border border-error/30 px-3 py-2 text-sm text-error">
+            Run blocked: the API key for the selected test model is not configured. See the missing
+            key notice at the top of this page.
+          </p>
+        )}
+
+        <Button
+          onClick={onRun}
+          disabled={running || !selectedPromptText || blockedByBalance || keyBlocked}
+        >
           <Play size={16} />
           {running ? "Running…" : "Run Prompt"}
         </Button>

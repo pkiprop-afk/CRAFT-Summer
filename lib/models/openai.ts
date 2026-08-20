@@ -1,10 +1,11 @@
 import OpenAI from "openai";
+import { requireApiKey } from "@/lib/env";
 
 let client: OpenAI | null = null;
 
 function getClient(): OpenAI {
   if (!client) {
-    client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+    client = new OpenAI({ apiKey: requireApiKey("openai") });
   }
   return client;
 }

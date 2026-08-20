@@ -6,6 +6,8 @@ import { BatchTaskSelector } from "@/components/batch/BatchTaskSelector";
 import { BatchJobList } from "@/components/batch/BatchJobList";
 import { Button } from "@/components/ui/Button";
 import { Select } from "@/components/ui/Select";
+import { ApiKeyBanner, isFamilyReady, useKeyStatuses } from "@/components/ui/ApiKeyBanner";
+import { familyOf } from "@/lib/models/registry";
 import { runWithConcurrency } from "@/lib/concurrency";
 import { generateOutputId, generateResultId } from "@/lib/anonymize";
 import {
@@ -28,7 +30,7 @@ export default function BatchRunnerPage() {
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
 
-  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+  const [rawSelectedIds, setRawSelectedIds] = useState<Set<string>>(new Set());
   const [conditionScope, setConditionScope] = useState<ConditionScope>("both");
   const [testModel, setTestModel] = useState<TestModel>("claude-3-5-sonnet");
   const [temperature, setTemperature] = useState(0.2);
@@ -69,21 +71,22 @@ export default function BatchRunnerPage() {
     return next;
   }
 
-  // A task that's no longer ready for the active condition scope shouldn't
-  // remain silently selected — prune it and let the checkbox reflect that.
-  useEffect(() => {
-    setSelectedIds((prev) => {
-      const next = new Set<string>();
-      for (const id of prev) {
-        const task = tasks.find((t) => t.task_id === id);
-        if (task && isTaskReadyForScope(task, conditionScope)) next.add(id);
-      }
-      return next;
-    });
-  }, [conditionScope, tasks]);
+  // A task that's no longer ready for the active condition scope must not stay
+  // effectively selected. Derived during render rather than synced through an
+  // effect, so there is no cascading-render round trip — and unlike the old
+  // destructive prune, a task returns to the selection if the scope changes
+  // back to one it is ready for.
+  const selectedIds = useMemo(() => {
+    const next = new Set<string>();
+    for (const id of rawSelectedIds) {
+      const task = tasks.find((t) => t.task_id === id);
+      if (task && isTaskReadyForScope(task, conditionScope)) next.add(id);
+    }
+    return next;
+  }, [rawSelectedIds, tasks, conditionScope]);
 
   function toggleTask(taskId: string) {
-    setSelectedIds((prev) => {
+    setRawSelectedIds((prev) => {
       const next = new Set(prev);
       if (next.has(taskId)) next.delete(taskId);
       else next.add(taskId);
@@ -92,19 +95,28 @@ export default function BatchRunnerPage() {
   }
 
   function selectAllReady() {
-    setSelectedIds(
+    setRawSelectedIds(
       new Set(tasks.filter((t) => isTaskReadyForScope(t, conditionScope)).map((t) => t.task_id))
     );
   }
 
   function clearSelection() {
-    setSelectedIds(new Set());
+    setRawSelectedIds(new Set());
   }
 
   const pendingJobCount = useMemo(
     () => buildBatchJobs(tasks, selectedIds, conditionScope).length,
     [tasks, selectedIds, conditionScope]
   );
+
+  const keyStatuses = useKeyStatuses();
+  const testModelFamily = familyOf(testModel);
+  const evaluatorFamily = familyOf(evaluatorChoice);
+  const keyBlocked =
+    !testModelFamily ||
+    !evaluatorFamily ||
+    !isFamilyReady(keyStatuses, testModelFamily) ||
+    !isFamilyReady(keyStatuses, evaluatorFamily);
 
   async function runJob(task: TaskRecord, condition: PromptCondition, jobIndex: number) {
     function updateJob(patch: Partial<BatchJob>) {
@@ -183,6 +195,7 @@ export default function BatchRunnerPage() {
   }
 
   async function handleStartBatch() {
+    if (keyBlocked) return;
     const newJobs = buildBatchJobs(tasks, selectedIds, conditionScope);
     if (newJobs.length === 0) return;
 
@@ -216,6 +229,8 @@ export default function BatchRunnerPage() {
   return (
     <div className="space-y-10">
       <h1 className="text-2xl font-display font-bold text-text-heading">Batch Runner</h1>
+
+      <ApiKeyBanner statuses={keyStatuses} families={["anthropic", "openai", "google"]} />
 
       <section className="space-y-4">
         <h2 className="text-lg font-semibold text-text-heading">
@@ -333,7 +348,10 @@ export default function BatchRunnerPage() {
       <section className="space-y-4">
         <h2 className="text-lg font-semibold text-text-heading">Step 3 — Confirm and Run</h2>
 
-        <Button onClick={handleStartBatch} disabled={isRunning || pendingJobCount === 0}>
+        <Button
+          onClick={handleStartBatch}
+          disabled={isRunning || pendingJobCount === 0 || keyBlocked}
+        >
           <Layers size={16} />
           {isRunning
             ? "Running batch…"

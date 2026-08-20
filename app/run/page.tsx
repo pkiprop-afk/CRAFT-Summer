@@ -4,6 +4,8 @@ import { useEffect, useMemo, useState } from "react";
 import { Copy } from "lucide-react";
 import { PromptRunner, type TestModel } from "@/components/runner/PromptRunner";
 import { EvaluationPanel, type EvaluatorChoice } from "@/components/runner/EvaluationPanel";
+import { ApiKeyBanner, isFamilyReady, useKeyStatuses } from "@/components/ui/ApiKeyBanner";
+import { familyOf } from "@/lib/models/registry";
 import { generateOutputId, generateResultId } from "@/lib/anonymize";
 import { parseEvaluatorResponse, type ParsedEvaluation } from "@/lib/evaluator";
 import type { PromptCondition, ResultRecord, TaskRecord } from "@/types";
@@ -35,6 +37,10 @@ export default function PromptRunnerPage() {
   const [saveError, setSaveError] = useState<string | null>(null);
 
   const [tasksLoadError, setTasksLoadError] = useState<string | null>(null);
+
+  const keyStatuses = useKeyStatuses();
+  const testModelFamily = familyOf(testModel);
+  const testModelKeyReady = testModelFamily ? isFamilyReady(keyStatuses, testModelFamily) : false;
 
   useEffect(() => {
     fetch("/api/tasks")
@@ -72,6 +78,7 @@ export default function PromptRunnerPage() {
   async function handleRun() {
     if (!selectedTask || !selectedPromptText) return;
     if (!selectedTask.baseline_prompt || !selectedTask.craft_prompt) return;
+    if (!testModelKeyReady) return;
     resetRunState();
     setRunning(true);
     try {
@@ -191,6 +198,8 @@ export default function PromptRunnerPage() {
 
       {tasksLoadError && <p className="text-sm text-error">{tasksLoadError}</p>}
 
+      <ApiKeyBanner statuses={keyStatuses} families={["anthropic", "openai"]} />
+
       <PromptRunner
         tasks={tasks}
         selectedTaskId={selectedTaskId}
@@ -215,6 +224,7 @@ export default function PromptRunnerPage() {
         onSystemPromptChange={setSystemPrompt}
         onRun={handleRun}
         running={running}
+        keyBlocked={!testModelKeyReady}
       />
 
       {runError && <p className="text-sm text-error">{runError}</p>}

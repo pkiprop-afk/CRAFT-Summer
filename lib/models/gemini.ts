@@ -1,10 +1,11 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { requireApiKey } from "@/lib/env";
 
 let client: GoogleGenerativeAI | null = null;
 
 function getClient(): GoogleGenerativeAI {
   if (!client) {
-    client = new GoogleGenerativeAI(process.env.GOOGLE_GENERATIVE_AI_API_KEY ?? "");
+    client = new GoogleGenerativeAI(requireApiKey("google"));
   }
   return client;
 }

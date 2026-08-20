@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { callClaude } from "@/lib/models/claude";
 import { callOpenAI } from "@/lib/models/openai";
 import { getTask } from "@/lib/db";
+import { MissingApiKeyError } from "@/lib/env";
 
 interface RunRequestBody {
   task_id: string;
@@ -58,6 +59,12 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Unsupported model" }, { status: 400 });
     }
   } catch (err) {
+    if (err instanceof MissingApiKeyError) {
+      return NextResponse.json(
+        { error: err.message, missing_env_var: err.envVar },
+        { status: 503 }
+      );
+    }
     return NextResponse.json(
       { error: err instanceof Error ? err.message : "Model call failed" },
       { status: 502 }

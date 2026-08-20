@@ -1,5 +1,7 @@
 import { Card } from "@/components/ui/Card";
 import { CRAFTExplainer } from "@/components/craft/CRAFTExplainer";
+import { getTasks } from "@/lib/db";
+import { DOMAIN_LABELS } from "@/types";
 
 const RUBRIC_ROWS = [
   {
@@ -38,7 +40,15 @@ const STUDY_DESIGN = [
   },
 ];
 
-export default function Home() {
+// Read at request time so the headline stats always reflect the current
+// registry rather than a figure baked in at authoring time.
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const tasks = await getTasks();
+  const taskCount = tasks.length;
+  const domainCount = Object.keys(DOMAIN_LABELS).length;
+
   return (
     <div className="space-y-16 pb-12">
       {/* Hero */}
@@ -52,10 +62,10 @@ export default function Home() {
         </p>
         <div className="flex gap-3">
           <div className="rounded-lg bg-cream-card border border-cream-border px-4 py-2 text-sm font-medium text-text-heading">
-            50 Benchmark Tasks
+            {taskCount} Benchmark {taskCount === 1 ? "Task" : "Tasks"}
           </div>
           <div className="rounded-lg bg-cream-card border border-cream-border px-4 py-2 text-sm font-medium text-text-heading">
-            6 Domains
+            {domainCount} Domains
           </div>
         </div>
       </section>
@@ -69,7 +79,8 @@ export default function Home() {
           <p className="text-base text-text-body">
             This study evaluates whether structured, CRAFT-formatted prompts improve output
             consistency and constraint adherence relative to unstructured prompts of equivalent
-            intent. Fifty benchmark tasks spanning six professional domains are each run under
+            intent. {taskCount} benchmark {taskCount === 1 ? "task" : "tasks"} spanning{" "}
+            {domainCount} professional domains are each run under
             two prompt conditions — baseline and CRAFT — against the same test model. Outputs
             are anonymized and scored by an LLM judge against a fixed three-metric rubric,
             enabling a within-task paired comparison of the two conditions.

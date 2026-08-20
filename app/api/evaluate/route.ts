@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { callClaude } from "@/lib/models/claude";
 import { callGemini } from "@/lib/models/gemini";
 import { buildEvaluatorPrompt, parseEvaluatorResponse } from "@/lib/evaluator";
+import { MissingApiKeyError } from "@/lib/env";
 
 interface EvaluateRequestBody {
   task_description: string;
@@ -37,6 +38,12 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Unsupported evaluator" }, { status: 400 });
     }
   } catch (err) {
+    if (err instanceof MissingApiKeyError) {
+      return NextResponse.json(
+        { error: err.message, missing_env_var: err.envVar },
+        { status: 503 }
+      );
+    }
     return NextResponse.json(
       { error: err instanceof Error ? err.message : "Evaluator call failed" },
       { status: 502 }
