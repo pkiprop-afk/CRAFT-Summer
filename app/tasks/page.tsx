@@ -3,8 +3,9 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Upload } from "lucide-react";
 import { TaskCard } from "@/components/tasks/TaskCard";
+import { ImportDiffPreview, type ImportPreview } from "@/components/tasks/ImportDiffPreview";
 import { Button } from "@/components/ui/Button";
-import type { TaskImportError } from "@/lib/taskImport";
+import type { ImportMode } from "@/lib/taskDiff";
 import { DOMAIN_LABELS, type Domain, type ResultRecord, type TaskRecord } from "@/types";
 
 const DOMAIN_TABS: Array<{ label: string; value: Domain | "all" }> = [
@@ -17,20 +18,18 @@ const DOMAIN_TABS: Array<{ label: string; value: Domain | "all" }> = [
   { label: "Communication", value: "communication" },
 ];
 
-interface ImportReport {
-  importedCount: number;
-  rejectedCount: number;
-  totalRows: number;
-  errors: TaskImportError[];
-}
-
 export default function TaskLibraryPage() {
   const [tasks, setTasks] = useState<TaskRecord[]>([]);
   const [results, setResults] = useState<ResultRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [importError, setImportError] = useState<string | null>(null);
-  const [importReport, setImportReport] = useState<ImportReport | null>(null);
+  const [importMode, setImportMode] = useState<ImportMode>("merge");
+  const [preview, setPreview] = useState<ImportPreview | null>(null);
+  const [pendingFile, setPendingFile] = useState<File | null>(null);
+  const [previewing, setPreviewing] = useState(false);
+  const [confirming, setConfirming] = useState(false);
+  const [importSummary, setImportSummary] = useState<string | null>(null);
   const [activeDomain, setActiveDomain] = useState<Domain | "all">("all");
   const [search, setSearch] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -60,43 +59,102 @@ export default function TaskLibraryPage() {
     });
   }, [tasks, activeDomain, search]);
 
-  async function handleImport(e: React.ChangeEvent<HTMLInputElement>) {
+  function toPreview(data: Record<string, unknown>): ImportPreview {
+    return {
+      mode: data.mode as ImportMode,
+      sheetName: (data.sheetName as string | null) ?? null,
+      availableSheets: (data.availableSheets as string[]) ?? [],
+      totalRows: data.totalRows as number,
+      importedCount: data.importedCount as number,
+      rejectedCount: data.rejectedCount as number,
+      errors: (data.errors as ImportPreview["errors"]) ?? [],
+      headerNormalizations: (data.headerNormalizations as ImportPreview["headerNormalizations"]) ?? [],
+      domainMappedCount: (data.domainMappedCount as number) ?? 0,
+      constraintReports: (data.constraintReports as ImportPreview["constraintReports"]) ?? [],
+      constraintFlaggedCount: (data.constraintFlaggedCount as number) ?? 0,
+      ignoredCraftPromptRows: (data.ignoredCraftPromptRows as string[]) ?? [],
+      diff: data.diff as ImportPreview["diff"],
+      existingCount: (data.existingCount as number) ?? 0,
+      resultingCount: (data.resultingCount as number) ?? 0,
+    };
+  }
+
+  // Step 1 — always a dry run. No file selection can write to the store.
+  async function handleFileSelected(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
+    e.target.value = "";
     if (!file) return;
+
     setImportError(null);
-    setImportReport(null);
+    setImportSummary(null);
+    setPreview(null);
+    setPendingFile(null);
+    setPreviewing(true);
 
     try {
       const body = new FormData();
       body.append("file", file);
-      const response = await fetch("/api/tasks/import", { method: "POST", body });
+      const response = await fetch(
+        `/api/tasks/import?dryRun=true&mode=${importMode}`,
+        { method: "POST", body }
+      );
+      const data = await response.json();
+
+      if (!response.ok) {
+        setImportError(data.error ?? "Could not read that file.");
+        return;
+      }
+
+      setPreview(toPreview(data));
+      setPendingFile(file);
+    } catch {
+      setImportError("Could not reach the import endpoint. Try again.");
+    } finally {
+      setPreviewing(false);
+    }
+  }
+
+  // Step 2 — only reachable by an explicit click on the diff.
+  async function handleConfirmImport() {
+    if (!pendingFile || !preview) return;
+    setConfirming(true);
+    setImportError(null);
+
+    try {
+      const body = new FormData();
+      body.append("file", pendingFile);
+      const response = await fetch(
+        `/api/tasks/import?mode=${preview.mode}`,
+        { method: "POST", body }
+      );
       const data = await response.json();
 
       if (!response.ok) {
         setImportError(data.error ?? "Import failed.");
-        if (typeof data.importedCount === "number") {
-          setImportReport({
-            importedCount: data.importedCount,
-            rejectedCount: data.rejectedCount,
-            totalRows: data.totalRows,
-            errors: data.errors ?? [],
-          });
-        }
         return;
       }
 
       setTasks(data.tasks);
-      setImportReport({
-        importedCount: data.importedCount,
-        rejectedCount: data.rejectedCount,
-        totalRows: data.totalRows,
-        errors: data.errors,
-      });
+      const d = data.diff;
+      setImportSummary(
+        `Imported in ${data.mode} mode — ${d.addedCount} added, ${d.modifiedCount} modified, ` +
+          `${d.unchangedCount} unchanged` +
+          (d.destroyedCount > 0 ? `, ${d.destroyedCount} deleted` : "") +
+          `. Registry now holds ${data.tasks.length} tasks.`
+      );
+      setPreview(null);
+      setPendingFile(null);
     } catch {
       setImportError("Could not reach the import endpoint. Try again.");
     } finally {
-      e.target.value = "";
+      setConfirming(false);
     }
+  }
+
+  function handleCancelImport() {
+    setPreview(null);
+    setPendingFile(null);
+    setImportError(null);
   }
 
   return (
@@ -105,16 +163,38 @@ export default function TaskLibraryPage() {
         <h1 className="text-2xl font-display font-bold text-text-heading">Task Library</h1>
         <div className="flex items-center gap-3">
           <span className="text-sm text-text-muted">{filteredTasks.length} tasks</span>
+
+          <label className="flex items-center gap-1.5 text-xs text-text-body">
+            <span className="text-text-muted">Mode</span>
+            <select
+              value={importMode}
+              onChange={(e) => setImportMode(e.target.value as ImportMode)}
+              disabled={previewing || confirming}
+              className={`rounded-lg border bg-white px-2 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-navy-500 ${
+                importMode === "replace"
+                  ? "border-error/50 text-error font-semibold"
+                  : "border-cream-border text-text-body"
+              }`}
+            >
+              <option value="merge">merge (upsert, never deletes)</option>
+              <option value="replace">replace (destructive)</option>
+            </select>
+          </label>
+
           <input
             ref={fileInputRef}
             type="file"
             accept=".csv,.xlsx"
             className="hidden"
-            onChange={handleImport}
+            onChange={handleFileSelected}
           />
-          <Button variant="secondary" onClick={() => fileInputRef.current?.click()}>
+          <Button
+            variant="secondary"
+            onClick={() => fileInputRef.current?.click()}
+            disabled={previewing || confirming}
+          >
             <Upload size={16} />
-            Import
+            {previewing ? "Reading…" : "Import"}
           </Button>
         </div>
       </div>
@@ -146,22 +226,19 @@ export default function TaskLibraryPage() {
 
       {importError && <p className="text-sm text-error">{importError}</p>}
 
-      {importReport && (
-        <div className="rounded-lg border border-cream-border bg-cream-card px-4 py-3 text-sm space-y-2">
-          <p className="font-medium text-text-heading">
-            Import: {importReport.importedCount} imported, {importReport.rejectedCount} rejected
-            (of {importReport.totalRows} rows)
-          </p>
-          {importReport.errors.length > 0 && (
-            <ul className="space-y-1 text-xs text-text-muted max-h-48 overflow-y-auto font-mono">
-              {importReport.errors.map((err) => (
-                <li key={err.row}>
-                  Row {err.row} ({err.task_id}): {err.reasons.join("; ")}
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
+      {importSummary && (
+        <p className="rounded-lg border border-success/30 bg-success/10 px-4 py-3 text-sm text-success">
+          {importSummary}
+        </p>
+      )}
+
+      {preview && (
+        <ImportDiffPreview
+          preview={preview}
+          onConfirm={handleConfirmImport}
+          onCancel={handleCancelImport}
+          confirming={confirming}
+        />
       )}
 
       {loading ? (
