@@ -169,9 +169,13 @@ export default function PromptRunnerPage() {
     if (!selectedTask || !output || !anonymizedOutputId || !runTimestamp || !runMeta) return;
     setSaving(true);
     setSaveError(null);
+    // F1 — sequences are per run_type: main is always 1 (n=1), stability 1..3.
     const runNumber =
       results.filter(
-        (r) => r.task_id === selectedTask.task_id && r.prompt_condition === condition
+        (r) =>
+          r.task_id === selectedTask.task_id &&
+          r.prompt_condition === condition &&
+          r.run_type === runType
       ).length + 1;
 
     const result: ResultRecord = {

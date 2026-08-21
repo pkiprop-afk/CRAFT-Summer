@@ -74,7 +74,7 @@ export default function BatchRunnerPage() {
       .then((existing: ResultRecord[]) => {
         const counts = new Map<string, number>();
         for (const r of existing) {
-          const key = `${r.task_id}::${r.prompt_condition}`;
+          const key = `${r.task_id}::${r.prompt_condition}::${r.run_type}`;
           counts.set(key, Math.max(counts.get(key) ?? 0, r.run_number));
         }
         runNumberCounts.current = counts;
@@ -87,8 +87,14 @@ export default function BatchRunnerPage() {
       .catch(() => setStabilitySubset(null));
   }, []);
 
-  function nextRunNumber(taskId: string, condition: PromptCondition): number {
-    const key = `${taskId}::${condition}`;
+  // F1 — run_number sequences per run_type: main is always 1 (n=1), stability
+  // is 1..3 within its own series.
+  function nextRunNumber(
+    taskId: string,
+    condition: PromptCondition,
+    type: RunType
+  ): number {
+    const key = `${taskId}::${condition}::${type}`;
     const next = (runNumberCounts.current.get(key) ?? 0) + 1;
     runNumberCounts.current.set(key, next);
     return next;
@@ -192,7 +198,7 @@ export default function BatchRunnerPage() {
         model_name: testModel,
         model_provenance_fingerprint: runData.model_provenance_fingerprint,
         prompt_condition: condition,
-        run_number: nextRunNumber(task.task_id, condition),
+        run_number: nextRunNumber(task.task_id, condition, runType),
         run_type: runType,
         temperature,
         max_tokens: maxTokens,
