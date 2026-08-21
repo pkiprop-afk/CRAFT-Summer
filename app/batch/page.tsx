@@ -172,7 +172,6 @@ export default function BatchRunnerPage() {
     }
 
     updateJob({ status: "running" });
-    const prompt = condition === "baseline" ? task.baseline_prompt : task.craft_prompt;
 
     try {
       const runResponse = await fetch("/api/run", {
