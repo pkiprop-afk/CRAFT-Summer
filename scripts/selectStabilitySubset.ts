@@ -120,7 +120,9 @@ function main(): void {
     prng_algorithm: PRNG_ALGORITHM,
     quotas: Object.fromEntries(QUOTAS),
     domain_draw_order: QUOTAS.map(([d]) => d),
-    selection_date: selectionDate,
+    // Derived from the seed, NOT a wall-clock timestamp — the name says so
+    // explicitly so it cannot be misread as "when this was run".
+    selection_date_derived_from_seed: selectionDate,
     note: NOTE,
   };
 
@@ -129,7 +131,9 @@ function main(): void {
 
   // ---- Review output -------------------------------------------------------
   console.log("STABILITY SUBSET — seeded stratified draw");
-  console.log(`seed: ${SEED}   prng: ${PRNG_ALGORITHM}   selection_date: ${selectionDate}`);
+  console.log(
+    `seed: ${SEED}   prng: ${PRNG_ALGORITHM}   selection_date_derived_from_seed: ${selectionDate}`
+  );
   console.log(`registry: ${tasks.length} tasks   selected: ${selected.length}\n`);
 
   console.log("task_id  domain           difficulty  title");

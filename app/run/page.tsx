@@ -163,6 +163,10 @@ export default function PromptRunnerPage() {
       logical_accuracy_score_0_4: evaluation?.logical_accuracy ?? 0,
       completeness_score_0_2: evaluation?.completeness ?? 0,
       total_score_0_10: evaluation?.total ?? 0,
+      // "none" means the output was saved without being scored. Per the M6
+      // parity rules this is an INCOMPLETE cell, never a scored one: it must
+      // not satisfy the two-evaluations-per-result requirement, and it must
+      // not be counted as a completed evaluation anywhere in analysis.
       evaluator_model: evaluation ? evaluatorChoice : "none",
       evaluator_justification: evaluation?.justification ?? "",
       notes: "",
