@@ -31,11 +31,12 @@ describe("5a — run settings binding", () => {
   });
 
   test("mismatch names the field and its earlier value", () => {
-    const mismatches = diffRunSettings(base, { ...base, temperature: 0.7 });
+    const earlier = { ...base, max_tokens: 4000 };
+    const mismatches = diffRunSettings(earlier, { ...earlier, max_tokens: 2000 });
     assert.equal(mismatches.length, 1);
-    assert.equal(mismatches[0].field, "temperature");
-    assert.equal(mismatches[0].earlier_value, "0.2");
-    assert.equal(mismatches[0].attempted_value, "0.7");
+    assert.equal(mismatches[0].field, "max_tokens");
+    assert.equal(mismatches[0].earlier_value, "4000");
+    assert.equal(mismatches[0].attempted_value, "2000");
   });
 
   test("identical settings report no mismatch", () => {
