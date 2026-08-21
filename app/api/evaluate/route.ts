@@ -135,5 +135,9 @@ export async function POST(request: Request) {
     evaluator,
     evaluator_provenance_fingerprint: evaluatorProvenance,
     evaluator_truncated: call.truncated,
+    evaluator_stop_reason: call.stop_reason,
+    // The judge's verbatim reply. Only the parsed fields are persisted, so this
+    // is returned for inspection/audit at run time.
+    raw_evaluator_response: call.text,
   });
 }
