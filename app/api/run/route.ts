@@ -3,11 +3,16 @@ import { callClaude } from "@/lib/models/claude";
 import { callOpenAI } from "@/lib/models/openai";
 import { getTask } from "@/lib/db";
 import { MissingApiKeyError } from "@/lib/env";
+import {
+  ANTHROPIC_MODEL_ID,
+  OPENAI_MODEL_ID,
+  type TestModelId,
+} from "@/lib/models/registry";
 
 interface RunRequestBody {
   task_id: string;
   prompt: string;
-  model: "claude-3-5-sonnet" | "gpt-4o";
+  model: TestModelId;
   temperature: number;
   max_tokens: number;
   system_prompt: string;
@@ -41,14 +46,14 @@ export async function POST(request: Request) {
   let output: string;
 
   try {
-    if (model === "claude-3-5-sonnet") {
+    if (model === ANTHROPIC_MODEL_ID) {
       output = await callClaude({
         prompt,
         systemPrompt: system_prompt,
         temperature,
         maxTokens: max_tokens,
       });
-    } else if (model === "gpt-4o") {
+    } else if (model === OPENAI_MODEL_ID) {
       output = await callOpenAI({
         prompt,
         systemPrompt: system_prompt,

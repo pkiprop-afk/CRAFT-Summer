@@ -1,5 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { requireApiKey } from "@/lib/env";
+import { ANTHROPIC_MODEL_ID } from "@/lib/models/registry";
 
 let client: Anthropic | null = null;
 
@@ -24,7 +25,7 @@ export async function callClaude({
   maxTokens,
 }: ClaudeCallParams): Promise<string> {
   const response = await getClient().messages.create({
-    model: "claude-3-5-sonnet-latest",
+    model: ANTHROPIC_MODEL_ID,
     max_tokens: maxTokens,
     temperature,
     system: systemPrompt,

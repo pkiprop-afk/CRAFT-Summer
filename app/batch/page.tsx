@@ -7,7 +7,15 @@ import { BatchJobList } from "@/components/batch/BatchJobList";
 import { Button } from "@/components/ui/Button";
 import { Select } from "@/components/ui/Select";
 import { ApiKeyBanner, isFamilyReady, useKeyStatuses } from "@/components/ui/ApiKeyBanner";
-import { familyOf } from "@/lib/models/registry";
+import {
+  familyOf,
+  isFamilyCollision,
+  judgesFor,
+  MODEL_LABEL,
+  TEST_MODELS,
+  type EvaluatorModelId,
+  type TestModelId,
+} from "@/lib/models/registry";
 import { runWithConcurrency } from "@/lib/concurrency";
 import { generateOutputId, generateResultId } from "@/lib/anonymize";
 import {
@@ -18,8 +26,8 @@ import {
 } from "@/lib/batch";
 import type { PromptCondition, ResultRecord, TaskRecord } from "@/types";
 
-type TestModel = "claude-3-5-sonnet" | "gpt-4o";
-type BatchEvaluator = "gemini-1.5-pro" | "claude-3-5-sonnet";
+type TestModel = TestModelId;
+type BatchEvaluator = EvaluatorModelId;
 
 // Cap on simultaneous in-flight model/evaluator calls, to avoid overwhelming
 // the upstream APIs or their rate limits during a batch run.
@@ -32,11 +40,11 @@ export default function BatchRunnerPage() {
 
   const [rawSelectedIds, setRawSelectedIds] = useState<Set<string>>(new Set());
   const [conditionScope, setConditionScope] = useState<ConditionScope>("both");
-  const [testModel, setTestModel] = useState<TestModel>("claude-3-5-sonnet");
+  const [testModel, setTestModel] = useState<TestModel>(TEST_MODELS[0]);
   const [temperature, setTemperature] = useState(0.2);
   const [maxTokens, setMaxTokens] = useState(2000);
   const [systemPrompt, setSystemPrompt] = useState("You are a helpful assistant.");
-  const [evaluatorChoice, setEvaluatorChoice] = useState<BatchEvaluator>("gemini-1.5-pro");
+  const [evaluatorChoice, setEvaluatorChoice] = useState<BatchEvaluator>(judgesFor(TEST_MODELS[0]).primary);
 
   const [jobs, setJobs] = useState<BatchJob[]>([]);
   const [isRunning, setIsRunning] = useState(false);

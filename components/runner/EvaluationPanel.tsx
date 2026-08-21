@@ -2,10 +2,20 @@ import { Button } from "@/components/ui/Button";
 import { Select } from "@/components/ui/Select";
 import type { ParsedEvaluation } from "@/lib/evaluator";
 
-export type EvaluatorChoice = "gemini-1.5-pro" | "claude-3-5-sonnet" | "skip";
+import {
+  isFamilyCollision,
+  judgesFor,
+  MODEL_LABEL,
+  type EvaluatorModelId,
+  type TestModelId,
+} from "@/lib/models/registry";
+
+export type EvaluatorChoice = EvaluatorModelId | "skip";
 
 interface EvaluationPanelProps {
   anonymizedOutputId: string;
+  /** The model that produced the output — determines which judges are legal. */
+  producingModel: TestModelId;
   evaluatorChoice: EvaluatorChoice;
   onEvaluatorChoiceChange: (choice: EvaluatorChoice) => void;
   onEvaluate: () => void;
@@ -48,6 +58,7 @@ function ScoreBar({ label, value, max }: { label: string; value: number; max: nu
 
 export function EvaluationPanel({
   anonymizedOutputId,
+  producingModel,
   evaluatorChoice,
   onEvaluatorChoiceChange,
   onEvaluate,
@@ -60,6 +71,13 @@ export function EvaluationPanel({
   saveError,
   canSave,
 }: EvaluationPanelProps) {
+  const rotation = judgesFor(producingModel);
+  // Defence in depth: the rotation is already cross-family, but filter anyway so
+  // a future rotation edit cannot surface an illegal judge in the UI.
+  const legalJudges = [rotation.primary, rotation.secondary].filter(
+    (judge) => !isFamilyCollision(producingModel, judge)
+  );
+
   return (
     <section className="space-y-4">
       <h2 className="text-lg font-semibold text-text-heading">Send to Evaluator</h2>
@@ -76,13 +94,20 @@ export function EvaluationPanel({
           value={evaluatorChoice}
           onChange={(e) => onEvaluatorChoiceChange(e.target.value as EvaluatorChoice)}
         >
-          <option value="gemini-1.5-pro">Gemini 1.5 Pro (recommended)</option>
-          <option value="claude-3-5-sonnet">Claude 3.5 Sonnet</option>
+          {legalJudges.map((id) => (
+            <option key={id} value={id}>
+              {MODEL_LABEL[id]}
+              {id === rotation.primary ? " — primary" : ""}
+              {id === rotation.secondary ? " — secondary" : ""}
+            </option>
+          ))}
           <option value="skip">Do not evaluate (save output only)</option>
         </Select>
         <p className="mt-1 text-xs text-text-muted">
-          Gemini is the recommended evaluator. If Claude is your test model for this output,
-          using Claude as evaluator introduces family bias — prefer Gemini.
+          Judges are fixed by rotation for {MODEL_LABEL[producingModel]}: primary{" "}
+          {MODEL_LABEL[rotation.primary]}, secondary {MODEL_LABEL[rotation.secondary]}. A judge
+          from the same vendor family as the producing model is never offered and is rejected at
+          the API layer.
         </p>
       </div>
 

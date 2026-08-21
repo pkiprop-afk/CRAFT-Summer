@@ -1,15 +1,24 @@
 import { NextResponse } from "next/server";
 import { callClaude } from "@/lib/models/claude";
 import { callGemini } from "@/lib/models/gemini";
+import { callOpenAI } from "@/lib/models/openai";
 import { buildEvaluatorPrompt, parseEvaluatorResponse } from "@/lib/evaluator";
 import { MissingApiKeyError } from "@/lib/env";
+import {
+  ANTHROPIC_MODEL_ID,
+  GOOGLE_MODEL_ID,
+  OPENAI_MODEL_ID,
+  type EvaluatorModelId,
+} from "@/lib/models/registry";
+
+const EVALUATOR_SYSTEM_PROMPT = "You are a rigorous, unbiased benchmark evaluator.";
 
 interface EvaluateRequestBody {
   task_description: string;
   expected_constraints: string[];
   rubric_notes: string;
   model_response: string;
-  evaluator: "gemini-1.5-pro" | "claude-3-5-sonnet";
+  evaluator: EvaluatorModelId;
 }
 
 export async function POST(request: Request) {
@@ -25,12 +34,19 @@ export async function POST(request: Request) {
 
   let rawResponse: string;
   try {
-    if (evaluator === "gemini-1.5-pro") {
+    if (evaluator === GOOGLE_MODEL_ID) {
       rawResponse = await callGemini(prompt);
-    } else if (evaluator === "claude-3-5-sonnet") {
+    } else if (evaluator === ANTHROPIC_MODEL_ID) {
       rawResponse = await callClaude({
         prompt,
-        systemPrompt: "You are a rigorous, unbiased benchmark evaluator.",
+        systemPrompt: EVALUATOR_SYSTEM_PROMPT,
+        temperature: 0,
+        maxTokens: 1024,
+      });
+    } else if (evaluator === OPENAI_MODEL_ID) {
+      rawResponse = await callOpenAI({
+        prompt,
+        systemPrompt: EVALUATOR_SYSTEM_PROMPT,
         temperature: 0,
         maxTokens: 1024,
       });

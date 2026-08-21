@@ -5,7 +5,7 @@ import { Copy } from "lucide-react";
 import { PromptRunner, type TestModel } from "@/components/runner/PromptRunner";
 import { EvaluationPanel, type EvaluatorChoice } from "@/components/runner/EvaluationPanel";
 import { ApiKeyBanner, isFamilyReady, useKeyStatuses } from "@/components/ui/ApiKeyBanner";
-import { familyOf } from "@/lib/models/registry";
+import { familyOf, judgesFor, TEST_MODELS } from "@/lib/models/registry";
 import { generateOutputId, generateResultId } from "@/lib/anonymize";
 import { type ParsedEvaluation } from "@/lib/evaluator";
 import type { PromptCondition, ResultRecord, TaskRecord } from "@/types";
@@ -15,7 +15,7 @@ export default function PromptRunnerPage() {
   const [results, setResults] = useState<ResultRecord[]>([]);
   const [selectedTaskId, setSelectedTaskId] = useState("");
   const [condition, setCondition] = useState<PromptCondition>("baseline");
-  const [testModel, setTestModel] = useState<TestModel>("claude-3-5-sonnet");
+  const [testModel, setTestModel] = useState<TestModel>(TEST_MODELS[0]);
   const [temperature, setTemperature] = useState(0.2);
   const [maxTokens, setMaxTokens] = useState(2000);
   const [systemPrompt, setSystemPrompt] = useState("You are a helpful assistant.");
@@ -26,7 +26,7 @@ export default function PromptRunnerPage() {
   const [runTimestamp, setRunTimestamp] = useState<string | null>(null);
   const [runError, setRunError] = useState<string | null>(null);
 
-  const [evaluatorChoice, setEvaluatorChoice] = useState<EvaluatorChoice>("gemini-1.5-pro");
+  const [evaluatorChoice, setEvaluatorChoice] = useState<EvaluatorChoice>("gemini-2.5-pro");
   const [evaluating, setEvaluating] = useState(false);
   const [evaluation, setEvaluation] = useState<ParsedEvaluation | null>(null);
   const [evaluationError, setEvaluationError] = useState<string | null>(null);
@@ -210,7 +210,13 @@ export default function PromptRunnerPage() {
         selectedTask={selectedTask}
         selectedPromptText={selectedPromptText}
         testModel={testModel}
-        onSelectTestModel={setTestModel}
+        onSelectTestModel={(model) => {
+          setTestModel(model);
+          // Judges are model-dependent; snap back to the rotation primary so a
+          // now-illegal same-family judge can never stay selected.
+          setEvaluatorChoice(judgesFor(model).primary);
+          resetRunState();
+        }}
         temperature={temperature}
         onTemperatureChange={setTemperature}
         maxTokens={maxTokens}
@@ -247,6 +253,7 @@ export default function PromptRunnerPage() {
 
           <EvaluationPanel
             anonymizedOutputId={anonymizedOutputId}
+            producingModel={testModel}
             evaluatorChoice={evaluatorChoice}
             onEvaluatorChoiceChange={setEvaluatorChoice}
             onEvaluate={handleEvaluate}

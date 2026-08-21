@@ -8,7 +8,9 @@ import {
   type TaskRecord,
 } from "@/types";
 
-export type TestModel = "claude-3-5-sonnet" | "gpt-4o";
+import { MODEL_LABEL, TEST_MODELS, type TestModelId } from "@/lib/models/registry";
+
+export type TestModel = TestModelId;
 
 interface PromptRunnerProps {
   tasks: TaskRecord[];
@@ -143,22 +145,16 @@ export function PromptRunner({
           Step 2 — Select Test Model and Run Settings
         </h2>
         <div className="flex items-center gap-4">
-          <label className="flex items-center gap-2 text-sm text-text-body">
-            <input
-              type="radio"
-              checked={testModel === "claude-3-5-sonnet"}
-              onChange={() => onSelectTestModel("claude-3-5-sonnet")}
-            />
-            Claude 3.5 Sonnet
-          </label>
-          <label className="flex items-center gap-2 text-sm text-text-body">
-            <input
-              type="radio"
-              checked={testModel === "gpt-4o"}
-              onChange={() => onSelectTestModel("gpt-4o")}
-            />
-            GPT-4o
-          </label>
+          {TEST_MODELS.map((id) => (
+            <label key={id} className="flex items-center gap-2 text-sm text-text-body">
+              <input
+                type="radio"
+                checked={testModel === id}
+                onChange={() => onSelectTestModel(id)}
+              />
+              {MODEL_LABEL[id]}
+            </label>
+          ))}
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

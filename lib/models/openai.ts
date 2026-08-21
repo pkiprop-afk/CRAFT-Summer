@@ -1,5 +1,6 @@
 import OpenAI from "openai";
 import { requireApiKey } from "@/lib/env";
+import { OPENAI_MODEL_ID } from "@/lib/models/registry";
 
 let client: OpenAI | null = null;
 
@@ -24,7 +25,7 @@ export async function callOpenAI({
   maxTokens,
 }: OpenAICallParams): Promise<string> {
   const response = await getClient().chat.completions.create({
-    model: "gpt-4o",
+    model: OPENAI_MODEL_ID,
     temperature,
     max_tokens: maxTokens,
     messages: [
