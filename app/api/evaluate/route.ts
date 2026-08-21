@@ -6,6 +6,12 @@ import { buildEvaluatorPrompt, parseEvaluatorResponse } from "@/lib/evaluator";
 import { MissingApiKeyError } from "@/lib/env";
 import { checkJudgeAllowed } from "@/lib/blindingGuard";
 import {
+  callWithRetry,
+  NonRetryableError,
+  RetriesExhaustedError,
+  type RetryAttempt,
+} from "@/lib/retry";
+import {
   MissingManifestError,
   provenanceFingerprintFor,
 } from "@/lib/models/provenance";
@@ -84,30 +90,49 @@ export async function POST(request: Request) {
     );
   }
 
+  if (
+    evaluator !== GOOGLE_MODEL_ID &&
+    evaluator !== ANTHROPIC_MODEL_ID &&
+    evaluator !== OPENAI_MODEL_ID
+  ) {
+    return NextResponse.json({ error: "Unsupported evaluator" }, { status: 400 });
+  }
+
   let call: ModelCallResult;
+  let retries: RetryAttempt[] = [];
   try {
-    if (evaluator === GOOGLE_MODEL_ID) {
-      call = await callGemini(prompt);
-    } else if (evaluator === ANTHROPIC_MODEL_ID) {
-      call = await callClaude({
-        prompt,
-        systemPrompt: EVALUATOR_SYSTEM_PROMPT,
-        maxTokens: 1024,
-      });
-    } else if (evaluator === OPENAI_MODEL_ID) {
-      call = await callOpenAI({
-        prompt,
-        systemPrompt: EVALUATOR_SYSTEM_PROMPT,
-        maxTokens: 1024,
-      });
-    } else {
-      return NextResponse.json({ error: "Unsupported evaluator" }, { status: 400 });
-    }
+    // I3/I4 — judges get the same retry policy as generations. The primary
+    // judge carries every evaluation in the study, so a transient 503 there
+    // would otherwise strand runs as singly-judged.
+    const outcome = await callWithRetry(() =>
+      evaluator === GOOGLE_MODEL_ID
+        ? callGemini(prompt)
+        : evaluator === ANTHROPIC_MODEL_ID
+          ? callClaude({ prompt, systemPrompt: EVALUATOR_SYSTEM_PROMPT, maxTokens: 1024 })
+          : callOpenAI({ prompt, systemPrompt: EVALUATOR_SYSTEM_PROMPT, maxTokens: 1024 })
+    );
+    call = outcome.value;
+    retries = outcome.attempts;
   } catch (err) {
     if (err instanceof MissingApiKeyError) {
       return NextResponse.json(
         { error: err.message, missing_env_var: err.envVar },
         { status: 503 }
+      );
+    }
+    if (err instanceof RetriesExhaustedError) {
+      return NextResponse.json(
+        {
+          error: `Evaluation failed after ${err.attempts.length} attempts: ${err.message}`,
+          retry_log: err.attempts,
+        },
+        { status: 502 }
+      );
+    }
+    if (err instanceof NonRetryableError) {
+      return NextResponse.json(
+        { error: err.message, http_status: err.httpStatus },
+        { status: 502 }
       );
     }
     return NextResponse.json(
@@ -134,6 +159,8 @@ export async function POST(request: Request) {
     evaluator_provenance_fingerprint: evaluatorProvenance,
     evaluator_truncated: call.truncated,
     evaluator_stop_reason: call.stop_reason,
+    evaluator_retry_count: retries.length,
+    evaluator_retry_log: retries,
     // The judge's verbatim reply. Only the parsed fields are persisted, so this
     // is returned for inspection/audit at run time.
     raw_evaluator_response: call.text,

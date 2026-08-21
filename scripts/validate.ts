@@ -285,15 +285,34 @@ async function main(): Promise<void> {
           `both conditions of a pair must share identical settings`
       );
     }
-    // Re-derive to catch a hand-edited or stale stored hash.
+    // Re-derive to catch a hand-edited or stale stored hash. The reconstruction
+    // must include the model's effort field, or it hashes a smaller field set
+    // than the one recorded and reports a false mismatch.
     for (const r of group) {
+      const d = r.decoding_params;
       const recomputed = await computeRunSettingsHash({
-        temperature: r.decoding_params.temperature,
+        temperature: d.temperature,
         max_tokens: r.max_tokens,
         system_prompt: r.system_prompt,
+        ...(d.effort !== undefined ? { effort: d.effort } : {}),
+        ...(d.reasoning_effort !== undefined
+          ? { reasoning_effort: d.reasoning_effort }
+          : {}),
       });
       if (recomputed.hash !== r.run_settings_hash) {
-        err(`${r.result_id}: stored run_settings_hash does not match its own settings`);
+        err(
+          `${r.result_id}: stored run_settings_hash does not match its own settings ` +
+            `(stored fields ${JSON.stringify(r.run_settings_fields)}, ` +
+            `recomputed ${JSON.stringify(recomputed.fields)})`
+        );
+      }
+      // The recorded field set must match what those settings actually produce.
+      if (JSON.stringify(recomputed.fields) !== JSON.stringify(r.run_settings_fields)) {
+        err(
+          `${r.result_id}: run_settings_fields ${JSON.stringify(r.run_settings_fields)} ` +
+            `does not match the field set implied by decoding_params ` +
+            `${JSON.stringify(recomputed.fields)}`
+        );
       }
     }
   }

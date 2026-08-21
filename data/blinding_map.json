@@ -12,5 +12,26 @@
     "model_name": "claude-sonnet-5",
     "prompt_condition": "craft",
     "allocated_at": "2026-08-21T12:11:55.373Z"
+  },
+  "OUT-0003": {
+    "token": "OUT-0003",
+    "task_id": "T001",
+    "model_name": "claude-sonnet-5",
+    "prompt_condition": "baseline",
+    "allocated_at": "2026-08-21T12:25:38.140Z"
+  },
+  "OUT-0004": {
+    "token": "OUT-0004",
+    "task_id": "T001",
+    "model_name": "claude-sonnet-5",
+    "prompt_condition": "baseline",
+    "allocated_at": "2026-08-21T12:27:48.380Z"
+  },
+  "OUT-0005": {
+    "token": "OUT-0005",
+    "task_id": "T001",
+    "model_name": "claude-sonnet-5",
+    "prompt_condition": "craft",
+    "allocated_at": "2026-08-21T12:28:16.476Z"
   }
 }
