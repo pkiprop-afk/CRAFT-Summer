@@ -7,6 +7,7 @@ import { EvaluationPanel, type EvaluatorChoice } from "@/components/runner/Evalu
 import { ApiKeyBanner, isFamilyReady, useKeyStatuses } from "@/components/ui/ApiKeyBanner";
 import { familyOf, judgesFor, TEST_MODELS } from "@/lib/models/registry";
 import { generateEvaluationId, generateResultId } from "@/lib/anonymize";
+import { DEFAULT_MAX_TOKENS } from "@/lib/runSettings";
 import { type ParsedEvaluation } from "@/lib/evaluator";
 import type { EvaluationRecord, PromptCondition, ResultRecord, TaskRecord } from "@/types";
 
@@ -17,7 +18,7 @@ export default function PromptRunnerPage() {
   const [condition, setCondition] = useState<PromptCondition>("baseline");
   const [testModel, setTestModel] = useState<TestModel>(TEST_MODELS[0]);
   const [temperature, setTemperature] = useState(0.2);
-  const [maxTokens, setMaxTokens] = useState(2000);
+  const [maxTokens, setMaxTokens] = useState(DEFAULT_MAX_TOKENS);
   const [systemPrompt, setSystemPrompt] = useState("You are a helpful assistant.");
 
   const [running, setRunning] = useState(false);

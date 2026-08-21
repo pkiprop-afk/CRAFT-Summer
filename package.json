@@ -9,7 +9,8 @@
     "lint": "eslint",
     "select-stability-subset": "node scripts/selectStabilitySubset.ts",
     "check-models": "node scripts/checkModelAvailability.ts",
-    "capture-model-manifest": "node scripts/captureModelManifest.ts"
+    "capture-model-manifest": "node scripts/captureModelManifest.ts",
+    "test": "node --test \"tests/**/*.test.ts\""
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.115.0",

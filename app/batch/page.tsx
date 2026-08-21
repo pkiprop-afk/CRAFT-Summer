@@ -16,11 +16,14 @@ import {
   type EvaluatorModelId,
   type TestModelId,
 } from "@/lib/models/registry";
+import { DEFAULT_MAX_TOKENS } from "@/lib/runSettings";
 import { runWithConcurrency } from "@/lib/concurrency";
 import { generateEvaluationId, generateResultId } from "@/lib/anonymize";
 import {
   buildBatchJobs,
   isTaskReadyForScope,
+  isUnpairedScope,
+  PAIRED_SCOPE,
   type BatchJob,
   type ConditionScope,
 } from "@/lib/batch";
@@ -39,10 +42,12 @@ export default function BatchRunnerPage() {
   const [loadError, setLoadError] = useState<string | null>(null);
 
   const [rawSelectedIds, setRawSelectedIds] = useState<Set<string>>(new Set());
-  const [conditionScope, setConditionScope] = useState<ConditionScope>("both");
+  const [conditionScope, setConditionScope] = useState<ConditionScope>(PAIRED_SCOPE);
+  // 5b — unpaired single-condition runs require an explicit acknowledgement.
+  const [allowUnpaired, setAllowUnpaired] = useState(false);
   const [testModel, setTestModel] = useState<TestModel>(TEST_MODELS[0]);
   const [temperature, setTemperature] = useState(0.2);
-  const [maxTokens, setMaxTokens] = useState(2000);
+  const [maxTokens, setMaxTokens] = useState(DEFAULT_MAX_TOKENS);
   const [systemPrompt, setSystemPrompt] = useState("You are a helpful assistant.");
   const [evaluatorChoice, setEvaluatorChoice] = useState<BatchEvaluator>(judgesFor(TEST_MODELS[0]).primary);
 
@@ -291,18 +296,55 @@ export default function BatchRunnerPage() {
           Step 1 — Select Tasks and Condition
         </h2>
         <div className="flex items-center gap-4">
-          {(["baseline", "craft", "both"] as ConditionScope[]).map((scope) => (
-            <label key={scope} className="flex items-center gap-2 text-sm text-text-body capitalize">
-              <input
-                type="radio"
-                checked={conditionScope === scope}
-                onChange={() => setConditionScope(scope)}
-                disabled={isRunning}
-              />
-              {scope}
-            </label>
-          ))}
+          {(["baseline", "craft", "both"] as ConditionScope[]).map((scope) => {
+            const unpaired = isUnpairedScope(scope);
+            return (
+              <label
+                key={scope}
+                className={`flex items-center gap-2 text-sm capitalize ${
+                  unpaired && !allowUnpaired ? "text-text-muted opacity-50" : "text-text-body"
+                }`}
+                title={
+                  unpaired && !allowUnpaired
+                    ? "Single-condition runs produce unpaired data — enable the acknowledgement below"
+                    : undefined
+                }
+              >
+                <input
+                  type="radio"
+                  checked={conditionScope === scope}
+                  onChange={() => setConditionScope(scope)}
+                  disabled={isRunning || (unpaired && !allowUnpaired)}
+                />
+                {scope}
+                {scope === "both" && (
+                  <span className="text-xs text-text-muted">(paired — required)</span>
+                )}
+              </label>
+            );
+          })}
         </div>
+
+        <label className="flex items-start gap-2 rounded-md border border-warning/30 bg-warning/10 px-3 py-2 text-xs text-warning">
+          <input
+            type="checkbox"
+            className="mt-0.5"
+            checked={allowUnpaired}
+            disabled={isRunning}
+            onChange={(e) => {
+              const next = e.target.checked;
+              setAllowUnpaired(next);
+              // Leaving the acknowledgement snaps back to the paired scope, so
+              // an unpaired scope can never remain selected silently.
+              if (!next) setConditionScope(PAIRED_SCOPE);
+            }}
+          />
+          <span>
+            I am intentionally producing unpaired data. The study is a within-task paired
+            comparison; a task run under only one condition contributes nothing to it and will be
+            reported as unpaired by the parity check.
+          </span>
+        </label>
 
         <BatchTaskSelector
           tasks={tasks}

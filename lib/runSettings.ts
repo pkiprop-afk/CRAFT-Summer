@@ -60,3 +60,11 @@ export function diffRunSettings(
   }
   return mismatches;
 }
+
+/**
+ * 5c — Raised from 2000. CRAFT prompts request structured multi-section output
+ * and run materially longer than baseline; at 2000 a CRAFT response could hit
+ * the ceiling while its baseline counterpart did not, losing completeness
+ * points for a reason unrelated to the prompt condition.
+ */
+export const DEFAULT_MAX_TOKENS = 4000;

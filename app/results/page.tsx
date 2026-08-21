@@ -199,6 +199,57 @@ export default function ResultsPage() {
 
       <Tabs tabs={TABS} active={activeTab} onChange={setActiveTab} />
 
+      {truncatedResults.length > 0 && (
+        <div className="rounded-lg border border-error/40 bg-error/10 px-4 py-3">
+          <p className="text-sm font-semibold text-error">
+            {truncatedResults.length} truncated run
+            {truncatedResults.length === 1 ? "" : "s"} — output hit the token limit
+          </p>
+          <p className="mt-1 text-xs text-error/90">
+            A truncated response loses completeness points for a reason unrelated to the prompt
+            condition. CRAFT prompts request structured multi-section output and run longer than
+            baseline, so truncation biases against CRAFT. Re-run these with a higher max_tokens.
+          </p>
+          <ul className="mt-2 font-mono text-xs text-error/90 max-h-32 overflow-y-auto">
+            {truncatedResults.map((s) => (
+              <li key={s.result.result_id}>
+                {s.result.task_id} · {s.result.prompt_condition} · run {s.result.run_number} ·{" "}
+                {s.result.model_name} · max_tokens {s.result.max_tokens}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {incompleteResults.length > 0 && (
+        <div className="rounded-lg border border-warning/40 bg-warning/10 px-4 py-3">
+          <p className="text-sm font-semibold text-warning">
+            {incompleteResults.length} incomplete run
+            {incompleteResults.length === 1 ? "" : "s"} — scored by fewer than two judges
+          </p>
+          <p className="mt-1 text-xs text-warning/90">
+            Every run must be scored by both the primary and secondary judge. A singly-judged run
+            is an incomplete cell, not a low score.
+          </p>
+          <label className="mt-2 flex items-center gap-2 text-xs text-warning">
+            <input
+              type="checkbox"
+              checked={excludeIncomplete}
+              onChange={(e) => setExcludeIncomplete(e.target.checked)}
+            />
+            Exclude incomplete runs from all figures below (recommended)
+          </label>
+          <ul className="mt-2 font-mono text-xs text-warning/90 max-h-32 overflow-y-auto">
+            {incompleteResults.map((s) => (
+              <li key={s.result.result_id}>
+                {s.result.task_id} · {s.result.prompt_condition} · run {s.result.run_number} ·{" "}
+                {s.evaluations.length}/2 judges
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       {staleResults.length > 0 && (
         <div className="rounded-lg border border-warning/40 bg-warning/10 px-4 py-3">
           <p className="text-sm font-semibold text-warning">

@@ -1,6 +1,20 @@
 import type { PromptCondition, TaskRecord } from "@/types";
 
+/**
+ * 5b — Execution-layer pairing.
+ *
+ * "both" is the only scope that produces analysable data: the study is a
+ * within-task paired comparison, so a task run under one condition alone
+ * contributes nothing to it. Single-condition scopes remain reachable only
+ * behind an explicit unpaired-data acknowledgement, which is off by default.
+ */
 export type ConditionScope = PromptCondition | "both";
+
+export const PAIRED_SCOPE: ConditionScope = "both";
+
+export function isUnpairedScope(scope: ConditionScope): boolean {
+  return scope !== "both";
+}
 
 export type BatchJobStatus = "pending" | "running" | "evaluating" | "done" | "failed";
 
