@@ -11,7 +11,7 @@
  * Run: npm run check-models
  */
 
-import { readFileSync, readdirSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 import {
   checkConfiguredModels,
@@ -19,9 +19,15 @@ import {
   listAnthropicModels,
   listGoogleModels,
   listOpenAIModels,
+  provenanceFingerprint,
   scanModelIdLiterals,
   type ProviderListing,
 } from "../lib/models/availability.ts";
+import {
+  detectDrift,
+  type ManifestEntry,
+  type ModelManifest,
+} from "../lib/models/manifest.ts";
 import { MODEL_FAMILY, type ModelFamily } from "../lib/models/registry.ts";
 
 const ENV_VAR_BY_FAMILY: Record<ModelFamily, string> = {
@@ -74,6 +80,7 @@ async function main(): Promise<void> {
         reachable: false,
         httpStatus: null,
         models: [],
+        entries: [],
         error: `${ENV_VAR_BY_FAMILY[family]} is missing or blank`,
       };
     }
@@ -124,6 +131,70 @@ async function main(): Promise<void> {
     );
   }
 
+  // M3 — provenance drift against the most recently captured manifest.
+  const manifestDir = path.join(repoRoot, "data", "model_manifests");
+  let driftFailed = false;
+
+  if (!existsSync(manifestDir) || readdirSync(manifestDir).filter((f) => f.endsWith(".json")).length === 0) {
+    console.log(
+      "\nprovenance drift: no manifest captured yet — run `npm run capture-model-manifest` before the study."
+    );
+  } else {
+    const manifestFiles = readdirSync(manifestDir)
+      .filter((f) => f.endsWith(".json"))
+      .sort();
+    const latestPath = path.join(manifestDir, manifestFiles[manifestFiles.length - 1]);
+    const previous: ModelManifest = JSON.parse(readFileSync(latestPath, "utf-8"));
+
+    // Build a manifest-shaped view of the live listings to compare against.
+    const configuredIds = new Set(Object.keys(MODEL_FAMILY));
+    const currentEntries: ManifestEntry[] = [];
+    for (const listing of listings) {
+      for (const e of listing.entries) {
+        currentEntries.push({
+          model_id: e.id,
+          family: listing.family,
+          created_at: e.created_at,
+          display_name: e.display_name,
+          version: e.version,
+          description: e.description,
+          shutdown_date: e.shutdown_date,
+          provenance_fingerprint: provenanceFingerprint(e),
+          configured: configuredIds.has(e.id),
+        });
+      }
+    }
+    const current: ModelManifest = {
+      captured_at: new Date().toISOString(),
+      entries: currentEntries,
+      providers: [],
+    };
+
+    const drift = detectDrift(previous, current, Object.keys(MODEL_FAMILY));
+
+    console.log(`\nprovenance drift vs ${path.basename(latestPath)}:`);
+    if (drift.length === 0) {
+      console.log("  no drift — every configured model matches its captured provenance");
+    } else {
+      driftFailed = true;
+      for (const d of drift) {
+        console.log(`  DRIFT ${d.model_id} — ${d.reason}`);
+        console.log(`    was: ${d.previous_fingerprint ?? "(absent)"}`);
+        console.log(`    now: ${d.current_fingerprint ?? "(absent)"}`);
+      }
+      console.log(
+        "  A configured model moved under the study. Runs before and after this point are not comparable."
+      );
+    }
+
+    // OpenAI publishes retirement dates; surface them for configured models.
+    for (const e of currentEntries) {
+      if (e.configured && e.shutdown_date) {
+        console.log(`  SHUTDOWN SCHEDULED ${e.model_id} -> ${e.shutdown_date}`);
+      }
+    }
+  }
+
   const allMissing = [
     ...missing.map((m) => ({ id: m.model_id, where: "registry", similar: m.similar })),
     ...literalResult.missing.map((m) => ({
@@ -151,7 +222,14 @@ async function main(): Promise<void> {
     return;
   }
 
+  if (driftFailed) {
+    console.log("\nFAILED — provenance drift detected on a configured model.");
+    process.exitCode = 1;
+    return;
+  }
+
   console.log("\nAll configured model IDs and all lib/models/ literals are available.");
+  console.log("No provenance drift detected.");
 }
 
 main();

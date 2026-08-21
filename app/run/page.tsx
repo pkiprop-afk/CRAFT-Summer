@@ -115,6 +115,7 @@ export default function PromptRunnerPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          producing_model: testModel,
           task_description: selectedTask.task_description,
           expected_constraints: selectedTask.expected_constraints,
           rubric_notes: selectedTask.rubric_notes,

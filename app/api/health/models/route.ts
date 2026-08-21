@@ -33,6 +33,7 @@ async function listFor(family: ModelFamily): Promise<ProviderListing> {
       reachable: false,
       httpStatus: null,
       models: [],
+      entries: [],
       error: `${ENV_VAR_BY_FAMILY[family]} is missing or blank`,
     };
   }

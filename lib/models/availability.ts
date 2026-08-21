@@ -68,13 +68,14 @@ function failure(family: ModelFamily, httpStatus: number | null, error: string):
     reachable: false,
     httpStatus,
     models: [],
+    entries: [],
     error: sanitize(error),
   };
 }
 
 /** Anthropic: cursor pagination via `after_id` + `has_more`. */
 export async function listAnthropicModels(apiKey: string): Promise<ProviderListing> {
-  const models: string[] = [];
+  const entries: ProviderModelEntry[] = [];
   let afterId: string | null = null;
 
   try {
@@ -90,7 +91,16 @@ export async function listAnthropicModels(apiKey: string): Promise<ProviderListi
         return failure("anthropic", res.status, `HTTP ${res.status}: ${await res.text()}`);
       }
       const body = await res.json();
-      for (const m of body.data ?? []) models.push(m.id);
+      for (const m of body.data ?? []) {
+        entries.push({
+          id: m.id,
+          created_at: m.created_at ?? null,
+          display_name: m.display_name ?? null,
+          version: null,
+          description: null,
+          shutdown_date: null,
+        });
+      }
       if (!body.has_more) break;
       afterId = body.last_id ?? null;
       if (!afterId) break;
@@ -100,7 +110,8 @@ export async function listAnthropicModels(apiKey: string): Promise<ProviderListi
 
       reachable: true,
       httpStatus: 200,
-      models,
+      models: entries.map((e) => e.id),
+      entries,
       error: null,
     };
   } catch (err) {
@@ -118,12 +129,25 @@ export async function listOpenAIModels(apiKey: string): Promise<ProviderListing>
       return failure("openai", res.status, `HTTP ${res.status}: ${await res.text()}`);
     }
     const body = await res.json();
+    const raw: Array<{ id: string; created?: number; shutdown_date?: string | null }> =
+      body.data ?? [];
+    const entries: ProviderModelEntry[] = raw.map((m) => ({
+      id: m.id,
+      created_at: m.created ? new Date(m.created * 1000).toISOString() : null,
+      display_name: null,
+      version: null,
+      description: null,
+      // OpenAI publishes retirement dates — an early warning that a pinned
+      // snapshot is scheduled to disappear.
+      shutdown_date: m.shutdown_date ?? null,
+    }));
     return {
       family: "openai",
 
       reachable: true,
       httpStatus: 200,
-      models: (body.data ?? []).map((m: { id: string }) => m.id),
+      models: entries.map((e) => e.id),
+      entries,
       error: null,
     };
   } catch (err) {
@@ -133,7 +157,7 @@ export async function listOpenAIModels(apiKey: string): Promise<ProviderListing>
 
 /** Google: token pagination via `nextPageToken`; default page size is 50. */
 export async function listGoogleModels(apiKey: string): Promise<ProviderListing> {
-  const models: string[] = [];
+  const entries: ProviderModelEntry[] = [];
   let pageToken: string | null = null;
 
   try {
@@ -147,7 +171,18 @@ export async function listGoogleModels(apiKey: string): Promise<ProviderListing>
         return failure("google", res.status, `HTTP ${res.status}: ${await res.text()}`);
       }
       const body = await res.json();
-      for (const m of body.models ?? []) models.push(String(m.name).replace(/^models\//, ""));
+      for (const m of body.models ?? []) {
+        entries.push({
+          id: String(m.name).replace(/^models\//, ""),
+          // Google exposes no creation timestamp for generative models; the
+          // release date is only present inside `description`.
+          created_at: null,
+          display_name: m.displayName ?? null,
+          version: m.version ?? null,
+          description: m.description ?? null,
+          shutdown_date: null,
+        });
+      }
       pageToken = body.nextPageToken ?? null;
       if (!pageToken) break;
     }
@@ -156,7 +191,8 @@ export async function listGoogleModels(apiKey: string): Promise<ProviderListing>
 
       reachable: true,
       httpStatus: 200,
-      models,
+      models: entries.map((e) => e.id),
+      entries,
       error: null,
     };
   } catch (err) {

@@ -160,6 +160,7 @@ export default function BatchRunnerPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          producing_model: testModel,
           task_description: task.task_description,
           expected_constraints: task.expected_constraints,
           rubric_notes: task.rubric_notes,
