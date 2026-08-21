@@ -76,6 +76,19 @@ export default function TaskLibraryPage() {
       diff: data.diff as ImportPreview["diff"],
       existingCount: (data.existingCount as number) ?? 0,
       resultingCount: (data.resultingCount as number) ?? 0,
+      invalidation: (data.invalidation as ImportPreview["invalidation"]) ?? {
+        entries: [],
+        totalAffectedRuns: 0,
+        tasksAffected: 0,
+      },
+      staleFile: Boolean(data.staleFile),
+      uploadedFileName: (data.uploadedFileName as string) ?? "",
+      uploadedFileModifiedAt: (data.uploadedFileModifiedAt as string | null) ?? null,
+      registryMeta: (data.registryMeta as ImportPreview["registryMeta"]) ?? {
+        lastImportedAt: null,
+        lastImportedFile: null,
+        lastImportedFileModifiedAt: null,
+      },
     };
   }
 
@@ -94,6 +107,8 @@ export default function TaskLibraryPage() {
     try {
       const body = new FormData();
       body.append("file", file);
+      // Sent explicitly: multipart does not carry File.lastModified.
+      body.append("fileLastModified", String(file.lastModified));
       const response = await fetch(
         `/api/tasks/import?dryRun=true&mode=${importMode}`,
         { method: "POST", body }
@@ -123,6 +138,7 @@ export default function TaskLibraryPage() {
     try {
       const body = new FormData();
       body.append("file", pendingFile);
+      body.append("fileLastModified", String(pendingFile.lastModified));
       const response = await fetch(
         `/api/tasks/import?mode=${preview.mode}`,
         { method: "POST", body }

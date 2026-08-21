@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
-import { getTasks, saveTasks } from "@/lib/db";
+import { getRegistryMeta, getResults, getTasks, saveTasks, setRegistryMeta } from "@/lib/db";
 import { parseCsv } from "@/lib/csv";
 import { parseXlsxRows } from "@/lib/xlsxParse";
 import { validateTaskRows, type TaskImportRow } from "@/lib/taskImport";
 import { computeTaskDiff, parseImportMode } from "@/lib/taskDiff";
+import { computeImportInvalidation } from "@/lib/invalidation";
 
 export async function POST(request: Request) {
   const url = new URL(request.url);
@@ -62,13 +63,42 @@ export async function POST(request: Request) {
 
   const result = validateTaskRows(rows);
   const existing = await getTasks();
+  const results = await getResults();
   const { diff, resultingTasks } = computeTaskDiff(existing, result.tasks, mode);
+
+  // 4e — which recorded runs this import would invalidate.
+  const invalidation = computeImportInvalidation(
+    existing,
+    result.tasks,
+    diff.destroyed,
+    results
+  );
+
+  // 4f — stale-file detection. A file older than the last import is very
+  // likely a pre-edit copy, which would revert in-app work while reporting
+  // destroyed: 0.
+  const meta = await getRegistryMeta();
+  // multipart/form-data does NOT transmit File.lastModified — a File
+  // reconstructed server-side carries the parse time, not the source mtime.
+  // The client therefore sends the browser-side value as an explicit field.
+  const reportedMtime = formData.get("fileLastModified");
+  const mtimeMs = typeof reportedMtime === "string" ? Number(reportedMtime) : NaN;
+  const fileModifiedAt = Number.isFinite(mtimeMs) && mtimeMs > 0
+    ? new Date(mtimeMs).toISOString()
+    : null;
+  const staleFile =
+    Boolean(meta.lastImportedAt && fileModifiedAt && fileModifiedAt < meta.lastImportedAt);
 
   const report = {
     dryRun,
     mode,
     sheetName,
     availableSheets,
+    invalidation,
+    registryMeta: meta,
+    uploadedFileName: file.name,
+    uploadedFileModifiedAt: fileModifiedAt,
+    staleFile,
     importedCount: result.importedCount,
     rejectedCount: result.rejectedCount,
     totalRows: result.totalRows,
@@ -101,6 +131,12 @@ export async function POST(request: Request) {
   }
 
   await saveTasks(resultingTasks);
+  await setRegistryMeta({
+    lastImportedAt: new Date().toISOString(),
+    lastImportedFile: file.name,
+    lastImportedFileModifiedAt: fileModifiedAt,
+  });
 
-  return NextResponse.json({ ...report, written: true, tasks: resultingTasks });
+  const savedTasks = await getTasks();
+  return NextResponse.json({ ...report, written: true, tasks: savedTasks });
 }

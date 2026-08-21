@@ -6,6 +6,7 @@ import { ArrowLeft } from "lucide-react";
 import { TaskForm } from "@/components/tasks/TaskForm";
 import { CRAFTMeter } from "@/components/craft/CRAFTMeter";
 import { Button } from "@/components/ui/Button";
+import { changedVersionedFields, versionedFieldsEqual } from "@/lib/taskVersion";
 import type { ResultRecord, TaskRecord } from "@/types";
 
 export default function TaskDetailPage() {
@@ -19,6 +20,10 @@ export default function TaskDetailPage() {
   const [saved, setSaved] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
+  // The task as last loaded/saved — the baseline for detecting whether a save
+  // would change the content hash.
+  const [baseline, setBaseline] = useState<TaskRecord | null>(null);
+  const [pendingInvalidation, setPendingInvalidation] = useState<string[] | null>(null);
 
   useEffect(() => {
     Promise.all([
@@ -26,15 +31,30 @@ export default function TaskDetailPage() {
       fetch("/api/results").then((r) => r.json()) as Promise<ResultRecord[]>,
     ])
       .then(([tasks, allResults]) => {
-        setTask(tasks.find((t) => t.task_id === params.task_id) ?? null);
+        const found = tasks.find((t) => t.task_id === params.task_id) ?? null;
+        setTask(found);
+        setBaseline(found);
         setResults(allResults.filter((r) => r.task_id === params.task_id));
       })
       .catch(() => setLoadError("Failed to load this task. Try refreshing the page."))
       .finally(() => setLoading(false));
   }, [params.task_id]);
 
+  // 4c — a save that changes the content hash invalidates every recorded run
+  // for this task. Only prompt when the hash would actually move AND runs exist.
+  function requestSave() {
+    if (!task || !baseline) return;
+    const hashChanges = !versionedFieldsEqual(baseline, task);
+    if (hashChanges && results.length > 0) {
+      setPendingInvalidation(changedVersionedFields(baseline, task));
+      return;
+    }
+    void handleSave();
+  }
+
   async function handleSave() {
     if (!task) return;
+    setPendingInvalidation(null);
     setSaving(true);
     setSaved(false);
     setSaveError(null);
@@ -56,6 +76,7 @@ export default function TaskDetailPage() {
       // Adopt the server's canonical record — craft_prompt is re-derived and
       // fields are trimmed server-side, so the editor must reflect that.
       setTask(data);
+      setBaseline(data);
       setSaved(true);
     } catch {
       setSaveError("Could not reach the server. Your changes were not saved.");
@@ -101,15 +122,44 @@ export default function TaskDetailPage() {
               setSaved(false);
               setSaveError(null);
               setValidationErrors([]);
+              setPendingInvalidation(null);
             }}
           />
           <div className="mt-6 space-y-3">
             <div className="flex items-center gap-3">
-              <Button onClick={handleSave} disabled={saving}>
+              <Button onClick={requestSave} disabled={saving || pendingInvalidation !== null}>
                 {saving ? "Saving…" : "Save Changes"}
               </Button>
               {saved && <span className="text-sm text-success">Saved</span>}
             </div>
+
+            {pendingInvalidation && (
+              <div className="rounded-lg border border-error/40 bg-error/10 px-4 py-3 space-y-2">
+                <p className="text-sm font-semibold text-error">
+                  This change will invalidate {results.length} recorded run
+                  {results.length === 1 ? "" : "s"} for {task.task_id}
+                </p>
+                <p className="text-xs text-error/90">
+                  You edited scoring-relevant content, so the task&apos;s content hash changes.
+                  Runs already recorded were produced against the previous content and will no
+                  longer be comparable — they must be re-run or excluded from analysis.
+                </p>
+                <p className="text-xs text-error/90">
+                  Changed:{" "}
+                  <span className="font-mono">{pendingInvalidation.join(", ")}</span>
+                </p>
+                <div className="flex items-center gap-3 pt-1">
+                  <Button onClick={handleSave} disabled={saving}>
+                    {saving
+                      ? "Saving…"
+                      : `Save and invalidate ${results.length} run${results.length === 1 ? "" : "s"}`}
+                  </Button>
+                  <Button variant="secondary" onClick={() => setPendingInvalidation(null)}>
+                    Cancel
+                  </Button>
+                </div>
+              </div>
+            )}
 
             {saveError && (
               <div className="rounded-lg border border-error/30 bg-error/10 px-4 py-3">

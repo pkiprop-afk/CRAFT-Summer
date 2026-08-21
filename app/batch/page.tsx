@@ -165,6 +165,7 @@ export default function BatchRunnerPage() {
       const result: ResultRecord = {
         result_id: generateResultId(),
         task_id: task.task_id,
+        task_version: task.task_version,
         model_name: testModel,
         prompt_condition: condition,
         run_number: nextRunNumber(task.task_id, condition),

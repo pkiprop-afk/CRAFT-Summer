@@ -161,6 +161,9 @@ export default function PromptRunnerPage() {
     const result: ResultRecord = {
       result_id: generateResultId(),
       task_id: selectedTask.task_id,
+      // Frozen at run time — staleness is detected by comparing this against
+      // the task's current version.
+      task_version: selectedTask.task_version,
       model_name: testModel,
       prompt_condition: condition,
       run_number: runNumber,

@@ -7,16 +7,20 @@ import { OverviewChart } from "@/components/results/OverviewChart";
 import { ScatterPlot, type ScatterDatum } from "@/components/results/ScatterPlot";
 import { DomainChart, type GroupedBarDatum } from "@/components/results/DomainChart";
 import { conditionStats, mean, pairByTask, round } from "@/lib/results";
+import { isResultStale } from "@/lib/invalidation";
 import { DOMAIN_LABELS, type Domain, type ResultRecord, type TaskRecord } from "@/types";
 
 const TABS = ["Overview", "By Model", "By Domain", "By Submetric"];
 
 export default function ResultsPage() {
   const [tasks, setTasks] = useState<TaskRecord[]>([]);
-  const [results, setResults] = useState<ResultRecord[]>([]);
+  const [allResults, setAllResults] = useState<ResultRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState(TABS[0]);
+  // Stale runs are excluded from every aggregate by default — mixing them with
+  // current runs compares outputs produced against different task content.
+  const [excludeStale, setExcludeStale] = useState(true);
 
   useEffect(() => {
     Promise.all([
@@ -25,7 +29,7 @@ export default function ResultsPage() {
     ])
       .then(([taskData, resultData]) => {
         setTasks(taskData);
-        setResults(resultData);
+        setAllResults(resultData);
       })
       .catch(() => setLoadError("Failed to load results. Try refreshing the page."))
       .finally(() => setLoading(false));
@@ -36,6 +40,21 @@ export default function ResultsPage() {
     for (const t of tasks) map.set(t.task_id, t.domain);
     return map;
   }, [tasks]);
+
+  const taskById = useMemo(() => new Map(tasks.map((t) => [t.task_id, t])), [tasks]);
+
+  const staleResults = useMemo(
+    () => allResults.filter((r) => isResultStale(r, taskById.get(r.task_id))),
+    [allResults, taskById]
+  );
+
+  const results = useMemo(
+    () =>
+      excludeStale
+        ? allResults.filter((r) => !isResultStale(r, taskById.get(r.task_id)))
+        : allResults,
+    [allResults, taskById, excludeStale]
+  );
 
   // Per-task mean first, then averaged across tasks — a task with more
   // repeat runs must not outweigh one with fewer. stddev is the run-to-run
@@ -142,6 +161,34 @@ export default function ResultsPage() {
       <h1 className="text-2xl font-display font-bold text-text-heading">Results</h1>
 
       <Tabs tabs={TABS} active={activeTab} onChange={setActiveTab} />
+
+      {staleResults.length > 0 && (
+        <div className="rounded-lg border border-warning/40 bg-warning/10 px-4 py-3">
+          <p className="text-sm font-semibold text-warning">
+            {staleResults.length} stale run{staleResults.length === 1 ? "" : "s"} detected
+          </p>
+          <p className="mt-1 text-xs text-warning/90">
+            These were recorded against an earlier version of their task&apos;s content and are
+            not comparable with current runs.
+          </p>
+          <label className="mt-2 flex items-center gap-2 text-xs text-warning">
+            <input
+              type="checkbox"
+              checked={excludeStale}
+              onChange={(e) => setExcludeStale(e.target.checked)}
+            />
+            Exclude stale runs from all figures below (recommended)
+          </label>
+          <ul className="mt-2 font-mono text-xs text-warning/90 max-h-32 overflow-y-auto">
+            {staleResults.map((r) => (
+              <li key={r.result_id}>
+                {r.task_id} · {r.prompt_condition} · run {r.run_number} ·{" "}
+                {taskById.has(r.task_id) ? "content changed" : "task no longer exists"}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       {results.length === 0 ? (
         <p className="text-sm text-text-muted">

@@ -24,6 +24,12 @@ export interface TaskRecord {
   rubric_notes: string;
   difficulty_level: string;
   requires_external_knowledge: boolean;
+  /**
+   * Content hash over the scoring-relevant fields only — see lib/taskVersion.ts
+   * for the exact scope. Always recomputed on read and stamped on write, so the
+   * stored value is a cache that cannot drift from the content.
+   */
+  task_version: string;
 }
 
 export type PromptCondition = "baseline" | "craft";
@@ -34,6 +40,12 @@ export interface ResultRecord {
   // and is timestamp-based so it is not collision-safe under concurrent runs).
   result_id: string;
   task_id: string;
+  /**
+   * The task's content hash at the moment this run executed. A result whose
+   * task_version no longer matches the task's current version was produced
+   * against different content and is not comparable — see /results staleness.
+   */
+  task_version: string;
   model_name: string;
   prompt_condition: PromptCondition;
   run_number: number;

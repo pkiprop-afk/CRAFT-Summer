@@ -343,6 +343,9 @@ export function validateTaskRows(rawRows: TaskImportRow[]): TaskImportResult {
       // Never used to gate or filter run logic.
       difficulty_level: row.difficulty_level.trim(),
       requires_external_knowledge: requiresExternalKnowledge as boolean,
+      // Placeholder — the data layer stamps the real hash on write and
+      // recomputes it on read, so this value is never persisted.
+      task_version: "",
     });
   });
 

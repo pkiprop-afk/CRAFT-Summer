@@ -22,7 +22,8 @@
     ],
     "rubric_notes": "Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Logical accuracy (0-4): 4/4 requires the model to articulate why check-before-add is wrong, not merely that it is; partial credit 2-3 for correct diagnosis with vague reasoning; 0-1 if root cause is misidentified; common failure is model rewrites the function correctly but never explains why the original was wrong. Completeness (0-2): 2/2 if all three components present (diagnosis, explanation, corrected function); 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Medium",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-3bedf7c2a98425e5234664c2a65cc684"
   },
   {
     "task_id": "T002",
@@ -47,7 +48,8 @@
     ],
     "rubric_notes": "Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Logical accuracy (0-4): 4/4 requires the model to state that > admits equality and that the specification word \"below\" excludes it; 2-3 for correcting the operator with vague or absent reasoning; 0-1 if the model misdiagnoses the cause (e.g., blames the loop or the return placement). Common failure is flipping the operator without naming the boundary condition. Completeness (0-2): 2/2 if diagnosis, explanation, and corrected function are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Easy",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-37a3e908bd3081e1e86e325bea5dc735"
   },
   {
     "task_id": "T003",
@@ -72,7 +74,8 @@
     ],
     "rubric_notes": "Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Logical accuracy (0-4): 4/4 requires the model to explain that state must persist across iterations and that the output must be non-decreasing; 2-3 for a working fix with thin reasoning; 0-1 if the model claims the list append or the return is at fault. Common failure is initialising the accumulator to 0, which silently breaks on all-negative input - deduct from logical accuracy if the model uses 0 and does not flag the negative-input limitation. Completeness (0-2): 2/2 if diagnosis, explanation, and corrected function are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Medium",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-48889f7bb0578a63ccc6f14340375a1c"
   },
   {
     "task_id": "T004",
@@ -97,7 +100,8 @@
     ],
     "rubric_notes": "Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Logical accuracy (0-4): 4/4 requires the model to name the specification mismatch explicitly - the code is internally correct but solves the wrong problem - and to explain the need to count occurrences before filtering; 2-3 for a correct fix that describes the bug only as \"wrong output\"; 0-1 if the model treats this as a syntax or set-handling error. This task tests specification reading rather than code tracing, so the common failure is a model that sees idiomatic-looking code and declares it correct. Completeness (0-2): 2/2 if diagnosis, explanation, and corrected function are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Medium",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-dfb31b282fdeb5763fcb29866fbcdfe3"
   },
   {
     "task_id": "T005",
@@ -122,7 +126,8 @@
     ],
     "rubric_notes": "Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Logical accuracy (0-4): 4/4 requires the model to name the specification mismatch explicitly - the code is internally correct but solves the wrong problem - and to explain the need to count occurrences before filtering; 2-3 for a correct fix that describes the bug only as \"wrong output\"; 0-1 if the model treats this as a syntax or set-handling error. This task tests specification reading rather than code tracing, so the common failure is a model that sees idiomatic-looking code and declares it correct. Completeness (0-2): 2/2 if diagnosis, explanation, and corrected function are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Hard",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-6635ab8863a1131d3bf0b769d08dfc72"
   },
   {
     "task_id": "T006",
@@ -147,7 +152,8 @@
     ],
     "rubric_notes": "Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Logical accuracy (0-4): 4/4 requires the model to articulate that balance demands two conditions - depth never negative during traversal and depth exactly zero at the end - and to note that only the first is implemented; 2-3 for changing the final return to depth == 0 without explaining the two-condition structure; 0-1 if the model misidentifies the else branch as the fault. Deduct if the model removes the in-loop check, since that regresses the string \")(\" to a false positive. Completeness (0-2): 2/2 if diagnosis, explanation, and corrected function are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Medium",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-3863e5926ba56ed845c3dc5b4de42295"
   },
   {
     "task_id": "T007",
@@ -172,7 +178,8 @@
     ],
     "rubric_notes": "Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Constraint 5 is the discriminating one: an unjustified choice of 0.0 versus 0.5 for the flat case forfeits that portion even if the code runs. Logical accuracy (0-4): 4/4 requires the model to recognise that the specification is genuinely ambiguous for zero-range input and to make an explicit, defended choice; 2-3 for guarding the division without acknowledging the ambiguity; 0-1 if the model attributes the crash to empty input or to a type error. Common failure is wrapping the expression in try/except, which suppresses the symptom without defining the intended behaviour - cap logical accuracy at 2 for that approach. Completeness (0-2): 2/2 if diagnosis, explanation, and corrected function are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Hard",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-b3687b8e9d8a238cc02a17e023c411aa"
   },
   {
     "task_id": "T008",
@@ -197,7 +204,8 @@
     ],
     "rubric_notes": "Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Constraint 2 requires a multi-descent example such as [1, 5, 2, 6, 3]; a single-descent example does not demonstrate the bug and forfeits that portion. Logical accuracy (0-4): 4/4 requires the model to distinguish \"find any\" from \"find the largest\" and to explain that early return forecloses later candidates; 2-3 for replacing the return with an accumulator while describing the bug only as \"returns the wrong index\"; 0-1 if the model blames the range bounds or the comparison direction. A reverse-iteration solution that returns on first match is fully correct and should score 4/4 provided the model explains why scanning backwards makes the first match the largest index. Completeness (0-2): 2/2 if diagnosis, explanation, and corrected function are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Medium",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-88e23dc04aa53bdd1f391c3a1888d1dd"
   },
   {
     "task_id": "T009",
@@ -222,7 +230,8 @@
     ],
     "rubric_notes": "Verified arithmetic: A Engineering 2/20 = 10.0%, A Support 56/80 = 70.0%, B Engineering 12/80 = 15.0%, B Support 15/20 = 75.0%. Aggregates: A 58/100 = 58.0%, B 27/100 = 27.0%. Method B is strictly better in both strata; Method A is better in aggregate by 31 percentage points. The reversal is genuine, not a rounding artefact. Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Logical accuracy (0-4): 4/4 requires all four rates, both aggregates, explicit recognition of the reversal, and a correct causal attribution to applicant mix. 2-3 for computing everything correctly but treating the reversal as an anomaly or data error rather than a known statistical phenomenon. 0-1 for recommending Method A on the aggregate. The discriminating failure is a model that computes only the aggregate, never disaggregates, and confidently recommends the worse method - a fluent and entirely wrong answer. Completeness (0-2): 2/2 if the stratified rates, the aggregate rates, and the reconciliation are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Hard",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-bcadec214e198abea9348a5b8d8a614a"
   },
   {
     "task_id": "T010",
@@ -247,7 +256,8 @@
     ],
     "rubric_notes": "Verified correlations: r(ad spend, revenue) = 0.9987; r(headcount, revenue) = 0.9991; r(ad spend, headcount) = 0.9973. Accept any value reported to two decimals in the range 0.99 to 1.00, or a qualitative description of near-perfect positive correlation. Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Logical accuracy (0-4): 4/4 requires the correlation figures, an explicit refusal of the causal claim, identification of headcount as a confound, and a proposed test. 2-3 for reciting \"correlation is not causation\" without identifying the specific confound present in the data - the boilerplate disclaimer alone does not demonstrate analytical reasoning and should not earn full marks. 0-1 for endorsing the causal claim or recommending the budget increase on this evidence. Note that headcount correlates with revenue marginally MORE strongly than ad spend does; a model that notices this has made the sharpest available observation and should be credited. Completeness (0-2): 2/2 if the correlation analysis, the causal refusal, and the proposed test are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Medium",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-6f3a2835374e9ff748b7bd12afd444a3"
   },
   {
     "task_id": "T011",
@@ -272,7 +282,8 @@
     ],
     "rubric_notes": "Verified arithmetic: n = 15, sum = 284, mean = 18.9333 hours, median = 3 hours, mode = 2 hours (4 occurrences). 14 of 15 tickets at or under 8 hours = 93.3%. The 240-hour outlier contributes 240/15 = 16.00 hours to the mean; the mean of the remaining 14 tickets is 44/14 = 3.14 hours. Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Logical accuracy (0-4): 4/4 requires all three statistics, quantification of the outlier's effect, and a defended recommendation. 2-3 for correct statistics with an unsupported or hedged recommendation. 0-1 for reporting the mean as the headline figure and declaring the SLA breached. This is the Easy task in the block, so most models should identify the outlier; the discriminator is whether the model quantifies its effect rather than merely noting its presence. Completeness (0-2): 2/2 if all three statistics, the outlier analysis, and the recommendation are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Easy",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-3cc182cdbca5ec631781088bb595e427"
   },
   {
     "task_id": "T012",
@@ -297,7 +308,8 @@
     ],
     "rubric_notes": "Verified arithmetic: 408/480 = 85.0%; churn 2,600/4,000 = 65.0%; active 1,400; response rate among active users 480/1,400 = 34.3%; satisfied respondents as a share of all signups 408/4,000 = 10.2%. Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Logical accuracy (0-4): 4/4 requires the model to name the survivorship problem, quantify the excluded population, and state the 10.2 percent bound. 2-3 for identifying that churned users are missing without quantifying the consequence. 0-1 for accepting the 85 percent figure, or for diagnosing only low response rate. Constraint 5 is deliberately structured to separate two failure modes that look similar: response rate is a real but secondary issue, and a model that stops there has found the smaller problem while missing that the survey frame itself excludes 65 percent of the cohort. Cap logical accuracy at 2 for response-rate-only diagnoses. Completeness (0-2): 2/2 if the verification of the arithmetic, the bias identification, and the bound are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Hard",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-54f281c0f3f71e0f2fa3de71394a557d"
   },
   {
     "task_id": "T013",
@@ -322,7 +334,8 @@
     ],
     "rubric_notes": "Verified arithmetic: 3.0 - 2.0 = 1.0 percentage point; (3.0 - 2.0)/2.0 = 50% relative increase; conversions 50,000 x 2.0% = 1,000 and 50,000 x 3.0% = 1,500, a difference of 500. Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Logical accuracy (0-4): 4/4 requires both figures, the explicit statement that the two analysts describe the same result in different units, the absolute conversion counts, and a recommended phrasing. 2-3 for computing both figures but declaring one analyst simply wrong, which misses the point that both are arithmetically correct. 0-1 for endorsing one figure while rejecting the other as an error, or for conflating the two. The frequent failure is a model that treats this as a right-versus-wrong question rather than a units-of-measure question. Completeness (0-2): 2/2 if both change measures, the absolute counts, and the recommended phrasing are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Medium",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-910dc24ee2643518b1d227fbef8fc8e6"
   },
   {
     "task_id": "T014",
@@ -347,7 +360,8 @@
     ],
     "rubric_notes": "Verified arithmetic: 3/12 = 25.0%; 1/12 = 8.33 percentage points; 2/12 = 16.67%. West n = 12 versus North n = 1,250 is a ratio of about 104 to 1. A Wald 95% interval at p = 0.25 and n = 12 spans roughly 0.5% to 49.5%, a half-width of 24.5 percentage points, which fully contains the North rate of 4.3% and the South rate of 4.0%. Accept any reasonable interval method or a qualitative argument that the interval is very wide. Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Logical accuracy (0-4): 4/4 requires the sample-size observation, the three-customer decomposition, an argument about statistical distinguishability, and a proportionate recommendation. 2-3 for noting the small sample without quantifying its consequence. 0-1 for endorsing the urgent investigation. Note that constraint 5 penalises overcorrection as well: a model that dismisses the West signal outright is also wrong, because three defects among twelve customers warrants a look even though it does not establish a trend. Full marks require calibrated rather than merely sceptical judgement. Completeness (0-2): 2/2 if the sample-size analysis, the statistical argument, and the recommendation are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Medium",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-1768243ee086e9f868bec98d5e133ad5"
   },
   {
     "task_id": "T015",
@@ -372,7 +386,8 @@
     ],
     "rubric_notes": "Verified arithmetic: reporting total 41,200 + 38,700 + 45,100 + 39,800 + 42,600 + 40,300 = 247,700 over 6 stores = 41,283.33. Dividing the same total by 8 gives 30,962.50, an understatement of 10,320.83, which is 25.0% of the correct figure. Extrapolating the correct mean to all eight stores would give 330,266.67. Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Logical accuracy (0-4): 4/4 requires the correct average, an explicit statement of the exclusion, the quantified consequence of the zero-substitution error, and the representativeness caveat. 2-3 for the correct average with the handling left implicit - a bare correct number does not demonstrate that the model made a deliberate choice rather than a lucky one. 0-1 for dividing by 8. Constraint 2 exists because the most common near-miss is a model that computes the right figure but never says how it treated the gaps, leaving a reader unable to audit the result. Completeness (0-2): 2/2 if the average, the stated handling, and the limitation are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Medium",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-4c5664f9d9fe2f70ffad898859f07451"
   },
   {
     "task_id": "T016",
@@ -397,7 +412,8 @@
     ],
     "rubric_notes": "Verified arithmetic: coached (H, I, J) mean 48.33 to 58.33, change +10.00. Uncoached (A-G) mean 81.29 to 77.57, change -3.71. Whole team 71.40 to 71.80, change +0.40. Top three by Q1 (A, B, C) 88.33 to 82.33, change -6.00. Every individual change is at most 10 points in magnitude, so no single value drives the result. Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Logical accuracy (0-4): 4/4 requires all three group means, explicit naming of regression to the mean, the observation about the top performers, and a proposed study design. 2-3 for scepticism grounded only in the absence of a control group, which is correct but weaker than identifying the specific mechanism that selection-on-extremes creates. 0-1 for endorsing the coaching claim. The symmetry point in constraint 4 is the strongest available evidence and the least likely to be volunteered: the top performers declined without any intervention at all, so movement toward the mean is happening in both tails and needs no causal explanation. A model that surfaces this has genuinely understood the problem rather than pattern-matching on \"no control group.\" Completeness (0-2): 2/2 if the group means, the regression-to-the-mean explanation, and the proposed design are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Hard",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-8f1610b9bc8696f4833601a77387d527"
   },
   {
     "task_id": "T017",
@@ -422,7 +438,8 @@
     ],
     "rubric_notes": "Verified arithmetic: converters 10,000 x 2% = 200; non-converters 9,800. True positives 200 x 0.90 = 180; false negatives 20. False positives 9,800 x 0.10 = 980; true negatives 8,820. Flagged total 180 + 980 = 1,160. Positive predictive value 180/1,160 = 15.517%, so 15.5%. Accept 15.5% or 15.52%. Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Logical accuracy (0-4): 4/4 requires the full confusion matrix, the correct positive predictive value, and an explanation grounded in the relative sizes of the two populations. 2-3 for the correct figure with an explanation that restates the arithmetic without explaining why the base rate dominates. 0-1 for reporting a value near 90 percent, or for computing overall accuracy of 90.0 percent and presenting that as the answer to the question asked. That last failure is worth watching for specifically: overall accuracy here genuinely is 90.0 percent, since (180 + 8,820)/10,000 = 90.0%, so a model can produce a correct-looking statistic that does not answer the question. Treat it as a logical error rather than a partial success. Completeness (0-2): 2/2 if the confusion matrix, the positive predictive value, and the base-rate explanation are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Medium",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-c0e192e10168904a85b15605c8c05f68"
   },
   {
     "task_id": "T018",
@@ -447,7 +464,8 @@
     ],
     "rubric_notes": "Verified arithmetic - running closing balances in thousands: Jan 73, Feb 65, Mar 50, Apr 54, May 36, Jun 14, Jul 44, Aug 56, Sep 50, Oct 64, Nov 73, Dec 84. June is the sole month below the 20 floor and is also the annual minimum. The twelve flows sum to -1, so the December closing balance of 84 sits comfortably above the floor. This is deliberate: a model that sums the flows and checks only the year-end figure will confidently conclude the business is safe, which is precisely the failure the task detects. Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Logical accuracy (0-4): 4/4 requires a correct month-by-month running balance and a correct conclusion about the floor; 2-3 for correct method with one arithmetic slip; 0-1 if the model compares only the year-end figure to the floor. The discriminating failure is a model that sums all twelve flows, sees a positive closing balance, and declares the business safe - this is the exact analogue of the check-before-add ordering error in T001. Completeness (0-2): 2/2 if the running computation, the identified critical month, and the explicit floor conclusion are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Medium",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-a0c4891610eeb12108786c108f8f5d5c"
   },
   {
     "task_id": "T019",
@@ -472,7 +490,8 @@
     ],
     "rubric_notes": "Verified: only Q3 at exactly 1.25 fails a strictly-greater-than test; Q1, Q2, and Q4 all pass. Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Constraint 4 is the discriminating one and directly parallels the boundary-operator bug in T002. Logical accuracy (0-4): 4/4 requires the model to treat \"strictly above\" as excluding equality and to state the compliance consequence; 2-3 for flagging Q3 as a concern without committing to non-compliance; 0-1 if the model declares full compliance. The common failure is treating 1.25 as \"meeting\" the covenant, which is the reasoning error the task is designed to detect. Completeness (0-2): 2/2 if the failing quarter, the boundary explanation, and the compliance consequence are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Easy",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-f06061871e07589e1b423c75ddd21b93"
   },
   {
     "task_id": "T020",
@@ -497,7 +516,8 @@
     ],
     "rubric_notes": "Verified arithmetic: running peaks are 100000, 112000, 112000, 121000, 121000, 121000, 121000, 121000. Drawdowns from running peak: M3 -3.57%, M5 -21.49%, M6 -14.88%, M8 -4.13%. Maximum drawdown is (95000 - 121000) / 121000 = -21.4876%, so 21.49% or approximately 21.5%, from the M4 peak to the M5 trough. Accept 21.4% to 21.5% inclusive. Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Logical accuracy (0-4): 4/4 requires the model to carry the running peak forward and measure declines against it, which is the direct analogue of the state-persistence requirement in T003; 2-3 for correct method with an arithmetic slip or a rounding error beyond the accepted band; 0-1 if the model computes the decline from the series start, from the final value, or from the global maximum without regard to ordering. A frequent failure is dividing by the trough rather than the peak, which yields 27.4% - treat this as a logical error, not a rounding difference, and cap logical accuracy at 2. Completeness (0-2): 2/2 if the running-peak reasoning, the identified peak and trough months, and the shown calculation are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Medium",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-069e7e553c3e1d325629d1c4b5bbc059"
   },
   {
     "task_id": "T021",
@@ -522,7 +542,8 @@
     ],
     "rubric_notes": "Verified arithmetic: sum = 929,000 over 8 employees, mean = 116,125. Sorted sample has central values 64,000 and 67,000, so median = 65,500. Seven of eight employees earn below the mean, which is the point the model should surface. Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Constraint 3 is the direct analogue of the even-length median bug in T004. Logical accuracy (0-4): 4/4 requires both statistics computed correctly and a defended recommendation that connects the outlier to the mean's distortion; 2-3 for correct figures with a thin or asserted justification; 0-1 if either statistic is wrong or if the model recommends the mean. Reporting the median as 64,000 or 67,000 indicates the even-sample error and caps logical accuracy at 2. Completeness (0-2): 2/2 if both statistics, the recommendation, and the justification are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Medium",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-f8551aa5a354c82984db3f4067fc7c98"
   },
   {
     "task_id": "T022",
@@ -547,7 +568,8 @@
     ],
     "rubric_notes": "Verified arithmetic: Aldridge appears twice and Beacon twice, so both are recurring and fully excluded. One-off clients are Cortez 7,400, Dunmore 3,300, Everly 900, totalling 11,600. A first-occurrence deduplication would wrongly return five clients totalling 17,650. Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Logical accuracy (0-4): 4/4 requires the model to recognise that a client's total invoice count must be known before any client can be classified, which is the direct analogue of the specification-reading requirement in T005; 2-3 for the correct answer with reasoning that does not distinguish \"appears once\" from \"first appearance\"; 0-1 if the model returns five clients or 17,650. This task tests careful reading of the requirement rather than arithmetic, so the discriminating failure is a plausible-looking answer that solves the adjacent problem. Completeness (0-2): 2/2 if the client list, the total, and the ordering are all correct and present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Hard",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-96fab8f49559488f279478aef234bb04"
   },
   {
     "task_id": "T023",
@@ -572,7 +594,8 @@
     ],
     "rubric_notes": "Verified arithmetic: debits 12,000 + 3,500 + 8,000 + 6,400 + 2,700 = 32,600; credits 12,000 + 3,500 + 8,000 + 6,400 + 2,000 = 31,900; residual 700. JE-05 is the sole unbalanced entry. Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Constraint 3 is the discriminating one and is the direct analogue of the two-condition balance check in T006, where verifying depth never goes negative is insufficient without also verifying it ends at zero. Logical accuracy (0-4): 4/4 requires the model to perform both the per-entry and the aggregate check and to reconcile the two findings; 2-3 for finding JE-05 without computing the aggregate totals, or vice versa; 0-1 if the model declares the books balanced or misattributes the imbalance to a different entry. Completeness (0-2): 2/2 if the faulty entry, the residual amount, and both aggregate totals are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Medium",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-2fe1c0d436d80ea3bb93c5febb3d1c7d"
   },
   {
     "task_id": "T024",
@@ -597,7 +620,8 @@
     ],
     "rubric_notes": "Verified arithmetic: Unit A (520000 - 400000) / 400000 = +30.0%; Unit B (200000 - 250000) / 250000 = -20.0%; Unit C has a zero denominator and is undefined. Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Constraints 3 and 4 together are the discriminating pair and are the direct analogue of T007, where guarding the zero denominator is necessary but insufficient without defining and defending the substitute behaviour. Logical accuracy (0-4): 4/4 requires the model to name the zero-base problem explicitly and to make a defended disclosure choice; 2-3 for flagging Unit C as unusual without articulating why the percentage is undefined, or for proposing an alternative without justification; 0-1 if the model reports a numeric growth rate for Unit C. Reporting \"infinite growth\" is a common and confidently-stated failure - treat it as a logical error rather than a stylistic one and cap logical accuracy at 1. Completeness (0-2): 2/2 if both computable growth rates, the undefined-base explanation, and the alternative disclosure are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Hard",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-55653a7a991ca450067ac65dd09a4850"
   },
   {
     "task_id": "T025",
@@ -622,7 +646,8 @@
     ],
     "rubric_notes": "Verified arithmetic: declines occur at Q3 (45.5 -> 44.1, -1.4), Q6 (51.2 -> 49.8, -1.4), Q9 (56.0 -> 54.7, -1.3), and Q12 (61.5 -> 60.2, -1.3). Four declines total; the most recent is Q12 at -1.3 million, which is -2.114% of 61.5. Accept 2.1% or 2.11%. Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Logical accuracy (0-4): 4/4 requires the model to traverse the full series and distinguish \"most recent\" from \"first,\" which is the direct analogue of the early-return bug in T008; 2-3 for the correct quarter with a miscounted total number of declines; 0-1 if the model reports Q3 or stops scanning early. Completeness (0-2): 2/2 if the most recent declining quarter, the decline magnitude, and the total count are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Medium",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-6a0859a61a607c2fc8bf576aed02cfc5"
   },
   {
     "task_id": "T026",
@@ -647,7 +672,8 @@
     ],
     "rubric_notes": "Verified arithmetic: shortfalls are Marketing 120 - 95 = 25, Engineering 455 - 410 = 45, Compliance 88 - 60 = 28, total 98. Operations is exactly at its minimum of 340 and requires no allocation. Reserve 105 - 98 = 7 remaining. Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Constraint 5 tests the same at-the-boundary judgement as T019 but in the opposite direction: here meeting the minimum exactly is compliant, because the requirement is \"at least,\" whereas in T019 the requirement was \"strictly above.\" Pairing these two tasks lets the evaluator detect models that apply boundary logic mechanically rather than reading the requirement. Logical accuracy (0-4): 4/4 requires per-centre shortfalls, a correct total, a feasibility conclusion, and the correct treatment of Operations; 2-3 for a correct total with an unstated or hedged feasibility conclusion; 0-1 if the model allocates funds to Operations, sums the minimums rather than the shortfalls, or concludes the reserve is insufficient. Summing the four minimums to 1,003 and comparing that to the reserve is the characteristic failure. Completeness (0-2): 2/2 if the per-centre shortfalls, the total, the feasibility conclusion, and the remaining reserve are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Medium",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-8aab9929cb781fc6a2cf7f635d0307c3"
   },
   {
     "task_id": "T027",
@@ -672,7 +698,8 @@
     ],
     "rubric_notes": "The trap is that the question as asked (\"Can we go ahead?\") is ambiguous between permission and advisability, and the supplied policy answers only the first. A model that resolves the ambiguity in favour of the policy text produces a confident, correct-sounding, and incomplete answer. Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Constraint 1 is checked by word count. Constraint 2 is checked by counting named parties. Constraint 3 is satisfied only if both elements appear as separate claims; a single sentence asserting the company may publish does not satisfy it. Logical accuracy (0-4): 4/4 requires the permission/advisability split, the three parties, and the missing-fact identification. 2-3 for noting an ethical dimension without separating it structurally from the policy question. 0-1 for treating policy permission as settling the matter, or for the opposite failure of declaring the action impermissible when the supplied policy plainly permits it. Both directions are errors: the model must neither collapse ethics into policy nor override the policy text it was given. Completeness (0-2): 2/2 if the permission finding, the advisability assessment, and the missing-fact identification are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Medium",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-b9f1fd75fad6bf27279f887041d5aa7a"
   },
   {
     "task_id": "T028",
@@ -697,7 +724,8 @@
     ],
     "rubric_notes": "The trap is that surveying both sides is the default behaviour for ethically-loaded prompts, and here it is a failure: the task states the deadline cannot be extended and that inaction selects Option B by default, so refusing to choose is itself a choice made without acknowledgement. Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Constraint 1 is checked by locating a single sentence naming one option; hedged formulations such as \"either could be defended\" do not satisfy it. Logical accuracy (0-4): 4/4 requires a committed recommendation, two costs of that recommendation, the misconduct/advisability distinction, and a reversal condition. Either option can earn 4/4 - the score depends on the reasoning structure, not on which option is chosen. 2-3 for a committed recommendation missing the misconduct distinction or the costs. 0-1 for declining to recommend, or for characterising the duplication as misconduct when the facts state it was a script error. Completeness (0-2): 2/2 if the recommendation, the costs, and the reversal condition are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Medium",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-8c48b6dae6a101a0a51984552682cb87"
   },
   {
     "task_id": "T029",
@@ -722,7 +750,8 @@
     ],
     "rubric_notes": "The trap is sympathy. Every detail of the applicant's circumstances is designed to invite an exception, and the rule explicitly forecloses one. A model that approves the application has substituted its own judgement for the rule it was asked to apply - which in a real administrative setting is the failure mode that creates liability. Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Constraint 1 is checked positionally: the outcome must appear in sentence one or two. Logical accuracy (0-4): 4/4 requires the correct outcome stated early, the arithmetic, the rule-versus-rule-design distinction, and two non-waiver alternatives. 2-3 for the correct outcome with no alternatives offered - correct but unhelpful, and in practice a poor answer. 0-1 for recommending approval or for leaving the outcome ambiguous. Note that a model may legitimately criticise the rule; doing so is not an error provided the outcome under the rule is stated correctly and separately. The rubric rewards holding both. Completeness (0-2): 2/2 if the outcome, the arithmetic, and the alternatives are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Easy",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-4b9eb584b1091db75309e60f82942036"
   },
   {
     "task_id": "T030",
@@ -747,7 +776,8 @@
     ],
     "rubric_notes": "The trap is that each policy read alone yields a clean answer, and the conflict is only visible when both are held simultaneously against the specific dates. A model that anchors on whichever policy it processes first will produce a confident, internally consistent, and wrong response. Note the secondary trap in constraint 3: a model that correctly identifies the conflict and then decides the precedence question itself has overstepped. Determining which obligation prevails is a legal and organisational judgement, not a support lead's call, and a model that resolves it in a single paragraph is modelling overconfidence rather than competence. Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Logical accuracy (0-4): 4/4 requires the conflict named, the figures cited, the precedence/authority distinction, and a named escalation target. 2-3 for identifying the conflict but then resolving precedence unilaterally. 0-1 for applying one policy without registering the conflict. Completeness (0-2): 2/2 if the conflict statement, the timing figures, and the escalation are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Hard",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-8f055a37db33c6caf453889d41d7052c"
   },
   {
     "task_id": "T031",
@@ -772,7 +802,8 @@
     ],
     "rubric_notes": "The trap is that the scenario is written to invite exactly the response the question forecloses. It supplies contested subject matter, competing interests, and a live controversy - all the cues that normally trigger a balanced stakeholder analysis - and then asks a narrow procedural question. This tests whether the model answers what was asked or what it pattern-matches the scenario to. Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Constraint 3 is checked by searching the response for any evaluative claim about the agreement's merits; presence of such a claim fails it. Logical accuracy (0-4): 4/4 requires three or more process steps, documentation specified at three or more of them, the pre-commitment measure, and no outcome recommendation. 2-3 for a sound process that drifts into evaluating the agreement, or that omits the pre-commitment issue. 0-1 for answering the outcome question instead of the process question. Completeness (0-2): 2/2 if the process steps, the documentation requirements, and the pre-commitment measure are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Medium",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-740c0b9cf98e14ed6e286217f8306173"
   },
   {
     "task_id": "T032",
@@ -797,7 +828,8 @@
     ],
     "rubric_notes": "The trap is the 4.2 GB figure. It is the only quantitative detail in the scenario, it sits directly beside the allegation, and it is explicitly stated to be uninterpretable - no baseline exists. A model that treats a number as evidence because it is a number will read it as corroboration. This is the same failure as T014's small-sample trap, transposed into a domain with no arithmetic. Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Constraint 3 is checked by searching for assertions that presuppose guilt; conditional phrasing such as \"if the downloads were to a personal device\" satisfies it, while \"the engineer's exfiltration of code\" fails it. Logical accuracy (0-4): 4/4 requires two preservation or investigation steps, named information gaps, consistently conditional language, and explicit treatment of the 4.2 GB figure as uninterpretable. 2-3 for appropriate caution that nonetheless cites the download volume as suspicious. 0-1 for recommending sanctions, or for dismissing the report outright. Constraint 5 penalises both directions: the report warrants investigation, and the engineer warrants presumption of innocence. Holding both is the competence being measured. Completeness (0-2): 2/2 if the immediate actions, the information gaps, and the baseline point are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Hard",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-6c0755c497b19002f10cd795ed0e24ce"
   },
   {
     "task_id": "T033",
@@ -822,7 +854,8 @@
     ],
     "rubric_notes": "The trap is that the ratio is genuinely favourable - roughly 16 beneficiaries per person harmed - and that figure is the most salient number in the scenario. A model that computes the ratio and concludes has answered a utilitarian question the board did not restrict itself to, while omitting that the cost falls entirely on a group already characterised by limited transport access. Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Logical accuracy (0-4): 4/4 requires both figure sets, two characteristics of the affected group, the net-benefit/distribution distinction, and a mitigation. 2-3 for acknowledging the rural impact without separating aggregate from distributional analysis. 0-1 for endorsing on the ratio alone, or for rejecting the proposal without engaging the 34,000 beneficiaries. Constraint 5 guards both directions deliberately: reflexive rejection of any proposal involving harm is as much a reasoning failure as reflexive aggregation, and a model that scores well by always objecting is not demonstrating judgement. Completeness (0-2): 2/2 if the figures, the distributional analysis, and the mitigation are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Medium",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-c23f7fdb4b60e4bc3953c5f7bf029cdd"
   },
   {
     "task_id": "T034",
@@ -847,7 +880,8 @@
     ],
     "rubric_notes": "The trap is that policy language naturally gravitates toward the general, and general language is unfalsifiable and therefore easy to produce. \"Employees should use AI tools responsibly and in accordance with client obligations\" is fluent, professional, and operationally useless. The constraint set is built so that the difference between a principle and a rule is detectable: a rule specifies an action and a condition, and a reader can determine whether a given case falls inside it. Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Constraint 1 is checked by word count and section presence. Constraint 5 is checked by testing whether each stated rule can be applied to a concrete case without further interpretation. Logical accuracy (0-4): 4/4 requires all three sections within the word limit, two applicable rules on each side including a fully specified disclosure chain, specific handling of the three restricted clients, and an acknowledged gap in coverage. 2-3 for a well-structured policy whose rules require interpretation, or which treats all clients identically, or which presents itself as exhaustive. 0-1 for a statement of principles, or for exceeding the word limit substantially. Note that the word limit is a genuine constraint and interacts with the others: a model must be specific and brief simultaneously, which is where the difficulty lies. Completeness (0-2): 2/2 if all three sections are present and each contains applicable content; 1 if one section is present but empty of specifics; 0 if a section is missing.",
     "difficulty_level": "Medium",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-3c20e0960d7adc83ab7382382f991e91"
   },
   {
     "task_id": "T035",
@@ -872,7 +906,8 @@
     ],
     "rubric_notes": "The trap is that the question is fluent, professionally framed, contains a reasonable-sounding secondary concern about open communication, and rests on a premise the supplied facts directly contradict. Answering it competently requires refusing its framing first. This is the hardest task in the block because cooperativeness and accuracy point in opposite directions - and a model optimised for helpfulness will feel pressure to answer the question it was actually asked. Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Constraint 1 is checked positionally: the correction must precede the advice. A response that answers the question and notes the discrepancy afterwards does not satisfy it. Logical accuracy (0-4): 4/4 requires the premise correction stated first, the specific citation of both documents, the manager/policy distinction, and an action addressing the manager's message. 2-3 for noticing the discrepancy but proceeding to answer the question as framed. 0-1 for accepting the premise and advising on how to communicate a prohibition that does not exist. This last failure is the one to watch for: it produces a helpful, well-written, and entirely wrong response that could cause real harm if acted upon, since it would have HR affirm a restriction the handbook explicitly disclaims. Completeness (0-2): 2/2 if the premise correction, the document citation, and the manager-directed action are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Hard",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-4d0b9dd5081af4be1e2db4cfc630a105"
   },
   {
     "task_id": "T036",
@@ -897,7 +932,8 @@
     ],
     "rubric_notes": "This is the Easy task in the block, and the constraint set is deliberately mechanical: word count, a ten-item prohibited list, a required comparison, and a required closing question are all checkable by inspection with no subject expertise. The trap is narrow but real. A model that treats the prohibited list as a synonym-substitution exercise will produce prose that avoids every banned word while remaining pitched well above an 11-year-old, because the difficulty was never the vocabulary - it was the abstraction level. Constraint 2 is checked by string search across the response for each of the ten terms and their common derivations. Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Logical accuracy (0-4): 4/4 requires a causal explanation, full vocabulary compliance, the everyday comparison, the closing question, and some acknowledgement of simplification. 2-3 for vocabulary compliance with a mechanical explanation that names the process without explaining it. 0-1 for any prohibited-term use, or for an explanation that would not be followable by the stated audience. Completeness (0-2): 2/2 if the explanation, the comparison, and the question are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Easy",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-644900519331e925d2ce970f10bda31f"
   },
   {
     "task_id": "T037",
@@ -922,7 +958,8 @@
     ],
     "rubric_notes": "The trap is that the draft assessment is entirely competent on its own terms. The questions are clear, the marks are sensibly distributed, the content is accurate and on-topic, and the whole thing looks like a professional history paper. Nothing is wrong with it except that it measures a different capability from the one the objective states. A model that reviews assessments for quality rather than for alignment will approve it. Constraint 5 names the specific near-miss: critiquing mark allocation or wording is a plausible, professional-sounding response that entirely misses the point, and it should not earn partial credit on logical accuracy. Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Constraint 1 is checked positionally. Logical accuracy (0-4): 4/4 requires an early verdict, the cognitive demand of three or more questions, the explicit evaluate-versus-recall distinction, and a concrete revision. 2-3 for identifying misalignment without analysing the individual questions. 0-1 for approving the assessment, or for critiquing only surface features. Completeness (0-2): 2/2 if the verdict, the per-question analysis, and the concrete revision are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Medium",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-cc43f39ab3578bfc72a4540d3e9b2ed0"
   },
   {
     "task_id": "T038",
@@ -947,7 +984,8 @@
     ],
     "rubric_notes": "Two traps operate here. The first is answer leakage: the natural phrasing of an inference question tends to smuggle the inference into the question stem, as in \"Why do otters protect kelp forests by eating urchins?\" which supplies the causal chain the student was meant to construct. The second is type collapse: writing four genuinely distinct cognitive levels is harder than writing four questions, and models frequently produce recall questions with escalating verbal complexity that still require only passage lookup. The prohibition on keystone species exists because that term names the concept and its use would hand the student the organising idea. Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Constraint 2 is checked by reading each question and asking whether a student could answer it by quoting the question back. Logical accuracy (0-4): 4/4 requires four questions of four genuinely distinct types, no answer leakage, and correct handling of question 4. 2-3 for four distinct types with leakage in one question, or for a question 4 that asks about limitations already stated. 0-1 for type collapse, for leakage in two or more questions, or for use of the prohibited phrase. Completeness (0-2): 2/2 if all four questions are present and each matches its assigned type; 1 if four are present but one mismatches; 0 if fewer than four or two or more mismatch.",
     "difficulty_level": "Medium",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-b7c833057dfd44c3ab338f0cd579864a"
   },
   {
     "task_id": "T039",
@@ -972,7 +1010,8 @@
     ],
     "rubric_notes": "The trap is that the correct physics is easy and irrelevant. A model asked about falling objects will readily produce an accurate account of gravitational acceleration - which is precisely what the student has already been taught and has apparently rejected in favour of direct evidence. The task is to locate the specific point where valid reasoning met an uncontrolled variable, and the supplied context states explicitly that the student's reasoning is sound and their test score was good, ruling out both inattention and misunderstanding as explanations. This is the block's structural analogue of T010: the model must identify a confound - here air resistance - rather than dismiss the observation that the confound produced. Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Constraint 5 is checked by testing whether the response would be equally applicable to a student who had never studied the topic; if so, it fails. Logical accuracy (0-4): 4/4 requires the acknowledgement, the observation-versus-inference distinction, air resistance named as the uncontrolled variable, and a proposed test. 2-3 for correct physics that engages the student's specific example but omits the proposed test. 0-1 for a general re-explanation of gravity, or for telling the student their observation was wrong. Completeness (0-2): 2/2 if the acknowledgement, the diagnosis, and the proposed test are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Hard",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-e976937ca468a9989d599a56b3657cd7"
   },
   {
     "task_id": "T040",
@@ -997,7 +1036,8 @@
     ],
     "rubric_notes": "The trap is that the most helpful-seeming scaffold is the one that defeats the activity. A checklist of source-evaluation criteria would raise the proportion of students who articulate reasoning to nearly all of them, and would simultaneously eliminate the independent determination the objective requires - students would be applying supplied criteria rather than generating them. The scaffold must increase reasoning without supplying its content, which is a genuinely constrained design problem. Constraint 4 is the sharpest requirement: the observed failure was students choosing on size, and the tempting fix is to tell them size is not a good criterion. Doing so supplies a criterion and fails constraint 3. The scaffold must instead prompt examination of the assumption without resolving it. Note that a model may satisfy both by asking students what size would and would not tell them, which surfaces the assumption without ruling on it. Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Logical accuracy (0-4): 4/4 requires student-facing material within the word limit, two or more reasoning-eliciting prompts, no supplied criteria, and non-directive treatment of the size assumption. 2-3 for a scaffold that elicits reasoning but supplies partial criteria. 0-1 for a criteria checklist, a worked example, or a teacher-facing plan rather than student material. Completeness (0-2): 2/2 if the prompts, the size-assumption element, and student-facing framing are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Hard",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-7931538660a40975cdadedc2cb5e94d2"
   },
   {
     "task_id": "T041",
@@ -1022,7 +1062,8 @@
     ],
     "rubric_notes": "Two traps. The first is evaluating the student rather than the work: a zero on a criterion invites language about carelessness or effort, which is unverifiable from the submission and outside the rubric. The second is engaging the essay's topic - a model with views about remote work productivity may critique the argument's substance, which the rubric does not assess. The Criterion C zero is the discriminating element. It is not a weak attempt at counterargument; the section is absent entirely. Feedback that treats it as poor quality rather than as absence misdiagnoses the problem and produces advice the student cannot act on. Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Constraint 5 is checked by string-searching the response for evaluative language about the student and for claims about remote work. Logical accuracy (0-4): 4/4 requires all four criteria referenced, reasons for three or more marks, the omission-versus-execution distinction, and an additive next step. 2-3 for accurate per-criterion feedback that treats Criterion C as weak rather than absent. 0-1 for commentary on the student's effort or ability, for engaging the remote-work question, or for omitting a criterion. Completeness (0-2): 2/2 if all four criteria, the reasons, and the next step are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Medium",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-f1d864124200beb165f862f2091077ac"
   },
   {
     "task_id": "T042",
@@ -1047,7 +1088,8 @@
     ],
     "rubric_notes": "The trap is that lesson-plan requests have a strong template response, and the template accommodates any brief. A model that pattern-matches to the format will produce a confident, well-formatted timetable with plausible-looking timings that do not sum correctly, or that quietly reduce 28 presentations to a sample of volunteers without noting the change. Verified arithmetic: 28 x 3 = 84 minutes of presentation alone. Available time after the fixed 10 minutes of introduction and plenary is 30 minutes. Adding two peer comments and one teacher comment per student makes the shortfall substantially worse. The impossibility is not marginal - the brief requires at least 2.8 times the available time. Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Constraint 2 is checked against the figures above. Logical accuracy (0-4): 4/4 requires the impossibility stated first, the arithmetic shown, the fixed-versus-negotiable distinction, and two named-tradeoff alternatives. 2-3 for noting time pressure without computing the shortfall, or for offering one alternative. 0-1 for producing a plan that claims to meet all four requirements, or for dropping a requirement without stating that it was dropped. The silent drop is the more dangerous failure, because the plan looks complete. Completeness (0-2): 2/2 if the impossibility statement, the arithmetic, and two alternatives are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Medium",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-599e297ac53ce5de402c4d0968b613f9"
   },
   {
     "task_id": "T043",
@@ -1072,7 +1114,8 @@
     ],
     "rubric_notes": "The trap is confounded comparison. The teaching change is the salient variable because the department head names it, and the assessment format change is stated plainly but not flagged as significant. A model that accepts the framing will evaluate the teaching approach - the question it was asked - without noticing that the data cannot answer it. Multiple-choice and extended-response assessments are not interchangeable measures, so the two means are not comparable quantities. This is the direct instructional counterpart of T010 in the Data Analysis block, and of T032 in Policy and Ethics: a salient causal story is offered, a confound is available in the supplied material, and the task is to notice it. Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Logical accuracy (0-4): 4/4 requires the 11-point figure, the format change named as a rival explanation, the explicit statement that the data cannot separate the two, and a proposed discriminating test. 2-3 for identifying the format change while still reaching a conclusion about the teaching approach. 0-1 for endorsing reversion, or for defending the new approach - both conclusions require separating variables the data does not separate. Note that the cohort sizes differ as well, 210 against 198; a model that raises this has made a further valid observation, though it is secondary to the format confound. Completeness (0-2): 2/2 if the figure, the rival explanation, and the discriminating test are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Medium",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-fd0cafbd9ce6a5d0673fe8440792dea6"
   },
   {
     "task_id": "T044",
@@ -1097,7 +1140,8 @@
     ],
     "rubric_notes": "The trap is that professional email convention puts context before the ask, and the recipient has explicitly asked for the reverse. A model trained on conventional business correspondence will open with a polite framing sentence, which fails a stated requirement of the task. Constraint 4 is the substantive discriminator. The default-if-no-reply is the single most important fact in the scenario - inaction has a consequence and a deadline - and it is the element most often omitted, because messages naturally describe options rather than defaults. Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Constraint 1 is checked by word count and by reading the first two sentences. Logical accuracy (0-4): 4/4 requires the ask first, all three figures, a recommendation that leaves the decision open, and the stated default. 2-3 for a well-structured message that omits the default consequence or one figure. 0-1 for opening with context, exceeding the word limit substantially, or omitting the deadline. Completeness (0-2): 2/2 if the ask, the options with figures, and the default consequence are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Medium",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-da076c768183135b1510acf6acd5641a"
   },
   {
     "task_id": "T045",
@@ -1122,7 +1166,8 @@
     ],
     "rubric_notes": "Two traps pull in opposite directions and the task requires holding both. The first is excessive hedging: refusing a friendly peer whose cooperation is needed later invites softening to the point where the refusal does not register, which is worse than a clear no because it leaves the requester planning on a false assumption. The second is register overreach: a model may adopt a managerial voice, telling the peer what to do next or evaluating whether their request was reasonable, which the stated absence of any authority relationship makes inappropriate. Constraint 3 is checked by searching the response for directive constructions and for evaluative commentary on the request itself. Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Logical accuracy (0-4): 4/4 requires an unambiguous refusal, both specific reasons, no directive or evaluative language, and a non-committal future opening. 2-3 for a clear refusal that adopts a managerial register, or that turns the conditional opening into a commitment. 0-1 for a refusal so hedged that the recipient could reasonably expect assistance, or for exceeding the word limit substantially. Completeness (0-2): 2/2 if the refusal, the reasons, and the future opening are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Medium",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-a4f58125816d03628e7f1268313c378c"
   },
   {
     "task_id": "T046",
@@ -1147,7 +1192,8 @@
     ],
     "rubric_notes": "The trap is that three commercially significant matters are supplied alongside a trivial question, and each is individually a legitimate thing to raise. A model that treats the reply as an opportunity will produce a thorough, professional message that ignores what the client actually asked for and arrives during a quarter close. There is a deliberate judgement call in constraint 4: the overdue April invoice is arguably relevant to a finance team closing a quarter, so briefly flagging it is defensible and permitted. Raising the renewal or scope expansion is not, since neither bears on the question or the client's stated purpose. The constraint permits one flag rather than prohibiting all additions, because a reply that withholds a directly pertinent fact is also a poor reply. Full marks require distinguishing the pertinent addition from the opportunistic ones. Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Logical accuracy (0-4): 4/4 requires the direct answer first, the specific date, and at most one flagged additional item excluding renewal and scope. 2-3 for a correct answer that adds two or more matters. 0-1 for raising the renewal or scope expansion, for burying the answer, or for exceeding the word limit substantially. Completeness (0-2): 2/2 if the direct answer and the specific date are present and the reply stays within scope; 1 if the answer is present but scope discipline fails; 0 if the question is not answered directly.",
     "difficulty_level": "Easy",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-919dd6fe8431c1f8062aab45d49592ea"
   },
   {
     "task_id": "T047",
@@ -1172,7 +1218,8 @@
     ],
     "rubric_notes": "The trap is that softening bad news is a real professional skill, and here it destroys the message. The sponsor reports to executives in four days on a date that will not be met; a message they can read as \"at risk but being managed\" will cause them to repeat the wrong date in that review. The cost of over-softening is therefore concrete and falls on the recipient. Constraint 4 anticipates the sponsor's predictable response. Scope reduction is the first thing a sponsor proposes on hearing of a slip, and the supplied facts state it does not work. A message that omits this invites a round trip that wastes two of the four available days. Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Constraint 5 is checked by asking whether any reading of the message leaves 30 June open. Logical accuracy (0-4): 4/4 requires the slip stated early, both dates and the magnitude, unambiguous closure of 30 June, and the scope-reduction finding. 2-3 for a clear message that omits the scope finding or the magnitude. 0-1 for hedged phrasing that leaves the date open, or for omitting the new date. Note that excessive bluntness is not penalised here: the constraint set rewards clarity, and a message that is direct but not gratuitously harsh scores full marks. Only ambiguity is penalised. Completeness (0-2): 2/2 if the slip, both dates, and the scope finding are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Hard",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-dc308b2070acb308b4887fcc3812243f"
   },
   {
     "task_id": "T048",
@@ -1197,7 +1244,8 @@
     ],
     "rubric_notes": "The trap is that the limit forces omission and models resist omitting supplied material. The natural failure is to compress all eleven facts into five dense bullets using semicolons and clause stacking, which satisfies the letter of the count while producing something a reader with five minutes cannot use. The task requires deciding what a new board member does not need to know - the vendor account changes and the parallel-run duration being the clearest candidates. Constraint 5 names the specific evasion because it is the one a capable model will reach for. Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Constraints 1 and 5 are checked by counting bullets, counting words per bullet, and searching for concatenation punctuation. Logical accuracy (0-4): 4/4 requires exactly 5 compliant bullets, the audit rationale, the schedule position, an open risk, and visible omission of lower-priority material. 2-3 for compliant counts with every fact crammed in, or for omitting the audit rationale, which is the single most important item for a reader who has never seen the project. 0-1 for exceeding the counts, or for including preamble. Completeness (0-2): 2/2 if the rationale, the schedule position, and a risk are all present within the format; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Medium",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-6e2aa27f539d34f73e0a84bc4272722a"
   },
   {
     "task_id": "T049",
@@ -1222,7 +1270,8 @@
     ],
     "rubric_notes": "The trap is a confident false summary, which is a common and consequential pattern in commercial correspondence. Silence or vague acknowledgement can be treated as assent, so the message must correct three specific claims without damaging the relationship or overstepping into refusing the underlying proposals - which the coordinator also lacks authority to reject. Constraint 3 is the difficult one: the model must decline to confirm without declining the substance, since deciding the substance is equally outside the coordinator's authority. A model that firmly rejects all three proposals has overstepped in the opposite direction and should not score full marks. This is the same both-directions structure used in T029 and T033. Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Constraint 2 is checked by confirming all three items are named with their specifics. Logical accuracy (0-4): 4/4 requires an early non-confirmation, all three items addressed, correction without rejection, and the authority route named. 2-3 for correcting the record while omitting one item or the authority route. 0-1 for confirming any item, for conditional confirmation, or for rejecting the proposals outright. Completeness (0-2): 2/2 if the non-confirmation, all three items, and the authority route are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Hard",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-bbabf0b0d6af62aca6a41c71b2aef278"
   },
   {
     "task_id": "T050",
@@ -1247,6 +1296,7 @@
     ],
     "rubric_notes": "The trap is averaging. Asked to serve a non-technical and a technical reader in one document, the natural response is prose pitched between the two, which serves neither: too technical for the executive reading 100 words, too vague for the engineer who needs the cause. The correct solution is structural separation within a single document, which the task permits and constraint 3 requires. Constraint 5 makes the audience-1 requirement mechanically checkable. The executive opening must convey that login was unavailable for 47 minutes for 1,200 customers, that it is fixed, and whether it can recur - without naming the certificate mechanism. The technical cause belongs in the section written for audience 2. Note that recurrence risk is genuinely open: 3 certificates remain uncovered, so a response claiming recurrence is fully prevented is factually wrong on the supplied facts. A model that states the residual risk honestly should be credited over one that reassures. Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Constraints 1 and 5 are checked by reading the first 100 words and searching for technical terms. Logical accuracy (0-4): 4/4 requires the executive opening within 100 words with no unexplained technical terms, all four figures, structural separation, and a follow-up action on the provisioning gap. 2-3 for a well-structured note that leaks technical detail into the opening, or that omits the provisioning gap. 0-1 for undifferentiated prose, for omitting the impact figures, or for claiming recurrence is prevented when 3 certificates remain uncovered. Completeness (0-2): 2/2 if the executive summary, the technical cause, and the follow-up action are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Hard",
-    "requires_external_knowledge": false
+    "requires_external_knowledge": false,
+    "task_version": "v1-fa88aedabd7001424c8a3cdd380ea01a"
   }
 ]

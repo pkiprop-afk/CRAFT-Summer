@@ -1,4 +1,5 @@
 import type { Domain, ResultRecord, TaskRecord } from "@/types";
+import { isResultStale } from "@/lib/invalidation";
 
 export interface TaskProgressRow {
   task_id: string;
@@ -9,6 +10,8 @@ export interface TaskProgressRow {
   craftPromptAuthored: boolean;
   baselineRunComplete: boolean;
   craftRunComplete: boolean;
+  /** Runs recorded against an older version of this task's content. */
+  staleRuns: number;
 }
 
 export function computeTaskProgress(
@@ -28,6 +31,7 @@ export function computeTaskProgress(
       craftPromptAuthored: Boolean(task.craft_prompt),
       baselineRunComplete: taskResults.some((r) => r.prompt_condition === "baseline"),
       craftRunComplete: taskResults.some((r) => r.prompt_condition === "craft"),
+      staleRuns: taskResults.filter((r) => isResultStale(r, task)).length,
     };
   });
 }

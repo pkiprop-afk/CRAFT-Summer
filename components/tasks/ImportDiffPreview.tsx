@@ -3,12 +3,22 @@
 import { AlertTriangle, Check, FilePlus2, Pencil, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import type { ImportMode, TaskDiff } from "@/lib/taskDiff";
+import type { InvalidationReport } from "@/lib/invalidation";
 import type { ConstraintReport, HeaderNormalization, TaskImportError } from "@/lib/taskImport";
 
 export interface ImportPreview {
   mode: ImportMode;
   sheetName: string | null;
   availableSheets: string[];
+  invalidation: InvalidationReport;
+  staleFile: boolean;
+  uploadedFileName: string;
+  uploadedFileModifiedAt: string | null;
+  registryMeta: {
+    lastImportedAt: string | null;
+    lastImportedFile: string | null;
+    lastImportedFileModifiedAt: string | null;
+  };
   totalRows: number;
   importedCount: number;
   rejectedCount: number;
@@ -69,6 +79,54 @@ export function ImportDiffPreview({
           {preview.rejectedCount} rejected
         </p>
       </div>
+
+      {preview.staleFile && (
+        <div className="rounded-lg border border-warning/40 bg-warning/10 px-4 py-3">
+          <p className="flex items-center gap-2 text-sm font-semibold text-warning">
+            <AlertTriangle size={16} />
+            Stale file — this workbook predates the last import
+          </p>
+          <p className="mt-1 text-xs text-warning/90">
+            Uploaded file modified{" "}
+            <span className="font-mono">
+              {preview.uploadedFileModifiedAt?.replace("T", " ").slice(0, 19)}
+            </span>
+            , but the registry was last imported{" "}
+            <span className="font-mono">
+              {preview.registryMeta.lastImportedAt?.replace("T", " ").slice(0, 19)}
+            </span>
+            . If tasks were edited in the app since then, importing this file will revert those
+            edits — and because the tasks still exist, they appear only as &quot;modified&quot;,
+            not as deletions.
+          </p>
+        </div>
+      )}
+
+      {preview.invalidation.totalAffectedRuns > 0 && (
+        <div className="rounded-lg border border-error/40 bg-error/10 px-4 py-3">
+          <p className="flex items-center gap-2 text-sm font-semibold text-error">
+            <AlertTriangle size={16} />
+            {preview.invalidation.totalAffectedRuns} recorded run
+            {preview.invalidation.totalAffectedRuns === 1 ? "" : "s"} would be invalidated across{" "}
+            {preview.invalidation.tasksAffected} task
+            {preview.invalidation.tasksAffected === 1 ? "" : "s"}
+          </p>
+          <p className="mt-1 text-xs text-error/90">
+            These runs were produced against different task content and will no longer be
+            comparable. They must be re-run or excluded from analysis.
+          </p>
+          <ul className="mt-2 space-y-1 font-mono text-xs text-error/90 max-h-40 overflow-y-auto">
+            {preview.invalidation.entries.map((e) => (
+              <li key={e.task_id}>
+                {e.task_id}: {e.affectedRuns} run{e.affectedRuns === 1 ? "" : "s"} —{" "}
+                {e.reason === "task_deleted"
+                  ? "task deleted"
+                  : `changed: ${e.changedFields.join(", ")}`}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       {destructive && (
         <div className="rounded-lg border border-error/40 bg-error/10 px-4 py-3">

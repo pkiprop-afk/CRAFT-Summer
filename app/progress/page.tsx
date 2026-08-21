@@ -61,6 +61,8 @@ export default function ProgressPage() {
   ).length;
   const baselineRunCount = rows.filter((r) => r.baselineRunComplete).length;
   const craftRunCount = rows.filter((r) => r.craftRunComplete).length;
+  const staleRunCount = rows.reduce((sum, r) => sum + r.staleRuns, 0);
+  const tasksWithStaleRuns = rows.filter((r) => r.staleRuns > 0).length;
 
   if (loading) {
     return <p className="text-sm text-text-muted">Loading progress…</p>;
@@ -91,6 +93,19 @@ export default function ProgressPage() {
         complete · {craftRunCount}/{total} CRAFT runs complete
       </p>
 
+      {staleRunCount > 0 && (
+        <div className="rounded-lg border border-warning/40 bg-warning/10 px-4 py-3">
+          <p className="text-sm font-semibold text-warning">
+            {staleRunCount} stale run{staleRunCount === 1 ? "" : "s"} across {tasksWithStaleRuns}{" "}
+            task{tasksWithStaleRuns === 1 ? "" : "s"}
+          </p>
+          <p className="mt-1 text-xs text-warning/90">
+            These runs were recorded against an earlier version of the task content. They are not
+            comparable with current runs and must be re-run or excluded from analysis.
+          </p>
+        </div>
+      )}
+
       {total === 0 ? (
         <p className="text-sm text-text-muted">No tasks yet. Add tasks from the Task Library.</p>
       ) : (
@@ -105,6 +120,7 @@ export default function ProgressPage() {
                 <th className="text-center px-3 py-2">CRAFT Prompt</th>
                 <th className="text-center px-3 py-2">Baseline Run</th>
                 <th className="text-center px-3 py-2">CRAFT Run</th>
+                <th className="text-center px-3 py-2">Stale</th>
               </tr>
             </thead>
             <tbody>
@@ -146,6 +162,18 @@ export default function ProgressPage() {
                     <div className="flex justify-center">
                       <StatusIndicator done={row.craftRunComplete} />
                     </div>
+                  </td>
+                  <td className="px-3 py-2 text-center">
+                    {row.staleRuns > 0 ? (
+                      <span
+                        className="inline-block rounded-full bg-warning/20 px-2 py-0.5 text-xs font-semibold text-warning"
+                        title="Runs recorded against an earlier version of this task"
+                      >
+                        {row.staleRuns}
+                      </span>
+                    ) : (
+                      <span className="text-xs text-text-muted">—</span>
+                    )}
                   </td>
                 </tr>
               ))}
