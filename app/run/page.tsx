@@ -8,7 +8,7 @@ import { ApiKeyBanner, isFamilyReady, useKeyStatuses } from "@/components/ui/Api
 import { familyOf, judgesFor, TEST_MODELS } from "@/lib/models/registry";
 import { generateEvaluationId, generateResultId } from "@/lib/anonymize";
 import { DEFAULT_MAX_TOKENS } from "@/lib/runSettings";
-import { decodingParamsFor, type DecodingParams } from "@/lib/decoding";
+import type { DecodingParams } from "@/lib/decoding";
 import { type ParsedEvaluation } from "@/lib/evaluator";
 import type {
   EvaluationRecord,
