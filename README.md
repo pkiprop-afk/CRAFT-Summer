@@ -51,7 +51,6 @@ missing, but the corresponding model/evaluator call will fail):
 ANTHROPIC_API_KEY=
 OPENAI_API_KEY=
 GOOGLE_GENERATIVE_AI_API_KEY=
-MANUS_API_KEY=
 ```
 
 Run the dev server:
@@ -88,8 +87,9 @@ task's CRAFT prompt contains a labeled marker for that component (`Context:`, `R
   anonymized output ID — only the task description, expected constraints, rubric notes, and the
   raw model response. This enforces blinded scoring.
 - Every raw output is stored before it's sent for evaluation.
-- A Manus evaluator option is present in the UI as a placeholder (no API integration): it
-  disables automatic evaluation and instead accepts a manually pasted score.
+- Evaluations are produced only by an API-backed evaluator. Hand-entered scores are not
+  accepted: a human pasting a score knows which condition produced the output, which would
+  bypass blinding entirely.
 
 ## Data schema
 

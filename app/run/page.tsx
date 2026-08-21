@@ -7,7 +7,7 @@ import { EvaluationPanel, type EvaluatorChoice } from "@/components/runner/Evalu
 import { ApiKeyBanner, isFamilyReady, useKeyStatuses } from "@/components/ui/ApiKeyBanner";
 import { familyOf } from "@/lib/models/registry";
 import { generateOutputId, generateResultId } from "@/lib/anonymize";
-import { parseEvaluatorResponse, type ParsedEvaluation } from "@/lib/evaluator";
+import { type ParsedEvaluation } from "@/lib/evaluator";
 import type { PromptCondition, ResultRecord, TaskRecord } from "@/types";
 
 export default function PromptRunnerPage() {
@@ -30,7 +30,6 @@ export default function PromptRunnerPage() {
   const [evaluating, setEvaluating] = useState(false);
   const [evaluation, setEvaluation] = useState<ParsedEvaluation | null>(null);
   const [evaluationError, setEvaluationError] = useState<string | null>(null);
-  const [manualPasteText, setManualPasteText] = useState("");
 
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -70,7 +69,6 @@ export default function PromptRunnerPage() {
     setRunError(null);
     setEvaluation(null);
     setEvaluationError(null);
-    setManualPasteText("");
     setSaved(false);
     setSaveError(null);
   }
@@ -138,16 +136,6 @@ export default function PromptRunnerPage() {
     } finally {
       setEvaluating(false);
     }
-  }
-
-  function handleManualParse() {
-    const parsed = parseEvaluatorResponse(manualPasteText);
-    if (!parsed) {
-      setEvaluationError("Could not parse the pasted Manus output. Check the format.");
-      return;
-    }
-    setEvaluationError(null);
-    setEvaluation(parsed);
   }
 
   async function handleSave() {
@@ -261,9 +249,6 @@ export default function PromptRunnerPage() {
             evaluating={evaluating}
             evaluation={evaluation}
             evaluationError={evaluationError}
-            manualPasteText={manualPasteText}
-            onManualPasteChange={setManualPasteText}
-            onManualParse={handleManualParse}
             onSave={handleSave}
             saving={saving}
             saved={saved}

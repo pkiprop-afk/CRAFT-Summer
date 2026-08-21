@@ -15,8 +15,8 @@ import { FAMILY_LABEL, type ModelFamily } from "@/lib/models/registry";
  * referenced by any component or automatic code path. It is the only sanctioned
  * model call before the parity script passes.
  *
- * Manus is absent because it has no API client — the key is never read by any
- * run or evaluation path (see the MANUS_API_KEY audit).
+ * Covers every provider the study can call. Hand-entered evaluations are not
+ * supported by design, so there is no non-API evaluator to probe.
  */
 
 const PROBE_PROMPT = "Reply with the single word: ok";

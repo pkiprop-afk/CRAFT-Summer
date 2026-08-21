@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/Button";
 import { Select } from "@/components/ui/Select";
 import type { ParsedEvaluation } from "@/lib/evaluator";
 
-export type EvaluatorChoice = "gemini-1.5-pro" | "claude-3-5-sonnet" | "manus" | "skip";
+export type EvaluatorChoice = "gemini-1.5-pro" | "claude-3-5-sonnet" | "skip";
 
 interface EvaluationPanelProps {
   anonymizedOutputId: string;
@@ -12,9 +12,6 @@ interface EvaluationPanelProps {
   evaluating: boolean;
   evaluation: ParsedEvaluation | null;
   evaluationError: string | null;
-  manualPasteText: string;
-  onManualPasteChange: (value: string) => void;
-  onManualParse: () => void;
   onSave: () => void;
   saving: boolean;
   saved: boolean;
@@ -57,9 +54,6 @@ export function EvaluationPanel({
   evaluating,
   evaluation,
   evaluationError,
-  manualPasteText,
-  onManualPasteChange,
-  onManualParse,
   onSave,
   saving,
   saved,
@@ -84,8 +78,7 @@ export function EvaluationPanel({
         >
           <option value="gemini-1.5-pro">Gemini 1.5 Pro (recommended)</option>
           <option value="claude-3-5-sonnet">Claude 3.5 Sonnet</option>
-          <option value="manus">Manus 1.6 Pro (API unavailable — manual entry)</option>
-          <option value="skip">Manual (skip)</option>
+          <option value="skip">Do not evaluate (save output only)</option>
         </Select>
         <p className="mt-1 text-xs text-text-muted">
           Gemini is the recommended evaluator. If Claude is your test model for this output,
@@ -93,27 +86,7 @@ export function EvaluationPanel({
         </p>
       </div>
 
-      {evaluatorChoice === "manus" && (
-        <div>
-          <label className="block text-sm font-medium text-text-heading mb-1">
-            Paste Manus Evaluation Output
-          </label>
-          <textarea
-            value={manualPasteText}
-            onChange={(e) => onManualPasteChange(e.target.value)}
-            rows={5}
-            placeholder={
-              "Constraint adherence: X/4\nLogical accuracy: X/4\nCompleteness: X/2\nTotal: X/10\nJustification: ..."
-            }
-            className="w-full rounded-lg border border-cream-border bg-white px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-navy-500"
-          />
-          <Button variant="secondary" className="mt-2" onClick={onManualParse}>
-            Parse Pasted Scores
-          </Button>
-        </div>
-      )}
-
-      {evaluatorChoice !== "manus" && evaluatorChoice !== "skip" && (
+      {evaluatorChoice !== "skip" && (
         <Button onClick={onEvaluate} disabled={evaluating}>
           {evaluating ? "Evaluating…" : "Evaluate Output"}
         </Button>

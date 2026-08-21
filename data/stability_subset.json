@@ -1,0 +1,34 @@
+{
+  "task_ids": [
+    "T046",
+    "T050",
+    "T047",
+    "T017",
+    "T009",
+    "T033",
+    "T027",
+    "T001",
+    "T021",
+    "T040"
+  ],
+  "seed": 20260820,
+  "prng_algorithm": "mulberry32",
+  "quotas": {
+    "communication": 3,
+    "data_analysis": 2,
+    "policy": 2,
+    "coding": 1,
+    "finance": 1,
+    "education": 1
+  },
+  "domain_draw_order": [
+    "communication",
+    "data_analysis",
+    "policy",
+    "coding",
+    "finance",
+    "education"
+  ],
+  "selection_date": "2026-08-20",
+  "note": "Quotas are weighted toward open-ended domains (communication, data_analysis, policy) where within-cell variance across repeat runs is expected to be highest. Constrained domains (coding, finance, education) contribute one task each."
+}

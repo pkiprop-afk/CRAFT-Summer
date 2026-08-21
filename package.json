@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "select-stability-subset": "node scripts/selectStabilitySubset.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.115.0",

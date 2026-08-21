@@ -4,7 +4,6 @@ export const ENV_VAR_BY_FAMILY: Record<ModelFamily, string> = {
   anthropic: "ANTHROPIC_API_KEY",
   openai: "OPENAI_API_KEY",
   google: "GOOGLE_GENERATIVE_AI_API_KEY",
-  manus: "MANUS_API_KEY",
 };
 
 export class MissingApiKeyError extends Error {
