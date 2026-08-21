@@ -135,9 +135,13 @@ export function splitConstraints(raw: string | undefined): ConstraintSplit {
 
   try {
     const parsed = JSON.parse(text);
+    // An array is authoritative even when empty — falling through would turn
+    // "[]" into a single constraint containing the literal text "[]".
     if (Array.isArray(parsed)) {
-      const values = parsed.map(String).map((s) => s.trim()).filter(Boolean);
-      if (values.length > 0) return { values, method: "json" };
+      return {
+        values: parsed.map(String).map((s) => s.trim()).filter(Boolean),
+        method: "json",
+      };
     }
   } catch {
     // not JSON — continue
