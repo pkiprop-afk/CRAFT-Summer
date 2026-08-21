@@ -5,7 +5,6 @@ import { Layers } from "lucide-react";
 import { BatchTaskSelector } from "@/components/batch/BatchTaskSelector";
 import { BatchJobList } from "@/components/batch/BatchJobList";
 import { Button } from "@/components/ui/Button";
-import { Select } from "@/components/ui/Select";
 import { ApiKeyBanner, isFamilyReady, useKeyStatuses } from "@/components/ui/ApiKeyBanner";
 import {
   familyOf,
@@ -36,7 +35,6 @@ import type {
 } from "@/types";
 
 type TestModel = TestModelId;
-type BatchEvaluator = EvaluatorModelId;
 
 // Cap on simultaneous in-flight model/evaluator calls, to avoid overwhelming
 // the upstream APIs or their rate limits during a batch run.
@@ -57,7 +55,6 @@ export default function BatchRunnerPage() {
   const [temperature, setTemperature] = useState(0.2);
   const [maxTokens, setMaxTokens] = useState(DEFAULT_MAX_TOKENS);
   const [systemPrompt, setSystemPrompt] = useState("You are a helpful assistant.");
-  const [evaluatorChoice, setEvaluatorChoice] = useState<BatchEvaluator>(judgesFor(TEST_MODELS[0]).primary);
 
   const [jobs, setJobs] = useState<BatchJob[]>([]);
   const [isRunning, setIsRunning] = useState(false);
@@ -430,12 +427,9 @@ export default function BatchRunnerPage() {
               <input
                 type="radio"
                 checked={testModel === id}
-                onChange={() => {
-                  setTestModel(id);
-                  // Snap the judge back to this model's rotation primary so a
-                  // same-family judge can never remain selected.
-                  setEvaluatorChoice(judgesFor(id).primary);
-                }}
+                // Judges follow from the test model via JUDGE_ROTATION; there
+                // is nothing to reset because they were never selectable.
+                onChange={() => setTestModel(id)}
                 disabled={isRunning}
               />
               {MODEL_LABEL[id]}

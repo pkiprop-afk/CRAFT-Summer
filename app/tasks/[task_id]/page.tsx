@@ -229,10 +229,10 @@ export default function TaskDetailPage() {
                             </span>
                           )}
                         </td>
-                        <td className="px-3 py-2">{fmt(s.meanConstraint)}/4</td>
-                        <td className="px-3 py-2">{fmt(s.meanLogical)}/4</td>
-                        <td className="px-3 py-2">{fmt(s.meanCompleteness)}/2</td>
-                        <td className="px-3 py-2 font-semibold">{fmt(s.meanTotal)}/10</td>
+                        <td className="px-3 py-2">{fmt(s.primaryConstraint)}/4</td>
+                        <td className="px-3 py-2">{fmt(s.primaryLogical)}/4</td>
+                        <td className="px-3 py-2">{fmt(s.primaryCompleteness)}/2</td>
+                        <td className="px-3 py-2 font-semibold">{fmt(s.primaryTotal)}/10</td>
                       </tr>
                     ))}
                   </tbody>

@@ -96,7 +96,7 @@ describe("two-evaluations-per-result rule", () => {
   test("an unevaluated run is incomplete with null scores, not zero", () => {
     const [scored] = joinResults([result], []);
     assert.equal(scored.isComplete, false);
-    assert.equal(scored.meanTotal, null);
+    assert.equal(scored.primaryTotal, null);
   });
 
   test("a singly-judged run is incomplete", () => {
@@ -104,7 +104,7 @@ describe("two-evaluations-per-result rule", () => {
     assert.equal(scored.isComplete, false);
   });
 
-  test("two judges complete the cell and average", () => {
+  test("two judges complete the cell; score is the PRIMARY, not an average", () => {
     const [scored] = joinResults(
       [result],
       [
@@ -113,7 +113,8 @@ describe("two-evaluations-per-result rule", () => {
       ]
     );
     assert.equal(scored.isComplete, true);
-    assert.equal(scored.meanTotal, 9);
+    assert.equal(scored.primaryTotal, 8);
+    assert.equal(scored.secondary?.total_score_0_10, 10);
   });
 });
 
