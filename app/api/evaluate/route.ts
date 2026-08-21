@@ -4,24 +4,28 @@ import { callGemini } from "@/lib/models/gemini";
 import { callOpenAI } from "@/lib/models/openai";
 import { buildEvaluatorPrompt, parseEvaluatorResponse } from "@/lib/evaluator";
 import { MissingApiKeyError } from "@/lib/env";
+import { checkJudgeAllowed } from "@/lib/blindingGuard";
+import {
+  MissingManifestError,
+  provenanceFingerprintFor,
+} from "@/lib/models/provenance";
 import {
   ANTHROPIC_MODEL_ID,
-  familyOf,
   GOOGLE_MODEL_ID,
-  isFamilyCollision,
   OPENAI_MODEL_ID,
   type EvaluatorModelId,
 } from "@/lib/models/registry";
+import type { ModelCallResult } from "@/lib/models/types";
 
 const EVALUATOR_SYSTEM_PROMPT = "You are a rigorous, unbiased benchmark evaluator.";
 
 interface EvaluateRequestBody {
   /**
-   * The model that produced `model_response`. Used ONLY server-side to enforce
-   * the family-collision block — it is never forwarded to the judge, and
-   * buildEvaluatorPrompt has no parameter for it.
+   * The blinding token. The producing model and condition are derived from it
+   * SERVER-SIDE via lib/blindingGuard; the client no longer asserts them, so a
+   * wrong or spoofed value cannot defeat the family check.
    */
-  producing_model: string;
+  anonymized_output_id: string;
   task_description: string;
   expected_constraints: string[];
   rubric_notes: string;
@@ -32,7 +36,7 @@ interface EvaluateRequestBody {
 export async function POST(request: Request) {
   const body: EvaluateRequestBody = await request.json();
   const {
-    producing_model,
+    anonymized_output_id,
     task_description,
     expected_constraints,
     rubric_notes,
@@ -40,23 +44,26 @@ export async function POST(request: Request) {
     evaluator,
   } = body;
 
-  // 5e — HARD BLOCK. A judge may never share a vendor family with the model that
-  // produced the output. Fails closed: an unknown model on either side is
-  // treated as a collision.
-  if (isFamilyCollision(producing_model, evaluator)) {
+  // 5e — hard block, derived from the blinding map rather than client input.
+  const judgeCheck = await checkJudgeAllowed(anonymized_output_id, evaluator);
+  if (!judgeCheck.allowed) {
+    const message =
+      judgeCheck.reason === "unknown_token"
+        ? `Evaluation refused: ${anonymized_output_id} is not a known blinding token. ` +
+          "Evaluations may only be run against a recorded run."
+        : judgeCheck.reason === "unknown_judge"
+          ? `Evaluation refused: ${evaluator} is not a recognized judge model.`
+          : `Evaluation refused: judge ${evaluator} is family "${judgeCheck.judge_family}", ` +
+            `which matches the producing model's family. Self-family scoring is a validity ` +
+            `threat and is blocked.`;
     return NextResponse.json(
-      {
-        error:
-          `Evaluation refused: judge ${evaluator} shares vendor family ` +
-          `"${familyOf(evaluator) ?? "unknown"}" with the producing model ${producing_model}. ` +
-          `Self-family scoring is a validity threat and is blocked.`,
-        producing_model,
-        evaluator,
-      },
+      { error: message, reason: judgeCheck.reason, judge_family: judgeCheck.judge_family },
       { status: 409 }
     );
   }
 
+  // NOTE: the judge payload is built from task content and the response only.
+  // No model name, no prompt condition, no blinding token.
   const prompt = buildEvaluatorPrompt({
     task_description,
     expected_constraints,
@@ -64,19 +71,32 @@ export async function POST(request: Request) {
     model_response,
   });
 
-  let rawResponse: string;
+  let evaluatorProvenance: string;
+  try {
+    evaluatorProvenance = await provenanceFingerprintFor(evaluator);
+  } catch (err) {
+    if (err instanceof MissingManifestError) {
+      return NextResponse.json({ error: err.message }, { status: 503 });
+    }
+    return NextResponse.json(
+      { error: err instanceof Error ? err.message : "Provenance lookup failed" },
+      { status: 503 }
+    );
+  }
+
+  let call: ModelCallResult;
   try {
     if (evaluator === GOOGLE_MODEL_ID) {
-      rawResponse = await callGemini(prompt);
+      call = await callGemini(prompt);
     } else if (evaluator === ANTHROPIC_MODEL_ID) {
-      rawResponse = await callClaude({
+      call = await callClaude({
         prompt,
         systemPrompt: EVALUATOR_SYSTEM_PROMPT,
         temperature: 0,
         maxTokens: 1024,
       });
     } else if (evaluator === OPENAI_MODEL_ID) {
-      rawResponse = await callOpenAI({
+      call = await callOpenAI({
         prompt,
         systemPrompt: EVALUATOR_SYSTEM_PROMPT,
         temperature: 0,
@@ -98,10 +118,10 @@ export async function POST(request: Request) {
     );
   }
 
-  const parsed = parseEvaluatorResponse(rawResponse);
+  const parsed = parseEvaluatorResponse(call.text);
   if (!parsed) {
     return NextResponse.json(
-      { error: "Failed to parse evaluator response", raw_response: rawResponse },
+      { error: "Failed to parse evaluator response", raw_response: call.text },
       { status: 422 }
     );
   }
@@ -113,5 +133,7 @@ export async function POST(request: Request) {
     total: parsed.total,
     justification: parsed.justification,
     evaluator,
+    evaluator_provenance_fingerprint: evaluatorProvenance,
+    evaluator_truncated: call.truncated,
   });
 }

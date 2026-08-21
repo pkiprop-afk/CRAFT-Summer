@@ -34,32 +34,74 @@ export interface TaskRecord {
 
 export type PromptCondition = "baseline" | "craft";
 
+/**
+ * Distinguishes the main paired benchmark runs from repeat runs drawn against
+ * the stability subset, so consistency analysis can be separated from the
+ * primary comparison.
+ */
+export type RunType = "benchmark" | "stability";
+
+/**
+ * One record per run. Scores live in EvaluationRecord — a run is scored by two
+ * judges, so evaluation cannot be a column on the run itself.
+ */
 export interface ResultRecord {
-  // Non-canonical: a collision-safe primary key, kept deliberately separate
-  // from anonymized_output_id (which is a blinding token, not an identifier,
-  // and is timestamp-based so it is not collision-safe under concurrent runs).
+  // Collision-safe primary key, deliberately separate from
+  // anonymized_output_id, which is a blinding token and not an identifier.
   result_id: string;
   task_id: string;
   /**
    * The task's content hash at the moment this run executed. A result whose
    * task_version no longer matches the task's current version was produced
-   * against different content and is not comparable — see /results staleness.
+   * against different content and is not comparable.
    */
   task_version: string;
   model_name: string;
+  /**
+   * The provider's provenance for model_name at run time (created_at, or
+   * version+description where the provider exposes no timestamp). Two of three
+   * model IDs are bare and can be repointed, so this is the only evidence the
+   * model did not move under the study.
+   */
+  model_provenance_fingerprint: string;
   prompt_condition: PromptCondition;
   run_number: number;
+  run_type: RunType;
   temperature: number;
+  max_tokens: number;
+  system_prompt: string;
+  /**
+   * Hash over temperature + max_tokens + system_prompt. Both conditions of a
+   * pair must share it; the run API rejects a counterpart run whose settings
+   * differ.
+   */
+  run_settings_hash: string;
   run_date: string;
   raw_model_output: string;
   anonymized_output_id: string;
+  /**
+   * True when the provider stopped generation at the token limit. A truncated
+   * CRAFT response loses completeness points for a reason unrelated to the
+   * prompt condition.
+   */
+  truncated: boolean;
+  notes: string;
+}
+
+/** One record per run x judge. Two per result under the rotation. */
+export interface EvaluationRecord {
+  evaluation_id: string;
+  /** FK to ResultRecord.result_id. */
+  result_id: string;
+  evaluator_model: string;
+  evaluator_provenance_fingerprint: string;
+  is_primary: boolean;
+  evaluated_at: string;
   constraint_adherence_score_0_4: number;
   logical_accuracy_score_0_4: number;
   completeness_score_0_2: number;
   total_score_0_10: number;
-  evaluator_model: string;
   evaluator_justification: string;
-  notes: string;
 }
 
 export const DOMAIN_LABELS: Record<Domain, string> = {

@@ -1,6 +1,7 @@
 import OpenAI from "openai";
 import { requireApiKey } from "@/lib/env";
 import { OPENAI_MODEL_ID } from "@/lib/models/registry";
+import type { ModelCallResult } from "@/lib/models/types";
 
 let client: OpenAI | null = null;
 
@@ -23,7 +24,7 @@ export async function callOpenAI({
   systemPrompt,
   temperature,
   maxTokens,
-}: OpenAICallParams): Promise<string> {
+}: OpenAICallParams): Promise<ModelCallResult> {
   const response = await getClient().chat.completions.create({
     model: OPENAI_MODEL_ID,
     temperature,
@@ -34,5 +35,12 @@ export async function callOpenAI({
     ],
   });
 
-  return response.choices[0]?.message?.content ?? "";
+  const choice = response.choices[0];
+  const finishReason = choice?.finish_reason ?? null;
+
+  return {
+    text: choice?.message?.content ?? "",
+    stop_reason: finishReason,
+    truncated: finishReason === "length",
+  };
 }

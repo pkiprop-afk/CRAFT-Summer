@@ -1,11 +1,12 @@
 import { promises as fs } from "fs";
 import path from "path";
-import type { ResultRecord, TaskRecord } from "@/types";
+import type { EvaluationRecord, ResultRecord, TaskRecord } from "@/types";
 import { stampTaskVersions } from "@/lib/taskVersion";
 
 const DATA_DIR = path.join(process.cwd(), "data");
 const TASKS_PATH = path.join(DATA_DIR, "tasks.json");
 const RESULTS_PATH = path.join(DATA_DIR, "results.json");
+const EVALUATIONS_PATH = path.join(DATA_DIR, "evaluations.json");
 const REGISTRY_META_PATH = path.join(DATA_DIR, "registry_meta.json");
 
 async function readJson<T>(filePath: string, fallback: T): Promise<T> {
@@ -63,6 +64,24 @@ export async function appendResult(result: ResultRecord): Promise<void> {
   const results = await getResults();
   results.push(result);
   await writeJson(RESULTS_PATH, results);
+}
+
+/**
+ * Evaluations live in their own store keyed by result_id: a run is scored by
+ * two judges under the rotation, so scores cannot be columns on the run.
+ */
+export async function getEvaluations(): Promise<EvaluationRecord[]> {
+  return readJson<EvaluationRecord[]>(EVALUATIONS_PATH, []);
+}
+
+export async function appendEvaluation(evaluation: EvaluationRecord): Promise<void> {
+  const evaluations = await getEvaluations();
+  evaluations.push(evaluation);
+  await writeJson(EVALUATIONS_PATH, evaluations);
+}
+
+export async function getEvaluationsForResult(resultId: string): Promise<EvaluationRecord[]> {
+  return (await getEvaluations()).filter((e) => e.result_id === resultId);
 }
 
 /**
