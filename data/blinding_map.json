@@ -75,5 +75,12 @@
     "model_name": "claude-sonnet-5",
     "prompt_condition": "craft",
     "allocated_at": "2026-08-21T19:38:04.472Z"
+  },
+  "OUT-0012": {
+    "token": "OUT-0012",
+    "task_id": "T002",
+    "model_name": "gpt-5.5-2026-04-23",
+    "prompt_condition": "baseline",
+    "allocated_at": "2026-08-21T19:41:37.748Z"
   }
 }
