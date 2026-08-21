@@ -18,6 +18,7 @@ export default function TaskDetailPage() {
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
+  const [validationErrors, setValidationErrors] = useState<string[]>([]);
 
   useEffect(() => {
     Promise.all([
@@ -37,16 +38,27 @@ export default function TaskDetailPage() {
     setSaving(true);
     setSaved(false);
     setSaveError(null);
+    setValidationErrors([]);
     try {
       const response = await fetch(`/api/tasks/${task.task_id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(task),
       });
-      if (!response.ok) throw new Error("Save request failed");
+      const data = await response.json();
+
+      if (!response.ok) {
+        setSaveError(data.error ?? `Save failed (HTTP ${response.status}).`);
+        setValidationErrors(Array.isArray(data.errors) ? data.errors : []);
+        return;
+      }
+
+      // Adopt the server's canonical record — craft_prompt is re-derived and
+      // fields are trimmed server-side, so the editor must reflect that.
+      setTask(data);
       setSaved(true);
     } catch {
-      setSaveError("Failed to save changes. Try again.");
+      setSaveError("Could not reach the server. Your changes were not saved.");
     } finally {
       setSaving(false);
     }
