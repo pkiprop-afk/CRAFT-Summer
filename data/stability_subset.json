@@ -29,6 +29,6 @@
     "finance",
     "education"
   ],
-  "selection_date": "2026-08-20",
+  "selection_date_derived_from_seed": "2026-08-20",
   "note": "Quotas are weighted toward open-ended domains (communication, data_analysis, policy) where within-cell variance across repeat runs is expected to be highest. Constrained domains (coding, finance, education) contribute one task each."
 }

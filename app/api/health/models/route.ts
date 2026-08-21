@@ -26,7 +26,6 @@ async function listFor(family: ModelFamily): Promise<ProviderListing> {
   if (!isKeyConfigured(family)) {
     return {
       family,
-      label: family,
       reachable: false,
       httpStatus: null,
       models: [],

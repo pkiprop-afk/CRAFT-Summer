@@ -69,7 +69,6 @@ async function main(): Promise<void> {
     if (!keyFor(family)) {
       return {
         family,
-        label: family,
         reachable: false,
         httpStatus: null,
         models: [],
