@@ -6,21 +6,28 @@ import {
   DEFAULT_MAX_TOKENS,
 } from "../lib/runSettings.ts";
 import { isUnpairedScope, PAIRED_SCOPE } from "../lib/batch.ts";
+import { decodingParamsFor } from "../lib/decoding.ts";
 import { joinResults, REQUIRED_JUDGES_PER_RESULT } from "../lib/resultsJoin.ts";
 import { RESULTS_COLUMNS, EVALUATIONS_COLUMNS } from "../lib/exportShape.ts";
 
 describe("5a — run settings binding", () => {
-  const base = { temperature: 0.2, max_tokens: 4000, system_prompt: "You are helpful." };
+  const base = { temperature: null, max_tokens: 4000, system_prompt: "You are helpful." };
 
   test("identical settings hash identically", async () => {
-    assert.equal(await computeRunSettingsHash(base), await computeRunSettingsHash({ ...base }));
+    const a = await computeRunSettingsHash(base);
+    const b = await computeRunSettingsHash({ ...base });
+    assert.equal(a.hash, b.hash);
+    assert.deepEqual(a.fields, b.fields);
   });
 
   test("each covered field changes the hash", async () => {
-    const original = await computeRunSettingsHash(base);
-    assert.notEqual(await computeRunSettingsHash({ ...base, temperature: 0.7 }), original);
-    assert.notEqual(await computeRunSettingsHash({ ...base, max_tokens: 2000 }), original);
-    assert.notEqual(await computeRunSettingsHash({ ...base, system_prompt: "Other" }), original);
+    const original = (await computeRunSettingsHash(base)).hash;
+    assert.notEqual((await computeRunSettingsHash({ ...base, temperature: 1.0 })).hash, original);
+    assert.notEqual((await computeRunSettingsHash({ ...base, max_tokens: 2000 })).hash, original);
+    assert.notEqual(
+      (await computeRunSettingsHash({ ...base, system_prompt: "Other" })).hash,
+      original
+    );
   });
 
   test("mismatch names the field and its earlier value", () => {
@@ -33,6 +40,75 @@ describe("5a — run settings binding", () => {
 
   test("identical settings report no mismatch", () => {
     assert.deepEqual(diffRunSettings(base, { ...base }), []);
+  });
+});
+
+describe("G2/G3/G4 — per-model decoding and field-set-aware hashing", () => {
+  test("Claude decoding: temperature null, effort unset — 0.2 never used", () => {
+    const p = decodingParamsFor("claude-sonnet-5");
+    assert.deepEqual(p, { temperature: null, effort: null });
+    assert.notEqual(p.temperature, 0.2);
+  });
+
+  test("GPT decoding: temperature 1.0 pinned, reasoning_effort low", () => {
+    const p = decodingParamsFor("gpt-5.5-2026-04-23");
+    assert.deepEqual(p, { temperature: 1.0, reasoning_effort: "low" });
+    assert.notEqual(p.temperature, 0.2);
+  });
+
+  test("field sets differ by model and are recorded", async () => {
+    const claude = await computeRunSettingsHash({
+      temperature: null,
+      max_tokens: 4000,
+      system_prompt: "s",
+      effort: null,
+    });
+    const gpt = await computeRunSettingsHash({
+      temperature: 1.0,
+      max_tokens: 4000,
+      system_prompt: "s",
+      reasoning_effort: "low",
+    });
+
+    assert.deepEqual(claude.fields, [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort",
+    ]);
+    assert.deepEqual(gpt.fields, [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort",
+    ]);
+    assert.notDeepEqual(claude.fields, gpt.fields);
+  });
+
+  test("different field sets cannot collide even with equal shared values", async () => {
+    // Same temperature/max_tokens/system_prompt, different effort field name.
+    const a = await computeRunSettingsHash({
+      temperature: null,
+      max_tokens: 4000,
+      system_prompt: "s",
+      effort: null,
+    });
+    const b = await computeRunSettingsHash({
+      temperature: null,
+      max_tokens: 4000,
+      system_prompt: "s",
+      reasoning_effort: null,
+    });
+    assert.notEqual(a.hash, b.hash, "field set must be part of the hashed payload");
+  });
+
+  test("hash version marker changed with the field-set scheme", async () => {
+    const { hash } = await computeRunSettingsHash({
+      temperature: null,
+      max_tokens: 4000,
+      system_prompt: "s",
+    });
+    assert.ok(hash.startsWith("rs2-"), `expected rs2- prefix, got ${hash}`);
   });
 });
 
