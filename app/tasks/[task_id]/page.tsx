@@ -7,13 +7,17 @@ import { TaskForm } from "@/components/tasks/TaskForm";
 import { CRAFTMeter } from "@/components/craft/CRAFTMeter";
 import { Button } from "@/components/ui/Button";
 import { changedVersionedFields, versionedFieldsEqual } from "@/lib/taskVersion";
-import type { ResultRecord, TaskRecord } from "@/types";
+import { joinResults } from "@/lib/resultsJoin";
+import type { EvaluationRecord, ResultRecord, TaskRecord } from "@/types";
+
+const fmt = (v: number | null) => (v === null ? "-" : Math.round(v * 100) / 100);
 
 export default function TaskDetailPage() {
   const params = useParams<{ task_id: string }>();
   const router = useRouter();
   const [task, setTask] = useState<TaskRecord | null>(null);
   const [results, setResults] = useState<ResultRecord[]>([]);
+  const [evaluations, setEvaluations] = useState<EvaluationRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
@@ -29,12 +33,14 @@ export default function TaskDetailPage() {
     Promise.all([
       fetch("/api/tasks").then((r) => r.json()) as Promise<TaskRecord[]>,
       fetch("/api/results").then((r) => r.json()) as Promise<ResultRecord[]>,
+      fetch("/api/evaluations").then((r) => r.json()) as Promise<EvaluationRecord[]>,
     ])
-      .then(([tasks, allResults]) => {
+      .then(([tasks, allResults, allEvaluations]) => {
         const found = tasks.find((t) => t.task_id === params.task_id) ?? null;
         setTask(found);
         setBaseline(found);
         setResults(allResults.filter((r) => r.task_id === params.task_id));
+        setEvaluations(allEvaluations);
       })
       .catch(() => setLoadError("Failed to load this task. Try refreshing the page."))
       .finally(() => setLoading(false));
@@ -84,6 +90,8 @@ export default function TaskDetailPage() {
       setSaving(false);
     }
   }
+
+  const scoredResults = joinResults(results, evaluations);
 
   if (loading) {
     return <p className="text-sm text-text-muted">Loading task…</p>;
@@ -197,6 +205,7 @@ export default function TaskDetailPage() {
                       <th className="text-left px-3 py-2">Model</th>
                       <th className="text-left px-3 py-2">Condition</th>
                       <th className="text-left px-3 py-2">Run #</th>
+                      <th className="text-left px-3 py-2">Judges</th>
                       <th className="text-left px-3 py-2">Constraint</th>
                       <th className="text-left px-3 py-2">Logic</th>
                       <th className="text-left px-3 py-2">Complete</th>
@@ -204,15 +213,26 @@ export default function TaskDetailPage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {results.map((r) => (
-                      <tr key={r.result_id} className="border-t border-cream-border font-mono">
-                        <td className="px-3 py-2">{r.model_name}</td>
-                        <td className="px-3 py-2">{r.prompt_condition}</td>
-                        <td className="px-3 py-2">{r.run_number}</td>
-                        <td className="px-3 py-2">{r.constraint_adherence_score_0_4}/4</td>
-                        <td className="px-3 py-2">{r.logical_accuracy_score_0_4}/4</td>
-                        <td className="px-3 py-2">{r.completeness_score_0_2}/2</td>
-                        <td className="px-3 py-2 font-semibold">{r.total_score_0_10}/10</td>
+                    {scoredResults.map((s) => (
+                      <tr
+                        key={s.result.result_id}
+                        className="border-t border-cream-border font-mono"
+                      >
+                        <td className="px-3 py-2">{s.result.model_name}</td>
+                        <td className="px-3 py-2">{s.result.prompt_condition}</td>
+                        <td className="px-3 py-2">{s.result.run_number}</td>
+                        <td className="px-3 py-2">
+                          {s.evaluations.length}/2
+                          {s.result.truncated && (
+                            <span className="ml-1 text-error" title="Output hit the token limit">
+                              trunc
+                            </span>
+                          )}
+                        </td>
+                        <td className="px-3 py-2">{fmt(s.meanConstraint)}/4</td>
+                        <td className="px-3 py-2">{fmt(s.meanLogical)}/4</td>
+                        <td className="px-3 py-2">{fmt(s.meanCompleteness)}/2</td>
+                        <td className="px-3 py-2 font-semibold">{fmt(s.meanTotal)}/10</td>
                       </tr>
                     ))}
                   </tbody>

@@ -6,7 +6,13 @@ import { TaskCard } from "@/components/tasks/TaskCard";
 import { ImportDiffPreview, type ImportPreview } from "@/components/tasks/ImportDiffPreview";
 import { Button } from "@/components/ui/Button";
 import type { ImportMode } from "@/lib/taskDiff";
-import { DOMAIN_LABELS, type Domain, type ResultRecord, type TaskRecord } from "@/types";
+import {
+  DOMAIN_LABELS,
+  type Domain,
+  type EvaluationRecord,
+  type ResultRecord,
+  type TaskRecord,
+} from "@/types";
 
 const DOMAIN_TABS: Array<{ label: string; value: Domain | "all" }> = [
   { label: "All", value: "all" },
@@ -21,6 +27,7 @@ const DOMAIN_TABS: Array<{ label: string; value: Domain | "all" }> = [
 export default function TaskLibraryPage() {
   const [tasks, setTasks] = useState<TaskRecord[]>([]);
   const [results, setResults] = useState<ResultRecord[]>([]);
+  const [evaluations, setEvaluations] = useState<EvaluationRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [importError, setImportError] = useState<string | null>(null);
@@ -38,14 +45,21 @@ export default function TaskLibraryPage() {
     Promise.all([
       fetch("/api/tasks").then((r) => r.json()),
       fetch("/api/results").then((r) => r.json()),
+      fetch("/api/evaluations").then((r) => r.json()),
     ])
-      .then(([taskData, resultData]) => {
+      .then(([taskData, resultData, evalData]) => {
         setTasks(taskData);
         setResults(resultData);
+        setEvaluations(evalData);
       })
       .catch(() => setLoadError("Failed to load tasks. Try refreshing the page."))
       .finally(() => setLoading(false));
   }, []);
+
+  const evaluatedResultIds = useMemo(
+    () => new Set(evaluations.map((e) => e.result_id)),
+    [evaluations]
+  );
 
   const filteredTasks = useMemo(() => {
     return tasks.filter((task) => {
@@ -272,7 +286,7 @@ export default function TaskLibraryPage() {
                 key={task.task_id}
                 task={task}
                 hasResults={taskResults.length > 0}
-                hasScores={taskResults.some((r) => Boolean(r.evaluator_justification))}
+                hasScores={taskResults.some((r) => evaluatedResultIds.has(r.result_id))}
               />
             );
           })}
