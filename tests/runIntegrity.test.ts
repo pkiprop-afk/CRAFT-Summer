@@ -151,6 +151,8 @@ describe("two-evaluations-per-result rule", () => {
     anonymized_output_id: "OUT-0001",
     truncated: false,
     reasoning_tokens: null,
+    retry_count: 0,
+    retry_log: [],
     notes: "",
   };
 
@@ -220,6 +222,8 @@ describe("export shape", () => {
         "anonymized_output_id",
         "truncated",
         "reasoning_tokens",
+        "retry_count",
+        "retry_log",
         "notes",
       ]
     );

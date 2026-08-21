@@ -1,4 +1,5 @@
 import type { DecodingParams } from "@/lib/decoding";
+import type { RetryAttempt } from "@/lib/retry";
 
 export type Domain =
   | "coding"
@@ -107,6 +108,13 @@ export interface ResultRecord {
    * parameter back in its response.
    */
   reasoning_tokens: number | null;
+  /**
+   * I3 — transient provider failures retried before this run succeeded.
+   * 0 on a clean first attempt. Non-zero means the provider was degraded at
+   * run time, which is worth knowing when interpreting the output.
+   */
+  retry_count: number;
+  retry_log: RetryAttempt[];
   notes: string;
 }
 

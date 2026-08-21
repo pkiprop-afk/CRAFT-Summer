@@ -178,6 +178,21 @@ async function main(): Promise<void> {
           `${r.task_version}, task is now ${task.task_version}`
       );
     }
+    // I5 — an empty output must never be stored as a run: judges would score it
+    // as a maximally non-compliant answer, turning a provider glitch into a
+    // real-looking zero.
+    if (!r.raw_model_output || r.raw_model_output.trim().length === 0) {
+      err(
+        `${r.result_id} (${r.task_id} / ${r.model_name} / ${r.prompt_condition}): ` +
+          `raw_model_output is EMPTY`
+      );
+    }
+    if (r.retry_count > 0) {
+      warn(
+        `${r.result_id} (${r.task_id}): succeeded after ${r.retry_count} retry/retries — ` +
+          `the provider was degraded at run time`
+      );
+    }
     if (r.truncated) {
       warn(
         `${r.result_id} (${r.task_id} / ${r.model_name} / ${r.prompt_condition}): ` +

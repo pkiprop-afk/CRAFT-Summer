@@ -27,6 +27,8 @@ export const RESULTS_COLUMNS = [
   "anonymized_output_id",
   "truncated",
   "reasoning_tokens",
+  "retry_count",
+  "retry_log",
   "notes",
 ] as const;
 

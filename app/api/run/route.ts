@@ -14,6 +14,13 @@ import {
   type RunSettings,
 } from "@/lib/runSettings";
 import { decodingParamsFor } from "@/lib/decoding";
+import { composedPromptFor } from "@/lib/promptAssembly";
+import {
+  callWithRetry,
+  NonRetryableError,
+  RetriesExhaustedError,
+  type RetryAttempt,
+} from "@/lib/retry";
 import {
   isInStabilitySubset,
   loadStabilitySubset,
@@ -29,7 +36,6 @@ import type { PromptCondition, RunType } from "@/types";
 
 interface RunRequestBody {
   task_id: string;
-  prompt: string;
   model: TestModelId;
   prompt_condition: PromptCondition;
   run_type: RunType;
@@ -47,7 +53,6 @@ export async function POST(request: Request) {
   const body: RunRequestBody = await request.json();
   const {
     task_id,
-    prompt,
     model,
     prompt_condition,
     run_type,
@@ -82,6 +87,10 @@ export async function POST(request: Request) {
       { status: 409 }
     );
   }
+
+  // I1 — the prompt is composed SERVER-SIDE from the task, so the client
+  // cannot send mismatched text and task_input can never be omitted.
+  const prompt = composedPromptFor(task, prompt_condition);
 
   // S2 — the stability subset is frozen; a stability run against an off-list
   // task would change what the variance estimate is based on.
@@ -211,30 +220,43 @@ export async function POST(request: Request) {
     );
   }
 
+  if (model !== ANTHROPIC_MODEL_ID && model !== OPENAI_MODEL_ID) {
+    return NextResponse.json({ error: "Unsupported model" }, { status: 400 });
+  }
+
   const start = Date.now();
   let call: ModelCallResult;
+  let retries: RetryAttempt[] = [];
 
   try {
-    if (model === ANTHROPIC_MODEL_ID) {
-      call = await callClaude({
-        prompt,
-        systemPrompt: system_prompt,
-        maxTokens: max_tokens,
-      });
-    } else if (model === OPENAI_MODEL_ID) {
-      call = await callOpenAI({
-        prompt,
-        systemPrompt: system_prompt,
-        maxTokens: max_tokens,
-      });
-    } else {
-      return NextResponse.json({ error: "Unsupported model" }, { status: 400 });
-    }
+    // I3/I4 — bounded retry on transient failures and on empty 200s.
+    const outcome = await callWithRetry(() =>
+      model === ANTHROPIC_MODEL_ID
+        ? callClaude({ prompt, systemPrompt: system_prompt, maxTokens: max_tokens })
+        : callOpenAI({ prompt, systemPrompt: system_prompt, maxTokens: max_tokens })
+    );
+    call = outcome.value;
+    retries = outcome.attempts;
   } catch (err) {
     if (err instanceof MissingApiKeyError) {
       return NextResponse.json(
         { error: err.message, missing_env_var: err.envVar },
         { status: 503 }
+      );
+    }
+    if (err instanceof RetriesExhaustedError) {
+      return NextResponse.json(
+        {
+          error: `Run failed after ${err.attempts.length} attempts: ${err.message}`,
+          retry_log: err.attempts,
+        },
+        { status: 502 }
+      );
+    }
+    if (err instanceof NonRetryableError) {
+      return NextResponse.json(
+        { error: err.message, http_status: err.httpStatus },
+        { status: err.httpStatus === 429 || err.httpStatus === 402 ? 503 : 502 }
       );
     }
     return NextResponse.json(
@@ -262,6 +284,9 @@ export async function POST(request: Request) {
     truncated: call.truncated,
     stop_reason: call.stop_reason,
     reasoning_tokens: call.reasoning_tokens,
+    retry_count: retries.length,
+    retry_log: retries,
+    prompt_sent: prompt,
     latency_ms: Date.now() - start,
   });
 }

@@ -180,7 +180,6 @@ export default function BatchRunnerPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           task_id: task.task_id,
-          prompt,
           model: testModel,
           prompt_condition: condition,
           run_type: runType,
@@ -215,6 +214,8 @@ export default function BatchRunnerPage() {
         anonymized_output_id: anonymizedOutputId,
         truncated: Boolean(runData.truncated),
         reasoning_tokens: runData.reasoning_tokens ?? null,
+        retry_count: runData.retry_count ?? 0,
+        retry_log: runData.retry_log ?? [],
         notes: "",
       };
 

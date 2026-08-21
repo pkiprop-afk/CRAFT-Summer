@@ -9,6 +9,8 @@ import { familyOf, judgesFor, TEST_MODELS } from "@/lib/models/registry";
 import { generateEvaluationId, generateResultId } from "@/lib/anonymize";
 import { DEFAULT_MAX_TOKENS } from "@/lib/runSettings";
 import type { DecodingParams } from "@/lib/decoding";
+import type { RetryAttempt } from "@/lib/retry";
+import { composedPromptFor } from "@/lib/promptAssembly";
 import { type ParsedEvaluation } from "@/lib/evaluator";
 import type {
   EvaluationRecord,
@@ -41,6 +43,8 @@ export default function PromptRunnerPage() {
     decoding_params: DecodingParams;
     truncated: boolean;
     reasoning_tokens: number | null;
+    retry_count: number;
+    retry_log: RetryAttempt[];
   } | null>(null);
   const [evaluatorProvenance, setEvaluatorProvenance] = useState("");
 
@@ -77,7 +81,8 @@ export default function PromptRunnerPage() {
 
   const selectedPromptText = useMemo(() => {
     if (!selectedTask) return "";
-    return condition === "baseline" ? selectedTask.baseline_prompt : selectedTask.craft_prompt;
+    // Preview exactly what the server will send, stimulus block included.
+    return composedPromptFor(selectedTask, condition);
   }, [selectedTask, condition]);
 
   function resetRunState() {
@@ -105,7 +110,6 @@ export default function PromptRunnerPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           task_id: selectedTask.task_id,
-          prompt: selectedPromptText,
           model: testModel,
           prompt_condition: condition,
           run_type: runType,
@@ -126,6 +130,8 @@ export default function PromptRunnerPage() {
         decoding_params: data.decoding_params,
         truncated: Boolean(data.truncated),
         reasoning_tokens: data.reasoning_tokens ?? null,
+        retry_count: data.retry_count ?? 0,
+        retry_log: data.retry_log ?? [],
       });
       setRunTimestamp(new Date().toISOString());
     } catch (err) {
@@ -204,6 +210,8 @@ export default function PromptRunnerPage() {
       anonymized_output_id: anonymizedOutputId,
       truncated: runMeta.truncated,
       reasoning_tokens: runMeta.reasoning_tokens,
+      retry_count: runMeta.retry_count,
+      retry_log: runMeta.retry_log,
       notes: "",
     };
 
