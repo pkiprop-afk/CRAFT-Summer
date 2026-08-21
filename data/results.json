@@ -215,5 +215,67 @@
     "retry_count": 0,
     "retry_log": [],
     "notes": ""
+  },
+  {
+    "result_id": "RES-aea20bda-4082-42f3-9358-7c8b7301958d",
+    "task_id": "T002",
+    "task_version": "v1-37e3df37e647ca353601f14ccce415ed",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 2,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-21T19:44:35.122Z",
+    "raw_model_output": "## the fault\n\nThe comparison uses `reading > limit`, so it only rejects readings that are greater than the limit. It does not reject readings that are exactly equal to the limit.\n\n## the explanation\n\nThe requirement is that every reading must stay **strictly below** the supplied limit. That means each reading must satisfy:\n\n```python\nreading < limit\n```\n\nIf a reading is equal to the limit, it is not strictly below it and the function should return `False`.\n\nIn the current code:\n\n```python\nif reading > limit:\n    return False\n```\n\na reading equal to `limit` does not trigger the `False` return, so the function incorrectly accepts it.\n\n## the corrected function\n\n```python\ndef all_readings_under_limit(readings, limit):\n    for reading in readings:\n        if reading >= limit:\n            return False\n    return True\n```",
+    "anonymized_output_id": "OUT-0013",
+    "truncated": false,
+    "reasoning_tokens": 0,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-e54bf596-735c-4d99-aa95-c0785a80c1b6",
+    "task_id": "T003",
+    "task_version": "v1-8f25349da45dc1be40e01b0691a3e0c4",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-21T19:44:48.616Z",
+    "raw_model_output": "## The Problem\n\nLook at this line inside your loop:\n\n```python\ncurrent_peak = reading\n```\n\nEvery single iteration, you're **overwriting** `current_peak` with just the current `reading`, throwing away any memory of what the peak was before. So `peaks[i]` always just equals `readings[i]` — there's no actual \"running\" comparison happening. That's why the output can decrease: it's not tracking a peak at all, it's just copying the input list.\n\nFor example, with `[3, 7, 2, 9, 4]`, you'd expect `[3, 7, 7, 9, 9]`, but your function gives back `[3, 7, 2, 9, 4]` — the original list unchanged.\n\n## The Fix\n\nYou need a variable that persists **across iterations** (declared outside the loop) to hold the highest value seen so far, and update it only when a new reading exceeds it:\n\n```python\ndef running_peak(readings):\n    peaks = []\n    current_peak = float('-inf')  # start lower than any possible reading\n    for reading in readings:\n        if reading > current_peak:\n            current_peak = reading\n        peaks.append(current_peak)\n    return peaks\n```\n\nOr more concisely using `max()`:\n\n```python\ndef running_peak(readings):\n    peaks = []\n    current_peak = float('-inf')\n    for reading in readings:\n        current_peak = max(current_peak, reading)\n        peaks.append(current_peak)\n    return peaks\n```\n\n### Quick test\n\n```python\n>>> running_peak([3, 7, 2, 9, 4])\n[3, 7, 7, 9, 9]\n```\n\nNow the sequence is monotonically non-decreasing, as a running peak should be.\n\n**Note:** If your readings could be things like `-inf` themselves (unlikely, but just in case) or non-numeric, you could instead initialize `current_peak` with the first element and start the loop from the second element, to avoid relying on `float('-inf')`:\n\n```python\ndef running_peak(readings):\n    if not readings:\n        return []\n    peaks = [readings[0]]\n    current_peak = readings[0]\n    for reading in readings[1:]:\n        if reading > current_peak:\n            current_peak = reading\n        peaks.append(current_peak)\n    return peaks\n```",
+    "anonymized_output_id": "OUT-0014",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
   }
 ]
