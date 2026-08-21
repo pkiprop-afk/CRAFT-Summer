@@ -1,1 +1,28 @@
-[]
+[
+  {
+    "evaluation_id": "EVAL-36ca21f2-d28e-49a4-80a0-2c0305cfd6a1",
+    "result_id": "RES-dac2dfa2-80c5-42da-aa95-95f114131399",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-21T12:11:31.701Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 1,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 4,
+    "evaluator_justification": "Because the source code was omitted from the prompt, the model speculated on potential bugs rather than definitively identifying the specific check-before-add logic flaw or providing a concrete failing example trace. However, it correctly provided a runnable, working implementation of the function that returns True for transactions = [-5] without introducing new edge-case bugs."
+  },
+  {
+    "evaluation_id": "EVAL-0622a224-725d-4839-a37c-c4b913743597",
+    "result_id": "RES-dac2dfa2-80c5-42da-aa95-95f114131399",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-21T12:11:41.599Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 2,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 5,
+    "evaluator_justification": "The response provides a corrected runnable function that checks after applying each transaction, returns True for `transactions = [-5]`, and avoids the `<= 0` edge-case bug. However, it does not specifically identify the actual bug in the given implementation, instead listing possible issues and hedging that the function was not provided. It also fails to give a concrete failing example explaining why check-before-add is wrong. The core fix is present, but the required diagnosis and explanation are incomplete."
+  }
+]

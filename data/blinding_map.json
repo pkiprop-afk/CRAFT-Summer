@@ -1,0 +1,16 @@
+{
+  "OUT-0001": {
+    "token": "OUT-0001",
+    "task_id": "T001",
+    "model_name": "claude-sonnet-5",
+    "prompt_condition": "baseline",
+    "allocated_at": "2026-08-21T12:11:23.299Z"
+  },
+  "OUT-0002": {
+    "token": "OUT-0002",
+    "task_id": "T001",
+    "model_name": "claude-sonnet-5",
+    "prompt_condition": "craft",
+    "allocated_at": "2026-08-21T12:11:55.373Z"
+  }
+}

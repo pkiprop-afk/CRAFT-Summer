@@ -1,1 +1,60 @@
-[]
+[
+  {
+    "result_id": "RES-dac2dfa2-80c5-42da-aa95-95f114131399",
+    "task_id": "T001",
+    "task_version": "v1-37c3cb178e4e701b4687767c19716261",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-21T12:11:23.341Z",
+    "raw_model_output": "I don't see the actual function in your message — it looks like it didn't get attached or pasted in. Could you paste the code here so I can look at it directly?\n\nIn the meantime, since this is a very common type of bug, here's a quick checklist of the usual culprits for \"balance goes negative but isn't detected\" issues:\n\n1. **Checking after updating instead of before/after each step properly**\n   ```python\n   for t in transactions:\n       balance += t\n   if balance < 0:   # BUG: only checks final balance, not intermediate dips\n       return False\n   ```\n   This misses cases where the balance dips negative temporarily but recovers by the end.\n\n2. **Wrong comparison operator**\n   ```python\n   if balance <= 0:  # BUG: treats exactly 0 as invalid, when 0 might be fine\n   ```\n   or vice versa, using `<` when you actually want `<=` depending on your requirements.\n\n3. **Returning too early or too late**\n   ```python\n   for t in transactions:\n       balance += t\n       if balance < 0:\n           return False\n       return True   # BUG: return True is indented wrong, inside the loop\n   ```\n\n4. **Not resetting balance between calls** (if `balance` is a variable outside the function or a mutable default argument).\n\n5. **Off-by-one in transaction application** — e.g., checking balance before applying the transaction instead of after.\n\nA correct version generally looks like this:\n\n```python\ndef has_negative_balance(transactions, starting_balance=0):\n    balance = starting_balance\n    for t in transactions:\n        balance += t\n        if balance < 0:\n            return True  # balance went negative at some point\n    return False\n```\n\nor if you want to know whether it's *ever safe* (never goes negative):\n\n```python\ndef never_goes_negative(transactions, starting_balance=0):\n    balance = starting_balance\n    for t in transactions:\n        balance += t\n        if balance < 0:\n            return False\n    return True\n```\n\nIf you paste your actual function, I can pinpoint exactly what's wrong with your version and fix it precisely rather than guessing at common patterns.",
+    "anonymized_output_id": "OUT-0001",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "notes": "T001 smoke test"
+  },
+  {
+    "result_id": "RES-7f853f59-277c-4fa4-9a62-f319319323e5",
+    "task_id": "T001",
+    "task_version": "v1-37c3cb178e4e701b4687767c19716261",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-21T12:11:55.402Z",
+    "raw_model_output": "I don't see a function included in your message. To locate the specific defect and explain it clearly, I need the actual source code of the overdraft-screening utility you're referring to.\n\nCould you paste the function in question? Once I have it, I'll follow the requested format:\n\n1. **The Defect** — pinpointing the exact line(s) responsible for the incorrect results.\n2. **The Explanation** — why that code produces wrong output (e.g., off-by-one comparison, incorrect running balance logic, wrong handling of transaction order or sign conventions, mutable default arguments, etc.).\n3. **The Corrected Function** — a full, working replacement in a Python code block.\n\nA few things that would help me review efficiently once you share it:\n\n- The function signature and expected input format (e.g., list of transaction amounts, list of dicts with dates/amounts, a running ledger?).\n- What \"incorrect results\" look like in practice — false positives, false negatives, wrong account flagged, wrong balance reported, etc.\n- Whether transactions are guaranteed to be in chronological order or need sorting first.\n\nSend over the code and I'll get you a precise diagnosis.",
+    "anonymized_output_id": "OUT-0002",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "notes": "T001 smoke test"
+  }
+]
