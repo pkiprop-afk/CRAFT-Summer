@@ -21,6 +21,7 @@ import { runWithConcurrency } from "@/lib/concurrency";
 import { generateEvaluationId, generateResultId } from "@/lib/anonymize";
 import {
   buildBatchJobs,
+  CHECKPOINT_AFTER_GENERATIONS,
   isTaskReadyForScope,
   isUnpairedScope,
   PAIRED_SCOPE,
@@ -57,13 +58,25 @@ export default function BatchRunnerPage() {
   const [conditionScope, setConditionScope] = useState<ConditionScope>(PAIRED_SCOPE);
   // 5b — unpaired single-condition runs require an explicit acknowledgement.
   const [allowUnpaired, setAllowUnpaired] = useState(false);
-  const [testModel, setTestModel] = useState<TestModel>(TEST_MODELS[0]);
+  // The study is 50 tasks x 2 conditions x BOTH models, so both are selected by
+  // default and a single pass covers the whole design.
+  const [selectedModels, setSelectedModels] = useState<TestModel[]>([...TEST_MODELS]);
   const [maxTokens, setMaxTokens] = useState(DEFAULT_MAX_TOKENS);
   const [systemPrompt, setSystemPrompt] = useState("You are a helpful assistant.");
 
   const [jobs, setJobs] = useState<BatchJob[]>([]);
   const [abortReason, setAbortReason] = useState<string | null>(null);
   const [isRunning, setIsRunning] = useState(false);
+  // Distinguishes the planned checkpoint pause from a callability halt: the
+  // undispatched jobs stay pending and resumable rather than being marked
+  // aborted.
+  const [checkpointPaused, setCheckpointPaused] = useState(false);
+  const checkpointConsumed = useRef(false);
+  // Accumulated time actually spent dispatching, excluding the checkpoint
+  // pause — otherwise the projection would include however long the run sat
+  // waiting to be reviewed.
+  const activeMs = useRef(0);
+  const [elapsedMs, setElapsedMs] = useState<number | null>(null);
 
   // Tracks the next run_number per task_id+condition, seeded from existing
   // results, so concurrent batch jobs never collide on the same run_number.
@@ -145,28 +158,31 @@ export default function BatchRunnerPage() {
   }
 
   const pendingJobCount = useMemo(
-    () => buildBatchJobs(tasks, selectedIds, conditionScope).length,
-    [tasks, selectedIds, conditionScope]
+    () => buildBatchJobs(tasks, selectedIds, conditionScope, selectedModels).length,
+    [tasks, selectedIds, conditionScope, selectedModels]
   );
 
   // C4 — every run calls the test model AND both rotation judges, so preflight
   // must cover all three. Checking only the primary let a missing secondary key
   // fail mid-batch, after generation tokens were already spent.
   const keyStatuses = useKeyStatuses();
-  const rotation = judgesFor(testModel);
   const requiredFamilies = useMemo(() => {
-    const families = [
-      familyOf(testModel),
-      familyOf(rotation.primary),
-      familyOf(rotation.secondary),
-    ].filter((f): f is NonNullable<typeof f> => f !== null);
+    const families = selectedModels.flatMap((m) => {
+      const r = judgesFor(m);
+      return [familyOf(m), familyOf(r.primary), familyOf(r.secondary)];
+    }).filter((f): f is NonNullable<typeof f> => f !== null);
     return Array.from(new Set(families));
-  }, [testModel, rotation.primary, rotation.secondary]);
+  }, [selectedModels]);
 
   const keyBlocked =
     requiredFamilies.length < 3 || requiredFamilies.some((f) => !isFamilyReady(keyStatuses, f));
 
-  async function runJob(task: TaskRecord, condition: PromptCondition, jobIndex: number) {
+  async function runJob(
+    task: TaskRecord,
+    condition: PromptCondition,
+    model: TestModel,
+    jobIndex: number
+  ) {
     function updateJob(patch: Partial<BatchJob>) {
       setJobs((prev) => prev.map((j, i) => (i === jobIndex ? { ...j, ...patch } : j)));
     }
@@ -179,7 +195,7 @@ export default function BatchRunnerPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           task_id: task.task_id,
-          model: testModel,
+          model,
           prompt_condition: condition,
           run_type: runType,
           max_tokens: maxTokens,
@@ -198,7 +214,7 @@ export default function BatchRunnerPage() {
         result_id: generateResultId(),
         task_id: task.task_id,
         task_version: task.task_version,
-        model_name: testModel,
+        model_name: model,
         model_provenance_fingerprint: runData.model_provenance_fingerprint,
         prompt_condition: condition,
         run_number: nextRunNumber(task.task_id, condition, runType),
@@ -230,7 +246,7 @@ export default function BatchRunnerPage() {
       updateJob({ status: "evaluating" });
 
       // Both judges of the rotation score every run.
-      const rotation = judgesFor(testModel);
+      const rotation = judgesFor(model);
       const judges: Array<{ model: EvaluatorModelId; isPrimary: boolean }> = [
         { model: rotation.primary, isPrimary: true },
         { model: rotation.secondary, isPrimary: false },
@@ -318,51 +334,83 @@ export default function BatchRunnerPage() {
     }
   }
 
-  async function handleStartBatch() {
-    if (keyBlocked) return;
-    const newJobs = buildBatchJobs(tasks, selectedIds, conditionScope);
-    if (newJobs.length === 0) return;
-
-    setJobs(newJobs);
+  /**
+   * Runs `indices` (positions into `jobList`) with bounded concurrency.
+   *
+   * Indices are passed rather than the jobs themselves so that a resume can
+   * dispatch a sparse subset while every job keeps its ORIGINAL position — the
+   * per-job status updates address `jobs` by index, and the checkpoint boundary
+   * is defined in terms of original queue position.
+   */
+  async function dispatchJobs(jobList: BatchJob[], indices: number[]) {
     setAbortReason(null);
+    setCheckpointPaused(false);
     setIsRunning(true);
 
+    const legStart = Date.now();
     let lastCheckedAt = 0;
+    let pausedHere = false;
 
     const outcome = await runWithConcurrency(
-      newJobs,
+      indices,
       CONCURRENCY_LIMIT,
-      async (job, index) => {
+      async (jobIndex) => {
+        const job = jobList[jobIndex];
         const task = tasks.find((t) => t.task_id === job.task_id);
         if (!task) {
           setJobs((prev) =>
             prev.map((j, i) =>
-              i === index ? { ...j, status: "failed", error: "Task not found" } : j
+              i === jobIndex ? { ...j, status: "failed", error: "Task not found" } : j
             )
           );
           return;
         }
-        await runJob(task, job.condition, index);
+        await runJob(task, job.condition, job.model, jobIndex);
       },
       {
+        // Synchronous, so the boundary is exact — see lib/concurrency.ts. Gated
+        // on the ORIGINAL queue position, not on a completion count: with
+        // concurrency > 1 the completion count lags dispatch, and a boundary
+        // expressed in completions would overshoot and bisect a pair.
+        shouldDispatch: (nextPos) => {
+          if (
+            !checkpointConsumed.current &&
+            indices[nextPos] >= CHECKPOINT_AFTER_GENERATIONS
+          ) {
+            pausedHere = true;
+            return false;
+          }
+          return true;
+        },
         shouldContinue: async (completed) => {
           if (completed < lastCheckedAt + CALLABILITY_RECHECK_EVERY) return true;
           lastCheckedAt = completed;
           return isStillCallable();
         },
-        onSkipped: (index) => {
+        onSkipped: (pos) => {
+          const jobIndex = indices[pos];
           setJobs((prev) =>
             prev.map((j, i) =>
-              i === index
-                ? { ...j, status: "aborted", error: "Halted by callability check" }
-                : j
+              i !== jobIndex
+                ? j
+                : pausedHere
+                  ? // A planned pause, not a failure: leave it queued so Resume
+                    // picks it up untouched.
+                    { ...j, status: "pending" }
+                  : { ...j, status: "aborted", error: "Halted by callability check" }
             )
           );
         },
       }
     );
 
-    if (outcome.aborted) {
+    activeMs.current += Date.now() - legStart;
+    setElapsedMs(activeMs.current);
+
+    if (pausedHere) {
+      checkpointConsumed.current = true;
+      setCheckpointPaused(true);
+    } else if (outcome.aborted) {
       setAbortReason(
         (prev) =>
           (prev ?? "Run halted.") +
@@ -371,6 +419,31 @@ export default function BatchRunnerPage() {
     }
 
     setIsRunning(false);
+  }
+
+  async function handleStartBatch() {
+    if (keyBlocked) return;
+    const newJobs = buildBatchJobs(tasks, selectedIds, conditionScope, selectedModels);
+    if (newJobs.length === 0) return;
+
+    setJobs(newJobs);
+    checkpointConsumed.current = false;
+    activeMs.current = 0;
+    setElapsedMs(null);
+
+    await dispatchJobs(
+      newJobs,
+      newJobs.map((_, i) => i)
+    );
+  }
+
+  /** Continues past the checkpoint with the still-pending jobs. */
+  async function handleResume() {
+    if (keyBlocked) return;
+    const pending = jobs.flatMap((j, i) => (j.status === "pending" ? [i] : []));
+    if (pending.length === 0) return;
+    checkpointConsumed.current = true;
+    await dispatchJobs(jobs, pending);
   }
 
   if (loading) {
@@ -493,20 +566,37 @@ export default function BatchRunnerPage() {
           Step 2 — Run Settings and Evaluator
         </h2>
 
-        <div className="flex items-center gap-4">
-          {TEST_MODELS.map((id) => (
-            <label key={id} className="flex items-center gap-2 text-sm text-text-body">
-              <input
-                type="radio"
-                checked={testModel === id}
-                // Judges follow from the test model via JUDGE_ROTATION; there
-                // is nothing to reset because they were never selectable.
-                onChange={() => setTestModel(id)}
-                disabled={isRunning}
-              />
-              {MODEL_LABEL[id]}
-            </label>
-          ))}
+        <div className="space-y-2">
+          <p className="text-sm font-medium text-text-heading">Test models</p>
+          <div className="flex items-center gap-4">
+            {TEST_MODELS.map((id) => (
+              <label key={id} className="flex items-center gap-2 text-sm text-text-body">
+                <input
+                  type="checkbox"
+                  checked={selectedModels.includes(id)}
+                  // Judges follow from the test model via JUDGE_ROTATION; there
+                  // is nothing to reset because they were never selectable.
+                  onChange={() =>
+                    setSelectedModels((prev) =>
+                      prev.includes(id)
+                        ? prev.filter((m) => m !== id)
+                        : // Keep TEST_MODELS order so the queue is deterministic
+                          // regardless of the order boxes were ticked.
+                          TEST_MODELS.filter((m) => m === id || prev.includes(m))
+                    )
+                  }
+                  disabled={isRunning}
+                />
+                {MODEL_LABEL[id]}
+              </label>
+            ))}
+          </div>
+          {selectedModels.length < TEST_MODELS.length ? (
+            <p className="text-xs text-error">
+              Only {selectedModels.length} of {TEST_MODELS.length} test models selected — this
+              pass will not cover the full design.
+            </p>
+          ) : null}
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -516,13 +606,22 @@ export default function BatchRunnerPage() {
             <label className="block text-sm font-medium text-text-heading mb-1">
               Decoding <span className="font-normal text-text-muted">(fixed by provider)</span>
             </label>
-            <div className="rounded-lg border border-cream-border bg-cream-card px-3 py-2 text-sm font-mono text-text-body">
-              {JSON.stringify(decodingParamsFor(testModel))}
+            <div className="rounded-lg border border-cream-border bg-cream-card px-3 py-2 space-y-1">
+              {selectedModels.map((m) => (
+                <div key={m} className="text-sm font-mono text-text-body">
+                  <span className="text-text-muted">{MODEL_LABEL[m]}: </span>
+                  {JSON.stringify(decodingParamsFor(m))}
+                </div>
+              ))}
+              {selectedModels.length === 0 ? (
+                <p className="text-sm text-text-muted">No test model selected.</p>
+              ) : null}
             </div>
             <p className="mt-1 text-xs text-text-muted">
-              {testModel === TEST_MODELS[0]
-                ? "Claude rejects temperature entirely; effort left at provider default."
-                : "GPT pins temperature to 1.0; reasoning_effort set to \"low\"."}
+              Claude rejects temperature entirely; effort left at provider default. GPT pins
+              temperature to 1.0; reasoning_effort set to &quot;low&quot;. The controls are not
+              commensurable, which is why each is recorded per model rather than as one shared
+              setting.
             </p>
           </div>
           <div>
@@ -558,38 +657,47 @@ export default function BatchRunnerPage() {
           <label className="block text-sm font-medium text-text-heading mb-1">
             Judges <span className="font-normal text-text-muted">(fixed by rotation)</span>
           </label>
-          <div className="rounded-lg border border-cream-border bg-cream-card px-3 py-2 space-y-1">
-            <div className="flex items-center gap-2 text-sm">
-              <span className="rounded-full bg-navy-900 px-2 py-0.5 text-xs text-cream">
-                primary
-              </span>
-              <span className="font-mono text-text-heading">
-                {MODEL_LABEL[rotation.primary]}
-              </span>
-              <span className="text-xs text-text-muted">
-                ({familyOf(rotation.primary)})
-              </span>
-            </div>
-            <div className="flex items-center gap-2 text-sm">
-              <span className="rounded-full bg-navy-100 px-2 py-0.5 text-xs text-navy-900">
-                secondary
-              </span>
-              <span className="font-mono text-text-heading">
-                {MODEL_LABEL[rotation.secondary]}
-              </span>
-              <span className="text-xs text-text-muted">
-                ({familyOf(rotation.secondary)})
-              </span>
-            </div>
+          <div className="rounded-lg border border-cream-border bg-cream-card px-3 py-2 space-y-3">
+            {selectedModels.map((m) => {
+              const r = judgesFor(m);
+              const collision =
+                isFamilyCollision(m, r.primary) || isFamilyCollision(m, r.secondary);
+              return (
+                <div key={m} className="space-y-1">
+                  <p className="text-xs font-medium text-text-muted">
+                    produced by {MODEL_LABEL[m]}
+                  </p>
+                  <div className="flex items-center gap-2 text-sm">
+                    <span className="rounded-full bg-navy-900 px-2 py-0.5 text-xs text-cream">
+                      primary
+                    </span>
+                    <span className="font-mono text-text-heading">{MODEL_LABEL[r.primary]}</span>
+                    <span className="text-xs text-text-muted">({familyOf(r.primary)})</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm">
+                    <span className="rounded-full bg-navy-100 px-2 py-0.5 text-xs text-navy-900">
+                      secondary
+                    </span>
+                    <span className="font-mono text-text-heading">{MODEL_LABEL[r.secondary]}</span>
+                    <span className="text-xs text-text-muted">({familyOf(r.secondary)})</span>
+                  </div>
+                  {collision ? (
+                    <p className="text-xs text-error">
+                      Rotation misconfigured: family collision.
+                    </p>
+                  ) : null}
+                </div>
+              );
+            })}
+            {selectedModels.length === 0 ? (
+              <p className="text-sm text-text-muted">No test model selected.</p>
+            ) : null}
           </div>
           <p className="mt-1 text-xs text-text-muted">
-            Every run is scored by both judges. The rotation is derived from the producing model —{" "}
-            {MODEL_LABEL[testModel]} — and is not selectable. A judge sharing the producing
+            Every run is scored by both judges. The rotation is derived from the producing model
+            and is not selectable — note that the primary is the same judge for both, which is
+            what makes the two models&apos; scores comparable. A judge sharing the producing
             model&apos;s vendor family is rejected at the API layer.
-            {isFamilyCollision(testModel, rotation.primary) ||
-            isFamilyCollision(testModel, rotation.secondary) ? (
-              <span className="text-error"> Rotation misconfigured: family collision.</span>
-            ) : null}
           </p>
         </div>
       </section>
@@ -597,15 +705,52 @@ export default function BatchRunnerPage() {
       <section className="space-y-4">
         <h2 className="text-lg font-semibold text-text-heading">Step 3 — Confirm and Run</h2>
 
-        <Button
-          onClick={handleStartBatch}
-          disabled={isRunning || pendingJobCount === 0 || keyBlocked}
-        >
-          <Layers size={16} />
-          {isRunning
-            ? "Running batch…"
-            : `Start Batch (${pendingJobCount} job${pendingJobCount === 1 ? "" : "s"})`}
-        </Button>
+        <div className="flex items-center gap-3">
+          <Button
+            onClick={handleStartBatch}
+            disabled={isRunning || pendingJobCount === 0 || keyBlocked}
+          >
+            <Layers size={16} />
+            {isRunning
+              ? "Running batch…"
+              : `Start Batch (${pendingJobCount} job${pendingJobCount === 1 ? "" : "s"})`}
+          </Button>
+
+          {checkpointPaused && (
+            <Button onClick={handleResume} disabled={isRunning || keyBlocked}>
+              Resume ({jobs.filter((j) => j.status === "pending").length} remaining)
+            </Button>
+          )}
+        </div>
+
+        {pendingJobCount > CHECKPOINT_AFTER_GENERATIONS && !isRunning && !checkpointPaused && (
+          <p className="text-xs text-text-muted">
+            The run will pause after {CHECKPOINT_AFTER_GENERATIONS} generations (
+            {CHECKPOINT_AFTER_GENERATIONS / 4} tasks — {CHECKPOINT_AFTER_GENERATIONS / 2} complete
+            pairs, balanced across both models) so results can be reviewed before the remainder is
+            dispatched.
+          </p>
+        )}
+
+        {checkpointPaused && (
+          <div className="rounded-lg border border-navy-500/40 bg-navy-100/40 px-4 py-3">
+            <p className="text-sm font-semibold text-text-heading">
+              Checkpoint reached — {CHECKPOINT_AFTER_GENERATIONS} generations dispatched
+            </p>
+            <p className="mt-1 text-xs text-text-body">
+              Everything dispatched so far is saved and scored. The remaining{" "}
+              {jobs.filter((j) => j.status === "pending").length} job(s) are still queued and were
+              not started.
+              {elapsedMs !== null
+                ? ` Elapsed run time: ${(elapsedMs / 60000).toFixed(1)} min.`
+                : ""}
+            </p>
+            <p className="mt-1 text-xs text-text-muted">
+              Run <span className="font-mono">npm run checkpoint</span> for the score
+              distribution, then Resume.
+            </p>
+          </div>
+        )}
 
         {abortReason && (
           <div className="rounded-lg border border-error/40 bg-error/10 px-4 py-3">

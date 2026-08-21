@@ -5,7 +5,13 @@ import {
   diffRunSettings,
   DEFAULT_MAX_TOKENS,
 } from "../lib/runSettings.ts";
-import { isUnpairedScope, PAIRED_SCOPE } from "../lib/batch.ts";
+import {
+  buildBatchJobs,
+  CHECKPOINT_AFTER_GENERATIONS,
+  isUnpairedScope,
+  PAIRED_SCOPE,
+} from "../lib/batch.ts";
+import { runWithConcurrency } from "../lib/concurrency.ts";
 import { decodingParamsFor } from "../lib/decoding.ts";
 import { joinResults, REQUIRED_JUDGES_PER_RESULT } from "../lib/resultsJoin.ts";
 import { RESULTS_COLUMNS, EVALUATIONS_COLUMNS } from "../lib/exportShape.ts";
@@ -128,6 +134,132 @@ describe("5b — execution-layer pairing", () => {
 describe("5c — truncation defaults", () => {
   test("default max_tokens raised to 4000", () => {
     assert.equal(DEFAULT_MAX_TOKENS, 4000);
+  });
+});
+
+describe("batch job ordering and the checkpoint boundary", () => {
+  const MODELS = ["claude-sonnet-5", "gpt-5.5-2026-04-23"] as const;
+  const mkTask = (id: string) =>
+    ({
+      task_id: id,
+      domain: "coding",
+      task_description: "d",
+      baseline_prompt: "b",
+      craft_prompt: "c",
+    }) as unknown as Parameters<typeof buildBatchJobs>[0][number];
+
+  const tasks = Array.from({ length: 50 }, (_, i) =>
+    mkTask(`T${String(i + 1).padStart(3, "0")}`)
+  );
+  const allIds = new Set(tasks.map((t) => t.task_id));
+
+  test("the full design is 200 jobs", () => {
+    assert.equal(buildBatchJobs(tasks, allIds, "both", MODELS).length, 200);
+  });
+
+  test("ordering is task-major, then model, then condition", () => {
+    const jobs = buildBatchJobs(tasks.slice(0, 2), new Set(["T001", "T002"]), "both", MODELS);
+    assert.deepEqual(
+      jobs.map((j) => `${j.task_id}/${j.model}/${j.condition}`),
+      [
+        "T001/claude-sonnet-5/baseline",
+        "T001/claude-sonnet-5/craft",
+        "T001/gpt-5.5-2026-04-23/baseline",
+        "T001/gpt-5.5-2026-04-23/craft",
+        "T002/claude-sonnet-5/baseline",
+        "T002/claude-sonnet-5/craft",
+        "T002/gpt-5.5-2026-04-23/baseline",
+        "T002/gpt-5.5-2026-04-23/craft",
+      ]
+    );
+  });
+
+  test("the checkpoint prefix is exactly 25 whole tasks", () => {
+    const jobs = buildBatchJobs(tasks, allIds, "both", MODELS);
+    const prefix = jobs.slice(0, CHECKPOINT_AFTER_GENERATIONS);
+    assert.equal(new Set(prefix.map((j) => j.task_id)).size, 25);
+    // Nothing in the prefix may belong to a task that also appears after it.
+    const after = new Set(jobs.slice(CHECKPOINT_AFTER_GENERATIONS).map((j) => j.task_id));
+    for (const j of prefix) {
+      assert.ok(!after.has(j.task_id), `${j.task_id} straddles the checkpoint boundary`);
+    }
+  });
+
+  test("the checkpoint prefix holds whole pairs, balanced across models", () => {
+    const jobs = buildBatchJobs(tasks, allIds, "both", MODELS);
+    const prefix = jobs.slice(0, CHECKPOINT_AFTER_GENERATIONS);
+
+    for (const model of MODELS) {
+      const forModel = prefix.filter((j) => j.model === model);
+      assert.equal(forModel.length, 50, `${model} should contribute 50 generations`);
+      const baseline = forModel.filter((j) => j.condition === "baseline").map((j) => j.task_id);
+      const craft = forModel.filter((j) => j.condition === "craft").map((j) => j.task_id);
+      // Every baseline has its craft counterpart in the same prefix — no half pairs.
+      assert.deepEqual(baseline.sort(), craft.sort());
+      assert.equal(baseline.length, 25, `${model} should contribute 25 whole pairs`);
+    }
+  });
+
+  test("the dispatch gate stops at exactly the boundary under concurrency", async () => {
+    // The reason the gate is on dispatch index rather than completion count:
+    // with limit > 1 the completion count lags dispatch, so a completion-based
+    // boundary overshoots by up to limit-1 and can bisect a pair.
+    for (const limit of [1, 3, 8]) {
+      const ran: number[] = [];
+      const outcome = await runWithConcurrency(
+        Array.from({ length: 200 }, (_, i) => i),
+        limit,
+        async (item) => {
+          ran.push(item);
+          await new Promise((r) => setTimeout(r, 1));
+        },
+        {
+          shouldDispatch: (nextIndex) => nextIndex < CHECKPOINT_AFTER_GENERATIONS,
+        }
+      );
+      assert.equal(ran.length, CHECKPOINT_AFTER_GENERATIONS, `limit=${limit}`);
+      assert.equal(outcome.aborted, true, `limit=${limit}`);
+      assert.deepEqual(
+        ran.sort((a, b) => a - b),
+        Array.from({ length: CHECKPOINT_AFTER_GENERATIONS }, (_, i) => i),
+        `limit=${limit}: dispatched set must be the exact prefix`
+      );
+    }
+  });
+
+  test("an undispatched remainder is reported for resume, not lost", async () => {
+    const skipped: number[] = [];
+    await runWithConcurrency(
+      Array.from({ length: 200 }, (_, i) => i),
+      3,
+      async () => {},
+      {
+        shouldDispatch: (nextIndex) => nextIndex < CHECKPOINT_AFTER_GENERATIONS,
+        onSkipped: (index) => skipped.push(index),
+      }
+    );
+    assert.equal(skipped.length, 100);
+    assert.equal(skipped[0], CHECKPOINT_AFTER_GENERATIONS);
+    assert.equal(skipped[skipped.length - 1], 199);
+  });
+
+  test("a run that fits under the boundary is not flagged as aborted", async () => {
+    const outcome = await runWithConcurrency(
+      Array.from({ length: 8 }, (_, i) => i),
+      3,
+      async () => {},
+      { shouldDispatch: (nextIndex) => nextIndex < CHECKPOINT_AFTER_GENERATIONS }
+    );
+    assert.equal(outcome.completed, 8);
+    assert.equal(outcome.aborted, false);
+  });
+
+  test("a single-model selection still produces whole pairs", () => {
+    const jobs = buildBatchJobs(tasks, allIds, "both", [MODELS[0]]);
+    assert.equal(jobs.length, 100);
+    assert.ok(jobs.every((j) => j.model === MODELS[0]));
+    assert.equal(jobs[0].condition, "baseline");
+    assert.equal(jobs[1].condition, "craft");
   });
 });
 

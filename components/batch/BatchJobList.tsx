@@ -1,5 +1,6 @@
 import { Ban, Check, Clock, Loader2, X } from "lucide-react";
 import { DOMAIN_LABELS } from "@/types";
+import { MODEL_LABEL } from "@/lib/models/registry";
 import type { BatchJob } from "@/lib/batch";
 
 function StatusBadge({ status }: { status: BatchJob["status"] }) {
@@ -68,6 +69,7 @@ export function BatchJobList({ jobs }: BatchJobListProps) {
             <tr>
               <th className="text-left px-3 py-2">Task</th>
               <th className="text-left px-3 py-2">Domain</th>
+              <th className="text-left px-3 py-2">Model</th>
               <th className="text-left px-3 py-2">Condition</th>
               <th className="text-left px-3 py-2">Status</th>
               <th className="text-left px-3 py-2">Score</th>
@@ -75,9 +77,15 @@ export function BatchJobList({ jobs }: BatchJobListProps) {
           </thead>
           <tbody>
             {jobs.map((job, i) => (
-              <tr key={`${job.task_id}-${job.condition}-${i}`} className="border-t border-cream-border">
+              <tr
+                key={`${job.task_id}-${job.model}-${job.condition}-${i}`}
+                className="border-t border-cream-border"
+              >
                 <td className="px-3 py-2 font-mono text-xs">{job.task_id}</td>
                 <td className="px-3 py-2 text-text-body">{DOMAIN_LABELS[job.domain]}</td>
+                <td className="px-3 py-2 font-mono text-xs text-text-body">
+                  {MODEL_LABEL[job.model]}
+                </td>
                 <td className="px-3 py-2 text-text-body capitalize">{job.condition}</td>
                 <td className="px-3 py-2">
                   <StatusBadge status={job.status} />

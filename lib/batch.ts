@@ -1,4 +1,5 @@
 import type { PromptCondition, TaskRecord } from "@/types";
+import type { TestModelId } from "@/lib/models/registry";
 
 /**
  * 5b — Execution-layer pairing.
@@ -29,11 +30,27 @@ export interface BatchJob {
   task_id: string;
   domain: TaskRecord["domain"];
   task_description: string;
+  /**
+   * The producing model. Part of the job rather than a page-level setting so a
+   * single pass can cover both test models — see buildBatchJobs for why the
+   * ordering matters.
+   */
+  model: TestModelId;
   condition: PromptCondition;
   status: BatchJobStatus;
   error?: string;
   total_score?: number;
 }
+
+/**
+ * Pause the run once this many generations have been dispatched, for inspection
+ * before committing the remaining calls.
+ *
+ * 100 is not arbitrary: under the task-major ordering below it is exactly 25
+ * whole tasks — 50 complete pairs, 25 per model — so the pause can never land
+ * mid-pair and the checkpoint sample is balanced across both models.
+ */
+export const CHECKPOINT_AFTER_GENERATIONS = 100;
 
 export function isTaskReadyForScope(task: TaskRecord, scope: ConditionScope): boolean {
   if (scope === "baseline") return Boolean(task.baseline_prompt);
@@ -41,24 +58,45 @@ export function isTaskReadyForScope(task: TaskRecord, scope: ConditionScope): bo
   return Boolean(task.baseline_prompt) && Boolean(task.craft_prompt);
 }
 
+/**
+ * Job ordering is TASK-major, then model, then condition:
+ *
+ *   T001/claude/baseline, T001/claude/craft, T001/gpt/baseline, T001/gpt/craft,
+ *   T002/claude/baseline, ...
+ *
+ * Two properties follow, and both matter:
+ *
+ * 1. Every task is finished completely before the next begins, so any prefix of
+ *    the queue that is a multiple of 4 is a set of WHOLE pairs, balanced across
+ *    models. A pause or a halt can never bisect a pair.
+ *
+ * 2. The two models are interleaved in wall-clock time rather than run in
+ *    blocks. Under model-blocked ordering a degraded provider hour lands
+ *    entirely on one model's data and shows up as a model effect; interleaved,
+ *    it hits both roughly equally and stays noise.
+ */
 export function buildBatchJobs(
   tasks: TaskRecord[],
   selectedIds: Set<string>,
-  scope: ConditionScope
+  scope: ConditionScope,
+  models: readonly TestModelId[]
 ): BatchJob[] {
   const conditions: PromptCondition[] = scope === "both" ? ["baseline", "craft"] : [scope];
   const jobs: BatchJob[] = [];
 
   for (const task of tasks) {
     if (!selectedIds.has(task.task_id)) continue;
-    for (const condition of conditions) {
-      jobs.push({
-        task_id: task.task_id,
-        domain: task.domain,
-        task_description: task.task_description,
-        condition,
-        status: "pending",
-      });
+    for (const model of models) {
+      for (const condition of conditions) {
+        jobs.push({
+          task_id: task.task_id,
+          domain: task.domain,
+          task_description: task.task_description,
+          model,
+          condition,
+          status: "pending",
+        });
+      }
     }
   }
 

@@ -13,6 +13,7 @@
     "clear-runs": "node scripts/clearRuns.ts",
     "validate": "node scripts/validate.ts",
     "check-callable": "node scripts/checkCallable.ts",
+    "checkpoint": "node scripts/checkpoint.ts",
     "test": "node --test \"tests/**/*.test.ts\""
   },
   "dependencies": {
