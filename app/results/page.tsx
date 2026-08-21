@@ -114,8 +114,8 @@ export default function ResultsPage() {
         data.push({
           task_id: taskId,
           domain,
-          baseline: round(mean(group.baseline.map(totalOf))),
-          craft: round(mean(group.craft.map(totalOf))),
+          baseline: round(mean(group.baseline.map(totalOf).filter((v): v is number => v !== null))),
+          craft: round(mean(group.craft.map(totalOf).filter((v): v is number => v !== null))),
         });
       }
     }
@@ -163,21 +163,25 @@ export default function ResultsPage() {
     craft: row.craft.mean,
   }));
 
+  // Submetrics also average across judges.
   const submetrics = [
     {
       label: "Constraint Adherence",
       max: 4,
-      key: "constraint_adherence_score_0_4" as const,
+      key: "constraint",
+      accessor: (s: ScoredResult) => s.meanConstraint,
     },
     {
       label: "Logical Accuracy",
       max: 4,
-      key: "logical_accuracy_score_0_4" as const,
+      key: "logical",
+      accessor: (s: ScoredResult) => s.meanLogical,
     },
     {
       label: "Completeness",
       max: 2,
-      key: "completeness_score_0_2" as const,
+      key: "completeness",
+      accessor: (s: ScoredResult) => s.meanCompleteness,
     },
   ];
 
@@ -213,10 +217,10 @@ export default function ResultsPage() {
             Exclude stale runs from all figures below (recommended)
           </label>
           <ul className="mt-2 font-mono text-xs text-warning/90 max-h-32 overflow-y-auto">
-            {staleResults.map((r) => (
-              <li key={r.result_id}>
-                {r.task_id} · {r.prompt_condition} · run {r.run_number} ·{" "}
-                {taskById.has(r.task_id) ? "content changed" : "task no longer exists"}
+            {staleResults.map((s) => (
+              <li key={s.result.result_id}>
+                {s.result.task_id} · {s.result.prompt_condition} · run {s.result.run_number} ·{" "}
+                {taskById.has(s.result.task_id) ? "content changed" : "task no longer exists"}
               </li>
             ))}
           </ul>
@@ -353,8 +357,8 @@ export default function ResultsPage() {
           {activeTab === "By Submetric" && (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {submetrics.map((sub) => {
-                const baseline = conditionStats(results, "baseline", (r) => r[sub.key]);
-                const craft = conditionStats(results, "craft", (r) => r[sub.key]);
+                const baseline = conditionStats(results, "baseline", sub.accessor);
+                const craft = conditionStats(results, "craft", sub.accessor);
                 return (
                   <div key={sub.key}>
                     <h2 className="text-sm font-semibold text-text-heading mb-2">
