@@ -28,5 +28,48 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response correctly identifies the check-before-add ordering as the bug, explains why this defers the below-zero detection to the next iteration (thus missing the case where the last transaction causes the drop), gives a concrete failing example (transactions=[-50]), provides a corrected, runnable function that appends before checking, and the corrected function returns True on [-5] since -5<0. No unjustified edge-case changes (still uses < 0) were introduced."
+  },
+  {
+    "evaluation_id": "EVAL-d14c9a9a-8876-4c34-b141-fc308cf79ebd",
+    "result_id": "RES-368788c5-8a6f-4940-8a5e-eb7fba617849",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-21T19:37:54.028Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 2,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 1000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response perfectly satisfies all constraints: it identifies the check-before-update order of operations, explains the issue with a clear concrete trace, provides a clean corrected function that works properly on negative initial transactions, and contains all required components without introducing new bugs."
+  },
+  {
+    "evaluation_id": "EVAL-94206674-7f72-4075-89f5-4ed6c9cdb4c8",
+    "result_id": "RES-368788c5-8a6f-4940-8a5e-eb7fba617849",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-21T19:37:59.764Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly pinpoints the exact bug (checking balance<0 before adding the current amount), gives a concrete failing example (transactions=[100,-150]) showing the balance dips to -50 without detection, explains why the check-before-add order is wrong, and supplies a corrected function that applies the amount before checking. The fix preserves the original < 0 condition without introducing new edge-case issues, and it correctly returns True for transactions=[-5]. All five constraints are satisfied, reasoning is clear and complete."
   }
 ]

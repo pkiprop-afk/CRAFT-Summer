@@ -122,5 +122,67 @@
     "retry_count": 0,
     "retry_log": [],
     "notes": ""
+  },
+  {
+    "result_id": "RES-f09e02c6-b88f-4a55-a058-21e54f8d581e",
+    "task_id": "T002",
+    "task_version": "v1-37e3df37e647ca353601f14ccce415ed",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-21T19:37:33.764Z",
+    "raw_model_output": "The bug is in the comparison operator. Your function checks `reading > limit`, which only flags a value as \"bad\" if it *exceeds* the limit. But you want *strictly below*, meaning a reading that's *equal to* the limit should also fail the check.\n\n**Why it goes wrong:**\nSuppose `limit = 100` and a reading is exactly `100`. \n- `100 > 100` evaluates to `False`, so the loop doesn't return `False`. \n- The function then returns `True`, incorrectly saying all readings are strictly under the limit — even though `100` is not strictly less than `100`.\n\n**The fix:** use `>=` instead of `>`, so any reading equal to or above the limit fails the check.\n\n```python\ndef all_readings_under_limit(readings, limit):\n    for reading in readings:\n        if reading >= limit:\n            return False\n    return True\n```\n\nThis way, a reading of exactly `limit` correctly causes the function to return `False`, matching the \"strictly below\" requirement.\n\nIf you like, you could also write it more concisely using `all()`:\n\n```python\ndef all_readings_under_limit(readings, limit):\n    return all(reading < limit for reading in readings)\n```\n\nThis is functionally identical but arguably clearer about intent — it directly expresses \"all readings are less than the limit.\"",
+    "anonymized_output_id": "OUT-0010",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-a9283520-41f7-4e94-8a29-798244fbeead",
+    "task_id": "T002",
+    "task_version": "v1-37e3df37e647ca353601f14ccce415ed",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-21T19:38:04.483Z",
+    "raw_model_output": "# The Fault\n\nThe function uses `reading > limit` as its rejection test. This only catches values that exceed the limit — it does not catch values that are exactly equal to it.\n\n# The Explanation\n\nThe specification requires every reading to be **strictly below** the limit. That means a reading equal to the limit should cause the function to return `False`. As written, when `reading == limit`, the condition `reading > limit` evaluates to `False`, so the loop does not return `False` and instead continues, eventually letting `all_readings_under_limit` return `True`. The function is effectively checking \"no reading exceeds the limit\" rather than \"every reading is strictly less than the limit\" — those are different conditions, and they diverge precisely at the boundary case you've encountered.\n\n# The Corrected Function\n\n```python\ndef all_readings_under_limit(readings, limit):\n    for reading in readings:\n        if reading >= limit:\n            return False\n    return True\n```",
+    "anonymized_output_id": "OUT-0011",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
   }
 ]
