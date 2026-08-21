@@ -1,4 +1,4 @@
-import { Plus, Trash2 } from "lucide-react";
+import { ArrowDown, ArrowUp, Lock, Plus, Trash2 } from "lucide-react";
 import { assembleCraftPrompt } from "@/lib/craft";
 import { DOMAIN_LABELS, type TaskRecord } from "@/types";
 
@@ -49,6 +49,19 @@ export function TaskForm({ task, onChange }: TaskFormProps) {
   function addConstraint() {
     set("expected_constraints", [...task.expected_constraints, ""]);
   }
+
+  function moveConstraint(index: number, delta: number) {
+    const target = index + delta;
+    if (target < 0 || target >= task.expected_constraints.length) return;
+    const next = [...task.expected_constraints];
+    [next[index], next[target]] = [next[target], next[index]];
+    set("expected_constraints", next);
+  }
+
+  // Always derived from the live component values, so the preview cannot drift
+  // from what would actually be sent to a model.
+  const derivedCraftPrompt = assembleCraftPrompt(task);
+  const blankConstraints = task.expected_constraints.filter((c) => !c.trim()).length;
 
   return (
     <div className="space-y-6">

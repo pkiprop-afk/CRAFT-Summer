@@ -207,6 +207,35 @@ export interface TaskImportResult {
   ignoredCraftPromptRows: string[];
 }
 
+function asText(value: unknown): string {
+  if (value === null || value === undefined) return "";
+  if (Array.isArray(value)) return JSON.stringify(value);
+  return String(value);
+}
+
+/**
+ * Validates a single task object (e.g. a PUT payload from the editor) through
+ * exactly the same rules as the importer, by shaping it into an import row.
+ * Guarantees the editor and the import path can never diverge, and that
+ * craft_prompt is re-derived server-side rather than trusted from the client.
+ */
+export function validateSingleTask(input: unknown): {
+  task: TaskRecord | null;
+  errors: string[];
+} {
+  if (!input || typeof input !== "object") {
+    return { task: null, errors: ["payload must be a task object"] };
+  }
+  const source = input as Record<string, unknown>;
+
+  const row: TaskImportRow = {};
+  for (const field of TASK_FIELD_NAMES) row[field] = asText(source[field]);
+
+  const result = validateTaskRows([row]);
+  if (result.tasks.length === 1) return { task: result.tasks[0], errors: [] };
+  return { task: null, errors: result.errors[0]?.reasons ?? ["task failed validation"] };
+}
+
 /**
  * `rows` may arrive with raw spreadsheet headers; keys are normalized here.
  * Reported row numbers are spreadsheet rows (header is row 1), so they can be
