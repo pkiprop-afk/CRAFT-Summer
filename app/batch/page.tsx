@@ -266,6 +266,8 @@ export default function BatchRunnerPage() {
           logical_accuracy_score_0_4: evalData.logical_accuracy,
           completeness_score_0_2: evalData.completeness,
           total_score_0_10: evalData.total,
+          retry_count: evalData.evaluator_retry_count ?? 0,
+          retry_log: evalData.evaluator_retry_log ?? [],
           evaluator_justification: evalData.justification,
         };
 

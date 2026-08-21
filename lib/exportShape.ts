@@ -43,6 +43,8 @@ export const EVALUATIONS_COLUMNS = [
   "logical_accuracy_score_0_4",
   "completeness_score_0_2",
   "total_score_0_10",
+  "retry_count",
+  "retry_log",
   "evaluator_justification",
 ] as const;
 

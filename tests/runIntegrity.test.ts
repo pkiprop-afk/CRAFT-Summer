@@ -167,6 +167,8 @@ describe("two-evaluations-per-result rule", () => {
     logical_accuracy_score_0_4: 4,
     completeness_score_0_2: 2,
     total_score_0_10: 9,
+    retry_count: 0,
+    retry_log: [],
     evaluator_justification: "ok",
   });
 
@@ -243,9 +245,15 @@ describe("export shape", () => {
         "logical_accuracy_score_0_4",
         "completeness_score_0_2",
         "total_score_0_10",
+        "retry_count",
+        "retry_log",
         "evaluator_justification",
       ]
     );
+  });
+
+  test("K1 — evaluations export is 13 columns", () => {
+    assert.equal(EVALUATIONS_COLUMNS.length, 13);
   });
 
   test("no evaluator field remains on the results shape", () => {

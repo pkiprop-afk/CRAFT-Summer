@@ -340,6 +340,17 @@ async function main(): Promise<void> {
         `${e.evaluation_id}: primary evaluator is ${e.evaluator_model}, must be ${GOOGLE_MODEL_ID}`
       );
     }
+    // K2 — same treatment as result retries: a warning, not an error. The
+    // judgement is valid; the fact worth surfacing is that the instrument was
+    // degraded when it was made. Labelled by role because retries on the
+    // PRIMARY judge bear on every score in the study.
+    if (e.retry_count > 0) {
+      warn(
+        `${e.evaluation_id} (result ${e.result_id}, ${e.is_primary ? "PRIMARY" : "secondary"} ` +
+          `judge ${e.evaluator_model}): scored after ${e.retry_count} retry/retries — ` +
+          `the judge provider was degraded at evaluation time`
+      );
+    }
     const parent = resultById.get(e.result_id);
     if (parent && isFamilyCollision(parent.model_name, e.evaluator_model)) {
       err(

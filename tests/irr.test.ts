@@ -47,6 +47,8 @@ function makeEval(
     logical_accuracy_score_0_4: parts.l,
     completeness_score_0_2: parts.k,
     total_score_0_10: total,
+    retry_count: 0,
+    retry_log: [],
     evaluator_justification: "j",
   };
 }

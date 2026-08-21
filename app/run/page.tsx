@@ -50,7 +50,12 @@ export default function PromptRunnerPage() {
 
   const [evaluatorChoice, setEvaluatorChoice] = useState<EvaluatorChoice>(judgesFor(TEST_MODELS[0]).primary);
   const [evaluating, setEvaluating] = useState(false);
-  const [evaluation, setEvaluation] = useState<ParsedEvaluation | null>(null);
+  // K1 — the judge's parsed scores plus the transport metadata for that call.
+  // The retry fields are not part of what the judge said, so they are carried
+  // alongside ParsedEvaluation rather than folded into it.
+  const [evaluation, setEvaluation] = useState<
+    (ParsedEvaluation & { retry_count: number; retry_log: RetryAttempt[] }) | null
+  >(null);
   const [evaluationError, setEvaluationError] = useState<string | null>(null);
 
   const [saving, setSaving] = useState(false);
@@ -167,6 +172,8 @@ export default function PromptRunnerPage() {
         completeness: data.completeness,
         total: data.total,
         justification: data.justification,
+        retry_count: data.evaluator_retry_count ?? 0,
+        retry_log: data.evaluator_retry_log ?? [],
       });
       setEvaluatorProvenance(data.evaluator_provenance_fingerprint ?? "");
     } catch (err) {
@@ -238,6 +245,8 @@ export default function PromptRunnerPage() {
           logical_accuracy_score_0_4: evaluation.logical_accuracy,
           completeness_score_0_2: evaluation.completeness,
           total_score_0_10: evaluation.total,
+          retry_count: evaluation.retry_count,
+          retry_log: evaluation.retry_log,
           evaluator_justification: evaluation.justification,
         };
         const evalResponse = await fetch("/api/evaluations", {

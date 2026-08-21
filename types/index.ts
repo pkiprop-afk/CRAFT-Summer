@@ -131,6 +131,15 @@ export interface EvaluationRecord {
   logical_accuracy_score_0_4: number;
   completeness_score_0_2: number;
   total_score_0_10: number;
+  /**
+   * K1 — transient provider failures retried before this judgement landed.
+   * Recorded rather than discarded because retry frequency on the PRIMARY judge
+   * is a reliability signal about the instrument itself: every score in the
+   * study passes through that one model, so a judge that is routinely degraded
+   * is a fact about the measurements, not an operational footnote.
+   */
+  retry_count: number;
+  retry_log: RetryAttempt[];
   evaluator_justification: string;
 }
 
