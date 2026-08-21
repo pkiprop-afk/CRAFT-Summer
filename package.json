@@ -10,6 +10,8 @@
     "select-stability-subset": "node scripts/selectStabilitySubset.ts",
     "check-models": "node scripts/checkModelAvailability.ts",
     "capture-model-manifest": "node scripts/captureModelManifest.ts",
+    "clear-runs": "node scripts/clearRuns.ts",
+    "validate": "node scripts/validate.ts",
     "test": "node --test \"tests/**/*.test.ts\""
   },
   "dependencies": {
