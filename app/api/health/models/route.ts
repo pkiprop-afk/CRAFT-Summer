@@ -1,10 +1,14 @@
+import { readFileSync, readdirSync } from "node:fs";
+import path from "node:path";
 import { NextResponse } from "next/server";
 import { isKeyConfigured, ENV_VAR_BY_FAMILY } from "@/lib/env";
 import {
   checkConfiguredModels,
+  checkModelIdLiterals,
   listAnthropicModels,
   listGoogleModels,
   listOpenAIModels,
+  scanModelIdLiterals,
   type ProviderListing,
 } from "@/lib/models/availability";
 import { MODEL_FAMILY, type ModelFamily } from "@/lib/models/registry";
@@ -46,12 +50,39 @@ export async function GET() {
 
   const { checks, missing, allPresent } = checkConfiguredModels(listings, MODEL_FAMILY);
 
+  // Also scan every model ID literal under lib/models/ — the wrappers pin their
+  // own IDs, so a registry-only check can pass while a wrapper calls a retired
+  // model.
+  let literalChecks: ReturnType<typeof checkModelIdLiterals> = {
+    checks: [],
+    missing: [],
+    allPresent: true,
+  };
+  try {
+    const modelsDir = path.join(process.cwd(), "lib", "models");
+    const sourceFiles = readdirSync(modelsDir)
+      .filter((f) => f.endsWith(".ts"))
+      .map((f) => ({
+        path: `lib/models/${f}`,
+        source: readFileSync(path.join(modelsDir, f), "utf-8"),
+      }));
+    literalChecks = checkModelIdLiterals(scanModelIdLiterals(sourceFiles), listings);
+  } catch {
+    // Sources unavailable (e.g. a packaged build) — registry check still applies.
+  }
+
+  const ok = allPresent && literalChecks.allPresent;
+
   return NextResponse.json(
     {
       checkedAt: new Date().toISOString(),
-      allPresent,
-      missing: missing.map((m) => m.model_id),
+      allPresent: ok,
+      missing: [
+        ...missing.map((m) => m.model_id),
+        ...literalChecks.missing.map((m) => `${m.model_id} (${m.file}:${m.line})`),
+      ],
       checks,
+      literalChecks: literalChecks.checks,
       providers: listings.map((l) => ({
         family: l.family,
         reachable: l.reachable,
@@ -60,6 +91,6 @@ export async function GET() {
         error: l.error,
       })),
     },
-    { status: allPresent ? 200 : 503 }
+    { status: ok ? 200 : 503 }
   );
 }

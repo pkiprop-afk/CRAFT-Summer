@@ -11,13 +11,15 @@
  * Run: npm run check-models
  */
 
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 import {
   checkConfiguredModels,
+  checkModelIdLiterals,
   listAnthropicModels,
   listGoogleModels,
   listOpenAIModels,
+  scanModelIdLiterals,
   type ProviderListing,
 } from "../lib/models/availability.ts";
 import { MODEL_FAMILY, type ModelFamily } from "../lib/models/registry.ts";
@@ -93,7 +95,7 @@ async function main(): Promise<void> {
     );
   }
 
-  const { checks, missing, allPresent } = checkConfiguredModels(listings, MODEL_FAMILY);
+  const { checks, missing } = checkConfiguredModels(listings, MODEL_FAMILY);
 
   console.log("\nconfigured model IDs (from lib/models/registry.ts):");
   for (const c of checks) {
@@ -101,11 +103,43 @@ async function main(): Promise<void> {
     console.log(`  ${mark} ${c.model_id.padEnd(20)} [${c.family}]  ${c.note}`);
   }
 
-  if (!allPresent) {
+  // Source scan: every model ID literal anywhere under lib/models/, so a stale
+  // pin inside a provider wrapper cannot slip past a registry-only check.
+  const modelsDir = path.join(repoRoot, "lib", "models");
+  const sourceFiles = readdirSync(modelsDir)
+    .filter((f) => f.endsWith(".ts"))
+    .map((f) => ({
+      path: path.join("lib", "models", f),
+      source: readFileSync(path.join(modelsDir, f), "utf-8"),
+    }));
+
+  const literals = scanModelIdLiterals(sourceFiles);
+  const literalResult = checkModelIdLiterals(literals, listings);
+
+  console.log(`\nmodel ID literals found in lib/models/ (${literals.length}):`);
+  for (const c of literalResult.checks) {
+    const mark = c.present ? "OK     " : "MISSING";
+    console.log(
+      `  ${mark} ${c.model_id.padEnd(28)} ${c.file}:${c.line} [${c.family}]  ${c.note}`
+    );
+  }
+
+  const allMissing = [
+    ...missing.map((m) => ({ id: m.model_id, where: "registry", similar: m.similar })),
+    ...literalResult.missing.map((m) => ({
+      id: m.model_id,
+      where: `${m.file}:${m.line}`,
+      similar: m.similar,
+    })),
+  ];
+
+  if (allMissing.length > 0) {
     console.log("\n--- ABSENT MODELS ---");
-    for (const m of missing) {
-      console.log(`\n  ${m.model_id} (${m.family}) is NOT offered by the provider.`);
-      if (m.similar.length > 0) {
+    const seen = new Set<string>();
+    for (const m of allMissing) {
+      console.log(`\n  ${m.id}  (${m.where}) is NOT offered by the provider.`);
+      if (!seen.has(m.id) && m.similar.length > 0) {
+        seen.add(m.id);
         console.log("  provider currently offers, same family:");
         for (const s of m.similar) console.log(`    ${s}`);
       }
@@ -117,7 +151,7 @@ async function main(): Promise<void> {
     return;
   }
 
-  console.log("\nAll configured model IDs are available.");
+  console.log("\nAll configured model IDs and all lib/models/ literals are available.");
 }
 
 main();

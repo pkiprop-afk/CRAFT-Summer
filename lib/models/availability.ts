@@ -137,6 +137,102 @@ export async function listGoogleModels(apiKey: string): Promise<ProviderListing>
   }
 }
 
+/**
+ * Which family a model ID belongs to, inferred from its vendor prefix.
+ * Returns null for strings that are not model IDs.
+ */
+export function familyFromModelId(id: string): ModelFamily | null {
+  if (/^claude-/i.test(id)) return "anthropic";
+  if (/^(gpt-|o[1-9](-|$)|chatgpt-)/i.test(id)) return "openai";
+  if (/^gemini-/i.test(id)) return "google";
+  return null;
+}
+
+export interface ModelIdLiteral {
+  file: string;
+  line: number;
+  model_id: string;
+  family: ModelFamily;
+}
+
+/**
+ * Finds every model ID string literal in the given sources.
+ *
+ * The registry is not the only place a model ID is pinned — the provider
+ * wrappers hard-code their own literals (e.g. `model: "claude-3-5-sonnet-latest"`).
+ * A registry-only check passes while the wrapper still calls a retired model,
+ * which is exactly the stale-pin failure this is meant to catch.
+ *
+ * Comments are stripped first, so a model ID mentioned in prose does not fail
+ * the check — only IDs that could actually be sent to an API.
+ */
+export function scanModelIdLiterals(
+  files: Array<{ path: string; source: string }>
+): ModelIdLiteral[] {
+  const found: ModelIdLiteral[] = [];
+
+  for (const { path: filePath, source } of files) {
+    // Blank out comments while preserving line numbering.
+    const stripped = source
+      .replace(/\/\*[\s\S]*?\*\//g, (m) => m.replace(/[^\n]/g, " "))
+      .replace(/\/\/[^\n]*/g, (m) => " ".repeat(m.length));
+
+    stripped.split(/\r?\n/).forEach((lineText, index) => {
+      const literal = /["'`]([A-Za-z0-9][A-Za-z0-9._-]*)["'`]/g;
+      let match: RegExpExecArray | null;
+      while ((match = literal.exec(lineText)) !== null) {
+        const id = match[1];
+        const family = familyFromModelId(id);
+        if (!family) continue;
+        found.push({ file: filePath, line: index + 1, model_id: id, family });
+      }
+    });
+  }
+
+  return found;
+}
+
+export interface LiteralCheck extends ModelIdLiteral {
+  present: boolean;
+  note: string;
+  similar: string[];
+}
+
+export function checkModelIdLiterals(
+  literals: ModelIdLiteral[],
+  listings: ProviderListing[]
+): { checks: LiteralCheck[]; missing: LiteralCheck[]; allPresent: boolean } {
+  const byFamily = new Map(listings.map((l) => [l.family, l]));
+  const checks: LiteralCheck[] = [];
+
+  for (const lit of literals) {
+    const listing = byFamily.get(lit.family);
+    if (!listing || !listing.reachable) {
+      checks.push({
+        ...lit,
+        present: false,
+        similar: [],
+        note: listing?.error ? `provider unreachable — ${listing.error}` : "provider not checked",
+      });
+      continue;
+    }
+    const { present, matched } = matchModel(lit.model_id, listing.models);
+    checks.push({
+      ...lit,
+      present,
+      similar: present ? matched.slice(0, 4) : similarTo(lit.model_id, listing.models),
+      note: present
+        ? matched[0] === lit.model_id
+          ? "exact match"
+          : `matched dated/aliased build: ${matched[0]}`
+        : "NOT OFFERED by provider",
+    });
+  }
+
+  const missing = checks.filter((c) => !c.present);
+  return { checks, missing, allPresent: missing.length === 0 };
+}
+
 export interface ConfiguredModelCheck {
   model_id: string;
   family: ModelFamily;
