@@ -7,29 +7,45 @@ import { OverviewChart } from "@/components/results/OverviewChart";
 import { ScatterPlot, type ScatterDatum } from "@/components/results/ScatterPlot";
 import { DomainChart, type GroupedBarDatum } from "@/components/results/DomainChart";
 import { conditionStats, mean, pairByTask, round } from "@/lib/results";
+import { joinResults, type ScoredResult } from "@/lib/resultsJoin";
 import { isResultStale } from "@/lib/invalidation";
-import { DOMAIN_LABELS, type Domain, type ResultRecord, type TaskRecord } from "@/types";
+import {
+  DOMAIN_LABELS,
+  type Domain,
+  type EvaluationRecord,
+  type ResultRecord,
+  type TaskRecord,
+} from "@/types";
 
 const TABS = ["Overview", "By Model", "By Domain", "By Submetric"];
 
+/** Aggregates use the mean across the judges that scored a run. */
+const totalOf = (s: ScoredResult) => s.meanTotal;
+
 export default function ResultsPage() {
   const [tasks, setTasks] = useState<TaskRecord[]>([]);
-  const [allResults, setAllResults] = useState<ResultRecord[]>([]);
+  const [rawResults, setRawResults] = useState<ResultRecord[]>([]);
+  const [evaluations, setEvaluations] = useState<EvaluationRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState(TABS[0]);
   // Stale runs are excluded from every aggregate by default — mixing them with
   // current runs compares outputs produced against different task content.
   const [excludeStale, setExcludeStale] = useState(true);
+  // A run scored by fewer than two judges is excluded by default: mixing a
+  // one-judge estimate with two-judge estimates is not like-for-like.
+  const [excludeIncomplete, setExcludeIncomplete] = useState(true);
 
   useEffect(() => {
     Promise.all([
       fetch("/api/tasks").then((r) => r.json()) as Promise<TaskRecord[]>,
       fetch("/api/results").then((r) => r.json()) as Promise<ResultRecord[]>,
+      fetch("/api/evaluations").then((r) => r.json()) as Promise<EvaluationRecord[]>,
     ])
-      .then(([taskData, resultData]) => {
+      .then(([taskData, resultData, evalData]) => {
         setTasks(taskData);
-        setAllResults(resultData);
+        setRawResults(resultData);
+        setEvaluations(evalData);
       })
       .catch(() => setLoadError("Failed to load results. Try refreshing the page."))
       .finally(() => setLoading(false));
@@ -43,28 +59,45 @@ export default function ResultsPage() {
 
   const taskById = useMemo(() => new Map(tasks.map((t) => [t.task_id, t])), [tasks]);
 
+  const allScored = useMemo(
+    () => joinResults(rawResults, evaluations),
+    [rawResults, evaluations]
+  );
+
   const staleResults = useMemo(
-    () => allResults.filter((r) => isResultStale(r, taskById.get(r.task_id))),
-    [allResults, taskById]
+    () => allScored.filter((s) => isResultStale(s.result, taskById.get(s.result.task_id))),
+    [allScored, taskById]
+  );
+
+  const incompleteResults = useMemo(
+    () => allScored.filter((s) => !s.isComplete),
+    [allScored]
+  );
+
+  const truncatedResults = useMemo(
+    () => allScored.filter((s) => s.result.truncated),
+    [allScored]
   );
 
   const results = useMemo(
     () =>
-      excludeStale
-        ? allResults.filter((r) => !isResultStale(r, taskById.get(r.task_id)))
-        : allResults,
-    [allResults, taskById, excludeStale]
+      allScored.filter((s) => {
+        if (excludeStale && isResultStale(s.result, taskById.get(s.result.task_id))) return false;
+        if (excludeIncomplete && !s.isComplete) return false;
+        return s.meanTotal !== null;
+      }),
+    [allScored, taskById, excludeStale, excludeIncomplete]
   );
 
   // Per-task mean first, then averaged across tasks — a task with more
   // repeat runs must not outweigh one with fewer. stddev is the run-to-run
   // spread within each task, itself averaged the same way (consistency).
   const baselineStats = useMemo(
-    () => conditionStats(results, "baseline", (r) => r.total_score_0_10),
+    () => conditionStats(results, "baseline", totalOf),
     [results]
   );
   const craftStats = useMemo(
-    () => conditionStats(results, "craft", (r) => r.total_score_0_10),
+    () => conditionStats(results, "craft", totalOf),
     [results]
   );
   const meanBaseline = baselineStats.mean;
@@ -81,8 +114,8 @@ export default function ResultsPage() {
         data.push({
           task_id: taskId,
           domain,
-          baseline: round(mean(group.baseline.map((r) => r.total_score_0_10))),
-          craft: round(mean(group.craft.map((r) => r.total_score_0_10))),
+          baseline: round(mean(group.baseline.map(totalOf))),
+          craft: round(mean(group.craft.map(totalOf))),
         });
       }
     }
@@ -90,13 +123,13 @@ export default function ResultsPage() {
   }, [results, taskDomainById]);
 
   const modelRows = useMemo(() => {
-    const models = Array.from(new Set(results.map((r) => r.model_name)));
+    const models = Array.from(new Set(results.map((s) => s.result.model_name)));
     return models.map((model) => {
-      const modelResults = results.filter((r) => r.model_name === model);
+      const modelResults = results.filter((s) => s.result.model_name === model);
       return {
         model,
-        baseline: conditionStats(modelResults, "baseline", (r) => r.total_score_0_10),
-        craft: conditionStats(modelResults, "craft", (r) => r.total_score_0_10),
+        baseline: conditionStats(modelResults, "baseline", totalOf),
+        craft: conditionStats(modelResults, "craft", totalOf),
       };
     });
   }, [results]);
@@ -111,9 +144,9 @@ export default function ResultsPage() {
     const domains = Array.from(new Set(tasks.map((t) => t.domain)));
     return domains.map((domain) => {
       const taskIds = new Set(tasks.filter((t) => t.domain === domain).map((t) => t.task_id));
-      const domainResults = results.filter((r) => taskIds.has(r.task_id));
-      const baseline = conditionStats(domainResults, "baseline", (r) => r.total_score_0_10);
-      const craft = conditionStats(domainResults, "craft", (r) => r.total_score_0_10);
+      const domainResults = results.filter((s) => taskIds.has(s.result.task_id));
+      const baseline = conditionStats(domainResults, "baseline", totalOf);
+      const craft = conditionStats(domainResults, "craft", totalOf);
       return {
         domain,
         nTasks: taskIds.size,
