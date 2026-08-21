@@ -275,24 +275,22 @@ export default function BatchRunnerPage() {
         </h2>
 
         <div className="flex items-center gap-4">
-          <label className="flex items-center gap-2 text-sm text-text-body">
-            <input
-              type="radio"
-              checked={testModel === "claude-3-5-sonnet"}
-              onChange={() => setTestModel("claude-3-5-sonnet")}
-              disabled={isRunning}
-            />
-            Claude 3.5 Sonnet
-          </label>
-          <label className="flex items-center gap-2 text-sm text-text-body">
-            <input
-              type="radio"
-              checked={testModel === "gpt-4o"}
-              onChange={() => setTestModel("gpt-4o")}
-              disabled={isRunning}
-            />
-            GPT-4o
-          </label>
+          {TEST_MODELS.map((id) => (
+            <label key={id} className="flex items-center gap-2 text-sm text-text-body">
+              <input
+                type="radio"
+                checked={testModel === id}
+                onChange={() => {
+                  setTestModel(id);
+                  // Snap the judge back to this model's rotation primary so a
+                  // same-family judge can never remain selected.
+                  setEvaluatorChoice(judgesFor(id).primary);
+                }}
+                disabled={isRunning}
+              />
+              {MODEL_LABEL[id]}
+            </label>
+          ))}
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -343,13 +341,20 @@ export default function BatchRunnerPage() {
             disabled={isRunning}
             onChange={(e) => setEvaluatorChoice(e.target.value as BatchEvaluator)}
           >
-            <option value="gemini-1.5-pro">Gemini 1.5 Pro (recommended)</option>
-            <option value="claude-3-5-sonnet">Claude 3.5 Sonnet</option>
+            {[judgesFor(testModel).primary, judgesFor(testModel).secondary]
+              .filter((judge) => !isFamilyCollision(testModel, judge))
+              .map((id) => (
+                <option key={id} value={id}>
+                  {MODEL_LABEL[id]}
+                  {id === judgesFor(testModel).primary ? " — primary" : " — secondary"}
+                </option>
+              ))}
           </Select>
           <p className="mt-1 text-xs text-text-muted">
             Every run in this batch is evaluated automatically with the same evaluator, and saved
-            only if both the run and the evaluation succeed. Gemini is recommended — using Claude
-            as both test model and evaluator introduces family bias.
+            only if both the run and the evaluation succeed. Judges are fixed by rotation for{" "}
+            {MODEL_LABEL[testModel]}; a judge sharing the producing model&apos;s vendor family is
+            never offered and is rejected at the API layer.
           </p>
         </div>
       </section>
