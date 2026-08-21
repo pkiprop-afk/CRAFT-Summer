@@ -17,12 +17,39 @@ import type { ModelFamily } from "./registry";
  * when it is merely on page 2. Every listing here is fully paginated.
  */
 
+/**
+ * Per-model provenance as the provider reports it. Fields vary by vendor:
+ *   Anthropic — created_at, display_name
+ *   OpenAI    — created (unix, converted), shutdown_date
+ *   Google    — NO creation timestamp; version + description only, where the
+ *               description encodes the stable-release date
+ */
+export interface ProviderModelEntry {
+  id: string;
+  created_at: string | null;
+  display_name: string | null;
+  version: string | null;
+  description: string | null;
+  shutdown_date: string | null;
+}
+
+/**
+ * The value drift is compared on. Uses created_at where the provider supplies
+ * one; otherwise falls back to version+description, so a provider that exposes
+ * no timestamp (Google) is still monitored rather than silently unmonitored.
+ */
+export function provenanceFingerprint(entry: ProviderModelEntry): string {
+  if (entry.created_at) return `created_at:${entry.created_at}`;
+  return `version:${entry.version ?? ""}|description:${entry.description ?? ""}`;
+}
+
 export interface ProviderListing {
   family: ModelFamily;
 
   reachable: boolean;
   httpStatus: number | null;
   models: string[];
+  entries: ProviderModelEntry[];
   error: string | null;
 }
 
