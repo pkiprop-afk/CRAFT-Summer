@@ -6,9 +6,9 @@ import { PromptRunner, type TestModel } from "@/components/runner/PromptRunner";
 import { EvaluationPanel, type EvaluatorChoice } from "@/components/runner/EvaluationPanel";
 import { ApiKeyBanner, isFamilyReady, useKeyStatuses } from "@/components/ui/ApiKeyBanner";
 import { familyOf, judgesFor, TEST_MODELS } from "@/lib/models/registry";
-import { generateOutputId, generateResultId } from "@/lib/anonymize";
+import { generateEvaluationId, generateResultId } from "@/lib/anonymize";
 import { type ParsedEvaluation } from "@/lib/evaluator";
-import type { PromptCondition, ResultRecord, TaskRecord } from "@/types";
+import type { EvaluationRecord, PromptCondition, ResultRecord, TaskRecord } from "@/types";
 
 export default function PromptRunnerPage() {
   const [tasks, setTasks] = useState<TaskRecord[]>([]);
@@ -25,6 +25,12 @@ export default function PromptRunnerPage() {
   const [anonymizedOutputId, setAnonymizedOutputId] = useState<string | null>(null);
   const [runTimestamp, setRunTimestamp] = useState<string | null>(null);
   const [runError, setRunError] = useState<string | null>(null);
+  const [runMeta, setRunMeta] = useState<{
+    model_provenance_fingerprint: string;
+    run_settings_hash: string;
+    truncated: boolean;
+  } | null>(null);
+  const [evaluatorProvenance, setEvaluatorProvenance] = useState("");
 
   const [evaluatorChoice, setEvaluatorChoice] = useState<EvaluatorChoice>("gemini-2.5-pro");
   const [evaluating, setEvaluating] = useState(false);
@@ -66,6 +72,8 @@ export default function PromptRunnerPage() {
     setOutput(null);
     setAnonymizedOutputId(null);
     setRunTimestamp(null);
+    setRunMeta(null);
+    setEvaluatorProvenance("");
     setRunError(null);
     setEvaluation(null);
     setEvaluationError(null);
@@ -87,6 +95,7 @@ export default function PromptRunnerPage() {
           task_id: selectedTask.task_id,
           prompt: selectedPromptText,
           model: testModel,
+          prompt_condition: condition,
           temperature,
           max_tokens: maxTokens,
           system_prompt: systemPrompt,
@@ -95,10 +104,15 @@ export default function PromptRunnerPage() {
       const data = await response.json();
       if (!response.ok) throw new Error(data.error ?? "Run failed");
 
-      const timestamp = Date.now();
       setOutput(data.output);
-      setAnonymizedOutputId(generateOutputId(selectedTask.task_id, condition, testModel, timestamp));
-      setRunTimestamp(new Date(timestamp).toISOString());
+      // The blinding token is allocated server-side and is opaque.
+      setAnonymizedOutputId(data.anonymized_output_id);
+      setRunMeta({
+        model_provenance_fingerprint: data.model_provenance_fingerprint,
+        run_settings_hash: data.run_settings_hash,
+        truncated: Boolean(data.truncated),
+      });
+      setRunTimestamp(new Date().toISOString());
     } catch (err) {
       setRunError(err instanceof Error ? err.message : "Run failed");
     } finally {
@@ -115,7 +129,8 @@ export default function PromptRunnerPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          producing_model: testModel,
+          // The producing model is derived server-side from this token.
+          anonymized_output_id: anonymizedOutputId,
           task_description: selectedTask.task_description,
           expected_constraints: selectedTask.expected_constraints,
           rubric_notes: selectedTask.rubric_notes,
@@ -132,6 +147,7 @@ export default function PromptRunnerPage() {
         total: data.total,
         justification: data.justification,
       });
+      setEvaluatorProvenance(data.evaluator_provenance_fingerprint ?? "");
     } catch (err) {
       setEvaluationError(err instanceof Error ? err.message : "Evaluation failed");
     } finally {
@@ -140,13 +156,14 @@ export default function PromptRunnerPage() {
   }
 
   async function handleSave() {
-    if (!selectedTask || !output || !anonymizedOutputId || !runTimestamp) return;
+    if (!selectedTask || !output || !anonymizedOutputId || !runTimestamp || !runMeta) return;
     setSaving(true);
     setSaveError(null);
     const runNumber =
       results.filter(
         (r) => r.task_id === selectedTask.task_id && r.prompt_condition === condition
       ).length + 1;
+
     const result: ResultRecord = {
       result_id: generateResultId(),
       task_id: selectedTask.task_id,
@@ -154,24 +171,21 @@ export default function PromptRunnerPage() {
       // the task's current version.
       task_version: selectedTask.task_version,
       model_name: testModel,
+      model_provenance_fingerprint: runMeta.model_provenance_fingerprint,
       prompt_condition: condition,
       run_number: runNumber,
+      run_type: "benchmark",
       temperature,
+      max_tokens: maxTokens,
+      system_prompt: systemPrompt,
+      run_settings_hash: runMeta.run_settings_hash,
       run_date: runTimestamp,
       raw_model_output: output,
       anonymized_output_id: anonymizedOutputId,
-      constraint_adherence_score_0_4: evaluation?.constraint_adherence ?? 0,
-      logical_accuracy_score_0_4: evaluation?.logical_accuracy ?? 0,
-      completeness_score_0_2: evaluation?.completeness ?? 0,
-      total_score_0_10: evaluation?.total ?? 0,
-      // "none" means the output was saved without being scored. Per the M6
-      // parity rules this is an INCOMPLETE cell, never a scored one: it must
-      // not satisfy the two-evaluations-per-result requirement, and it must
-      // not be counted as a completed evaluation anywhere in analysis.
-      evaluator_model: evaluation ? evaluatorChoice : "none",
-      evaluator_justification: evaluation?.justification ?? "",
+      truncated: runMeta.truncated,
       notes: "",
     };
+
     try {
       const response = await fetch("/api/results", {
         method: "POST",
@@ -180,9 +194,39 @@ export default function PromptRunnerPage() {
       });
       if (!response.ok) throw new Error("Save request failed");
       setResults((prev) => [...prev, result]);
+
+      // Scores are a separate record keyed by result_id. A run saved without an
+      // evaluation simply has none — it is an incomplete cell, never a zero.
+      if (evaluation) {
+        const evalRecord: EvaluationRecord = {
+          evaluation_id: generateEvaluationId(),
+          result_id: result.result_id,
+          evaluator_model: evaluatorChoice as string,
+          evaluator_provenance_fingerprint: evaluatorProvenance,
+          is_primary: evaluatorChoice === judgesFor(testModel).primary,
+          evaluated_at: new Date().toISOString(),
+          constraint_adherence_score_0_4: evaluation.constraint_adherence,
+          logical_accuracy_score_0_4: evaluation.logical_accuracy,
+          completeness_score_0_2: evaluation.completeness,
+          total_score_0_10: evaluation.total,
+          evaluator_justification: evaluation.justification,
+        };
+        const evalResponse = await fetch("/api/evaluations", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(evalRecord),
+        });
+        if (!evalResponse.ok) {
+          const data = await evalResponse.json();
+          throw new Error(data.error ?? "Evaluation save failed");
+        }
+      }
+
       setSaved(true);
-    } catch {
-      setSaveError("Failed to save the result. Try again.");
+    } catch (err) {
+      setSaveError(
+        err instanceof Error ? err.message : "Failed to save the result. Try again."
+      );
     } finally {
       setSaving(false);
     }

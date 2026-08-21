@@ -1,4 +1,5 @@
-import type { PromptCondition, ResultRecord } from "@/types";
+import type { PromptCondition } from "@/types";
+import type { ScoredResult } from "@/lib/resultsJoin";
 
 export function mean(values: number[]): number {
   if (values.length === 0) return 0;
@@ -16,24 +17,24 @@ export function round(value: number, decimals = 2): number {
   return Math.round(value * factor) / factor;
 }
 
-export function byCondition(results: ResultRecord[], condition: PromptCondition) {
-  return results.filter((r) => r.prompt_condition === condition);
+export function byCondition(scored: ScoredResult[], condition: PromptCondition) {
+  return scored.filter((s) => s.result.prompt_condition === condition);
 }
 
 export interface TaskRunGroup {
-  baseline: ResultRecord[];
-  craft: ResultRecord[];
+  baseline: ScoredResult[];
+  craft: ScoredResult[];
 }
 
 // Groups every run by task_id and condition without collapsing repeat runs —
 // a task can have run_number 1..n per condition. Callers decide how to
 // reduce each array (e.g. per-task mean for a scatter point).
-export function pairByTask(results: ResultRecord[]): Map<string, TaskRunGroup> {
+export function pairByTask(scored: ScoredResult[]): Map<string, TaskRunGroup> {
   const map = new Map<string, TaskRunGroup>();
-  for (const r of results) {
-    const entry = map.get(r.task_id) ?? { baseline: [], craft: [] };
-    entry[r.prompt_condition].push(r);
-    map.set(r.task_id, entry);
+  for (const s of scored) {
+    const entry = map.get(s.result.task_id) ?? { baseline: [], craft: [] };
+    entry[s.result.prompt_condition].push(s);
+    map.set(s.result.task_id, entry);
   }
   return map;
 }
@@ -49,16 +50,18 @@ export interface ConditionStats {
 // stddev is the run-to-run spread within each task, itself averaged across
 // tasks the same way — this is the output-consistency metric.
 export function conditionStats(
-  results: ResultRecord[],
+  scored: ScoredResult[],
   condition: PromptCondition,
-  scoreOf: (r: ResultRecord) => number
+  scoreOf: (s: ScoredResult) => number | null
 ): ConditionStats {
   const byTask = new Map<string, number[]>();
-  for (const r of results) {
-    if (r.prompt_condition !== condition) continue;
-    const scores = byTask.get(r.task_id) ?? [];
-    scores.push(scoreOf(r));
-    byTask.set(r.task_id, scores);
+  for (const s of scored) {
+    if (s.result.prompt_condition !== condition) continue;
+    const value = scoreOf(s);
+    if (value === null) continue;
+    const scores = byTask.get(s.result.task_id) ?? [];
+    scores.push(value);
+    byTask.set(s.result.task_id, scores);
   }
 
   const taskMeans: number[] = [];

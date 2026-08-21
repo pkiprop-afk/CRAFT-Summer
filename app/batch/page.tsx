@@ -17,14 +17,14 @@ import {
   type TestModelId,
 } from "@/lib/models/registry";
 import { runWithConcurrency } from "@/lib/concurrency";
-import { generateOutputId, generateResultId } from "@/lib/anonymize";
+import { generateEvaluationId, generateResultId } from "@/lib/anonymize";
 import {
   buildBatchJobs,
   isTaskReadyForScope,
   type BatchJob,
   type ConditionScope,
 } from "@/lib/batch";
-import type { PromptCondition, ResultRecord, TaskRecord } from "@/types";
+import type { EvaluationRecord, PromptCondition, ResultRecord, TaskRecord } from "@/types";
 
 type TestModel = TestModelId;
 type BatchEvaluator = EvaluatorModelId;
@@ -142,6 +142,7 @@ export default function BatchRunnerPage() {
           task_id: task.task_id,
           prompt,
           model: testModel,
+          prompt_condition: condition,
           temperature,
           max_tokens: maxTokens,
           system_prompt: systemPrompt,
@@ -152,45 +153,31 @@ export default function BatchRunnerPage() {
 
       const timestamp = Date.now();
       const output: string = runData.output;
-      const anonymizedOutputId = generateOutputId(task.task_id, condition, testModel, timestamp);
-
-      updateJob({ status: "evaluating" });
-
-      const evalResponse = await fetch("/api/evaluate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          producing_model: testModel,
-          task_description: task.task_description,
-          expected_constraints: task.expected_constraints,
-          rubric_notes: task.rubric_notes,
-          model_response: output,
-          evaluator: evaluatorChoice,
-        }),
-      });
-      const evalData = await evalResponse.json();
-      if (!evalResponse.ok) throw new Error(evalData.error ?? "Evaluation failed");
+      // Allocated server-side and opaque — the client never derives it.
+      const anonymizedOutputId: string = runData.anonymized_output_id;
 
       const result: ResultRecord = {
         result_id: generateResultId(),
         task_id: task.task_id,
         task_version: task.task_version,
         model_name: testModel,
+        model_provenance_fingerprint: runData.model_provenance_fingerprint,
         prompt_condition: condition,
         run_number: nextRunNumber(task.task_id, condition),
+        run_type: "benchmark",
         temperature,
+        max_tokens: maxTokens,
+        system_prompt: systemPrompt,
+        run_settings_hash: runData.run_settings_hash,
         run_date: new Date(timestamp).toISOString(),
         raw_model_output: output,
         anonymized_output_id: anonymizedOutputId,
-        constraint_adherence_score_0_4: evalData.constraint_adherence,
-        logical_accuracy_score_0_4: evalData.logical_accuracy,
-        completeness_score_0_2: evalData.completeness,
-        total_score_0_10: evalData.total,
-        evaluator_model: evaluatorChoice,
-        evaluator_justification: evalData.justification,
+        truncated: Boolean(runData.truncated),
         notes: "",
       };
 
+      // Save the run before evaluating: the output is the expensive artifact,
+      // and an evaluation failure must not discard it.
       const saveResponse = await fetch("/api/results", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -198,7 +185,64 @@ export default function BatchRunnerPage() {
       });
       if (!saveResponse.ok) throw new Error("Failed to save result");
 
-      updateJob({ status: "done", total_score: evalData.total });
+      updateJob({ status: "evaluating" });
+
+      // Both judges of the rotation score every run.
+      const rotation = judgesFor(testModel);
+      const judges: Array<{ model: EvaluatorModelId; isPrimary: boolean }> = [
+        { model: rotation.primary, isPrimary: true },
+        { model: rotation.secondary, isPrimary: false },
+      ];
+
+      const totals: number[] = [];
+      for (const judge of judges) {
+        const evalResponse = await fetch("/api/evaluate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            anonymized_output_id: anonymizedOutputId,
+            task_description: task.task_description,
+            expected_constraints: task.expected_constraints,
+            rubric_notes: task.rubric_notes,
+            model_response: output,
+            evaluator: judge.model,
+          }),
+        });
+        const evalData = await evalResponse.json();
+        if (!evalResponse.ok) {
+          throw new Error(`${judge.model}: ${evalData.error ?? "Evaluation failed"}`);
+        }
+
+        const evalRecord: EvaluationRecord = {
+          evaluation_id: generateEvaluationId(),
+          result_id: result.result_id,
+          evaluator_model: judge.model,
+          evaluator_provenance_fingerprint: evalData.evaluator_provenance_fingerprint,
+          is_primary: judge.isPrimary,
+          evaluated_at: new Date().toISOString(),
+          constraint_adherence_score_0_4: evalData.constraint_adherence,
+          logical_accuracy_score_0_4: evalData.logical_accuracy,
+          completeness_score_0_2: evalData.completeness,
+          total_score_0_10: evalData.total,
+          evaluator_justification: evalData.justification,
+        };
+
+        const saveEval = await fetch("/api/evaluations", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(evalRecord),
+        });
+        if (!saveEval.ok) {
+          const data = await saveEval.json();
+          throw new Error(data.error ?? "Failed to save evaluation");
+        }
+        totals.push(evalData.total);
+      }
+
+      updateJob({
+        status: "done",
+        total_score: totals.reduce((s, t) => s + t, 0) / totals.length,
+      });
     } catch (err) {
       updateJob({ status: "failed", error: err instanceof Error ? err.message : "Job failed" });
     }

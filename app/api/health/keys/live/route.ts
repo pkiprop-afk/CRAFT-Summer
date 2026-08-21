@@ -45,7 +45,7 @@ function sanitize(err: unknown): string {
 
 async function probe(
   family: ModelFamily,
-  call: () => Promise<string>
+  call: () => Promise<unknown>
 ): Promise<ProbeResult> {
   const base = { family, label: FAMILY_LABEL[family], configured: isKeyConfigured(family) };
   if (!base.configured) {
