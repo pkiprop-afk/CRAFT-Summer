@@ -13,7 +13,6 @@ function makeResult(id: string, overrides: Record<string, unknown> = {}) {
     prompt_condition: "baseline" as const,
     run_number: 1,
     run_type: "main" as const,
-    temperature: null,
     decoding_params: { temperature: null, effort: null },
     max_tokens: 4000,
     system_prompt: "sys",
