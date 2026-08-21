@@ -16,7 +16,14 @@ export function isUnpairedScope(scope: ConditionScope): boolean {
   return scope !== "both";
 }
 
-export type BatchJobStatus = "pending" | "running" | "evaluating" | "done" | "failed";
+export type BatchJobStatus =
+  | "pending"
+  | "running"
+  | "evaluating"
+  | "done"
+  | "failed"
+  /** Never dispatched — the run was halted by the mid-batch callability check. */
+  | "aborted";
 
 export interface BatchJob {
   task_id: string;

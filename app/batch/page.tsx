@@ -40,6 +40,11 @@ type TestModel = TestModelId;
 // the upstream APIs or their rate limits during a batch run.
 const CONCURRENCY_LIMIT = 3;
 
+// Re-check callability every N completed jobs. Small enough that an exhausted
+// balance is caught within a few calls; large enough that the probes are a
+// rounding error against a 960-call study.
+const CALLABILITY_RECHECK_EVERY = 25;
+
 export default function BatchRunnerPage() {
   const [tasks, setTasks] = useState<TaskRecord[]>([]);
   const [loading, setLoading] = useState(true);
@@ -57,6 +62,7 @@ export default function BatchRunnerPage() {
   const [systemPrompt, setSystemPrompt] = useState("You are a helpful assistant.");
 
   const [jobs, setJobs] = useState<BatchJob[]>([]);
+  const [abortReason, setAbortReason] = useState<string | null>(null);
   const [isRunning, setIsRunning] = useState(false);
 
   // Tracks the next run_number per task_id+condition, seeded from existing
@@ -283,26 +289,83 @@ export default function BatchRunnerPage() {
     }
   }
 
+  /**
+   * Mid-batch callability check. A balance that empties at call 200 of 960 must
+   * stop the run cleanly rather than accumulate hundreds of failures and burn
+   * the other providers' budget on half-scored cells.
+   */
+  async function isStillCallable(): Promise<boolean> {
+    try {
+      const r = await fetch("/api/health/callable", { method: "POST" });
+      const report = await r.json();
+      if (r.ok && report.allCallable) return true;
+
+      const failures: Array<{ family: string; state: string; message: string | null }> =
+        report.results?.filter((x: { callable: boolean }) => !x.callable) ?? [];
+      setAbortReason(
+        `Run halted by the callability check: ` +
+          failures
+            .map((f) => `${f.family} is ${f.state}${f.message ? ` — ${f.message}` : ""}`)
+            .join("; ")
+      );
+      return false;
+    } catch {
+      setAbortReason("Run halted: the callability check could not be reached.");
+      return false;
+    }
+  }
+
   async function handleStartBatch() {
     if (keyBlocked) return;
     const newJobs = buildBatchJobs(tasks, selectedIds, conditionScope);
     if (newJobs.length === 0) return;
 
     setJobs(newJobs);
+    setAbortReason(null);
     setIsRunning(true);
 
-    await runWithConcurrency(newJobs, CONCURRENCY_LIMIT, async (job, index) => {
-      const task = tasks.find((t) => t.task_id === job.task_id);
-      if (!task) {
-        setJobs((prev) =>
-          prev.map((j, i) =>
-            i === index ? { ...j, status: "failed", error: "Task not found" } : j
-          )
-        );
-        return;
+    let lastCheckedAt = 0;
+
+    const outcome = await runWithConcurrency(
+      newJobs,
+      CONCURRENCY_LIMIT,
+      async (job, index) => {
+        const task = tasks.find((t) => t.task_id === job.task_id);
+        if (!task) {
+          setJobs((prev) =>
+            prev.map((j, i) =>
+              i === index ? { ...j, status: "failed", error: "Task not found" } : j
+            )
+          );
+          return;
+        }
+        await runJob(task, job.condition, index);
+      },
+      {
+        shouldContinue: async (completed) => {
+          if (completed < lastCheckedAt + CALLABILITY_RECHECK_EVERY) return true;
+          lastCheckedAt = completed;
+          return isStillCallable();
+        },
+        onSkipped: (index) => {
+          setJobs((prev) =>
+            prev.map((j, i) =>
+              i === index
+                ? { ...j, status: "aborted", error: "Halted by callability check" }
+                : j
+            )
+          );
+        },
       }
-      await runJob(task, job.condition, index);
-    });
+    );
+
+    if (outcome.aborted) {
+      setAbortReason(
+        (prev) =>
+          (prev ?? "Run halted.") +
+          ` ${outcome.completed} job(s) completed before the halt; the rest were not dispatched.`
+      );
+    }
 
     setIsRunning(false);
   }
@@ -538,6 +601,18 @@ export default function BatchRunnerPage() {
             ? "Running batch…"
             : `Start Batch (${pendingJobCount} job${pendingJobCount === 1 ? "" : "s"})`}
         </Button>
+
+        {abortReason && (
+          <div className="rounded-lg border border-error/40 bg-error/10 px-4 py-3">
+            <p className="text-sm font-semibold text-error">Batch halted</p>
+            <p className="mt-1 text-xs text-error/90">{abortReason}</p>
+            <p className="mt-1 text-xs text-error/80">
+              Completed jobs are saved. Nothing further was dispatched. Resolve the provider
+              issue, then re-run — already-completed main cells will be refused as duplicates,
+              so a re-run resumes rather than double-counts.
+            </p>
+          </div>
+        )}
 
         {jobs.length > 0 && <BatchJobList jobs={jobs} />}
       </section>

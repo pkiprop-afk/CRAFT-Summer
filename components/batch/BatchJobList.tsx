@@ -1,4 +1,4 @@
-import { Check, Loader2, X, Clock } from "lucide-react";
+import { Ban, Check, Clock, Loader2, X } from "lucide-react";
 import { DOMAIN_LABELS } from "@/types";
 import type { BatchJob } from "@/lib/batch";
 
@@ -34,6 +34,12 @@ function StatusBadge({ status }: { status: BatchJob["status"] }) {
           <X size={14} /> Failed
         </span>
       );
+    case "aborted":
+      return (
+        <span className="inline-flex items-center gap-1 text-xs text-warning">
+          <Ban size={14} /> Aborted
+        </span>
+      );
   }
 }
 
@@ -43,6 +49,7 @@ interface BatchJobListProps {
 
 export function BatchJobList({ jobs }: BatchJobListProps) {
   const done = jobs.filter((j) => j.status === "done").length;
+  const aborted = jobs.filter((j) => j.status === "aborted").length;
   const failed = jobs.filter((j) => j.status === "failed").length;
   const inProgress = jobs.filter((j) => j.status === "running" || j.status === "evaluating").length;
 
@@ -52,6 +59,7 @@ export function BatchJobList({ jobs }: BatchJobListProps) {
         {done}/{jobs.length} complete
         {failed > 0 && <span className="text-error"> · {failed} failed</span>}
         {inProgress > 0 && <span> · {inProgress} in progress</span>}
+        {aborted > 0 && <span className="text-warning"> · {aborted} aborted</span>}
       </p>
 
       <div className="overflow-x-auto rounded-lg border border-cream-border">

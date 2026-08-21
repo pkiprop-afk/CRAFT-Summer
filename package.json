@@ -12,6 +12,7 @@
     "capture-model-manifest": "node scripts/captureModelManifest.ts",
     "clear-runs": "node scripts/clearRuns.ts",
     "validate": "node scripts/validate.ts",
+    "check-callable": "node scripts/checkCallable.ts",
     "test": "node --test \"tests/**/*.test.ts\""
   },
   "dependencies": {
