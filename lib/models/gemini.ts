@@ -12,6 +12,10 @@ function getClient(): GoogleGenerativeAI {
   return client;
 }
 
+/**
+ * Google exposes no temperature control we set and no effort parameter, so
+ * nothing decoding-related is sent. Runs record temperature: null.
+ */
 export async function callGemini(prompt: string): Promise<ModelCallResult> {
   const model = getClient().getGenerativeModel({ model: GOOGLE_MODEL_ID });
   const result = await model.generateContent(prompt);
@@ -21,5 +25,7 @@ export async function callGemini(prompt: string): Promise<ModelCallResult> {
     text: result.response.text(),
     stop_reason: finishReason,
     truncated: finishReason === "MAX_TOKENS",
+    // Google does not report a reasoning-token figure.
+    reasoning_tokens: null,
   };
 }

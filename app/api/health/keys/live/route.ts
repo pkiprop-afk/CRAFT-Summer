@@ -68,10 +68,10 @@ async function probe(
 export async function POST() {
   const probes = await Promise.all([
     probe("anthropic", () =>
-      callClaude({ prompt: PROBE_PROMPT, systemPrompt: PROBE_SYSTEM, temperature: 0, maxTokens: 5 })
+      callClaude({ prompt: PROBE_PROMPT, systemPrompt: PROBE_SYSTEM, maxTokens: 5 })
     ),
     probe("openai", () =>
-      callOpenAI({ prompt: PROBE_PROMPT, systemPrompt: PROBE_SYSTEM, temperature: 0, maxTokens: 5 })
+      callOpenAI({ prompt: PROBE_PROMPT, systemPrompt: PROBE_SYSTEM, maxTokens: 5 })
     ),
     probe("google", () => callGemini(PROBE_PROMPT)),
   ]);

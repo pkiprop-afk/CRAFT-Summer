@@ -9,6 +9,7 @@ import {
 } from "@/types";
 
 import { MODEL_LABEL, TEST_MODELS, type TestModelId } from "@/lib/models/registry";
+import { decodingParamsFor } from "@/lib/decoding";
 
 export type TestModel = TestModelId;
 
@@ -22,8 +23,6 @@ interface PromptRunnerProps {
   selectedPromptText: string;
   testModel: TestModel;
   onSelectTestModel: (model: TestModel) => void;
-  temperature: number;
-  onTemperatureChange: (value: number) => void;
   maxTokens: number;
   onMaxTokensChange: (value: number) => void;
   systemPrompt: string;
@@ -43,8 +42,6 @@ export function PromptRunner({
   selectedPromptText,
   testModel,
   onSelectTestModel,
-  temperature,
-  onTemperatureChange,
   maxTokens,
   onMaxTokensChange,
   systemPrompt,
@@ -158,19 +155,14 @@ export function PromptRunner({
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* G2/G3 — decoding is fixed by the provider, not chosen here. */}
           <div>
             <label className="block text-sm font-medium text-text-heading mb-1">
-              Temperature
+              Decoding <span className="font-normal text-text-muted">(fixed by provider)</span>
             </label>
-            <input
-              type="number"
-              min={0}
-              max={1}
-              step={0.1}
-              value={temperature}
-              onChange={(e) => onTemperatureChange(Number(e.target.value))}
-              className="w-full rounded-lg border border-cream-border bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-navy-500"
-            />
+            <div className="rounded-lg border border-cream-border bg-cream-card px-3 py-2 text-sm font-mono text-text-body">
+              {JSON.stringify(decodingParamsFor(testModel))}
+            </div>
           </div>
           <div>
             <label className="block text-sm font-medium text-text-heading mb-1">

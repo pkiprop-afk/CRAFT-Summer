@@ -277,7 +277,7 @@ async function main(): Promise<void> {
         max_tokens: r.max_tokens,
         system_prompt: r.system_prompt,
       });
-      if (recomputed !== r.run_settings_hash) {
+      if (recomputed.hash !== r.run_settings_hash) {
         err(`${r.result_id}: stored run_settings_hash does not match its own settings`);
       }
     }

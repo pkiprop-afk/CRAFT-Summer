@@ -17,7 +17,7 @@ export type TestModelId = (typeof TEST_MODELS)[number];
 
 /** Every model that may act as a judge. */
 export const EVALUATOR_MODELS = [
-  "gemini-2.5-pro",
+  "gemini-3.7-flash",
   "claude-sonnet-5",
   "gpt-5.5-2026-04-23",
 ] as const;
@@ -26,19 +26,19 @@ export type EvaluatorModelId = (typeof EVALUATOR_MODELS)[number];
 export const MODEL_FAMILY: Record<string, ModelFamily> = {
   "claude-sonnet-5": "anthropic",
   "gpt-5.5-2026-04-23": "openai",
-  "gemini-2.5-pro": "google",
+  "gemini-3.7-flash": "google",
 };
 
 export const MODEL_LABEL: Record<string, string> = {
   "claude-sonnet-5": "Claude Sonnet 5",
   "gpt-5.5-2026-04-23": "GPT-5.5 (2026-04-23)",
-  "gemini-2.5-pro": "Gemini 2.5 Pro",
+  "gemini-3.7-flash": "Gemini 3.7 Flash",
 };
 
 /** Concrete IDs the provider wrappers send. Imported, never re-typed as literals. */
 export const ANTHROPIC_MODEL_ID: TestModelId = "claude-sonnet-5";
 export const OPENAI_MODEL_ID: TestModelId = "gpt-5.5-2026-04-23";
-export const GOOGLE_MODEL_ID: EvaluatorModelId = "gemini-2.5-pro";
+export const GOOGLE_MODEL_ID: EvaluatorModelId = "gemini-3.7-flash";
 
 export function familyOf(model: string): ModelFamily | null {
   return MODEL_FAMILY[model] ?? null;
@@ -61,8 +61,8 @@ export interface JudgeAssignment {
 }
 
 export const JUDGE_ROTATION: Record<TestModelId, JudgeAssignment> = {
-  "claude-sonnet-5": { primary: "gemini-2.5-pro", secondary: "gpt-5.5-2026-04-23" },
-  "gpt-5.5-2026-04-23": { primary: "gemini-2.5-pro", secondary: "claude-sonnet-5" },
+  "claude-sonnet-5": { primary: "gemini-3.7-flash", secondary: "gpt-5.5-2026-04-23" },
+  "gpt-5.5-2026-04-23": { primary: "gemini-3.7-flash", secondary: "claude-sonnet-5" },
 };
 
 /**

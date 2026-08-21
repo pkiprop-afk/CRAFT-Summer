@@ -13,14 +13,17 @@ function makeResult(id: string, overrides: Record<string, unknown> = {}) {
     prompt_condition: "baseline" as const,
     run_number: 1,
     run_type: "main" as const,
-    temperature: 0.2,
+    temperature: null,
+    decoding_params: { temperature: null, effort: null },
     max_tokens: 4000,
     system_prompt: "sys",
-    run_settings_hash: "rs1-abc",
+    run_settings_hash: "rs2-abc",
+    run_settings_fields: ["temperature", "max_tokens", "system_prompt", "effort"],
     run_date: "2026-08-21T00:00:00.000Z",
     raw_model_output: "out",
     anonymized_output_id: "OUT-0001",
     truncated: false,
+    reasoning_tokens: null,
     notes: "",
     ...overrides,
   };
@@ -35,7 +38,7 @@ function makeEval(
   return {
     evaluation_id: `${resultId}-${isPrimary ? "P" : "S"}`,
     result_id: resultId,
-    evaluator_model: isPrimary ? "gemini-2.5-pro" : "gpt-5.5-2026-04-23",
+    evaluator_model: isPrimary ? "gemini-3.7-flash" : "gpt-5.5-2026-04-23",
     evaluator_provenance_fingerprint: "fp",
     is_primary: isPrimary,
     evaluated_at: "2026-08-21T00:00:00.000Z",
@@ -159,7 +162,7 @@ describe("C2 — agreement metrics and disagreement listing", () => {
 
   test("disagreement rows name both judges", () => {
     const row = irr.largeDisagreements[0];
-    assert.equal(row.primary_model, "gemini-2.5-pro");
+    assert.equal(row.primary_model, "gemini-3.7-flash");
     assert.equal(row.secondary_model, "gpt-5.5-2026-04-23");
   });
 

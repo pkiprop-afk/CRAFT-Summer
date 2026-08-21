@@ -16,6 +16,7 @@ import {
   type TestModelId,
 } from "@/lib/models/registry";
 import { DEFAULT_MAX_TOKENS } from "@/lib/runSettings";
+import { decodingParamsFor } from "@/lib/decoding";
 import { runWithConcurrency } from "@/lib/concurrency";
 import { generateEvaluationId, generateResultId } from "@/lib/anonymize";
 import {
@@ -57,7 +58,6 @@ export default function BatchRunnerPage() {
   // 5b — unpaired single-condition runs require an explicit acknowledgement.
   const [allowUnpaired, setAllowUnpaired] = useState(false);
   const [testModel, setTestModel] = useState<TestModel>(TEST_MODELS[0]);
-  const [temperature, setTemperature] = useState(0.2);
   const [maxTokens, setMaxTokens] = useState(DEFAULT_MAX_TOKENS);
   const [systemPrompt, setSystemPrompt] = useState("You are a helpful assistant.");
 
@@ -184,7 +184,6 @@ export default function BatchRunnerPage() {
           model: testModel,
           prompt_condition: condition,
           run_type: runType,
-          temperature,
           max_tokens: maxTokens,
           system_prompt: systemPrompt,
         }),
@@ -206,14 +205,17 @@ export default function BatchRunnerPage() {
         prompt_condition: condition,
         run_number: nextRunNumber(task.task_id, condition, runType),
         run_type: runType,
-        temperature,
+        temperature: runData.decoding_params.temperature,
+        decoding_params: runData.decoding_params,
         max_tokens: maxTokens,
         system_prompt: systemPrompt,
         run_settings_hash: runData.run_settings_hash,
+        run_settings_fields: runData.run_settings_fields,
         run_date: new Date(timestamp).toISOString(),
         raw_model_output: output,
         anonymized_output_id: anonymizedOutputId,
         truncated: Boolean(runData.truncated),
+        reasoning_tokens: runData.reasoning_tokens ?? null,
         notes: "",
       };
 
@@ -507,18 +509,20 @@ export default function BatchRunnerPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* G2/G3 — decoding is fixed by the provider, not chosen here. An
+              editable control would imply otherwise. */}
           <div>
-            <label className="block text-sm font-medium text-text-heading mb-1">Temperature</label>
-            <input
-              type="number"
-              min={0}
-              max={1}
-              step={0.1}
-              value={temperature}
-              disabled={isRunning}
-              onChange={(e) => setTemperature(Number(e.target.value))}
-              className="w-full rounded-lg border border-cream-border bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-navy-500 disabled:opacity-50"
-            />
+            <label className="block text-sm font-medium text-text-heading mb-1">
+              Decoding <span className="font-normal text-text-muted">(fixed by provider)</span>
+            </label>
+            <div className="rounded-lg border border-cream-border bg-cream-card px-3 py-2 text-sm font-mono text-text-body">
+              {JSON.stringify(decodingParamsFor(testModel))}
+            </div>
+            <p className="mt-1 text-xs text-text-muted">
+              {testModel === TEST_MODELS[0]
+                ? "Claude rejects temperature entirely; effort left at provider default."
+                : "GPT pins temperature to 1.0; reasoning_effort set to \"low\"."}
+            </p>
           </div>
           <div>
             <label className="block text-sm font-medium text-text-heading mb-1">Max Tokens</label>

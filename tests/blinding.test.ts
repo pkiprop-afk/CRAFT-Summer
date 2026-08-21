@@ -77,7 +77,7 @@ describe("5d — evaluator payload contains no producer facts", () => {
   });
 
   test("no model name appears in the judge prompt", () => {
-    for (const model of ["claude-sonnet-5", "gpt-5.5-2026-04-23", "gemini-2.5-pro"]) {
+    for (const model of ["claude-sonnet-5", "gpt-5.5-2026-04-23", "gemini-3.7-flash"]) {
       assert.ok(!prompt.includes(model), `judge prompt leaked model name ${model}`);
     }
   });
@@ -109,12 +109,12 @@ describe("5e — judge family collision", () => {
   });
 
   test("cross family is allowed", () => {
-    assert.equal(isFamilyCollision("claude-sonnet-5", "gemini-2.5-pro"), false);
+    assert.equal(isFamilyCollision("claude-sonnet-5", "gemini-3.7-flash"), false);
     assert.equal(isFamilyCollision("gpt-5.5-2026-04-23", "claude-sonnet-5"), false);
   });
 
   test("unknown models fail closed", () => {
-    assert.equal(isFamilyCollision("who-knows", "gemini-2.5-pro"), true);
+    assert.equal(isFamilyCollision("who-knows", "gemini-3.7-flash"), true);
     assert.equal(isFamilyCollision("claude-sonnet-5", "who-knows"), true);
   });
 

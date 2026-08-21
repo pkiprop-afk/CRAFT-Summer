@@ -1,3 +1,5 @@
+import type { DecodingParams } from "@/lib/decoding";
+
 export type Domain =
   | "coding"
   | "data_analysis"
@@ -67,15 +69,32 @@ export interface ResultRecord {
   prompt_condition: PromptCondition;
   run_number: number;
   run_type: RunType;
-  temperature: number;
+  /**
+   * What the provider actually used. null where the provider does not accept
+   * the parameter (Claude), 1.0 where the API pins it (GPT). 0.2 is never sent
+   * to either model — see lib/decoding.ts.
+   */
+  temperature: number | null;
+  /**
+   * G3 — the full decoding regime, stated explicitly per vendor because the
+   * controls are not commensurable:
+   *   Claude → { temperature: null, effort: null }
+   *   GPT    → { temperature: 1.0, reasoning_effort: "low" }
+   */
+  decoding_params: DecodingParams;
   max_tokens: number;
   system_prompt: string;
   /**
-   * Hash over temperature + max_tokens + system_prompt. Both conditions of a
-   * pair must share it; the run API rejects a counterpart run whose settings
-   * differ.
+   * Hash binding both conditions of a pair to identical settings. The run API
+   * rejects a counterpart run whose settings differ.
    */
   run_settings_hash: string;
+  /**
+   * G4 — which fields the hash covered. The two models expose different
+   * controls, so a bare digest over different field sets would look comparable
+   * while meaning different things.
+   */
+  run_settings_fields: string[];
   run_date: string;
   raw_model_output: string;
   anonymized_output_id: string;
@@ -85,6 +104,12 @@ export interface ResultRecord {
    * prompt condition.
    */
   truncated: boolean;
+  /**
+   * G5 — reasoning tokens the provider reported (OpenAI only; null elsewhere).
+   * The only behavioural signal of effort, since no provider echoes the effort
+   * parameter back in its response.
+   */
+  reasoning_tokens: number | null;
   notes: string;
 }
 

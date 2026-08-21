@@ -8,7 +8,12 @@ import {
   MissingManifestError,
   provenanceFingerprintFor,
 } from "@/lib/models/provenance";
-import { computeRunSettingsHash, diffRunSettings } from "@/lib/runSettings";
+import {
+  computeRunSettingsHash,
+  diffRunSettings,
+  type RunSettings,
+} from "@/lib/runSettings";
+import { decodingParamsFor } from "@/lib/decoding";
 import {
   isInStabilitySubset,
   loadStabilitySubset,
@@ -28,7 +33,6 @@ interface RunRequestBody {
   model: TestModelId;
   prompt_condition: PromptCondition;
   run_type: RunType;
-  temperature: number;
   max_tokens: number;
   system_prompt: string;
   /**
@@ -47,7 +51,6 @@ export async function POST(request: Request) {
     model,
     prompt_condition,
     run_type,
-    temperature,
     max_tokens,
     system_prompt,
     allow_duplicate_main = false,
@@ -105,8 +108,19 @@ export async function POST(request: Request) {
     }
   }
 
-  const settings = { temperature, max_tokens, system_prompt };
-  const runSettingsHash = await computeRunSettingsHash(settings);
+  // G2/G3 — the decoding regime is derived from the model, never taken from the
+  // client. 0.2 is never sent to either provider.
+  const decoding = decodingParamsFor(model);
+  const settings: RunSettings = {
+    temperature: decoding.temperature,
+    max_tokens,
+    system_prompt,
+    ...(decoding.effort !== undefined ? { effort: decoding.effort } : {}),
+    ...(decoding.reasoning_effort !== undefined
+      ? { reasoning_effort: decoding.reasoning_effort }
+      : {}),
+  };
+  const runSettings = await computeRunSettingsHash(settings);
 
   // 5a — the counterpart condition of this pair must have run under identical
   // decoding settings, or any score difference is confounded by sampling.
@@ -147,12 +161,18 @@ export async function POST(request: Request) {
       r.prompt_condition === counterpartCondition
   );
 
-  if (counterpart && counterpart.run_settings_hash !== runSettingsHash) {
+  if (counterpart && counterpart.run_settings_hash !== runSettings.hash) {
     const mismatches = diffRunSettings(
       {
         temperature: counterpart.temperature,
         max_tokens: counterpart.max_tokens,
         system_prompt: counterpart.system_prompt,
+        ...(counterpart.decoding_params?.effort !== undefined
+          ? { effort: counterpart.decoding_params.effort }
+          : {}),
+        ...(counterpart.decoding_params?.reasoning_effort !== undefined
+          ? { reasoning_effort: counterpart.decoding_params.reasoning_effort }
+          : {}),
       },
       settings
     );
@@ -171,6 +191,8 @@ export async function POST(request: Request) {
         mismatches,
         counterpart_result_id: counterpart.result_id,
         counterpart_run_settings_hash: counterpart.run_settings_hash,
+        counterpart_run_settings_fields: counterpart.run_settings_fields,
+        attempted_run_settings_fields: runSettings.fields,
       },
       { status: 409 }
     );
@@ -197,14 +219,12 @@ export async function POST(request: Request) {
       call = await callClaude({
         prompt,
         systemPrompt: system_prompt,
-        temperature,
         maxTokens: max_tokens,
       });
     } else if (model === OPENAI_MODEL_ID) {
       call = await callOpenAI({
         prompt,
         systemPrompt: system_prompt,
-        temperature,
         maxTokens: max_tokens,
       });
     } else {
@@ -236,9 +256,12 @@ export async function POST(request: Request) {
     model,
     model_provenance_fingerprint: provenance,
     anonymized_output_id: anonymizedOutputId,
-    run_settings_hash: runSettingsHash,
+    run_settings_hash: runSettings.hash,
+    run_settings_fields: runSettings.fields,
+    decoding_params: decoding,
     truncated: call.truncated,
     stop_reason: call.stop_reason,
+    reasoning_tokens: call.reasoning_tokens,
     latency_ms: Date.now() - start,
   });
 }

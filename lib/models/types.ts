@@ -11,4 +11,11 @@ export interface ModelCallResult {
   /** Raw provider value, kept verbatim for auditing. */
   stop_reason: string | null;
   truncated: boolean;
+  /**
+   * G5 — reasoning tokens consumed, where the provider reports them (OpenAI).
+   * null when the provider exposes no such figure. This is the only behavioural
+   * signal of effort level, since neither provider echoes the effort parameter
+   * back in the response.
+   */
+  reasoning_tokens: number | null;
 }

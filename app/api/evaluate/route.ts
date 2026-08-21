@@ -92,14 +92,12 @@ export async function POST(request: Request) {
       call = await callClaude({
         prompt,
         systemPrompt: EVALUATOR_SYSTEM_PROMPT,
-        temperature: 0,
         maxTokens: 1024,
       });
     } else if (evaluator === OPENAI_MODEL_ID) {
       call = await callOpenAI({
         prompt,
         systemPrompt: EVALUATOR_SYSTEM_PROMPT,
-        temperature: 0,
         maxTokens: 1024,
       });
     } else {

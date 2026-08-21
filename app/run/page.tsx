@@ -8,6 +8,7 @@ import { ApiKeyBanner, isFamilyReady, useKeyStatuses } from "@/components/ui/Api
 import { familyOf, judgesFor, TEST_MODELS } from "@/lib/models/registry";
 import { generateEvaluationId, generateResultId } from "@/lib/anonymize";
 import { DEFAULT_MAX_TOKENS } from "@/lib/runSettings";
+import { decodingParamsFor, type DecodingParams } from "@/lib/decoding";
 import { type ParsedEvaluation } from "@/lib/evaluator";
 import type {
   EvaluationRecord,
@@ -23,7 +24,6 @@ export default function PromptRunnerPage() {
   const [selectedTaskId, setSelectedTaskId] = useState("");
   const [condition, setCondition] = useState<PromptCondition>("baseline");
   const [testModel, setTestModel] = useState<TestModel>(TEST_MODELS[0]);
-  const [temperature, setTemperature] = useState(0.2);
   const [maxTokens, setMaxTokens] = useState(DEFAULT_MAX_TOKENS);
   const [systemPrompt, setSystemPrompt] = useState("You are a helpful assistant.");
   // Single-run page is for smoke tests; main-study runs go through the batch runner.
@@ -37,11 +37,14 @@ export default function PromptRunnerPage() {
   const [runMeta, setRunMeta] = useState<{
     model_provenance_fingerprint: string;
     run_settings_hash: string;
+    run_settings_fields: string[];
+    decoding_params: DecodingParams;
     truncated: boolean;
+    reasoning_tokens: number | null;
   } | null>(null);
   const [evaluatorProvenance, setEvaluatorProvenance] = useState("");
 
-  const [evaluatorChoice, setEvaluatorChoice] = useState<EvaluatorChoice>("gemini-2.5-pro");
+  const [evaluatorChoice, setEvaluatorChoice] = useState<EvaluatorChoice>(judgesFor(TEST_MODELS[0]).primary);
   const [evaluating, setEvaluating] = useState(false);
   const [evaluation, setEvaluation] = useState<ParsedEvaluation | null>(null);
   const [evaluationError, setEvaluationError] = useState<string | null>(null);
@@ -106,7 +109,6 @@ export default function PromptRunnerPage() {
           model: testModel,
           prompt_condition: condition,
           run_type: runType,
-          temperature,
           max_tokens: maxTokens,
           system_prompt: systemPrompt,
         }),
@@ -120,7 +122,10 @@ export default function PromptRunnerPage() {
       setRunMeta({
         model_provenance_fingerprint: data.model_provenance_fingerprint,
         run_settings_hash: data.run_settings_hash,
+        run_settings_fields: data.run_settings_fields,
+        decoding_params: data.decoding_params,
         truncated: Boolean(data.truncated),
+        reasoning_tokens: data.reasoning_tokens ?? null,
       });
       setRunTimestamp(new Date().toISOString());
     } catch (err) {
@@ -189,14 +194,17 @@ export default function PromptRunnerPage() {
       prompt_condition: condition,
       run_number: runNumber,
       run_type: runType,
-      temperature,
+      temperature: runMeta.decoding_params.temperature,
+      decoding_params: runMeta.decoding_params,
       max_tokens: maxTokens,
       system_prompt: systemPrompt,
       run_settings_hash: runMeta.run_settings_hash,
+      run_settings_fields: runMeta.run_settings_fields,
       run_date: runTimestamp,
       raw_model_output: output,
       anonymized_output_id: anonymizedOutputId,
       truncated: runMeta.truncated,
+      reasoning_tokens: runMeta.reasoning_tokens,
       notes: "",
     };
 
@@ -276,8 +284,6 @@ export default function PromptRunnerPage() {
           setEvaluatorChoice(judgesFor(model).primary);
           resetRunState();
         }}
-        temperature={temperature}
-        onTemperatureChange={setTemperature}
         maxTokens={maxTokens}
         onMaxTokensChange={setMaxTokens}
         systemPrompt={systemPrompt}

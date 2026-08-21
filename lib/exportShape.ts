@@ -18,13 +18,16 @@ export const RESULTS_COLUMNS = [
   "run_number",
   "run_type",
   "temperature",
+  "decoding_params",
   "max_tokens",
   "system_prompt",
   "run_settings_hash",
+  "run_settings_fields",
   "run_date",
   "raw_model_output",
   "anonymized_output_id",
   "truncated",
+  "reasoning_tokens",
   "notes",
 ] as const;
 
