@@ -10,21 +10,33 @@ import {
 } from "@/lib/models/provenance";
 import { computeRunSettingsHash, diffRunSettings } from "@/lib/runSettings";
 import {
+  isInStabilitySubset,
+  loadStabilitySubset,
+  MissingStabilitySubsetError,
+} from "@/lib/stabilitySubset";
+import {
   ANTHROPIC_MODEL_ID,
   OPENAI_MODEL_ID,
   type TestModelId,
 } from "@/lib/models/registry";
 import type { ModelCallResult } from "@/lib/models/types";
-import type { PromptCondition } from "@/types";
+import type { PromptCondition, RunType } from "@/types";
 
 interface RunRequestBody {
   task_id: string;
   prompt: string;
   model: TestModelId;
   prompt_condition: PromptCondition;
+  run_type: RunType;
   temperature: number;
   max_tokens: number;
   system_prompt: string;
+  /**
+   * C5 — deliberate re-run of an existing main cell. Off unless explicitly set;
+   * the design is n=1 for the main study, so a duplicate is an accident by
+   * default.
+   */
+  allow_duplicate_main?: boolean;
 }
 
 export async function POST(request: Request) {
@@ -34,10 +46,19 @@ export async function POST(request: Request) {
     prompt,
     model,
     prompt_condition,
+    run_type,
     temperature,
     max_tokens,
     system_prompt,
+    allow_duplicate_main = false,
   } = body;
+
+  if (run_type !== "main" && run_type !== "stability") {
+    return NextResponse.json(
+      { error: `run_type must be "main" or "stability" (received ${JSON.stringify(run_type)}).` },
+      { status: 400 }
+    );
+  }
 
   const task = await getTask(task_id);
   if (!task) {
@@ -59,6 +80,31 @@ export async function POST(request: Request) {
     );
   }
 
+  // S2 — the stability subset is frozen; a stability run against an off-list
+  // task would change what the variance estimate is based on.
+  if (run_type === "stability") {
+    try {
+      if (!(await isInStabilitySubset(task_id))) {
+        const subset = await loadStabilitySubset();
+        return NextResponse.json(
+          {
+            error:
+              `Stability run refused: ${task_id} is not in the frozen stability subset. ` +
+              `The subset is fixed at ${subset.task_ids.length} tasks drawn with seed ` +
+              `${subset.seed} and is not editable.`,
+            stability_subset: subset.task_ids,
+          },
+          { status: 409 }
+        );
+      }
+    } catch (err) {
+      if (err instanceof MissingStabilitySubsetError) {
+        return NextResponse.json({ error: err.message }, { status: 503 });
+      }
+      throw err;
+    }
+  }
+
   const settings = { temperature, max_tokens, system_prompt };
   const runSettingsHash = await computeRunSettingsHash(settings);
 
@@ -67,6 +113,33 @@ export async function POST(request: Request) {
   const counterpartCondition: PromptCondition =
     prompt_condition === "baseline" ? "craft" : "baseline";
   const existing = await getResults();
+
+  // C5 — the main study is n=1. A second run for the same cell is an accident
+  // unless explicitly requested.
+  if (run_type === "main" && !allow_duplicate_main) {
+    const duplicate = existing.find(
+      (r) =>
+        r.run_type === "main" &&
+        r.task_id === task_id &&
+        r.model_name === model &&
+        r.prompt_condition === prompt_condition
+    );
+    if (duplicate) {
+      return NextResponse.json(
+        {
+          error:
+            `Run blocked: a main result already exists for ${task_id} / ${model} / ` +
+            `${prompt_condition} (result_id ${duplicate.result_id}, run ${duplicate.run_number}, ` +
+            `recorded ${duplicate.run_date}). The main study is n=1. ` +
+            `Set allow_duplicate_main to re-run deliberately.`,
+          existing_result_id: duplicate.result_id,
+          existing_run_date: duplicate.run_date,
+        },
+        { status: 409 }
+      );
+    }
+  }
+
   const counterpart = existing.find(
     (r) =>
       r.task_id === task_id &&

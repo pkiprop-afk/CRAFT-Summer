@@ -39,7 +39,7 @@ export type PromptCondition = "baseline" | "craft";
  * the stability subset, so consistency analysis can be separated from the
  * primary comparison.
  */
-export type RunType = "benchmark" | "stability";
+export type RunType = "main" | "stability";
 
 /**
  * One record per run. Scores live in EvaluationRecord — a run is scored by two

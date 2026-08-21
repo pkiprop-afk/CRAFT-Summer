@@ -7,15 +7,15 @@
     "task_description": "The function is meant to track account's balance as a sequence of deposits and withdrawals is applied, and return whether the balance ever drops below zero. The implementation contains a bug. Identify the bug, explain why it produces incorrect results , and provide  a corrected version of the function.",
     "task_input": "def check_account_balance(transactions):\n    balance = 0\n    for amount in transactions:\n        if balance < 0:\n            return True\n        balance += amount\n    return False",
     "baseline_prompt": "I've got this Python function that's supposed to check whether a list of account transactions ever pushes the balance below zero, but it isn’t working right now. Can you take a look, figure out what's wrong with it, tell me why it's giving incorrect results, and then give me a fixed version of the function?",
-    "craft_context": "A python utility that screens transaction histories for accounts that dipped into overdraft(below zero) is returning incorrect resultsm and the defect has to be located and corrected before the code is relied upon further.",
-    "craft_role": "You are an experienced Python developer conducting a code review, accustomed to ecxplaining defects clearly to the colleague who wrote the code rather than simply handling back corrected source.",
+    "craft_context": "A python utility that screens transaction histories for accounts that dipped into overdraft(below zero) is returning incorrect results and the defect has to be located and corrected before the code is relied upon further.",
+    "craft_role": "You are an experienced Python developer conducting a code review, accustomed to explaining defects clearly to the colleague who wrote the code rather than simply handing back corrected source.",
     "craft_actions": "Locate the specific defect in the supplied function and explain why it causes incorrect results.",
-    "craft_format": "Respond in three labelled sections in this order; the defect, the explanation, and the corrected function. Present the right function in Python code block format.",
+    "craft_format": "Respond in three labelled sections in this order: the defect, the explanation, and the corrected function. Present the right function in Python code block format.",
     "craft_tone": "Write in a precise, professional manner suited to a technical peer. Be direct and specific rather than tentative, and avoid both unnecessary hedging and unnecessary elaboration.",
-    "craft_prompt": "Context: A python utility that screens transaction histories for accounts that dipped into overdraft(below zero) is returning incorrect resultsm and the defect has to be located and corrected before the code is relied upon further.\n\nRole: You are an experienced Python developer conducting a code review, accustomed to ecxplaining defects clearly to the colleague who wrote the code rather than simply handling back corrected source.\n\nActions: Locate the specific defect in the supplied function and explain why it causes incorrect results.\n\nFormat: Respond in three labelled sections in this order; the defect, the explanation, and the corrected function. Present the right function in Python code block format.\n\nTone: Write in a precise, professional manner suited to a technical peer. Be direct and specific rather than tentative, and avoid both unnecessary hedging and unnecessary elaboration.",
+    "craft_prompt": "Context: A python utility that screens transaction histories for accounts that dipped into overdraft(below zero) is returning incorrect results and the defect has to be located and corrected before the code is relied upon further.\n\nRole: You are an experienced Python developer conducting a code review, accustomed to explaining defects clearly to the colleague who wrote the code rather than simply handing back corrected source.\n\nActions: Locate the specific defect in the supplied function and explain why it causes incorrect results.\n\nFormat: Respond in three labelled sections in this order: the defect, the explanation, and the corrected function. Present the right function in Python code block format.\n\nTone: Write in a precise, professional manner suited to a technical peer. Be direct and specific rather than tentative, and avoid both unnecessary hedging and unnecessary elaboration.",
     "expected_constraints": [
       "Must correctly identify the specific logic causing the bug — not just assert \"there's a bug.\"",
-      "Must explain why the current order of operations is wrong, ideally with a concrete failing example.",
+      "Must explain why the current order of operations is wrong, with a concrete failing example.",
       "Must provide a corrected, runnable function.",
       "Corrected function must return True on transactions = [-5].",
       "Must not silently introduce a new edge-case bug (e.g., changing < 0 to <= 0 without justification)."
@@ -23,7 +23,7 @@
     "rubric_notes": "Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Logical accuracy (0-4): 4/4 requires the model to articulate why check-before-add is wrong, not merely that it is; partial credit 2-3 for correct diagnosis with vague reasoning; 0-1 if root cause is misidentified; common failure is model rewrites the function correctly but never explains why the original was wrong. Completeness (0-2): 2/2 if all three components present (diagnosis, explanation, corrected function); 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Medium",
     "requires_external_knowledge": false,
-    "task_version": "v1-3bedf7c2a98425e5234664c2a65cc684"
+    "task_version": "v1-37c3cb178e4e701b4687767c19716261"
   },
   {
     "task_id": "T002",
@@ -41,7 +41,7 @@
     "craft_prompt": "Context: A Python check that confirms every reading in a list stays strictly below a supplied limit is returning the wrong answer when a reading falls exactly on that limit, and the fault must be found and corrected.\n\nRole: You are an experienced Python developer reviewing a colleague's code, used to making the cause of a defect clear to the person who wrote it rather than simply returning corrected source.\n\nActions: Determine what is wrong with the supplied function. Explain why it produces the wrong result. Then write a corrected version of the function.\n\nFormat: Reply in three labelled sections in this order: the fault, the explanation, and the corrected function. Present the corrected function inside a Python code block.\n\nTone: Write in a precise, professional register suited to a technical peer. Be direct and specific rather than tentative, and avoid both unnecessary hedging and unnecessary elaboration.",
     "expected_constraints": [
       "Must identify that the comparison operator excludes the boundary case where reading = limit",
-      "Must explain why strict \"below\" requires rejecting equality, ideally with a concrete failing example.",
+      "Must explain why strict \"below\" requires rejecting equality, with a concrete failing example.",
       "Must provide a corrected, runnable function.",
       "Corrected function must return False on readings = [5], limit = 5 and True on readings = [4], limit = 5.",
       "Must not alter empty-list behavior, which correctly returns True."
@@ -49,7 +49,7 @@
     "rubric_notes": "Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Logical accuracy (0-4): 4/4 requires the model to state that > admits equality and that the specification word \"below\" excludes it; 2-3 for correcting the operator with vague or absent reasoning; 0-1 if the model misdiagnoses the cause (e.g., blames the loop or the return placement). Common failure is flipping the operator without naming the boundary condition. Completeness (0-2): 2/2 if diagnosis, explanation, and corrected function are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Easy",
     "requires_external_knowledge": false,
-    "task_version": "v1-37a3e908bd3081e1e86e325bea5dc735"
+    "task_version": "v1-37e3df37e647ca353601f14ccce415ed"
   },
   {
     "task_id": "T003",
@@ -67,7 +67,7 @@
     "craft_prompt": "Context: A Python routine meant to report the highest reading seen so far at each position in a list is producing a sequence that decreases in places, which should not be possible, and the cause must be found and corrected.\n\nRole: You are an experienced Python developer reviewing a colleague's code, used to making the cause of a defect clear to the person who wrote it rather than simply returning corrected source.\n\nActions: Find the problem in the supplied function. Explain why it produces output that decreases in places. Then supply a corrected version of the function.\n\nFormat: Reply in three labelled sections in this order: the problem, the explanation, and the corrected function. Present the corrected function inside a Python code block.\n\nTone: Write in a precise, professional register suited to a technical peer. Be direct and specific rather than tentative, and avoid both unnecessary hedging and unnecessary elaboration.",
     "expected_constraints": [
       "Must identify that the running maximum is reassigned to the current element on every iteration instead of being carried forward.",
-      "Must explain why a running maximum must be monotonically non-decreasing, ideally with a concrete failing example.",
+      "Must explain why a running maximum must be monotonically non-decreasing, with a concrete failing example.",
       "Must provide corrected, runnable function.",
       "Corrected function must return [1,2,3,3,3,4,4] on readings = [1,2,3,2,3,4,2].",
       "Must handle the empty-list case by returning an empty list rather than raising an error"
@@ -75,7 +75,7 @@
     "rubric_notes": "Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Logical accuracy (0-4): 4/4 requires the model to explain that state must persist across iterations and that the output must be non-decreasing; 2-3 for a working fix with thin reasoning; 0-1 if the model claims the list append or the return is at fault. Common failure is initialising the accumulator to 0, which silently breaks on all-negative input - deduct from logical accuracy if the model uses 0 and does not flag the negative-input limitation. Completeness (0-2): 2/2 if diagnosis, explanation, and corrected function are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Medium",
     "requires_external_knowledge": false,
-    "task_version": "v1-48889f7bb0578a63ccc6f14340375a1c"
+    "task_version": "v1-8f25349da45dc1be40e01b0691a3e0c4"
   },
   {
     "task_id": "T004",
@@ -145,7 +145,7 @@
     "craft_prompt": "Context: A Python check for balanced parentheses correctly rejects strings that close too early but wrongly accepts strings that never close at all, and the fault must be found and corrected.\n\nRole: You are an experienced Python developer reviewing a colleague's code, used to making the cause of a defect clear to the person who wrote it rather than simply returning corrected source.\n\nActions: Work out what is going wrong in the supplied function. Explain why it accepts strings that never close. Then supply a corrected version of the function.\n\nFormat: Reply in three labelled sections in this order: the fault, the explanation, and the corrected function. Present the corrected function inside a Python code block.\n\nTone: Write in a precise, professional register suited to a technical peer. Be direct and specific rather than tentative, and avoid both unnecessary hedging and unnecessary elaboration.",
     "expected_constraints": [
       "Must identify that the function never verifies that depth has returned to zero after the loop completes.",
-      "Must explain why the in-loop negative check catches premature closing but not unclosed openings, ideally with a concrete failing example.",
+      "Must explain why the in-loop negative check catches premature closing but not unclosed openings, with a concrete failing example.",
       "Must provide a corrected, runnable function.",
       "Corrected function must return False on brackets = \"(\"and True on brackets = \"(()())\".",
       "Must retain the early negative-depth check rather than replacing it with a final check alone."
@@ -153,7 +153,7 @@
     "rubric_notes": "Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Logical accuracy (0-4): 4/4 requires the model to articulate that balance demands two conditions - depth never negative during traversal and depth exactly zero at the end - and to note that only the first is implemented; 2-3 for changing the final return to depth == 0 without explaining the two-condition structure; 0-1 if the model misidentifies the else branch as the fault. Deduct if the model removes the in-loop check, since that regresses the string \")(\" to a false positive. Completeness (0-2): 2/2 if diagnosis, explanation, and corrected function are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Medium",
     "requires_external_knowledge": false,
-    "task_version": "v1-3863e5926ba56ed845c3dc5b4de42295"
+    "task_version": "v1-49a7520f114dd018dcb7e098c50d9815"
   },
   {
     "task_id": "T007",
@@ -171,7 +171,7 @@
     "craft_prompt": "Context: A Python routine that rescales scores so the smallest becomes zero and the largest becomes one works on ordinary input but crashes when every value is identical, and that case must be handled correctly.\n\nRole: You are an experienced Python developer reviewing a colleague's code, used to making the cause of a defect clear to the person who wrote it rather than simply returning corrected source.\n\nActions: Determine what causes the crash on a list of identical values. Explain why it happens. Then write a corrected version that handles that case.\n\nFormat: Reply in three labelled sections in this order: the cause, the explanation, and the corrected function. Present the corrected function inside a Python code block.\n\nTone: Write in a precise, professional register suited to a technical peer. Be direct and specific rather than tentative, and avoid both unnecessary hedging and unnecessary elaboration.",
     "expected_constraints": [
       "Must identify that the denominator highest - lowest evaluates to zero when every value is identical.",
-      "Must explain why this raises ZeroDivisionError and why the mathematical rescaling is undefined for a zero-range input, ideally with a concrete failing example.",
+      "Must explain why this raises ZeroDivisionError and why the mathematical rescaling is undefined for a zero-range input, with a concrete failing example.",
       "Must provide a corrected, runnable function.",
       "Corrected function must not raise on scores = [7,7,7] and must still return [0.0, 0.25, 0.5, 0.75,1.0] on scores = [1,2,3,4,5].",
       "Must state and justify the value chosen for the degenerate case rather than returning it silently."
@@ -179,7 +179,7 @@
     "rubric_notes": "Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Constraint 5 is the discriminating one: an unjustified choice of 0.0 versus 0.5 for the flat case forfeits that portion even if the code runs. Logical accuracy (0-4): 4/4 requires the model to recognise that the specification is genuinely ambiguous for zero-range input and to make an explicit, defended choice; 2-3 for guarding the division without acknowledging the ambiguity; 0-1 if the model attributes the crash to empty input or to a type error. Common failure is wrapping the expression in try/except, which suppresses the symptom without defining the intended behaviour - cap logical accuracy at 2 for that approach. Completeness (0-2): 2/2 if diagnosis, explanation, and corrected function are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Hard",
     "requires_external_knowledge": false,
-    "task_version": "v1-b3687b8e9d8a238cc02a17e023c411aa"
+    "task_version": "v1-87df79046b6d8fb7f5f222fe3c042145"
   },
   {
     "task_id": "T008",
@@ -197,7 +197,7 @@
     "craft_prompt": "Context: A Python routine meant to return the largest index at which an element is smaller than the one immediately before it returns an index meeting that condition but not always the largest, and the fault must be corrected.\n\nRole: You are an experienced Python developer reviewing a colleague's code, used to making the cause of a defect clear to the person who wrote it rather than simply returning corrected source.\n\nActions: Find the fault in the supplied function. Explain why the index it returns is not always the largest one. Then supply a corrected version of the function.\n\nFormat: Reply in three labelled sections in this order: the fault, the explanation, and the corrected function. Present the corrected function inside a Python code block.\n\nTone: Write in a precise, professional register suited to a technical peer. Be direct and specific rather than tentative, and avoid both unnecessary hedging and unnecessary elaboration.",
     "expected_constraints": [
       "Must identify that the function returns on its first match instead of continuing to scan for later matches.",
-      "Must explain why finding a maximum requires traversing the whole sequence, ideally with a concrete failing example containing two or more descents.",
+      "Must explain why finding a maximum requires traversing the whole sequence, with a concrete failing example containing two or more descents.",
       "Must provide a corrected, runnable function.",
       "Corrected function must return 3 on values = [1,2,4,3,5] and -1 on values = [1,2,3]",
       "Must preserve the -1 sentinel for the no-match case rather than returning None or raising."
@@ -205,7 +205,7 @@
     "rubric_notes": "Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Constraint 2 requires a multi-descent example such as [1, 5, 2, 6, 3]; a single-descent example does not demonstrate the bug and forfeits that portion. Logical accuracy (0-4): 4/4 requires the model to distinguish \"find any\" from \"find the largest\" and to explain that early return forecloses later candidates; 2-3 for replacing the return with an accumulator while describing the bug only as \"returns the wrong index\"; 0-1 if the model blames the range bounds or the comparison direction. A reverse-iteration solution that returns on first match is fully correct and should score 4/4 provided the model explains why scanning backwards makes the first match the largest index. Completeness (0-2): 2/2 if diagnosis, explanation, and corrected function are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Medium",
     "requires_external_knowledge": false,
-    "task_version": "v1-88e23dc04aa53bdd1f391c3a1888d1dd"
+    "task_version": "v1-1fb451072fac63c93e9da9cf10e2e009"
   },
   {
     "task_id": "T009",
@@ -354,14 +354,14 @@
     "expected_constraints": [
       "Must identify that the West region's sample of 12 customers is roughly one hundred times smaller than North's, and that the reported rates are therefore far less stable.",
       "Must state that 25.0 percent rate on 12 customers corresponds to exactly 3 affected customers, and that a single customer changes the rate by approximately 8.3 percentage points.",
-      "Must state that the West movement is not statistically distinguishable from the North and South rates, ideally by noting that a confidence interval around 25 percent equal to 12 is wide enough to overlap them.",
+      "Must state that the West movement is not statistically distinguishable from the North and South rates, by noting that a confidence interval around 25 percent equal to 12 is wide enough to overlap them.",
       "Must decline to characterise the West change as an established trend or as evidence of a quality problem specific to that region.",
       "Must recommend a proportionate next step, such as examining the three affected accounts directly or accumulating more observations, rather than either urgent region-wide investigation or dismissal of the signal entirely."
     ],
     "rubric_notes": "Verified arithmetic: 3/12 = 25.0%; 1/12 = 8.33 percentage points; 2/12 = 16.67%. West n = 12 versus North n = 1,250 is a ratio of about 104 to 1. A Wald 95% interval at p = 0.25 and n = 12 spans roughly 0.5% to 49.5%, a half-width of 24.5 percentage points, which fully contains the North rate of 4.3% and the South rate of 4.0%. Accept any reasonable interval method or a qualitative argument that the interval is very wide. Constraint adherence (0-4): each of the 5 constraints carries ~0.8 pts; deduct 1 pt per failed or absent constraint, round to nearest integer. Logical accuracy (0-4): 4/4 requires the sample-size observation, the three-customer decomposition, an argument about statistical distinguishability, and a proportionate recommendation. 2-3 for noting the small sample without quantifying its consequence. 0-1 for endorsing the urgent investigation. Note that constraint 5 penalises overcorrection as well: a model that dismisses the West signal outright is also wrong, because three defects among twelve customers warrants a look even though it does not establish a trend. Full marks require calibrated rather than merely sceptical judgement. Completeness (0-2): 2/2 if the sample-size analysis, the statistical argument, and the recommendation are all present; 1 if one absent; 0 if two or more absent.",
     "difficulty_level": "Medium",
     "requires_external_knowledge": false,
-    "task_version": "v1-1768243ee086e9f868bec98d5e133ad5"
+    "task_version": "v1-f962f768415a9fdb62a9dd74b5bc84e7"
   },
   {
     "task_id": "T015",

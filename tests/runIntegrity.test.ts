@@ -63,7 +63,7 @@ describe("two-evaluations-per-result rule", () => {
     model_provenance_fingerprint: "created_at:2026-06-29T00:00:00Z",
     prompt_condition: "baseline" as const,
     run_number: 1,
-    run_type: "benchmark" as const,
+    run_type: "main" as const,
     temperature: 0.2,
     max_tokens: 4000,
     system_prompt: "You are helpful.",

@@ -9,6 +9,7 @@ import { DomainChart, type GroupedBarDatum } from "@/components/results/DomainCh
 import { conditionStats, mean, pairByTask, round } from "@/lib/results";
 import { joinResults, type ScoredResult } from "@/lib/resultsJoin";
 import { isResultStale } from "@/lib/invalidation";
+import { computeIrr } from "@/lib/irr";
 import {
   DOMAIN_LABELS,
   type Domain,
@@ -17,10 +18,12 @@ import {
   type TaskRecord,
 } from "@/types";
 
-const TABS = ["Overview", "By Model", "By Domain", "By Submetric"];
+const TABS = ["Overview", "By Model", "By Domain", "By Submetric", "Judge Agreement"];
 
-/** Aggregates use the mean across the judges that scored a run. */
-const totalOf = (s: ScoredResult) => s.meanTotal;
+/**
+ * PRIMARY JUDGE ONLY. Never an average of the two — see lib/resultsJoin.ts.
+ */
+const totalOf = (s: ScoredResult) => s.primaryTotal;
 
 export default function ResultsPage() {
   const [tasks, setTasks] = useState<TaskRecord[]>([]);
@@ -84,7 +87,7 @@ export default function ResultsPage() {
       allScored.filter((s) => {
         if (excludeStale && isResultStale(s.result, taskById.get(s.result.task_id))) return false;
         if (excludeIncomplete && !s.isComplete) return false;
-        return s.meanTotal !== null;
+        return s.primaryTotal !== null;
       }),
     [allScored, taskById, excludeStale, excludeIncomplete]
   );
@@ -163,25 +166,37 @@ export default function ResultsPage() {
     craft: row.craft.mean,
   }));
 
-  // Submetrics also average across judges.
+  // IRR is computed over complete runs regardless of the exclude toggles —
+  // it is a property of the judges, not of the analysis sample.
+  const irr = useMemo(
+    () =>
+      computeIrr(
+        allScored.filter(
+          (s) => !excludeStale || !isResultStale(s.result, taskById.get(s.result.task_id))
+        )
+      ),
+    [allScored, excludeStale, taskById]
+  );
+
+  // Submetrics use the primary judge, like every other aggregate.
   const submetrics = [
     {
       label: "Constraint Adherence",
       max: 4,
       key: "constraint",
-      accessor: (s: ScoredResult) => s.meanConstraint,
+      accessor: (s: ScoredResult) => s.primaryConstraint,
     },
     {
       label: "Logical Accuracy",
       max: 4,
       key: "logical",
-      accessor: (s: ScoredResult) => s.meanLogical,
+      accessor: (s: ScoredResult) => s.primaryLogical,
     },
     {
       label: "Completeness",
       max: 2,
       key: "completeness",
-      accessor: (s: ScoredResult) => s.meanCompleteness,
+      accessor: (s: ScoredResult) => s.primaryCompleteness,
     },
   ];
 
@@ -402,6 +417,123 @@ export default function ResultsPage() {
                   </tbody>
                 </table>
               </div>
+            </div>
+          )}
+
+          {activeTab === "Judge Agreement" && (
+            <div className="space-y-6">
+              <div>
+                <h2 className="text-sm font-semibold text-text-heading mb-1">
+                  Inter-rater reliability
+                </h2>
+                <p className="text-xs text-text-muted">
+                  Computed over {irr.n} complete run{irr.n === 1 ? "" : "s"} (one primary, one
+                  secondary). Study scores use the primary judge only; the secondary exists to
+                  quantify how much a score depends on who is judging.
+                </p>
+              </div>
+
+              {irr.n === 0 ? (
+                <p className="text-sm text-text-muted">
+                  No completely-judged runs yet — agreement cannot be computed.
+                </p>
+              ) : (
+                <>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <Card accentColor="var(--color-navy-700)">
+                      <p className="text-xs text-text-muted mb-1">ICC(3,1) — total score</p>
+                      <p className="text-2xl font-display font-bold text-text-heading">
+                        {irr.icc31 === null ? "n/a" : irr.icc31}
+                      </p>
+                      <p className="mt-1 text-xs text-text-muted">{irr.iccNote}</p>
+                    </Card>
+                    <Card accentColor="var(--color-cream-border)">
+                      <p className="text-xs text-text-muted mb-1">
+                        Disagreements &gt; {irr.disagreementThreshold} points
+                      </p>
+                      <p className="text-2xl font-display font-bold text-text-heading">
+                        {irr.largeDisagreements.length}
+                      </p>
+                      <p className="mt-1 text-xs text-text-muted">
+                        of {irr.n} complete runs
+                      </p>
+                    </Card>
+                  </div>
+
+                  <div className="overflow-x-auto rounded-lg border border-cream-border">
+                    <table className="w-full text-sm">
+                      <thead className="bg-cream-card text-text-muted">
+                        <tr>
+                          <th className="text-left px-3 py-2">Metric</th>
+                          <th className="text-left px-3 py-2">Max</th>
+                          <th className="text-left px-3 py-2">n</th>
+                          <th className="text-left px-3 py-2">% exact agreement</th>
+                          <th className="text-left px-3 py-2">Mean abs. difference</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {irr.metrics.map((m) => (
+                          <tr key={m.metric} className="border-t border-cream-border font-mono">
+                            <td className="px-3 py-2">{m.metric}</td>
+                            <td className="px-3 py-2">{m.max}</td>
+                            <td className="px-3 py-2">{m.n}</td>
+                            <td className="px-3 py-2">{m.percentExactAgreement}%</td>
+                            <td className="px-3 py-2">{m.meanAbsoluteDifference}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <div>
+                    <h3 className="text-sm font-semibold text-text-heading mb-2">
+                      Runs where judges differ by more than {irr.disagreementThreshold} points
+                    </h3>
+                    {irr.largeDisagreements.length === 0 ? (
+                      <p className="text-sm text-text-muted">None.</p>
+                    ) : (
+                      <div className="overflow-x-auto rounded-lg border border-cream-border">
+                        <table className="w-full text-xs">
+                          <thead className="bg-cream-card text-text-muted">
+                            <tr>
+                              <th className="text-left px-3 py-2">Task</th>
+                              <th className="text-left px-3 py-2">Model</th>
+                              <th className="text-left px-3 py-2">Condition</th>
+                              <th className="text-left px-3 py-2">Run type</th>
+                              <th className="text-left px-3 py-2">Primary</th>
+                              <th className="text-left px-3 py-2">Secondary</th>
+                              <th className="text-left px-3 py-2">Δ</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {irr.largeDisagreements.map((d) => (
+                              <tr
+                                key={d.result_id}
+                                className="border-t border-cream-border font-mono"
+                              >
+                                <td className="px-3 py-2">{d.task_id}</td>
+                                <td className="px-3 py-2">{d.model_name}</td>
+                                <td className="px-3 py-2">{d.prompt_condition}</td>
+                                <td className="px-3 py-2">{d.run_type}</td>
+                                <td className="px-3 py-2">
+                                  {d.primary_total}/10 <span className="text-text-muted">({d.primary_model})</span>
+                                </td>
+                                <td className="px-3 py-2">
+                                  {d.secondary_total}/10{" "}
+                                  <span className="text-text-muted">({d.secondary_model})</span>
+                                </td>
+                                <td className="px-3 py-2 font-semibold text-error">
+                                  {d.difference}
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    )}
+                  </div>
+                </>
+              )}
             </div>
           )}
 

@@ -9,7 +9,13 @@ import { familyOf, judgesFor, TEST_MODELS } from "@/lib/models/registry";
 import { generateEvaluationId, generateResultId } from "@/lib/anonymize";
 import { DEFAULT_MAX_TOKENS } from "@/lib/runSettings";
 import { type ParsedEvaluation } from "@/lib/evaluator";
-import type { EvaluationRecord, PromptCondition, ResultRecord, TaskRecord } from "@/types";
+import type {
+  EvaluationRecord,
+  PromptCondition,
+  ResultRecord,
+  RunType,
+  TaskRecord,
+} from "@/types";
 
 export default function PromptRunnerPage() {
   const [tasks, setTasks] = useState<TaskRecord[]>([]);
@@ -20,6 +26,8 @@ export default function PromptRunnerPage() {
   const [temperature, setTemperature] = useState(0.2);
   const [maxTokens, setMaxTokens] = useState(DEFAULT_MAX_TOKENS);
   const [systemPrompt, setSystemPrompt] = useState("You are a helpful assistant.");
+  // Single-run page is for smoke tests; main-study runs go through the batch runner.
+  const [runType] = useState<RunType>("main");
 
   const [running, setRunning] = useState(false);
   const [output, setOutput] = useState<string | null>(null);
@@ -97,6 +105,7 @@ export default function PromptRunnerPage() {
           prompt: selectedPromptText,
           model: testModel,
           prompt_condition: condition,
+          run_type: runType,
           temperature,
           max_tokens: maxTokens,
           system_prompt: systemPrompt,
@@ -175,7 +184,7 @@ export default function PromptRunnerPage() {
       model_provenance_fingerprint: runMeta.model_provenance_fingerprint,
       prompt_condition: condition,
       run_number: runNumber,
-      run_type: "benchmark",
+      run_type: runType,
       temperature,
       max_tokens: maxTokens,
       system_prompt: systemPrompt,

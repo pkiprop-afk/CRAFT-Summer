@@ -27,7 +27,13 @@ import {
   type BatchJob,
   type ConditionScope,
 } from "@/lib/batch";
-import type { EvaluationRecord, PromptCondition, ResultRecord, TaskRecord } from "@/types";
+import type {
+  EvaluationRecord,
+  PromptCondition,
+  ResultRecord,
+  RunType,
+  TaskRecord,
+} from "@/types";
 
 type TestModel = TestModelId;
 type BatchEvaluator = EvaluatorModelId;
@@ -42,6 +48,8 @@ export default function BatchRunnerPage() {
   const [loadError, setLoadError] = useState<string | null>(null);
 
   const [rawSelectedIds, setRawSelectedIds] = useState<Set<string>>(new Set());
+  const [runType, setRunType] = useState<RunType>("main");
+  const [stabilitySubset, setStabilitySubset] = useState<string[] | null>(null);
   const [conditionScope, setConditionScope] = useState<ConditionScope>(PAIRED_SCOPE);
   // 5b — unpaired single-condition runs require an explicit acknowledgement.
   const [allowUnpaired, setAllowUnpaired] = useState(false);
@@ -75,6 +83,11 @@ export default function BatchRunnerPage() {
         runNumberCounts.current = counts;
       })
       .catch(() => {});
+    // Read-only: the subset is frozen and this page never writes it.
+    fetch("/api/stability-subset")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => setStabilitySubset(data?.task_ids ?? null))
+      .catch(() => setStabilitySubset(null));
   }, []);
 
   function nextRunNumber(taskId: string, condition: PromptCondition): number {
@@ -89,14 +102,19 @@ export default function BatchRunnerPage() {
   // effect, so there is no cascading-render round trip — and unlike the old
   // destructive prune, a task returns to the selection if the scope changes
   // back to one it is ready for.
+  // S2 — for a stability run, only frozen-subset tasks are eligible. Filtered
+  // here as well as rejected server-side, so an off-list task can never even be
+  // queued.
   const selectedIds = useMemo(() => {
     const next = new Set<string>();
     for (const id of rawSelectedIds) {
       const task = tasks.find((t) => t.task_id === id);
-      if (task && isTaskReadyForScope(task, conditionScope)) next.add(id);
+      if (!task || !isTaskReadyForScope(task, conditionScope)) continue;
+      if (runType === "stability" && !(stabilitySubset ?? []).includes(id)) continue;
+      next.add(id);
     }
     return next;
-  }, [rawSelectedIds, tasks, conditionScope]);
+  }, [rawSelectedIds, tasks, conditionScope, runType, stabilitySubset]);
 
   function toggleTask(taskId: string) {
     setRawSelectedIds((prev) => {
@@ -122,14 +140,22 @@ export default function BatchRunnerPage() {
     [tasks, selectedIds, conditionScope]
   );
 
+  // C4 — every run calls the test model AND both rotation judges, so preflight
+  // must cover all three. Checking only the primary let a missing secondary key
+  // fail mid-batch, after generation tokens were already spent.
   const keyStatuses = useKeyStatuses();
-  const testModelFamily = familyOf(testModel);
-  const evaluatorFamily = familyOf(evaluatorChoice);
+  const rotation = judgesFor(testModel);
+  const requiredFamilies = useMemo(() => {
+    const families = [
+      familyOf(testModel),
+      familyOf(rotation.primary),
+      familyOf(rotation.secondary),
+    ].filter((f): f is NonNullable<typeof f> => f !== null);
+    return Array.from(new Set(families));
+  }, [testModel, rotation.primary, rotation.secondary]);
+
   const keyBlocked =
-    !testModelFamily ||
-    !evaluatorFamily ||
-    !isFamilyReady(keyStatuses, testModelFamily) ||
-    !isFamilyReady(keyStatuses, evaluatorFamily);
+    requiredFamilies.length < 3 || requiredFamilies.some((f) => !isFamilyReady(keyStatuses, f));
 
   async function runJob(task: TaskRecord, condition: PromptCondition, jobIndex: number) {
     function updateJob(patch: Partial<BatchJob>) {
@@ -148,6 +174,7 @@ export default function BatchRunnerPage() {
           prompt,
           model: testModel,
           prompt_condition: condition,
+          run_type: runType,
           temperature,
           max_tokens: maxTokens,
           system_prompt: systemPrompt,
@@ -169,7 +196,7 @@ export default function BatchRunnerPage() {
         model_provenance_fingerprint: runData.model_provenance_fingerprint,
         prompt_condition: condition,
         run_number: nextRunNumber(task.task_id, condition),
-        run_type: "benchmark",
+        run_type: runType,
         temperature,
         max_tokens: maxTokens,
         system_prompt: systemPrompt,
@@ -295,6 +322,42 @@ export default function BatchRunnerPage() {
         <h2 className="text-lg font-semibold text-text-heading">
           Step 1 — Select Tasks and Condition
         </h2>
+        <div className="rounded-lg border border-cream-border bg-cream-card px-3 py-2 space-y-2">
+          <p className="text-sm font-medium text-text-heading">Run type</p>
+          <div className="flex items-center gap-4">
+            {(["main", "stability"] as RunType[]).map((rt) => (
+              <label key={rt} className="flex items-center gap-2 text-sm text-text-body">
+                <input
+                  type="radio"
+                  checked={runType === rt}
+                  disabled={isRunning || (rt === "stability" && !stabilitySubset)}
+                  onChange={() => setRunType(rt)}
+                />
+                {rt === "main" ? "Main study (n=1)" : "Stability (n=3, frozen subset)"}
+              </label>
+            ))}
+          </div>
+          {runType === "stability" ? (
+            stabilitySubset ? (
+              <p className="text-xs text-text-muted">
+                Frozen subset — {stabilitySubset.length} tasks, not editable:{" "}
+                <span className="font-mono">{stabilitySubset.join(", ")}</span>. Off-list tasks
+                cannot be selected and are rejected by the run API.
+              </p>
+            ) : (
+              <p className="text-xs text-error">
+                data/stability_subset.json not found — run
+                <span className="font-mono"> npm run select-stability-subset</span>.
+              </p>
+            )
+          ) : (
+            <p className="text-xs text-text-muted">
+              Main study is n=1 per task/model/condition. A duplicate cell is rejected by the run
+              API unless deliberately overridden.
+            </p>
+          )}
+        </div>
+
         <div className="flex items-center gap-4">
           {(["baseline", "craft", "both"] as ConditionScope[]).map((scope) => {
             const unpaired = isUnpairedScope(scope);
@@ -421,27 +484,44 @@ export default function BatchRunnerPage() {
           </p>
         </div>
 
+        {/* C3 — read-only display. The rotation is determined by the producing
+            model; it was never a user choice, and a dropdown implied it was. */}
         <div>
-          <label className="block text-sm font-medium text-text-heading mb-1">Evaluator Model</label>
-          <Select
-            value={evaluatorChoice}
-            disabled={isRunning}
-            onChange={(e) => setEvaluatorChoice(e.target.value as BatchEvaluator)}
-          >
-            {[judgesFor(testModel).primary, judgesFor(testModel).secondary]
-              .filter((judge) => !isFamilyCollision(testModel, judge))
-              .map((id) => (
-                <option key={id} value={id}>
-                  {MODEL_LABEL[id]}
-                  {id === judgesFor(testModel).primary ? " — primary" : " — secondary"}
-                </option>
-              ))}
-          </Select>
+          <label className="block text-sm font-medium text-text-heading mb-1">
+            Judges <span className="font-normal text-text-muted">(fixed by rotation)</span>
+          </label>
+          <div className="rounded-lg border border-cream-border bg-cream-card px-3 py-2 space-y-1">
+            <div className="flex items-center gap-2 text-sm">
+              <span className="rounded-full bg-navy-900 px-2 py-0.5 text-xs text-cream">
+                primary
+              </span>
+              <span className="font-mono text-text-heading">
+                {MODEL_LABEL[rotation.primary]}
+              </span>
+              <span className="text-xs text-text-muted">
+                ({familyOf(rotation.primary)})
+              </span>
+            </div>
+            <div className="flex items-center gap-2 text-sm">
+              <span className="rounded-full bg-navy-100 px-2 py-0.5 text-xs text-navy-900">
+                secondary
+              </span>
+              <span className="font-mono text-text-heading">
+                {MODEL_LABEL[rotation.secondary]}
+              </span>
+              <span className="text-xs text-text-muted">
+                ({familyOf(rotation.secondary)})
+              </span>
+            </div>
+          </div>
           <p className="mt-1 text-xs text-text-muted">
-            Every run in this batch is evaluated automatically with the same evaluator, and saved
-            only if both the run and the evaluation succeed. Judges are fixed by rotation for{" "}
-            {MODEL_LABEL[testModel]}; a judge sharing the producing model&apos;s vendor family is
-            never offered and is rejected at the API layer.
+            Every run is scored by both judges. The rotation is derived from the producing model —{" "}
+            {MODEL_LABEL[testModel]} — and is not selectable. A judge sharing the producing
+            model&apos;s vendor family is rejected at the API layer.
+            {isFamilyCollision(testModel, rotation.primary) ||
+            isFamilyCollision(testModel, rotation.secondary) ? (
+              <span className="text-error"> Rotation misconfigured: family collision.</span>
+            ) : null}
           </p>
         </div>
       </section>
