@@ -17,7 +17,6 @@ export const RESULTS_COLUMNS = [
   "prompt_condition",
   "run_number",
   "run_type",
-  "temperature",
   "decoding_params",
   "max_tokens",
   "system_prompt",

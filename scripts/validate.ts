@@ -273,7 +273,7 @@ async function main(): Promise<void> {
     // Re-derive to catch a hand-edited or stale stored hash.
     for (const r of group) {
       const recomputed = await computeRunSettingsHash({
-        temperature: r.temperature,
+        temperature: r.decoding_params.temperature,
         max_tokens: r.max_tokens,
         system_prompt: r.system_prompt,
       });

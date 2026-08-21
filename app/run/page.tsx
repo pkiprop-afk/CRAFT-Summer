@@ -194,7 +194,6 @@ export default function PromptRunnerPage() {
       prompt_condition: condition,
       run_number: runNumber,
       run_type: runType,
-      temperature: runMeta.decoding_params.temperature,
       decoding_params: runMeta.decoding_params,
       max_tokens: maxTokens,
       system_prompt: systemPrompt,

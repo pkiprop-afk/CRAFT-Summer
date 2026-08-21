@@ -205,7 +205,6 @@ export default function BatchRunnerPage() {
         prompt_condition: condition,
         run_number: nextRunNumber(task.task_id, condition, runType),
         run_type: runType,
-        temperature: runData.decoding_params.temperature,
         decoding_params: runData.decoding_params,
         max_tokens: maxTokens,
         system_prompt: systemPrompt,

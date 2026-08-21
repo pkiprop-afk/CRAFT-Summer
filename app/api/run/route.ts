@@ -164,7 +164,7 @@ export async function POST(request: Request) {
   if (counterpart && counterpart.run_settings_hash !== runSettings.hash) {
     const mismatches = diffRunSettings(
       {
-        temperature: counterpart.temperature,
+        temperature: counterpart.decoding_params.temperature,
         max_tokens: counterpart.max_tokens,
         system_prompt: counterpart.system_prompt,
         ...(counterpart.decoding_params?.effort !== undefined

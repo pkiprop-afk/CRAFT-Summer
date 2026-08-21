@@ -70,14 +70,11 @@ export interface ResultRecord {
   run_number: number;
   run_type: RunType;
   /**
-   * What the provider actually used. null where the provider does not accept
-   * the parameter (Claude), 1.0 where the API pins it (GPT). 0.2 is never sent
-   * to either model — see lib/decoding.ts.
-   */
-  temperature: number | null;
-  /**
-   * G3 — the full decoding regime, stated explicitly per vendor because the
-   * controls are not commensurable:
+   * G3 — the full decoding regime, and the SINGLE source of truth for
+   * temperature. There is deliberately no flat `temperature` column: two fields
+   * required to agree, with nothing enforcing agreement, is a drift vector.
+   *
+   * Stated explicitly per vendor because the controls are not commensurable:
    *   Claude → { temperature: null, effort: null }
    *   GPT    → { temperature: 1.0, reasoning_effort: "low" }
    */
