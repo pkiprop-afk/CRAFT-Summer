@@ -20,7 +20,7 @@ import {
   listOpenAIModels,
   type ProviderListing,
 } from "../lib/models/availability.ts";
-import type { ModelFamily } from "../lib/models/registry.ts";
+import { MODEL_FAMILY, type ModelFamily } from "../lib/models/registry.ts";
 
 const ENV_VAR_BY_FAMILY: Record<ModelFamily, string> = {
   anthropic: "ANTHROPIC_API_KEY",
@@ -94,7 +94,7 @@ async function main(): Promise<void> {
     );
   }
 
-  const { checks, missing, allPresent } = checkConfiguredModels(listings);
+  const { checks, missing, allPresent } = checkConfiguredModels(listings, MODEL_FAMILY);
 
   console.log("\nconfigured model IDs (from lib/models/registry.ts):");
   for (const c of checks) {

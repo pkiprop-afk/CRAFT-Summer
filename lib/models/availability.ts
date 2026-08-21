@@ -1,4 +1,6 @@
-import { MODEL_FAMILY, FAMILY_LABEL, type ModelFamily } from "./registry";
+// Type-only import: erased at runtime, so this module has no runtime imports
+// and can be loaded directly by a plain Node script as well as by Next.
+import type { ModelFamily } from "./registry";
 
 /**
  * Model availability check.
@@ -17,7 +19,7 @@ import { MODEL_FAMILY, FAMILY_LABEL, type ModelFamily } from "./registry";
 
 export interface ProviderListing {
   family: ModelFamily;
-  label: string;
+
   reachable: boolean;
   httpStatus: number | null;
   models: string[];
@@ -35,7 +37,7 @@ function sanitize(message: string): string {
 function failure(family: ModelFamily, httpStatus: number | null, error: string): ProviderListing {
   return {
     family,
-    label: FAMILY_LABEL[family],
+
     reachable: false,
     httpStatus,
     models: [],
@@ -68,7 +70,7 @@ export async function listAnthropicModels(apiKey: string): Promise<ProviderListi
     }
     return {
       family: "anthropic",
-      label: FAMILY_LABEL.anthropic,
+
       reachable: true,
       httpStatus: 200,
       models,
@@ -91,7 +93,7 @@ export async function listOpenAIModels(apiKey: string): Promise<ProviderListing>
     const body = await res.json();
     return {
       family: "openai",
-      label: FAMILY_LABEL.openai,
+
       reachable: true,
       httpStatus: 200,
       models: (body.data ?? []).map((m: { id: string }) => m.id),
@@ -124,7 +126,7 @@ export async function listGoogleModels(apiKey: string): Promise<ProviderListing>
     }
     return {
       family: "google",
-      label: FAMILY_LABEL.google,
+
       reachable: true,
       httpStatus: 200,
       models,
@@ -161,7 +163,14 @@ function similarTo(configured: string, available: string[]): string[] {
   return available.filter((a) => a.toLowerCase().startsWith(stem)).slice(0, 12);
 }
 
-export function checkConfiguredModels(listings: ProviderListing[]): {
+/**
+ * `modelFamily` is passed in (rather than imported) so this module stays free
+ * of runtime imports — see the type-only import at the top.
+ */
+export function checkConfiguredModels(
+  listings: ProviderListing[],
+  modelFamily: Record<string, ModelFamily>
+): {
   checks: ConfiguredModelCheck[];
   missing: ConfiguredModelCheck[];
   allPresent: boolean;
@@ -169,7 +178,7 @@ export function checkConfiguredModels(listings: ProviderListing[]): {
   const byFamily = new Map(listings.map((l) => [l.family, l]));
   const checks: ConfiguredModelCheck[] = [];
 
-  for (const [modelId, family] of Object.entries(MODEL_FAMILY)) {
+  for (const [modelId, family] of Object.entries(modelFamily)) {
     const listing = byFamily.get(family);
     if (!listing || !listing.reachable) {
       checks.push({

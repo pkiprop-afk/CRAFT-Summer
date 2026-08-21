@@ -7,7 +7,7 @@ import {
   listOpenAIModels,
   type ProviderListing,
 } from "@/lib/models/availability";
-import type { ModelFamily } from "@/lib/models/registry";
+import { MODEL_FAMILY, type ModelFamily } from "@/lib/models/registry";
 
 /**
  * Availability check for every model ID configured in registry.ts.
@@ -45,7 +45,7 @@ export async function GET() {
     listFor("google"),
   ]);
 
-  const { checks, missing, allPresent } = checkConfiguredModels(listings);
+  const { checks, missing, allPresent } = checkConfiguredModels(listings, MODEL_FAMILY);
 
   return NextResponse.json(
     {
