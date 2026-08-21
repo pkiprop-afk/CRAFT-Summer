@@ -1,4 +1,4 @@
-import { ANTHROPIC_MODEL_ID, OPENAI_MODEL_ID } from "@/lib/models/registry";
+import { ANTHROPIC_MODEL_ID, OPENAI_MODEL_ID } from "./models/registry.ts";
 
 /**
  * G2/G3 — Decoding parameters, recorded explicitly per model.
