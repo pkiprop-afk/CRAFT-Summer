@@ -94,13 +94,38 @@ export default function TaskDetailPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-[60%_40%] gap-8">
         <div>
-          <TaskForm task={task} onChange={setTask} />
-          <div className="mt-6 flex items-center gap-3">
-            <Button onClick={handleSave} disabled={saving}>
-              {saving ? "Saving…" : "Save Changes"}
-            </Button>
-            {saved && <span className="text-sm text-success">Saved</span>}
-            {saveError && <span className="text-sm text-error">{saveError}</span>}
+          <TaskForm
+            task={task}
+            onChange={(next) => {
+              setTask(next);
+              setSaved(false);
+              setSaveError(null);
+              setValidationErrors([]);
+            }}
+          />
+          <div className="mt-6 space-y-3">
+            <div className="flex items-center gap-3">
+              <Button onClick={handleSave} disabled={saving}>
+                {saving ? "Saving…" : "Save Changes"}
+              </Button>
+              {saved && <span className="text-sm text-success">Saved</span>}
+            </div>
+
+            {saveError && (
+              <div className="rounded-lg border border-error/30 bg-error/10 px-4 py-3">
+                <p className="text-sm font-semibold text-error">{saveError}</p>
+                {validationErrors.length > 0 && (
+                  <ul className="mt-1 list-disc pl-5 text-xs text-error/90">
+                    {validationErrors.map((err) => (
+                      <li key={err}>{err}</li>
+                    ))}
+                  </ul>
+                )}
+                <p className="mt-1 text-xs text-error/80">
+                  Nothing was written — fix the fields above and save again.
+                </p>
+              </div>
+            )}
           </div>
         </div>
 
