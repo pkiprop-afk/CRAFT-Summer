@@ -9126,5 +9126,78 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response correctly computes the full confusion matrix: 180 true positives, 20 false negatives, 980 false positives, and 8,820 true negatives. It correctly totals flagged leads as 1,160 and computes the positive predictive value as 180/1,160 = 15.5%. It explicitly states that expecting 90% of flagged leads to convert is wrong and clearly explains the base-rate neglect: because only 2% convert, the much larger non-converting population produces more false positives than true positives even with 90% specificity."
+  },
+  {
+    "evaluation_id": "EVAL-57ef7187-8068-491f-80f3-9371853924cd",
+    "result_id": "RES-697dffc5-1131-4e4a-a7c1-4ee14f238688",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T18:12:50.356Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 2,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      }
+    ],
+    "evaluator_justification": "The response satisfies all constraints perfectly. It accurately calculates the full confusion matrix (180 TP, 20 FN, 980 FP, 8,820 TN), calculates the correct positive predictive value of 15.5% (180/1,160), explicitly refutes the 90% conversion expectation, and clearly explains how the 2% base rate causes false positives from the large non-converting population to dominate the flagged pool."
+  },
+  {
+    "evaluation_id": "EVAL-c6c94d0d-26b0-4b98-8f9b-920d88af6e64",
+    "result_id": "RES-697dffc5-1131-4e4a-a7c1-4ee14f238688",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T18:12:53.415Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly computes the full confusion matrix: 180 true positives, 20 false negatives, 980 false positives, and 8,820 true negatives, with 1,160 total flagged leads. It correctly calculates the positive predictive value as 180/1,160 = 15.5%, explicitly rejects the ~90% conversion expectation, and identifies base-rate neglect as the issue. It also clearly explains why the low 2% conversion base rate causes the much larger non-converting population to produce more false positives than true positives even with 90% specificity."
+  },
+  {
+    "evaluation_id": "EVAL-9b9fd941-bc49-492d-b06f-f24a1dd08c65",
+    "result_id": "RES-1781459d-5476-4f59-b6cb-4877a61571b7",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T18:13:04.355Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly calculates the full confusion matrix (180 TP, 20 FN, 980 FP, 8,820 TN for 10,000 leads), derives the total flagged count of 1,160 leads, computes the positive predictive value of 15.5%, rejects the 90% expectation, and clearly explains how the low base rate of conversion causes false positives to outnumber true positives."
+  },
+  {
+    "evaluation_id": "EVAL-b91880ca-6308-454d-a97e-fa33b7e24c51",
+    "result_id": "RES-1781459d-5476-4f59-b6cb-4877a61571b7",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T18:13:23.527Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly builds the full confusion matrix (180 TP, 20 FN, 980 FP, 8,820 TN), computes the flagged total (1,160) and PPV (15.5%), and explicitly states the \"9 out of 10\" conversion expectation is wrong, satisfying most constraints. However, it never uses or invokes the term \"base-rate neglect,\" and its explanation of why the low base rate causes the mismatch is somewhat thin—it gestures at \"most leads do not convert\" but does not explicitly walk through how the much larger non-converting population generates more false positives than the smaller converting population generates true positives, even with high specificity. This keeps the logical explanation slightly underdeveloped relative to the rubric's expectations, though all core numeric elements (confusion matrix, PPV, and a stated correction of the misconception) are present, giving full completeness credit."
   }
 ]
