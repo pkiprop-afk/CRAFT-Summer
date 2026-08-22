@@ -9004,5 +9004,84 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response correctly computes all within-department hire rates and aggregate rates, explicitly identifies that Method B outperforms Method A in both departments while Method A leads in aggregate, names Simpson’s paradox, and correctly attributes the reversal to the differing applicant mix with Method A concentrated in the higher-baseline Support department. It appropriately favors the stratified evidence rather than recommending Method A based on the aggregate figure alone."
+  },
+  {
+    "evaluation_id": "EVAL-1781a879-f4a1-47ea-ab05-76ca7fa496b7",
+    "result_id": "RES-cbdd3685-f35b-423c-bd52-cb558a719392",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T18:11:06.533Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 3,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      },
+      {
+        "attempt": 3,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 8000
+      }
+    ],
+    "evaluator_justification": "The response satisfies all task requirements and rubric criteria accurately. It correctly computes all four department-level rates and both aggregate rates, clearly describes the mechanism of the statistical reversal (Simpson's paradox), attributes the aggregate difference to the skewed applicant mix between departments, and correctly recommends Method B based on the stratified analysis."
+  },
+  {
+    "evaluation_id": "EVAL-ee176985-cc62-448c-9cf0-9f298664e166",
+    "result_id": "RES-cbdd3685-f35b-423c-bd52-cb558a719392",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T18:11:13.563Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly computes all four within-department rates (10%, 70%, 15%, 75%) and both aggregate rates (58%, 27%), explicitly identifies and explains the reversal mechanism (though without naming it \"Simpson's paradox,\" it clearly describes the mechanism), correctly attributes the cause to differing applicant mix (Method A concentrated in the higher-baseline Support department), and firmly recommends Method B based on the stratified evidence while explicitly cautioning against using the aggregate figure alone. All arithmetic is verified correct, the reversal is treated as a genuine statistical phenomenon rather than an anomaly, and all required elements (stratified rates, aggregates, and reconciliation) are present and well-organized."
+  },
+  {
+    "evaluation_id": "EVAL-2379e007-fe32-4985-b5a6-08ead367b766",
+    "result_id": "RES-6ecf2769-6bb3-43c0-bf7f-0c85eca751bb",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T18:11:15.216Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response accurately computes all department-level and aggregate hire rates, correctly identifies that Method B outperforms Method A in both departments despite Method A leading in aggregate, clearly describes the mechanism of the reversal due to applicant mix confounding, and appropriately recommends Method B based on the stratified comparison while noting data limitations."
+  },
+  {
+    "evaluation_id": "EVAL-420650f8-2c90-4882-b6f8-f2ad6941e7d4",
+    "result_id": "RES-6ecf2769-6bb3-43c0-bf7f-0c85eca751bb",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T18:11:21.797Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly computes all four within-department rates (10%, 70%, 15%, 75%) and both aggregates (58%, 27%), explicitly identifies the reversal (Method B better in both strata, Method A better overall) and clearly explains the mechanism—differing applicant mix, with Method A concentrated in the high-baseline Support department—effectively describing Simpson's paradox without needing to name it. It correctly recommends Method B based on the stratified evidence and explicitly warns against relying on the confounded aggregate figure, while appropriately noting additional caveats (randomization, applicant quality, statistical reliability) without overstepping the data. All arithmetic is accurate and the reconciliation is complete and well-organized."
   }
 ]
