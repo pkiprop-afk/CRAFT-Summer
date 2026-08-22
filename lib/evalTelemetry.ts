@@ -24,6 +24,12 @@ export type EvalAttemptOutcome =
   | "succeeded_first_try"
   /** Parsed scores, but only after one or more retries. */
   | "succeeded_after_retry"
+  /**
+   * Valid scores, but the judge omitted the Justification line. Counted as a
+   * SUCCESS — the measurement is intact — but tracked separately so the
+   * omission rate is visible rather than silently absorbed.
+   */
+  | "parsed_without_justification"
   /** Retry budget exhausted; no scores. */
   | "exhausted"
   /** Provider answered, but the reply did not match the rubric format. */
@@ -79,6 +85,7 @@ export interface EvalAttemptStats {
   total: number;
   succeededFirstTry: number;
   succeededAfterRetry: number;
+  parsedWithoutJustification: number;
   exhausted: number;
   unparseable: number;
   failedNonRetryable: number;
@@ -93,6 +100,16 @@ export interface EvalAttemptStats {
   primaryRetried: number;
   primaryFailed: number;
 }
+
+/**
+ * Outcomes that produced NO usable score. A missing justification is
+ * deliberately not among them — the scores survived.
+ */
+const FAILURE_OUTCOMES = new Set<EvalAttemptOutcome>([
+  "exhausted",
+  "unparseable",
+  "failed_non_retryable",
+]);
 
 export function computeEvalAttemptStats(attempts: EvalAttemptRecord[]): EvalAttemptStats {
   const n = (p: (a: EvalAttemptRecord) => boolean) => attempts.filter(p).length;
@@ -111,6 +128,7 @@ export function computeEvalAttemptStats(attempts: EvalAttemptRecord[]): EvalAtte
     total,
     succeededFirstTry: n((a) => a.outcome === "succeeded_first_try"),
     succeededAfterRetry: n((a) => a.outcome === "succeeded_after_retry"),
+    parsedWithoutJustification: n((a) => a.outcome === "parsed_without_justification"),
     exhausted,
     unparseable,
     failedNonRetryable,
@@ -121,6 +139,6 @@ export function computeEvalAttemptStats(attempts: EvalAttemptRecord[]): EvalAtte
     failureRate: total === 0 ? null : failed / total,
     primaryTotal: primary.length,
     primaryRetried: primary.filter((a) => a.retry_count > 0).length,
-    primaryFailed: primary.filter((a) => a.outcome !== "succeeded_first_try" && a.outcome !== "succeeded_after_retry").length,
+    primaryFailed: primary.filter((a) => FAILURE_OUTCOMES.has(a.outcome)).length,
   };
 }

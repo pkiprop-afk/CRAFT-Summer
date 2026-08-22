@@ -30,6 +30,22 @@ export interface ParsedEvaluation {
   completeness: number;
   total: number;
   justification: string;
+  /**
+   * The judge returned a complete, unambiguous score set but omitted the
+   * Justification line.
+   *
+   * The four scores ARE the measurement; the justification is documentation of
+   * it. Discarding a valid score set over a missing prose field threw away real
+   * data and cost the study a cell. So the scores are kept, the justification is
+   * empty, and the omission is counted (see lib/evalTelemetry.ts) rather than
+   * silently tolerated — if it becomes common that is a fact about the judge
+   * worth knowing.
+   *
+   * NOTE: the evaluator PROMPT is deliberately unchanged. Altering what judges
+   * are asked, mid-study, would change the instrument between the cells already
+   * scored and the ones still to come.
+   */
+  justification_missing: boolean;
 }
 
 export function parseEvaluatorResponse(text: string): ParsedEvaluation | null {
@@ -39,15 +55,20 @@ export function parseEvaluatorResponse(text: string): ParsedEvaluation | null {
   const totalMatch = text.match(/Total:\s*(\d+(?:\.\d+)?)\s*\/\s*10/i);
   const justificationMatch = text.match(/Justification:\s*([\s\S]*)/i);
 
-  if (!constraintMatch || !logicalMatch || !completenessMatch || !totalMatch || !justificationMatch) {
+  // The four scores are required. Without any one of them there is no
+  // measurement to keep.
+  if (!constraintMatch || !logicalMatch || !completenessMatch || !totalMatch) {
     return null;
   }
+
+  const justification = justificationMatch ? justificationMatch[1].trim() : "";
 
   return {
     constraint_adherence: Number(constraintMatch[1]),
     logical_accuracy: Number(logicalMatch[1]),
     completeness: Number(completenessMatch[1]),
     total: Number(totalMatch[1]),
-    justification: justificationMatch[1].trim(),
+    justification,
+    justification_missing: justification.length === 0,
   };
 }
