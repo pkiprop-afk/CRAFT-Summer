@@ -3415,5 +3415,63 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response correctly scans the full twelve‑quarter series, identifies Q12 as the most recent decline (61.5→60.2, a $1.3M drop), and correctly counts four total declines (Q3, Q6, Q9, Q12), matching the verified arithmetic and avoiding the Q3 early‑stop pitfall. However, it omits the required percentage figure (~2.1%) for the Q12 decline, which is an explicit expected constraint, leading to a minor deduction in constraint adherence. All core completeness elements (quarter, magnitude, total count) are present."
+  },
+  {
+    "evaluation_id": "EVAL-3905d7a8-d628-4363-bd33-3aff5b0b3a85",
+    "result_id": "RES-3194a639-0980-4fd5-ba7d-e680a6839865",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:20:23.674Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 2,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 5,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly verifies the 408/480=85% arithmetic, reports the 65% churn rate, computes satisfied respondents as 10.2% of all signups, and appropriately declines to"
+  },
+  {
+    "evaluation_id": "EVAL-fea2270e-ec60-4e3d-a8db-373f60ccbf60",
+    "result_id": "RES-d003ae93-6254-40cd-ad59-75016968defc",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:20:36.101Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 2,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      }
+    ],
+    "evaluator_justification": "The response fulfills every required constraint: it identifies the change as 1.0 percentage point and a 50% relative increase, notes that neither party is arithmetically incorrect since it is an issue of units, provides the exact conversion counts (1,000 to 1,500, +500), explains why \"1 percent\" is misleading, and gives a clear, unambiguous restatement."
+  },
+  {
+    "evaluation_id": "EVAL-2594d06e-8ca6-4a1d-88e6-e4bc61b1e462",
+    "result_id": "RES-d003ae93-6254-40cd-ad59-75016968defc",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:20:40.762Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response satisfies all required constraints: it states the absolute change as 1 percentage point, the relative increase as 50%, explains that both descriptions refer to the same result in different units, reports conversions as 1,000 before and 1,500 after with a 500-conversion increase, and recommends an unambiguous phrasing. It also correctly identifies “increased by 1 percent” as misleading because it invites interpretation as a relative percent change."
   }
 ]
