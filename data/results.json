@@ -1796,5 +1796,67 @@
     "retry_count": 0,
     "retry_log": [],
     "notes": ""
+  },
+  {
+    "result_id": "RES-02861726-402a-48b2-88eb-2efb6ba111da",
+    "task_id": "T015",
+    "task_version": "v1-4c5664f9d9fe2f70ffad898859f07451",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T06:59:11.571Z",
+    "raw_model_output": "The reported revenues are:\n\n- S1: $41,200  \n- S2: $38,700  \n- S4: $45,100  \n- S5: $39,800  \n- S7: $42,600  \n- S8: $40,300  \n\nTotal reported revenue = **$247,700**  \nNumber of stores with reported figures = **6**\n\nAverage weekly revenue based on reported stores:\n\n\\[\n247{,}700 \\div 6 = 41{,}283.33\n\\]\n\n**Average weekly revenue per reporting store: $41,283.33**\n\nI did **not** treat S3 and S6 as $0**, because they were trading normally and the missing figures were due to a reporting system issue. Including them as zero would incorrectly understate the average.\n\nSo the defensible result is:\n\n> **Average based on available reported data: $41,283.33 per store**\n\nIf you need an estimated average across all eight stores, one simple assumption would be to impute S3 and S6 at the reported-store average, which would still give an estimated average of **$41,283.33** across all eight stores.",
+    "anonymized_output_id": "OUT-0081",
+    "truncated": false,
+    "reasoning_tokens": 163,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-794c7020-41d9-4cf3-8dbc-486f94647858",
+    "task_id": "T015",
+    "task_version": "v1-4c5664f9d9fe2f70ffad898859f07451",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T06:59:20.434Z",
+    "raw_model_output": "## The calculation\n\n| Store | Weekly revenue | Included in calculation |\n|---|---:|---|\n| S1 | $41,200 | Yes |\n| S2 | $38,700 | Yes |\n| S3 | Not reported | No |\n| S4 | $45,100 | Yes |\n| S5 | $39,800 | Yes |\n| S6 | Not reported | No |\n| S7 | $42,600 | Yes |\n| S8 | $40,300 | Yes |\n\nTotal reported weekly revenue: **$247,700**  \nNumber of stores with reported figures: **6**\n\nAverage weekly revenue per reporting store:\n\n**$247,700 ÷ 6 = $41,283.33**\n\n## The treatment of the missing figures\n\nS3 and S6 were excluded from the calculation because no revenue figures were submitted for them. They were not treated as zero revenue, because both stores were trading normally and the missing data was due to a reporting system outage.\n\nThe calculated figure is therefore the **average weekly revenue for the six stores that reported figures**, not a confirmed average across all eight stores.\n\n## The limitation of the result\n\nThe result does **not** establish the true average weekly revenue per store across all eight stores. It also does not show whether S3 and S6 performed above, below, or in line with the reporting stores. Any all-store average requires the missing revenue figures or a justified imputation method.",
+    "anonymized_output_id": "OUT-0082",
+    "truncated": false,
+    "reasoning_tokens": 152,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
   }
 ]

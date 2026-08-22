@@ -1992,5 +1992,145 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response correctly decomposes the 25% rate into 3/12 customers, presents the raw n counts in a comparison table, and gives a calibrated, proportionate recommendation (review the 3 cases, avoid a broad urgent investigation, gather more data) without dismissing the signal outright. However, it never explicitly states the ~100x sample-size disparity between West and North, omits the single-customer-changes-the-rate-by-8.3pp observation, and entirely lacks any confidence-interval or statistical-distinguishability argument showing the West rate overlaps North/South — a core required constraint. These omissions leave the statistical reasoning underdeveloped even though the qualitative conclusion and recommendation are sound."
+  },
+  {
+    "evaluation_id": "EVAL-8bbe4b14-5da1-485a-9ba0-8dac59169732",
+    "result_id": "RES-1e2fc07a-5526-4508-86f9-f6c502814a96",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T06:59:01.641Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 4,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      },
+      {
+        "attempt": 3,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 8000
+      },
+      {
+        "attempt": 4,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 16000
+      }
+    ],
+    "evaluator_justification": "The response correctly calculated the six-store average ($41,283.33), explicitly documented the exclusion of the two offline stores, noted they were trading normally, and clearly stated the representativeness assumption. However, it failed to quantify the effect of zero-substitution ($30,962.50 or a 25% understatement), missing that specific constraint and rubric requirement for full marks on accuracy and constraints."
+  },
+  {
+    "evaluation_id": "EVAL-c553a58f-f029-46fd-bd17-56f299dcce01",
+    "result_id": "RES-1e2fc07a-5526-4508-86f9-f6c502814a96",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T06:59:05.965Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly computes $247,700 / 6 = $41,283.33, explicitly excludes S3 and S6 rather than treating them as zero, distinguishes missing from zero by noting the stores were trading normally, and includes the representativeness caveat. However, it does not quantify the zero-substitution error: it fails to state that dividing by 8 would give $30,962.50 and understate the average by about 25%."
+  },
+  {
+    "evaluation_id": "EVAL-f0045668-2fb5-42c1-a4bb-ce6aee30ee02",
+    "result_id": "RES-94e2bf1a-2e0b-4c43-adbd-3f2c9ef43de7",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T06:59:09.513Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 4,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      },
+      {
+        "attempt": 3,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 8000
+      },
+      {
+        "attempt": 4,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 16000
+      }
+    ],
+    "evaluator_justification": "The response accurately computes the six-store average ($41,283), explicitly explains the exclusion of the two offline stores, clearly distinguishes missing data from zero revenue, and thoroughly details the representativeness limitation. However, it fails to quantify the impact of treating the missing stores as zero ($30,962.50, representing a ~25% understatement), missing one of the core expected constraints."
+  },
+  {
+    "evaluation_id": "EVAL-0d2fc32b-a5d5-45fc-b3ae-957e0638655d",
+    "result_id": "RES-94e2bf1a-2e0b-4c43-adbd-3f2c9ef43de7",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T06:59:14.585Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly sums the six reporting stores to $247,700, divides by 6, and explicitly states that S3 and S6 were excluded rather than treated as zero. It also clearly distinguishes missing data from zero revenue and notes that the six-store average may not represent all eight stores. However, it omits the required quantified comparison showing that treating the missing stores as zero would give $30,962.50 and understate the correct average by about 25%."
+  },
+  {
+    "evaluation_id": "EVAL-0d0b1e96-7959-43a2-87d3-b12b60da2917",
+    "result_id": "RES-794c7020-41d9-4cf3-8dbc-486f94647858",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T06:59:23.055Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response accurately computes the six-store average ($41,283.33), explicitly explains the exclusion of the two offline stores rather than treating them as zero, and clearly identifies the limitation regarding representativeness. However, it fails to quantify the effect of zero-substitution ($30,962.50 or a 25% understatement)."
+  },
+  {
+    "evaluation_id": "EVAL-ace6658f-c9af-469e-b19b-eebb22e5967d",
+    "result_id": "RES-794c7020-41d9-4cf3-8dbc-486f94647858",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T06:59:40.059Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 2,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 7,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly totals the six reporting stores at $247,700 and computes $41,283.33, explicitly states that S3 and S6 were excluded rather than zeroed, and links this to the fact that both were trading normally, which reasonably distinguishes \"absent\" from \"zero.\" It also raises a representativeness caveat, though phrased as uncertainty about performance rather than an explicit \"only valid if similar\" statement. However, it entirely omits the required quantification of the zero-substitution error ($30,962.50 and the ~25% understatement), which is a specific, non-negotiable constraint and a core demonstration of logical reasoning about the consequences of mishandling missing data. This omission caps logical accuracy despite otherwise strong, explicit reasoning."
   }
 ]
