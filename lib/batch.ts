@@ -79,6 +79,9 @@ export function cellKey(r: {
  * Marks jobs whose cell already has a recorded generation of this run_type, so
  * a resumed batch dispatches only what is genuinely outstanding.
  */
+/** The design's run count per cell: main is n=1, stability is n=3. */
+export const TARGET_RUNS: Record<RunType, number> = { main: 1, stability: 3 };
+
 export function markExistingCells(
   jobs: BatchJob[],
   existing: Array<{
@@ -89,11 +92,21 @@ export function markExistingCells(
   }>,
   runType: RunType
 ): BatchJob[] {
-  const done = new Set(
-    existing.filter((r) => r.run_type === runType).map((r) => cellKey(r))
-  );
+  // A cell is complete once it holds the design's run count — 1 for main,
+  // 3 for stability. Skipping at the target makes a resumed stability pass a
+  // top-up rather than a run_number-4 overshoot, while an unfinished cell
+  // (1 or 2 runs) is still dispatched.
+  const counts = new Map<string, number>();
+  for (const r of existing) {
+    if (r.run_type !== runType) continue;
+    const k = cellKey(r);
+    counts.set(k, (counts.get(k) ?? 0) + 1);
+  }
+  const target = TARGET_RUNS[runType];
   return jobs.map((j) =>
-    done.has(cellKey({ task_id: j.task_id, model_name: j.model, prompt_condition: j.condition }))
+    (counts.get(
+      cellKey({ task_id: j.task_id, model_name: j.model, prompt_condition: j.condition })
+    ) ?? 0) >= target
       ? { ...j, status: "skipped_existing" as const }
       : j
   );

@@ -108,4 +108,25 @@ describe("resume — cells already generated are not re-run", () => {
     const marked = markExistingCells(jobs, existing, "main");
     assert.equal(marked.filter((j) => j.status === "skipped_existing").length, 0);
   });
+
+  test("stability skips only at n=3 — a top-up dispatches short cells", () => {
+    const cell = (n: number) =>
+      Array.from({ length: n }, () => ({
+        task_id: "T001",
+        model_name: "claude-sonnet-5",
+        prompt_condition: "baseline" as const,
+        run_type: "stability" as const,
+      }));
+    // 2 of 3 runs done -> still dispatched.
+    let marked = markExistingCells(jobs, cell(2), "stability");
+    const t001cb = () =>
+      marked.find(
+        (j) =>
+          j.task_id === "T001" && j.model === "claude-sonnet-5" && j.condition === "baseline"
+      )!;
+    assert.equal(t001cb().status, "pending", "a 2/3 cell must be topped up");
+    // 3 of 3 -> skipped; a re-run must NOT create run_number 4.
+    marked = markExistingCells(jobs, cell(3), "stability");
+    assert.equal(t001cb().status, "skipped_existing", "a 3/3 cell must not overshoot");
+  });
 });
