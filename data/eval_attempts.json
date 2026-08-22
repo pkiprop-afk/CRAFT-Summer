@@ -3858,5 +3858,15 @@
     "retry_count": 3,
     "http_status": 200,
     "message": null
+  },
+  {
+    "evaluator_model": "claude-sonnet-5",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0190",
+    "recorded_at": "2026-08-22T15:17:15.326Z",
+    "outcome": "judge_truncated",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": "provider stopped at its token limit (stop_reason \"max_tokens\") before emitting any text — the output budget is too small for this prompt"
   }
 ]
