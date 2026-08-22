@@ -1021,5 +1021,222 @@
     "retry_count": 0,
     "retry_log": [],
     "notes": ""
+  },
+  {
+    "result_id": "RES-674a9367-5a8d-4871-a81d-d675056e3ba3",
+    "task_id": "T009",
+    "task_version": "v1-bcadec214e198abea9348a5b8d8a614a",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T02:25:07.306Z",
+    "raw_model_output": "This is a classic case where the overall result is misleading because the two methods attracted very different mixes of applicants by department.\n\n### Hire rates by department\n\n| Department | Method A | Method B | Better |\n|---|---:|---:|---|\n| Engineering | 2 / 20 = **10%** | 12 / 80 = **15%** | **B** |\n| Support | 56 / 80 = **70%** | 15 / 20 = **75%** | **B** |\n\nWithin **both departments**, Method B had the higher hire rate.\n\n### Overall hire rates\n\n| Method | Total hired | Total applicants | Overall hire rate |\n|---|---:|---:|---:|\n| Method A | 58 | 100 | **58%** |\n| Method B | 27 | 100 | **27%** |\n\nOverall, Method A looks much better. But that is because Method A had many more Support applicants, where hire rates are much higher for both methods. Method B had many more Engineering applicants, where hire rates are lower for both methods.\n\nSo the overall comparison is confounded by department mix.\n\n### What the data actually supports\n\nIf the question is:\n\n> “Which method appears better at converting applicants into hires within a given department?”\n\nThen the data supports **Method B**, because it outperformed Method A in both Engineering and Support.\n\nBut if the question is:\n\n> “Which method produced more hires in this particular trial?”\n\nThen **Method A** produced more hires overall, largely because it brought in more Support applicants.\n\n### Practical conclusion\n\nYou should not adopt Method A simply because of the 58% overall hire rate. That comparison is misleading.\n\nThe cleaner interpretation is:\n\n- **Method B had a higher hire rate within each department.**\n- **Method A’s overall advantage came from attracting a more favorable department mix.**\n- If future applicant mix is expected to be the same across methods, Method B looks better.\n- If the recruiting method also changes which departments people apply to, then you need to decide whether attracting more Support applicants is itself part of the goal.\n\nIn short: **Method B appears to be the better hiring method conditional on department, but Method A generated more hires in the trial because of applicant mix.**",
+    "anonymized_output_id": "OUT-0055",
+    "truncated": false,
+    "reasoning_tokens": 267,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-478e5edf-44f1-4a69-8c17-f59d42006b8d",
+    "task_id": "T009",
+    "task_version": "v1-bcadec214e198abea9348a5b8d8a614a",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T02:25:08.750Z",
+    "raw_model_output": "## The Figures\n\n| Department | Method A: Hires/Applicants | Method A Rate | Method B: Hires/Applicants | Method B Rate |\n|---|---|---|---|---|\n| Engineering | 2/20 | 10% | 12/80 | 15% |\n| Support | 56/80 | 70% | 15/20 | 75% |\n| **Combined** | **58/100** | **58%** | **27/100** | **27%** |\n\n## The Finding\n\nMethod B has the higher hire rate in **both** departments individually — 15% vs. 10% in Engineering, 75% vs. 70% in Support. On a department-by-department basis, B is the better performer.\n\nThe combined totals show the opposite: Method A appears far ahead, 58% vs. 27%. This reversal is not a contradiction — it's an artefact of how applicants were distributed across departments under each method. Method A drew most of its applicant pool from Support, the higher-yield department, while Method B drew most of its pool from Engineering, the lower-yield department. The aggregate figures are therefore confounded by department mix and should not be used to compare the methods. This is a textbook Simpson's paradox: the correct comparison is within each department, not the pooled total, and that comparison favours Method B.\n\n## What the Data Does Not Establish\n\n- **Cause.** The trial shows association between method and hire rate, not that the method itself drove the outcome — other differences between the applicant pools (e.g., sourcing channel, timing, self-selection) could be responsible.\n- **Quality or fit of hires.** Hire rate says nothing about on-the-job performance, retention, or manager satisfaction.\n- **Cost or time efficiency.** Neither method's cost-per-hire or speed is captured here.\n- **Statistical reliability.** Engineering's Method A sample (2 of 20) is small; the 10% figure rests on very few hires and carries wide uncertainty. Confidence intervals have not been calculated.\n- **Generalisability.** Whether these department-level patterns would hold with different applicant volumes, roles, or future hiring conditions is untested.\n- **Applicant quality.** Nothing here confirms the two applicant pools were comparable in qualifications going in.\n\nIf the committee needs a single headline number, it should not be the pooled hire rate — that figure is misleading by construction. The department-level rates are the sound basis for the decision, and on that basis Method B is the stronger performer, pending the caveats above.",
+    "anonymized_output_id": "OUT-0056",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-63dbf7a4-29c4-4263-93df-5d826f18b15f",
+    "task_id": "T009",
+    "task_version": "v1-bcadec214e198abea9348a5b8d8a614a",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T02:25:30.539Z",
+    "raw_model_output": "## the figures\n\n| Department | Method A: hired/applicants | Method A rate | Method B: hired/applicants | Method B rate | Higher rate |\n|---|---:|---:|---:|---:|---|\n| Engineering | 2 / 20 | 10% | 12 / 80 | 15% | Method B |\n| Support | 56 / 80 | 70% | 15 / 20 | 75% | Method B |\n| **Overall** | **58 / 100** | **58%** | **27 / 100** | **27%** | **Method A** |\n\n## the finding\n\nMethod B performed better within each department: 15% versus 10% in Engineering, and 75% versus 70% in Support.\n\nThe overall figures, however, show Method A with a higher aggregate hiring rate: 58% versus 27%. That aggregate advantage is driven by the different department mix. Method A had most of its applicants in Support, where hiring rates were high under both methods. Method B had most of its applicants in Engineering, where hiring rates were low under both methods.\n\nThe data therefore supports this conclusion: **on a like-for-like departmental comparison, Method B performed better; on the unadjusted overall total, Method A appears better because of the applicant mix.** For choosing a recruiting method, the department-level comparison is the more relevant evidence.\n\n## what the data does not establish\n\nThe data does not establish that Method A is intrinsically better, despite its higher overall hiring rate.\n\nIt also does not establish that Method B caused the higher departmental hiring rates. The figures do not show whether applicants were comparable in quality, whether departments used the same selection standards, whether assignment to methods was random, or whether the observed differences are statistically reliable.\n\nThe data also does not establish what the overall hiring rate would be under either method with a different future mix of Engineering and Support applicants.",
+    "anonymized_output_id": "OUT-0057",
+    "truncated": false,
+    "reasoning_tokens": 145,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-20901a35-0179-4c89-b72f-6f325de0edec",
+    "task_id": "T010",
+    "task_version": "v1-6f3a2835374e9ff748b7bd12afd444a3",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T02:26:02.467Z",
+    "raw_model_output": "Short answer: the data shows a strong **association** between ad spend and revenue, but it does not support a **causal** claim — and the headcount column is the tell.\n\n## What the numbers show\n\nAll three variables move together almost perfectly:\n\n| Pair | Correlation |\n|---|---|\n| Ad Spend ↔ Revenue | ~0.999 |\n| Ad Spend ↔ Headcount | ~0.997 |\n| Headcount ↔ Revenue | ~0.999 |\n\nThat's not just \"ad spend correlates with revenue\" — headcount correlates with both spend *and* revenue just as strongly. Look at the trajectory: spend, headcount, and revenue all climb steadily Jan–Jul, then all three drop together in August. There is not a single month where spend and headcount move in opposite directions. That's the problem.\n\n## Why this kills the causal claim\n\nWith two predictors that move in lockstep, you cannot statistically separate their effects — this is classic multicollinearity. Every month spend went up, so did the sales team; every month spend fell, so did the sales team (Aug: spend 35→29, headcount 20→16, revenue 448→372, all fell together). Given this pattern, the data is equally consistent with:\n\n- Ad spend drives revenue, headcount is incidental\n- Headcount (more salespeople closing deals) drives revenue, ad spend is incidental\n- Both are being driven by a third factor — e.g., the business scaled up overall in Q2/Q3 (perhaps a seasonal peak, a new product launch, a large contract win) and management simply increased *both* budget and staffing in response to growing demand. In that case revenue growth might be causing the spending increases, not the reverse.\n\nWith only 8 monthly observations and no independent variation in the inputs, there's no way to statistically distinguish these explanations. It's a textbook confounded trend, not evidence of a causal ad-spend effect.\n\n## What would actually support the claim\n\nTo defend the causal story, you'd want one of:\n\n1. **A period where spend and headcount diverge**",
+    "anonymized_output_id": "OUT-0058",
+    "truncated": true,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-7249423e-51a0-46e9-987d-8a8128f73594",
+    "task_id": "T010",
+    "task_version": "v1-6f3a2835374e9ff748b7bd12afd444a3",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T02:26:09.246Z",
+    "raw_model_output": "## The Figures\n\n| Month | Ad Spend ($000s) | Revenue ($000s) | Sales Headcount | Revenue per Ad $ | Revenue per Head ($000s) |\n|-------|------|------|------|------|------|\n| Jan | 12 | 210 | 8 | 17.5 | 26.3 |\n| Feb | 15 | 240 | 9 | 16.0 | 26.7 |\n| Mar | 14 | 232 | 9 | 16.6 | 25.8 |\n| Apr | 18 | 268 | 11 | 14.9 | 24.4 |\n| May | 24 | 330 | 14 | 13.8 | 23.6 |\n| Jun | 31 | 405 | 18 | 13.1 | 22.5 |\n| Jul | 35 | 448 | 20 | 12.8 | 22.4 |\n| Aug | 29 | 372 | 16 | 12.8 | 23.3 |\n\n## The Assessment\n\nAd spend and revenue rise together across all eight months, and the drop in both from July to August strengthens rather than weakens this pattern — it isn't just an artefact of an upward trend. On this basis, the data is consistent with the director's claim: there is a clear positive association between advertising spend and revenue.\n\nHowever, sales headcount tracks ad spend almost as closely as revenue does — it rises and falls in the same months, by similar proportions. The three series move together as a bundle. This means the data cannot tell you whether revenue is responding to advertising, to headcount, to both, or to a third factor driving all three (e.g., a seasonal demand cycle that the company staffs and advertises up or down to meet).\n\nThe revenue-per-ad-dollar column also shows a declining trend (17.5 down to ~12.8), indicating diminishing returns even within the range already spent. This argues against a simple \"more spend, proportionally more revenue\" model even if causation is granted.\n\n## What the Data Does Not Establish\n\n- **Causation**: Correlation between spend and revenue is consistent with the director's claim but does not prove ad spend is the cause. Reverse causation is equally plausible — the company may increase both spend and headcount in anticipation of, or response to, demand it already sees building.\n- **Isolated effect of ad spend**: Because headcount moves in lockstep with ad spend, the individual contribution of advertising cannot be separated from the contribution of additional sales staff using this data alone.\n- **Behaviour outside the observed range**: All figures come from a period of steadily increasing (then one month decreasing) spend between $12K and $35K. Nothing here indicates what happens at a materially higher budget — the declining revenue-per-dollar trend suggests returns may flatten or reverse further.\n- **Control for external factors**: Seasonality, pricing changes, competitor activity, product launches, or market conditions are not represented and could account for part or all of the pattern.\n- **Statistical reliability**: Eight data points do not support a robust quantitative estimate of return on ad spend; any figure derived from this data (e.g., \"$1 of ad spend generates $13 of revenue\") would carry very wide uncertainty and should not be used to size a budget request.",
+    "anonymized_output_id": "OUT-0059",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-c6d2f69f-c6cc-4eed-aedd-c5c0f3fdf066",
+    "task_id": "T010",
+    "task_version": "v1-6f3a2835374e9ff748b7bd12afd444a3",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T02:26:56.793Z",
+    "raw_model_output": "The data shows a strong association between advertising spend and revenue, but it does **not** by itself prove that higher ad spend caused the revenue growth.\n\n### 1. Simple relationship: ad spend and revenue move together\n\nFrom the eight months:\n\n- Ad spend rises from **$12k in Jan** to **$35k in Jul**, then falls to **$29k in Aug**\n- Revenue rises from **$210k** to **$448k**, then falls to **$372k**\n\nThe correlation between ad spend and revenue is extremely high — roughly **0.999** in this dataset. A simple read would suggest:\n\n> Higher ad spend is associated with higher revenue.\n\nBut that is not the same as proving causation.\n\n### 2. Major issue: sales headcount also rises at the same time\n\nSales headcount also increases almost in lockstep:\n\n| Month | Ad Spend | Revenue | Sales Headcount |\n|---|---:|---:|---:|\n| Jan | 12 | 210 | 8 |\n| Feb | 15 | 240 | 9 |\n| Mar | 14 | 232 | 9 |\n| Apr | 18 | 268 | 11 |\n| May | 24 | 330 | 14 |\n| Jun | 31 | 405 | 18 |\n| Jul | 35 | 448 | 20 |\n| Aug | 29 | 372 | 16 |\n\nSales headcount is also extremely correlated with revenue. So the revenue growth could be due to:\n\n- Higher ad spend\n- More salespeople\n- Both\n- Seasonality or general market growth\n- A coordinated growth push involving multiple factors\n\nBecause ad spend and headcount rise together, it is hard to separate their individual effects.\n\n### 3. Controlling for headcount changes the interpretation\n\nA simple multiple regression using both ad spend and sales headcount suggests approximately:\n\n> Revenue = 68.9 + 4.6 × Ad Spend + 10.8 × Sales Headcount\n\nInterpreted mechanically, that would mean:\n\n- Each additional **$1k of ad spend** is associated with about **$4.6k more revenue**, holding sales headcount constant.\n- Each additional **salesperson** is associated with about **$10.8k more revenue**, holding ad spend constant.\n\nHowever, this should be treated cautiously because:\n\n- There are only **8 observations**\n- Ad spend and headcount are highly correlated with each other\n- The regression is unstable due to multicollinearity\n- Monthly data may reflect lagged effects, seasonality, pipeline timing, or other omitted variables\n\nSo while the model is directionally supportive of advertising having a positive relationship with revenue, it is not strong causal evidence.\n\n### 4. The marketing director’s claim is too strong\n\nThe data supports the softer statement:\n\n> Months with higher advertising spend tended to have higher revenue.\n\nBut it does **not** fully support the stronger claim:\n\n> Raising advertising spend caused revenue to grow.\n\nThat causal claim requires stronger evidence.\n\n### 5. What would provide better evidence?\n\nTo justify budget approval, I would recommend one or more of the following:\n\n1. **Controlled test**\n   - Increase ad spend in selected regions, products, or customer segments while holding others constant.\n   - Compare revenue lift versus a control group.\n\n2. **Longer time series**\n   - Eight months is too little. Use 24–36 months if available.\n   - Include seasonality, pricing changes, product launches, promotions, and macro factors.\n\n3. **Lag analysis**\n   - Advertising may affect revenue one or two months later, not necessarily in the same month.\n\n4. **Control for sales headcount and capacity**\n   - If sales headcount grows alongside ad spend, revenue may be increasing because the company can handle more leads.\n\n5. **Look at profit, not just revenue**\n   - If $1k in advertising produces $4.6k in revenue, that may be attractive — but only if gross margin supports it.\n   - For example, at 30% gross margin, $4.6k revenue gives $1.38k gross profit, which may justify $1k spend. At 15% margin, it may not.\n\n### Bottom line\n\nThe data is **consistent with** the idea that advertising helps revenue, but it does **not prove** that ad spend caused the increase. Sales headcount is a major confounding factor, and the sample is very small.\n\nI would not approve a large budget increase based solely on this evidence. I would support either a limited increase tied to a proper test, or further analysis using more months of data and controls for sales headcount, seasonality, and margin.",
+    "anonymized_output_id": "OUT-0060",
+    "truncated": false,
+    "reasoning_tokens": 1128,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-500ce21d-3971-438c-9b23-1f323ddbf4fd",
+    "task_id": "T010",
+    "task_version": "v1-6f3a2835374e9ff748b7bd12afd444a3",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T02:27:00.533Z",
+    "raw_model_output": "## the figures\n\n| Month | Ad Spend ($000s) | Revenue ($000s) | Sales headcount |\n|---|---:|---:|---:|\n| Jan | 12 | 210 | 8 |\n| Feb | 15 | 240 | 9 |\n| Mar | 14 | 232 | 9 |\n| Apr | 18 | 268 | 11 |\n| May | 24 | 330 | 14 |\n| Jun | 31 | 405 | 18 |\n| Jul | 35 | 448 | 20 |\n| Aug | 29 | 372 | 16 |\n\n## the assessment\n\nThe figures support a strong positive association between advertising spend and revenue over the eight-month period. Revenue is higher in months with higher advertising spend, and the month-to-month movements are directionally consistent: when advertising spend rises, revenue generally rises; when advertising spend falls in August, revenue also falls.\n\nThe figures also show that sales headcount moves closely with both advertising spend and revenue. Headcount rises from 8 in January to 20 in July alongside the increases in spend and revenue, then falls to 16 in August alongside the reduction in revenue. This means the data supports a broader statement: revenue increased during months when both advertising spend and sales capacity increased.\n\n## what the data does not establish\n\nThe data does not establish that higher advertising spend caused the revenue growth. Advertising spend and sales headcount increased together, so the effect of advertising cannot be separated from the effect of additional sales capacity using these figures alone.\n\nThe data also does not establish the size of any incremental return from advertising, whether the same revenue growth would have occurred without the additional spend, or whether the relationship would hold outside this eight-month period. On this evidence, the claim that advertising spend caused revenue growth is not supported; the data supports correlation, not causation.",
+    "anonymized_output_id": "OUT-0061",
+    "truncated": false,
+    "reasoning_tokens": 512,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
   }
 ]

@@ -598,5 +598,135 @@
     "retry_count": 2,
     "http_status": 200,
     "message": null
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0055",
+    "recorded_at": "2026-08-22T02:25:10.752Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0056",
+    "recorded_at": "2026-08-22T02:25:20.079Z",
+    "outcome": "succeeded_after_retry",
+    "retry_count": 1,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "claude-sonnet-5",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0055",
+    "recorded_at": "2026-08-22T02:25:21.851Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0056",
+    "recorded_at": "2026-08-22T02:25:22.480Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0057",
+    "recorded_at": "2026-08-22T02:25:38.924Z",
+    "outcome": "succeeded_after_retry",
+    "retry_count": 2,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "claude-sonnet-5",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0057",
+    "recorded_at": "2026-08-22T02:25:47.351Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0059",
+    "recorded_at": "2026-08-22T02:26:15.646Z",
+    "outcome": "succeeded_after_retry",
+    "retry_count": 1,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0059",
+    "recorded_at": "2026-08-22T02:26:24.222Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0058",
+    "recorded_at": "2026-08-22T02:26:33.063Z",
+    "outcome": "succeeded_after_retry",
+    "retry_count": 1,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0058",
+    "recorded_at": "2026-08-22T02:26:46.503Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0061",
+    "recorded_at": "2026-08-22T02:27:09.064Z",
+    "outcome": "succeeded_after_retry",
+    "retry_count": 1,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0060",
+    "recorded_at": "2026-08-22T02:27:41.000Z",
+    "outcome": "exhausted",
+    "retry_count": 2,
+    "http_status": null,
+    "message": "All 3 attempts failed. Last: 503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing"
+  },
+  {
+    "evaluator_model": "claude-sonnet-5",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0061",
+    "recorded_at": "2026-08-22T02:27:44.093Z",
+    "outcome": "exhausted",
+    "retry_count": 2,
+    "http_status": null,
+    "message": "All 3 attempts failed. Last: empty response body (HTTP 200 with no text)"
   }
 ]

@@ -892,5 +892,211 @@
       }
     ],
     "evaluator_justification": "The response perfectly satisfies all constraints and rubric criteria. It correctly identifies the early return bug, provides a concrete multi-descent failing example ([1, 3, 2, 5, 4]), provides both reverse-scan and accumulator implementations that preserve the -1 sentinel, and explains why reverse iteration correctly captures the largest index on the first match."
+  },
+  {
+    "evaluation_id": "EVAL-c3f5e167-e5e3-4e2b-a7fb-a322285d961c",
+    "result_id": "RES-674a9367-5a8d-4871-a81d-d675056e3ba3",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T02:25:10.770Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response accurately computes all stratified and aggregate hiring rates, clearly identifies the reversal as an effect of applicant mix confounding the results, and correctly recommends Method B based on department-level performance while noting the nuances of applicant distribution."
+  },
+  {
+    "evaluation_id": "EVAL-dbf3dc82-61a4-4b18-bb52-fd3b1a21bbf3",
+    "result_id": "RES-478e5edf-44f1-4a69-8c17-f59d42006b8d",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T02:25:20.095Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 1000
+      }
+    ],
+    "evaluator_justification": "The response perfectly satisfies all requirements: it accurately calculates all four stratified hire rates and both aggregate rates, explicitly identifies and explains Simpson's paradox resulting from the differing applicant mix across departments, and correctly recommends Method B based on the stratified data while thoroughly noting appropriate caveats."
+  },
+  {
+    "evaluation_id": "EVAL-fff39aca-4d15-4335-8b29-3ecd14c6ef78",
+    "result_id": "RES-674a9367-5a8d-4871-a81d-d675056e3ba3",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T02:25:21.892Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly computes all four within-department rates (10%, 70%, 15%, 75%) and both aggregate rates (58%, 27%), explicitly identifies that Method B wins both strata while Method A wins in aggregate, and clearly explains the mechanism (differing department mix, with Method A sending most applicants to the higher-baseline Support department) even though it doesn't name \"Simpson's paradox\" outright—satisfying the \"describe mechanism explicitly\" alternative. It avoids recommending Method A based on the aggregate figure and lands on Method B as the better method conditional on department, with a reasonable caveat about applicant-mix goals rather than hedging inappropriately. All arithmetic is accurate and the reconciliation is complete, meeting every constraint and rubric requirement."
+  },
+  {
+    "evaluation_id": "EVAL-77b8d2b8-8f4f-429f-b30a-17f6b10c9c30",
+    "result_id": "RES-478e5edf-44f1-4a69-8c17-f59d42006b8d",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T02:25:22.598Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly computes all within-department rates and aggregate rates, explicitly identifies the reversal as Simpson's paradox, attributes it to the differing applicant mix with Method A concentrated in the higher-baseline Support department, and recommends Method B based on the stratified evidence while noting appropriate caveats."
+  },
+  {
+    "evaluation_id": "EVAL-2d5fb2cc-defd-464f-b244-03e1ed6c1190",
+    "result_id": "RES-63dbf7a4-29c4-4263-93df-5d826f18b15f",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T02:25:39.004Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 2,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 1000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response accurately computes all departmental and aggregate hiring rates, identifies and explains the reversal caused by the differing applicant mix across departments, and correctly recommends Method B based on the stratified evidence while properly noting the confounding factors."
+  },
+  {
+    "evaluation_id": "EVAL-4a6e4a11-4019-40ce-8bab-df4ea10ba7b9",
+    "result_id": "RES-63dbf7a4-29c4-4263-93df-5d826f18b15f",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T02:25:47.366Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly computes all four departmental rates (10%, 70%, 15%, 75%) and both aggregates (58%, 27%), explicitly identifies the reversal (Method B better in both strata, Method A better overall) and explains the mechanism—differing applicant mix, with Method A's applicants concentrated in the higher-baseline Support department—without needing to name Simpson's paradox by term. It correctly recommends Method B based on the stratified, like-for-like comparison and explicitly avoids endorsing Method A on the aggregate alone, while appropriately noting additional caveats (randomization, applicant quality, future mix) without undermining the core conclusion. All rubric elements—stratified rates, aggregates, and reconciliation—are present and accurate."
+  },
+  {
+    "evaluation_id": "EVAL-a9f9f58b-a711-4f64-8cd1-f320a2c4b329",
+    "result_id": "RES-7249423e-51a0-46e9-987d-8a8128f73594",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T02:26:15.662Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 7,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 1000
+      }
+    ],
+    "evaluator_justification": "The response correctly rejects the causal claim, identifies sales headcount as a key confounding variable moving in lockstep with ad spend, and discusses the observational limitations of the dataset. However, it fails to calculate/report specific correlation figures (relying only on qualitative descriptions) and completely omits a proposal for a concrete method to test the causal claim (such as a controlled experiment, holdout group, or staggered rollout)."
+  },
+  {
+    "evaluation_id": "EVAL-daa1cc98-0f65-4180-b8a7-f6afebfa1e6a",
+    "result_id": "RES-7249423e-51a0-46e9-987d-8a8128f73594",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T02:26:24.233Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 2,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 5,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly refuses to treat the association as causal and identifies sales headcount as a confounding variable that moves with ad spend, making the isolated advertising effect impossible to separate from this dataset. However, it does not report the required correlation coefficients, does not explicitly note that headcount is correlated with revenue at least as strongly as ad spend is, and does not propose a concrete causal test such as an experiment, holdout region, or staggered rollout. It provides useful causal caution but misses key quantitative and testing requirements."
+  },
+  {
+    "evaluation_id": "EVAL-87e8310a-bf0a-4da4-9a4c-a89e4730b6c4",
+    "result_id": "RES-20901a35-0179-4c89-b72f-6f325de0edec",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T02:26:33.076Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 7,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 1000
+      }
+    ],
+    "evaluator_justification": "The response accurately calculates and reports all three pairwise correlation figures (~0.999, ~0.997, ~0.999), explicitly rejects the causal claim, and thoroughly explains how sales headcount acts as a confounding variable that moves in lockstep with ad spend. However, the response truncates at the end and fails to complete its proposal for concrete testing methods (e.g., randomized experiments or holdout tests) to establish causality."
+  },
+  {
+    "evaluation_id": "EVAL-a5b03450-cd48-4254-9a10-c4d467696d7d",
+    "result_id": "RES-20901a35-0179-4c89-b72f-6f325de0edec",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T02:26:46.519Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 9,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response reports the near-perfect correlations for ad spend/revenue, headcount/revenue, and ad spend/headcount, explicitly rejects causal interpretation, and correctly identifies headcount as a confound moving almost perfectly with ad spend. It also explains why the effects cannot be separated in this observational dataset. The only weakness is that the proposed causal test is underdeveloped: “a period where spend and headcount diverge” suggests needed independent variation, but it is less concrete than a controlled experiment, holdout region, or staggered rollout."
+  },
+  {
+    "evaluation_id": "EVAL-0e5af0e2-dd99-4f76-9611-bb8635233aa6",
+    "result_id": "RES-500ce21d-3971-438c-9b23-1f323ddbf4fd",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T02:27:09.076Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 7,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 1000
+      }
+    ],
+    "evaluator_justification": "The response correctly identifies the strong positive associations among all three variables, explicitly rejects the causal claim, and accurately pinpoints sales headcount as a confounding variable that cannot be separated from advertising spend. However, it completely fails to propose a concrete method (such as an A/B test, holdout region, or staggered rollout) to test the causal claim."
   }
 ]

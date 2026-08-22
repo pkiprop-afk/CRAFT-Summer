@@ -8,11 +8,29 @@ import { computeEvalAttemptStats, getEvalAttempts } from "@/lib/evalTelemetry";
  * evaluations or from page text: failures never become saved evaluations, and a
  * DOM scrape can miss an error exactly when the job list is longest.
  */
-export async function GET() {
-  const attempts = await getEvalAttempts();
+export async function GET(request: Request) {
+  const all = await getEvalAttempts();
+
+  /**
+   * `?since=<ISO>` scopes the counters to one run.
+   *
+   * The store is cumulative and deliberately survives a halt, so a resumed run
+   * would otherwise inherit the previous run's failures and could trip its own
+   * stop conditions before dispatching anything — which is exactly what
+   * happened once a fixed parser made an earlier `unparseable` record obsolete.
+   * A run must be judged on its own attempts.
+   */
+  const since = new URL(request.url).searchParams.get("since");
+  const sinceMs = since ? Date.parse(since) : NaN;
+  const attempts = Number.isFinite(sinceMs)
+    ? all.filter((a) => Date.parse(a.recorded_at) >= sinceMs)
+    : all;
+
   const stats = computeEvalAttemptStats(attempts);
   return NextResponse.json({
     ...stats,
+    scopedSince: Number.isFinite(sinceMs) ? since : null,
+    totalAllTime: all.length,
     // Enough to identify a systematic failure without dumping every record.
     recentFailures: attempts
       .filter((a) => a.outcome !== "succeeded_first_try" && a.outcome !== "succeeded_after_retry")

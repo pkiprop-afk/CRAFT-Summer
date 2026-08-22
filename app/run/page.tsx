@@ -173,6 +173,7 @@ export default function PromptRunnerPage() {
         completeness: data.completeness,
         total: data.total,
         justification: data.justification,
+        justification_missing: Boolean(data.justification_missing),
         retry_count: data.evaluator_retry_count ?? 0,
         retry_log: data.evaluator_retry_log ?? [],
       });
