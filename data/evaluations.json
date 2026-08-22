@@ -6670,5 +6670,115 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The message states the slip within the first two sentences, gives both specific dates (30 June and 15 August) and the six-week magnitude, plainly states no plan recovers 30 June, explicitly notes scope reduction was examined and failed to recover the date, and contains no hedging language (e.g., \"at risk,\" \"protect the timeline\") that would leave the deadline appearing negotiable. It reports the fact without apologizing, staying within word limits and providing clear, actionable guidance for the sponsor's Thursday review."
+  },
+  {
+    "evaluation_id": "EVAL-cd392715-dc21-414d-9e04-b4c17f227349",
+    "result_id": "RES-5ee8d5fc-13e2-4c89-b945-8f1b056797c6",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T15:37:18.850Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response perfectly satisfies all constraints: it is well under the 160-word limit (125 words), clearly states the date slip within the first two sentences, explicitly includes both dates (30 June and 15 August) and the six-week magnitude, rules out scope reduction as an option, and leaves zero ambiguity that 30 June cannot be met without resorting to apologies or softening language."
+  },
+  {
+    "evaluation_id": "EVAL-274f0fa3-d7f3-4006-9339-795a2a75ffe3",
+    "result_id": "RES-5ee8d5fc-13e2-4c89-b945-8f1b056797c6",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T15:37:40.444Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The message opens with the slip stated unambiguously in the first two sentences, gives both dates (30 June, 15 August) and explicitly names the six-week magnitude, and stays within the word limit (~132 words). It states plainly \"there is no viable version that delivers on 30 June,\" closing off any perception that the date is recoverable, and explicitly reports that scope reduction was examined and does not help because the migration remains on the critical path—pre-empting the sponsor's likely first question. No apology is mixed into the factual report, and no hedging phrases (e.g., \"at risk,\" \"working to protect\") appear that could let a reader believe 30 June is still open; the forecasted 15 August date is also clearly conditioned only on migration confirmation, not 30 June. All required elements (slip, both dates, magnitude, scope-reduction closure) are present and unambiguous, satisfying every constraint and the full completeness/logical-accuracy criteria."
+  },
+  {
+    "evaluation_id": "EVAL-87aa9166-e8b0-4037-b11c-aad210423034",
+    "result_id": "RES-5219d20e-4142-4125-a30b-290a2885ae0c",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T15:38:15.233Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 2,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 6,
+    "retry_count": 2,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      }
+    ],
+    "evaluator_justification": "The response adheres to the bullet count (5), word limit (under 20 words each), and lacks any preamble or closing text, while successfully including the audit rationale, schedule position, and key risks. However, it fails two critical negative constraints by cramming low-priority details (such as vendor account lead changes and parallel-run duration) into the summary rather than omitting them, and heavily relies on semicolons across bullets 1–4 to concatenate multiple disparate facts together."
+  },
+  {
+    "evaluation_id": "EVAL-685e4291-8ee7-4eb0-bc3e-b71d9ab75bc7",
+    "result_id": "RES-5219d20e-4142-4125-a30b-290a2885ae0c",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T15:38:22.182Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 2,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 6,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response has exactly five bullets under 20 words and includes the audit rationale, schedule position, and training risk. However, it uses semicolons to concatenate facts, includes lower-priority vendor account-lead detail, and compresses many supplied facts rather than selecting only what the board member needs."
+  },
+  {
+    "evaluation_id": "EVAL-7b795a65-328c-469e-a1a3-e7d7a506f7b8",
+    "result_id": "RES-7b935a52-48e6-4610-ac3a-5b01a28d310c",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T15:38:24.964Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 2,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 6,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response adheres to the structural count of five bullets under 20 words with no preamble or closing, and it successfully includes the audit rationale, schedule position, and training risk (Completeness 2/2). However, it directly violates the constraint against using semicolons to concatenate multiple facts across every bullet point, and it fails to omit lower-priority details such as the vendor account-lead changes and parallel-run duration, cramming nearly all supplied facts into the bullets instead of prioritizing selectively."
+  },
+  {
+    "evaluation_id": "EVAL-4e7b44f4-a6ff-4c8f-9b63-02313b1a6425",
+    "result_id": "RES-7b935a52-48e6-4610-ac3a-5b01a28d310c",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T15:38:33.092Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 2,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 6,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response has exactly five bullets under 20 words and includes the January audit rationale, current schedule position, and training/readiness risks. However, it repeatedly uses semicolons to concatenate facts, includes lower-priority vendor account-lead changes and parallel-run detail, and does not clearly prioritize selection over compression."
   }
 ]
