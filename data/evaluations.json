@@ -4629,5 +4629,48 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response correctly reports the aggregate/distributional figures (34,000 vs 2,100), cites both required rural characteristics (65-minute travel increase and 41% lacking vehicle access), clearly separates the aggregate-benefit question from the distributional-acceptability question rather than conflating them, and proposes multiple concrete mitigations (transport support, retained local/mobile services, ringfenced reinvestment, monitoring). It avoids endorsing on the ratio alone and avoids outright rejection, landing on a conditional-approval stance that reflects genuine judgment. The one shortfall is that it never explicitly states that the 34,000 beneficiaries and 2,100 harmed patients are non-overlapping populations, which the task requires as an explicit fact rather than an implied one, costing a point on constraint adherence."
+  },
+  {
+    "evaluation_id": "EVAL-9113c9c6-7121-40da-8953-1cc1205f36a8",
+    "result_id": "RES-e50849f7-5e97-4e96-a9a3-547a12fc6950",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:45:19.986Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 2,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      }
+    ],
+    "evaluator_justification": "The response adheres well to the word limit (233 words) and includes all three required sections with concrete, actionable rules and specific handling of the three confidentiality-restricted clients. However, it fails constraint 4 by not identifying any situation the policy does not cover or specifying conditions under which an employee must seek guidance, and the disclosure section names a location (\"in the project file\") rather than an explicit recipient person/role."
+  },
+  {
+    "evaluation_id": "EVAL-dbbc4bf5-8ac3-4abc-a450-8db79db428ad",
+    "result_id": "RES-e50849f7-5e97-4e96-a9a3-547a12fc6950",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:45:27.998Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 7,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response is under 250 words and includes the three required sections with multiple concrete permitted and prohibited-use rules. However, the disclosure requirement is incomplete because it does not clearly specify a disclosure chain naming the discloser, recipient, disclosed content, and trigger condition for AI-use disclosure; logging in a project file is not the same as disclosure to a named recipient. It addresses the three confidentiality-clause clients as a distinct category, but not very specifically, and it does not clearly state an uncovered situation or a condition requiring guidance beyond checking the client list. Overall, it is structured and mostly operational, but misses key specificity requirements."
   }
 ]

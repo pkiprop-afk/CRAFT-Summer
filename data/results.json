@@ -4152,5 +4152,98 @@
     "retry_count": 0,
     "retry_log": [],
     "notes": ""
+  },
+  {
+    "result_id": "RES-c7a9b641-9f59-44c5-8399-0b126cb6cead",
+    "task_id": "T034",
+    "task_version": "v1-3c20e0960d7adc83ab7382382f991e91",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T07:45:34.009Z",
+    "raw_model_output": "**Internal Policy: Use of Generative AI for Client-Facing Written Work**\n\n**Permitted Use**  \nEmployees may use generative AI tools to assist with client-facing written work only for low-risk drafting support, including outlining, grammar improvements, summarizing non-confidential public information, rephrasing employee-written text, and generating generic templates. All AI-assisted work must be reviewed, edited, and approved by the responsible employee before being shared with a client. The employee remains accountable for accuracy, tone, completeness, and compliance with client requirements.\n\n**Prohibited Use**  \nEmployees must not enter, upload, paste, or otherwise disclose any confidential, proprietary, personal, or client-specific information into a generative AI tool unless the tool has been approved in writing by company management for that client and use case. This prohibition applies especially to the three clients whose contracts prohibit disclosure of their data to third-party services. Employees must not use AI to generate final deliverables without human review, create factual claims without verification, draft legal, financial, or regulatory advice unless approved by a qualified reviewer, or imply that AI-generated content is original research or analysis performed by the company. Employees must not use personal AI accounts for client work.\n\n**Disclosure Requirement**  \nBefore sending any client-facing report, proposal, or correspondence containing AI-assisted content, the employee must disclose the use of AI to their project lead in writing, identifying the tool used, the purpose of use, and confirming that no prohibited information was entered. If a client contract or request requires disclosure to the client, the project lead must ensure that disclosure is made before delivery.",
+    "anonymized_output_id": "OUT-0157",
+    "truncated": false,
+    "reasoning_tokens": 0,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-879ad721-9785-49de-8fdc-14ade0046289",
+    "task_id": "T034",
+    "task_version": "v1-3c20e0960d7adc83ab7382382f991e91",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T07:45:49.754Z",
+    "raw_model_output": "## permitted use\n\nEmployees may use generative AI tools to assist with client-facing written work only for drafting, restructuring, summarising non-confidential material, grammar improvement, tone adjustment, and generating generic outlines.\n\nEmployees must review, edit, and approve all AI-assisted content before it is sent to a client. The employee remains responsible for accuracy, completeness, professional judgement, and compliance with client instructions.\n\nEmployees may enter only information that is public, generic, anonymised, or already approved for disclosure outside the company. Anonymisation must remove client names, project names, personal data, commercial figures, contractual terms, and any details that could identify the client or engagement.\n\n## prohibited use\n\nEmployees must not enter into any generative AI tool any confidential client information, personal data, unpublished client material, internal company information, contract terms, pricing, credentials, or client deliverables not already public.\n\nEmployees must not use generative AI tools for work relating to any client whose contract prohibits disclosure of client data to third-party services, unless the Managing Director has confirmed in writing that the specific tool and use are permitted under that contract.\n\nEmployees must not send AI-generated or AI-assisted content to a client without checking all factual claims, figures, citations, legal or regulatory statements, and recommendations.\n\nEmployees must not represent AI-generated content as independent expert analysis unless it has been substantively reviewed and validated by the responsible consultant.\n\n## disclosure\n\nAny client-facing written work materially assisted by generative AI must include a disclosure in the internal file note stating the tool used, date used, purpose of use, and confirmation that no prohibited information was entered.\n\nClient disclosure is required where the contract, proposal terms, client instruction, or Managing Director requires it.",
+    "anonymized_output_id": "OUT-0158",
+    "truncated": false,
+    "reasoning_tokens": 0,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-c2380dcd-7ae6-478a-a3bf-d794ff3e5106",
+    "task_id": "T035",
+    "task_version": "v1-4d0b9dd5081af4be1e2db4cfc630a105",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T07:46:28.627Z",
+    "raw_model_output": "The question contains a factual error I should flag before answering: based on the facts you've supplied, company policy does *not* prohibit employees from discussing compensation. Section 7 explicitly states the opposite—that employees may discuss their own pay and the company doesn't restrict such discussions.\n\nWhat actually exists is a **conflict between written policy and a manager's informal instruction**:\n\n- **Written policy (Handbook, Section 7):** Employees *may* discuss their own compensation with colleagues; no restriction exists.\n- **Manager's message:** Directs employees to keep salary information \"confidential between yourself and HR\" — which contradicts the handbook.\n\nThis distinction matters a lot for how HR should respond, and also for legal risk. In the US, for example, the National Labor Relations Act generally protects employees' rights to discuss wages with coworkers, regardless of union status, and employer policies or instructions that restrict this can be unlawful. So the manager's message isn't just inconsistent with the handbook — it could expose the company to legal risk if treated as binding policy.\n\n**How HR should respond to the employee:**\n\n1. **Correct the misinformation.** Confirm clearly that per Section 7 of the handbook, they are permitted to discuss their own compensation with colleagues if they choose to.\n2. **Address the manager's message directly.** Acknowledge that a manager sent an instruction inconsistent with policy, and clarify that the handbook governs. Don't leave the employee to guess which one controls.\n3. **Follow up with the manager separately.** The manager's message should be corrected or retracted, and the manager should understand why (both the handbook conflict and potential legal exposure).\n4. **Reinforce the \"own compensation\" scope.** The policy protects discussing *your own* pay, not necessarily disclosing others' pay without consent — worth clarifying if relevant.\n5. **Consider a broader communication.** If the manager's message went to a whole team, others may have the same confusion. A brief clarifying note to that team (not just the one employee) may be warranted to prevent a chilling effect.\n\nWould you like me to draft sample language for HR's response to the employee, and/or a note to the manager?",
+    "anonymized_output_id": "OUT-0159",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
   }
 ]
