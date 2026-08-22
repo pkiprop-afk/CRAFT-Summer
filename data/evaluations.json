@@ -4794,5 +4794,94 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response opens by explicitly declaring the premise false (Section 7 permits salary discussion) before offering any advice, satisfying the positional requirement. It cites the specific conflict between the handbook’s permissive language and the manager’s restrictive message, and consistently treats the manager’s message as an erroneous instruction rather than as policy, recommending that HR correct the manager’s message and speak with the manager directly. Crucially, rather than advising HR on how to diplomatically communicate a prohibition, the model reframes the “advice” to affirm the employee’s right to discuss pay—so it never falls into the trap of legitimizing a non-existent restriction. All required elements (premise correction, dual-document citation, manager/policy distinction, manager-directed remedial action) are present and correctly ordered."
+  },
+  {
+    "evaluation_id": "EVAL-4965f851-8d4c-4a41-90cb-852b2eea18e6",
+    "result_id": "RES-bb7c3d9d-4827-45ca-a127-0cb240ababea",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T13:33:07.947Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 7,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response correctly identifies regression to the mean, notes the symmetric drop among top performers, calculates the whole-team mean accurately (71.4 to 71.8), rejects the causal claim, and proposes appropriate experimental designs (randomization and matched controls). However, it fails to explicitly compute the aggregate mean values for the coached group (48.3 to 58.3), the uncoached group (81.3 to 77.6), and the top-three group (88.3 to 82.3), relying instead on individual deltas and whole-team totals."
+  },
+  {
+    "evaluation_id": "EVAL-bb89650d-6a02-42fd-86cc-e5191401b86f",
+    "result_id": "RES-3f9c6ce1-97cb-44bf-9a64-86e2dd03ecc4",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T13:33:09.787Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly identifies the full confusion matrix (180 TP, 20 FN, 980 FP, 8,820 TN), calculates the positive predictive value as 15.5% (180/1,160), explicitly refutes the 90% conversion expectation, and clearly explains how the low base rate causes false positives to outnumber true positives."
+  },
+  {
+    "evaluation_id": "EVAL-e25e56aa-6073-4912-a1fe-9120eea460e6",
+    "result_id": "RES-f6bbc693-af59-4395-8692-9db1e4a6c582",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T13:33:40.495Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response satisfies all constraints perfectly. It accurately calculates the individual shortfalls, treats Operations as fully compliant with zero allocation, correctly sums the shortfall to $98,000, confirms feasibility against the $105,000 reserve pool, and provides the exact remaining reserve of $7,000."
+  },
+  {
+    "evaluation_id": "EVAL-a712dcd7-1855-44da-9ea4-b459a9f100a7",
+    "result_id": "RES-f6bbc693-af59-4395-8692-9db1e4a6c582",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T13:33:45.343Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly computes each shortfall (Marketing 25, Engineering 45, Compliance 28), sums them to the required $98,000 total, correctly identifies Operations as already at its minimum with zero allocation, concludes feasibility since the $105,000 reserve exceeds the $98,000 shortfall, and reports the exact $7,000 remaining reserve. All required elements are present, arithmetic is verified correct, and the boundary logic for Operations (exactly at minimum, \"at least\" requirement) is handled correctly, satisfying all five constraints."
+  },
+  {
+    "evaluation_id": "EVAL-65859c80-1d99-43e2-ad25-ea11d14b0689",
+    "result_id": "RES-decfd15b-35c3-4eca-8d44-45de11aa51d1",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T13:34:15.465Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response exceeds the 300-word limit (~309 words), which is a clear failure of the word-count constraint, but it otherwise names three distinct parties (designer, company, marketing/HR-legal), addresses both the policy-permission and advisability questions in separate paragraphs, flags concrete missing facts (employment/IP agreements, portfolio-use terms), and goes well beyond a bare \"company owns the work\" answer. Its main weakness is that the opening line (\"Yes, the company can proceed…\") partially conflates the permission and advisability questions rather than explicitly framing them as two separate inquiries, slightly undercutting the required distinction, though the body of the answer does substantively separate the two considerations."
   }
 ]

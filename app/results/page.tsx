@@ -6,7 +6,7 @@ import { Card } from "@/components/ui/Card";
 import { OverviewChart } from "@/components/results/OverviewChart";
 import { ScatterPlot, type ScatterDatum } from "@/components/results/ScatterPlot";
 import { DomainChart, type GroupedBarDatum } from "@/components/results/DomainChart";
-import { conditionStats, mean, pairByTask, round } from "@/lib/results";
+import { pairedStats, pairedUnits, round, type PairedUnit } from "@/lib/results";
 import { joinResults, type ScoredResult } from "@/lib/resultsJoin";
 import { isResultStale } from "@/lib/invalidation";
 import { computeIrr } from "@/lib/irr";
@@ -92,79 +92,70 @@ export default function ResultsPage() {
     [allScored, taskById, excludeStale, excludeIncomplete]
   );
 
-  // Per-task mean first, then averaged across tasks — a task with more
-  // repeat runs must not outweigh one with fewer. stddev is the run-to-run
-  // spread within each task, itself averaged the same way (consistency).
-  const baselineStats = useMemo(
-    () => conditionStats(results, "baseline", totalOf),
-    [results]
-  );
-  const craftStats = useMemo(
-    () => conditionStats(results, "craft", totalOf),
-    [results]
-  );
-  const meanBaseline = baselineStats.mean;
-  const meanCraft = craftStats.mean;
-  const delta = round(meanCraft - meanBaseline);
+  // R1 — every aggregate below is PAIRED: the unit is one task x model cell,
+  // and a cell counts only when BOTH conditions have a usable score. A task
+  // with a complete baseline and a missing craft contributes to neither mean.
+  // There is a single n per aggregate by construction.
+  const units: PairedUnit[] = useMemo(() => pairedUnits(results, totalOf), [results]);
+  const overview = useMemo(() => pairedStats(units), [units]);
 
+  // One point per paired cell — a point is a genuine within-cell comparison,
+  // never a pool of the two models' runs.
   const scatterData: ScatterDatum[] = useMemo(() => {
-    const pairs = pairByTask(results);
     const data: ScatterDatum[] = [];
-    for (const [taskId, group] of pairs) {
-      if (group.baseline.length > 0 && group.craft.length > 0) {
-        const domain = taskDomainById.get(taskId);
-        if (!domain) continue;
-        data.push({
-          task_id: taskId,
-          domain,
-          baseline: round(mean(group.baseline.map(totalOf).filter((v): v is number => v !== null))),
-          craft: round(mean(group.craft.map(totalOf).filter((v): v is number => v !== null))),
-        });
-      }
+    for (const u of units) {
+      const domain = taskDomainById.get(u.task_id);
+      if (!domain) continue;
+      data.push({
+        task_id: u.task_id,
+        domain,
+        baseline: round(u.baseline),
+        craft: round(u.craft),
+      });
     }
     return data;
-  }, [results, taskDomainById]);
+  }, [units, taskDomainById]);
 
   const modelRows = useMemo(() => {
-    const models = Array.from(new Set(results.map((s) => s.result.model_name)));
-    return models.map((model) => {
-      const modelResults = results.filter((s) => s.result.model_name === model);
-      return {
-        model,
-        baseline: conditionStats(modelResults, "baseline", totalOf),
-        craft: conditionStats(modelResults, "craft", totalOf),
-      };
-    });
-  }, [results]);
+    const models = Array.from(new Set(units.map((u) => u.model_name)));
+    return models.map((model) => ({
+      model,
+      stats: pairedStats(units.filter((u) => u.model_name === model)),
+    }));
+  }, [units]);
 
   const modelChartData: GroupedBarDatum[] = modelRows.map((row) => ({
     category: row.model,
-    baseline: row.baseline.mean,
-    craft: row.craft.mean,
+    baseline: row.stats.meanBaseline,
+    craft: row.stats.meanCraft,
   }));
 
   const domainRows = useMemo(() => {
     const domains = Array.from(new Set(tasks.map((t) => t.domain)));
     return domains.map((domain) => {
       const taskIds = new Set(tasks.filter((t) => t.domain === domain).map((t) => t.task_id));
-      const domainResults = results.filter((s) => taskIds.has(s.result.task_id));
-      const baseline = conditionStats(domainResults, "baseline", totalOf);
-      const craft = conditionStats(domainResults, "craft", totalOf);
       return {
         domain,
-        nTasks: taskIds.size,
-        baseline,
-        craft,
-        delta: round(craft.mean - baseline.mean),
+        stats: pairedStats(units.filter((u) => taskIds.has(u.task_id))),
       };
     });
-  }, [tasks, results]);
+  }, [tasks, units]);
 
   const domainChartData: GroupedBarDatum[] = domainRows.map((row) => ({
     category: DOMAIN_LABELS[row.domain],
-    baseline: row.baseline.mean,
-    craft: row.craft.mean,
+    baseline: row.stats.meanBaseline,
+    craft: row.stats.meanCraft,
   }));
+
+  // R4 — the truncation banner reports the direction of the ACTUAL cases, not
+  // a generic assumption about which condition runs longer.
+  const truncationByCondition = useMemo(() => {
+    const baseline = truncatedResults.filter(
+      (s) => s.result.prompt_condition === "baseline"
+    ).length;
+    const craft = truncatedResults.length - baseline;
+    return { baseline, craft };
+  }, [truncatedResults]);
 
   // IRR is computed over complete runs regardless of the exclude toggles —
   // it is a property of the judges, not of the analysis sample.
@@ -222,8 +213,20 @@ export default function ResultsPage() {
           </p>
           <p className="mt-1 text-xs text-error/90">
             A truncated response loses completeness points for a reason unrelated to the prompt
-            condition. CRAFT prompts request structured multi-section output and run longer than
-            baseline, so truncation biases against CRAFT. Re-run these with a higher max_tokens.
+            condition.{" "}
+            {/* R4 — direction from the actual cases, not an assumption. */}
+            {truncationByCondition.craft === 0
+              ? `All ${truncationByCondition.baseline} truncation${
+                  truncationByCondition.baseline === 1 ? " is" : "s are"
+                } in the BASELINE condition, so the truncation in this data cuts against
+                baseline, not CRAFT.`
+              : truncationByCondition.baseline === 0
+                ? `All ${truncationByCondition.craft} truncation${
+                    truncationByCondition.craft === 1 ? " is" : "s are"
+                  } in the CRAFT condition, so the truncation in this data cuts against CRAFT.`
+                : `${truncationByCondition.baseline} baseline vs ${truncationByCondition.craft} CRAFT
+                  — the bias direction is mixed; judge per-pair.`}{" "}
+            Re-run these with a higher max_tokens.
           </p>
           <ul className="mt-2 font-mono text-xs text-error/90 max-h-32 overflow-y-auto">
             {truncatedResults.map((s) => (
@@ -255,10 +258,13 @@ export default function ResultsPage() {
             Exclude incomplete runs from all figures below (recommended)
           </label>
           <ul className="mt-2 font-mono text-xs text-warning/90 max-h-32 overflow-y-auto">
+            {/* R3 — the model is part of the cell identity. Without it, the same
+                task+condition under the two models rendered as identical rows and
+                read as duplicates. */}
             {incompleteResults.map((s) => (
               <li key={s.result.result_id}>
-                {s.result.task_id} · {s.result.prompt_condition} · run {s.result.run_number} ·{" "}
-                {s.evaluations.length}/2 judges
+                {s.result.task_id} · {s.result.model_name} · {s.result.prompt_condition} · run{" "}
+                {s.result.run_number} · {s.evaluations.length}/2 judges
               </li>
             ))}
           </ul>
@@ -285,7 +291,8 @@ export default function ResultsPage() {
           <ul className="mt-2 font-mono text-xs text-warning/90 max-h-32 overflow-y-auto">
             {staleResults.map((s) => (
               <li key={s.result.result_id}>
-                {s.result.task_id} · {s.result.prompt_condition} · run {s.result.run_number} ·{" "}
+                {s.result.task_id} · {s.result.model_name} · {s.result.prompt_condition} · run{" "}
+                {s.result.run_number} ·{" "}
                 {taskById.has(s.result.task_id) ? "content changed" : "task no longer exists"}
               </li>
             ))}
@@ -302,27 +309,39 @@ export default function ResultsPage() {
         <>
           {activeTab === "Overview" && (
             <div className="space-y-6">
+              {/* R1 — one n for the whole comparison. Both means cover exactly
+                  these pairs; per-condition counts cannot differ by construction. */}
+              <p className="text-sm text-text-muted">
+                n = {overview.nPairs} paired cells (task × model, both conditions complete).
+                Every figure below is computed over these pairs only.
+              </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Card accentColor="var(--color-cream-border)">
                   <p className="text-xs text-text-muted mb-1">Mean Baseline Score</p>
                   <p className="text-2xl font-display font-bold text-text-heading">
-                    {meanBaseline}/10
+                    {overview.meanBaseline}/10
                   </p>
                   <p className="text-xs text-text-muted mt-1">
-                    SD {baselineStats.stddev} (run-to-run, n={baselineStats.nTasks} tasks)
+                    SD {overview.sdAcrossBaseline} (across paired cells — run-to-run variance
+                    exists only in the stability subset)
                   </p>
                 </Card>
                 <Card accentColor="var(--color-navy-700)">
                   <p className="text-xs text-text-muted mb-1">Mean CRAFT Score</p>
                   <p className="text-2xl font-display font-bold text-text-heading">
-                    {meanCraft}/10{" "}
-                    <span className={delta >= 0 ? "text-success text-base" : "text-error text-base"}>
-                      ({delta >= 0 ? "+" : ""}
-                      {delta})
+                    {overview.meanCraft}/10{" "}
+                    <span
+                      className={
+                        overview.delta >= 0 ? "text-success text-base" : "text-error text-base"
+                      }
+                    >
+                      ({overview.delta >= 0 ? "+" : ""}
+                      {overview.delta})
                     </span>
                   </p>
                   <p className="text-xs text-text-muted mt-1">
-                    SD {craftStats.stddev} (run-to-run, n={craftStats.nTasks} tasks)
+                    SD {overview.sdAcrossCraft} (across paired cells) · paired delta SD{" "}
+                    {overview.sdDelta}
                   </p>
                 </Card>
               </div>
@@ -331,7 +350,10 @@ export default function ResultsPage() {
                 <h2 className="text-sm font-semibold text-text-heading mb-2">
                   Mean Score by Condition
                 </h2>
-                <OverviewChart meanBaseline={meanBaseline} meanCraft={meanCraft} />
+                <OverviewChart
+                  meanBaseline={overview.meanBaseline}
+                  meanCraft={overview.meanCraft}
+                />
               </div>
 
               <div>
@@ -356,20 +378,27 @@ export default function ResultsPage() {
                   <thead className="bg-cream-card text-text-muted">
                     <tr>
                       <th className="text-left px-3 py-2">Model</th>
+                      <th className="text-left px-3 py-2">n paired tasks</th>
                       <th className="text-left px-3 py-2">Mean Baseline</th>
-                      <th className="text-left px-3 py-2">SD Baseline</th>
+                      <th className="text-left px-3 py-2">SD Baseline (across tasks)</th>
                       <th className="text-left px-3 py-2">Mean CRAFT</th>
-                      <th className="text-left px-3 py-2">SD CRAFT</th>
+                      <th className="text-left px-3 py-2">SD CRAFT (across tasks)</th>
+                      <th className="text-left px-3 py-2">Delta</th>
                     </tr>
                   </thead>
                   <tbody>
                     {modelRows.map((row) => (
                       <tr key={row.model} className="border-t border-cream-border font-mono">
                         <td className="px-3 py-2 font-sans">{row.model}</td>
-                        <td className="px-3 py-2">{row.baseline.mean}</td>
-                        <td className="px-3 py-2">{row.baseline.stddev}</td>
-                        <td className="px-3 py-2">{row.craft.mean}</td>
-                        <td className="px-3 py-2">{row.craft.stddev}</td>
+                        <td className="px-3 py-2">{row.stats.nPairs}</td>
+                        <td className="px-3 py-2">{row.stats.meanBaseline}</td>
+                        <td className="px-3 py-2">{row.stats.sdAcrossBaseline}</td>
+                        <td className="px-3 py-2">{row.stats.meanCraft}</td>
+                        <td className="px-3 py-2">{row.stats.sdAcrossCraft}</td>
+                        <td className="px-3 py-2">
+                          {row.stats.delta >= 0 ? "+" : ""}
+                          {row.stats.delta}
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -391,11 +420,11 @@ export default function ResultsPage() {
                   <thead className="bg-cream-card text-text-muted">
                     <tr>
                       <th className="text-left px-3 py-2">Domain</th>
-                      <th className="text-left px-3 py-2">n Tasks</th>
+                      <th className="text-left px-3 py-2">n paired cells</th>
                       <th className="text-left px-3 py-2">Mean Baseline</th>
-                      <th className="text-left px-3 py-2">SD Baseline</th>
+                      <th className="text-left px-3 py-2">SD Baseline (across cells)</th>
                       <th className="text-left px-3 py-2">Mean CRAFT</th>
-                      <th className="text-left px-3 py-2">SD CRAFT</th>
+                      <th className="text-left px-3 py-2">SD CRAFT (across cells)</th>
                       <th className="text-left px-3 py-2">Delta</th>
                     </tr>
                   </thead>
@@ -403,14 +432,14 @@ export default function ResultsPage() {
                     {domainRows.map((row) => (
                       <tr key={row.domain} className="border-t border-cream-border font-mono">
                         <td className="px-3 py-2 font-sans">{DOMAIN_LABELS[row.domain]}</td>
-                        <td className="px-3 py-2">{row.nTasks}</td>
-                        <td className="px-3 py-2">{row.baseline.mean}</td>
-                        <td className="px-3 py-2">{row.baseline.stddev}</td>
-                        <td className="px-3 py-2">{row.craft.mean}</td>
-                        <td className="px-3 py-2">{row.craft.stddev}</td>
+                        <td className="px-3 py-2">{row.stats.nPairs}</td>
+                        <td className="px-3 py-2">{row.stats.meanBaseline}</td>
+                        <td className="px-3 py-2">{row.stats.sdAcrossBaseline}</td>
+                        <td className="px-3 py-2">{row.stats.meanCraft}</td>
+                        <td className="px-3 py-2">{row.stats.sdAcrossCraft}</td>
                         <td className="px-3 py-2">
-                          {row.delta >= 0 ? "+" : ""}
-                          {row.delta}
+                          {row.stats.delta >= 0 ? "+" : ""}
+                          {row.stats.delta}
                         </td>
                       </tr>
                     ))}
@@ -540,8 +569,7 @@ export default function ResultsPage() {
           {activeTab === "By Submetric" && (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {submetrics.map((sub) => {
-                const baseline = conditionStats(results, "baseline", sub.accessor);
-                const craft = conditionStats(results, "craft", sub.accessor);
+                const stats = pairedStats(pairedUnits(results, sub.accessor));
                 return (
                   <div key={sub.key}>
                     <h2 className="text-sm font-semibold text-text-heading mb-2">
@@ -553,13 +581,14 @@ export default function ResultsPage() {
                       data={[
                         {
                           category: "Mean",
-                          baseline: baseline.mean,
-                          craft: craft.mean,
+                          baseline: stats.meanBaseline,
+                          craft: stats.meanCraft,
                         },
                       ]}
                     />
                     <p className="mt-1 text-xs text-text-muted">
-                      SD — Baseline {baseline.stddev} · CRAFT {craft.stddev}
+                      n = {stats.nPairs} pairs · SD across cells — Baseline{" "}
+                      {stats.sdAcrossBaseline} · CRAFT {stats.sdAcrossCraft}
                     </p>
                   </div>
                 );
