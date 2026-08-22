@@ -11189,5 +11189,72 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The message is under 160 words and states within the first two sentences that 30 June will not be met. It includes both required dates, identifies the slip as six weeks, plainly closes off 30 June, and states that scope reduction was examined and cannot recover the date. The wording is direct and does not leave the date open for negotiation, while still giving the recipient enough information to act before the executive review."
+  },
+  {
+    "evaluation_id": "EVAL-d06902b4-4728-4cbd-8a98-3bc929d391f4",
+    "result_id": "RES-ed507de7-fae2-4976-bcaf-28f0b713d712",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T19:16:29.514Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response perfectly satisfies all constraints within 146 words: it states the slip, both dates (30 June and 15 August), and the six-week magnitude in the first two sentences; unambiguously closes off 30 June without hedging or apologizing; explicitly rules out scope reduction; and provides clear, actionable briefing points for the sponsor's upcoming review."
+  },
+  {
+    "evaluation_id": "EVAL-1978af17-c797-4646-aa5f-b7b15f49e5cf",
+    "result_id": "RES-ed507de7-fae2-4976-bcaf-28f0b713d712",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T19:16:37.177Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The message is under 160 words, states within the first two sentences that 30 June is no longer achievable and that 15 August is the realistic date, and gives the six-week slip. It plainly closes off 30 June by saying no version of the plan delivers by then, avoids hedging, and explicitly states that scope reduction was examined and does not recover the date. It gives the sponsor actionable wording for the executive review without implying the date remains negotiable."
+  },
+  {
+    "evaluation_id": "EVAL-9c9a8f7c-80ff-4492-baf7-7588c6196c14",
+    "result_id": "RES-7034e770-5543-4ce8-a4db-0ce0406bad4c",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T19:16:44.425Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response satisfies all constraints perfectly: it is under 160 words (149 words), clearly communicates the date slip in the opening sentences, includes both specific dates (30 June and 15 August) and the six-week magnitude, confirms that scope reduction was examined and cannot recover the date, avoids unnecessary apologies, and leaves zero ambiguity that the June date cannot be achieved."
+  },
+  {
+    "evaluation_id": "EVAL-eea58219-9f39-4285-b43c-72223869a03d",
+    "result_id": "RES-7034e770-5543-4ce8-a4db-0ce0406bad4c",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T19:17:04.749Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The message states the slip in the first two sentences, gives both dates (30 June, 15 August) and the six-week magnitude, explicitly closes off 30 June as unachievable (\"no credible version that achieves 30 June\"), and states scope reduction was examined and does not recover the date. No hedging language leaves 30 June open, and the message stays within the word limit (~146 words) while remaining unambiguous and action-oriented for the sponsor's Thursday review."
   }
 ]
