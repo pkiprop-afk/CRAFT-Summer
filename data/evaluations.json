@@ -5626,5 +5626,244 @@
       }
     ],
     "evaluator_justification": "The response perfectly adheres to all constraints by stating the denial outcome in the very first sentence, explicitly providing the required credit arithmetic (18 institutional credits vs. 24 required, shortfall of 6), firmly separating the application of the rule from sympathy or policy design, strictly avoiding any recommendation to approve, and offering multiple concrete non-waiver alternatives such as reapplication timing and alternative hardship resources."
+  },
+  {
+    "evaluation_id": "EVAL-a8d2b8c0-f02f-4a13-849e-68beff2e8eaa",
+    "result_id": "RES-879ad721-9785-49de-8fdc-14ade0046289",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T14:51:39.197Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 2,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 6,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response adheres to the 250-word limit and includes all three required sections with specific rules rather than vague principles. However, it completely fails to address the \"three confidentiality-clause clients specifically\" (only referring generically to any client with such a clause), omits an explicit statement of situations not covered or when to seek guidance beyond the policy, and lacks a fully articulated discloser-to-recipient chain in the disclosure section."
+  },
+  {
+    "evaluation_id": "EVAL-70c7fee5-a729-492b-9efe-f69db9ca9caf",
+    "result_id": "RES-52bc5912-ba32-42da-8e10-94ca7ac62d6a",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T14:52:57.141Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response satisfies all constraints precisely: it delivers a direct verdict on alignment in the opening sentences, analyzes the specific cognitive demands of all four draft questions (identifying recall, definition, and description), explicitly contrasts the objective's demand for evaluation and justification against the assessment's lower-order demands, notes the absence of competing explanations, and provides a concrete revised question prompt. It avoids the trap of validating surface competence, focusing thoroughly on construct alignment."
+  },
+  {
+    "evaluation_id": "EVAL-643aa153-c82f-4d72-920a-8362cd002fc8",
+    "result_id": "RES-52bc5912-ba32-42da-8e10-94ca7ac62d6a",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T14:53:01.320Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response gives an immediate negative alignment verdict, analyzes the cognitive demand of all four questions as recall/definition/description/narrative recall, explicitly distinguishes the objective’s evaluate-and-justify demand from the assessment’s recall/describe demands, and states that no question requires comparing competing explanations. It also provides a concrete revised evaluative prompt and does not treat the assessment as adequate or focus merely on surface issues."
+  },
+  {
+    "evaluation_id": "EVAL-1999523c-baab-42e5-a043-c6166b7927df",
+    "result_id": "RES-452272d9-6a28-421e-adfe-3848754781b2",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T14:54:39.475Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response is under 200 words, uses second person, distinguishes the accurate observation from the inference, identifies air resistance as the uncontrolled variable, and gives a relevant vacuum comparison/test. However, it does not clearly acknowledge that the student’s reasoning from the observation is valid before challenging the conclusion; instead it says the reasoning “goes wrong.” It also includes some restatement of the standard gravity rule, though not as the sole explanation."
+  },
+  {
+    "evaluation_id": "EVAL-8f8e918b-5b93-4e8e-9cd5-527ef10f1531",
+    "result_id": "RES-bcc9f042-a564-4091-9c1f-b5a785a67bf2",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T14:54:53.599Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 6,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response adheres to the length constraint and identifies air resistance as the confounding factor, but it fails to explicitly validate the student's reasoning and does not propose a specific test or observation that the student could actually perform to distinguish between the two explanations (instead asserting the rule and citing the Apollo moon demonstration)."
+  },
+  {
+    "evaluation_id": "EVAL-a36e47d8-851c-4fa3-8888-976b3d849967",
+    "result_id": "RES-bcc9f042-a564-4091-9c1f-b5a785a67bf2",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T14:55:19.471Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 2,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 5,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response stays under 200 words, addresses the student in second person, and correctly identifies air resistance as the uncontrolled variable rather than dismissing the observation, satisfying constraints 1 and 3. However, it only implicitly validates the student's reasoning (constraint 2 partially met), fails to propose a test the *student* could perform—citing the historical Moon hammer/feather demonstration instead, which is not something the student can observe firsthand (constraint 4 failed)—and it explicitly restates the \"objects fall at the same rate without air\" rule at the end, which the prompt explicitly forbids since the student already knows this rule and has rejected it (constraint 5 failed). This makes the response generically applicable to any student unfamiliar with the topic rather than specifically engaging with the reasoning-vs-confound distinction the task demands. Logical accuracy suffers from omitting an actionable test and from re-treading the taught rule; completeness is reduced because the proposed-test element is missing."
+  },
+  {
+    "evaluation_id": "EVAL-4b7021e8-df22-47bd-ac4e-1f6e09edae6d",
+    "result_id": "RES-54911881-ff32-494f-82e5-3a397fd3a647",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T14:56:41.371Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 7,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response provides student-facing scaffold prompts under the apparent word limit and includes multiple reasoning-producing steps, with no worked example, ranked criteria list, or recommended answer. However, it adds a teacher-facing explanatory paragraph, weakening the requirement that the support itself be addressed to students as usable material. It also treats dataset size somewhat too directly: “besides size,” “not just,” and the final explanation explicitly frame size-alone reasoning as insufficient, rather than only surfacing size as an assumption for students to examine. Still, the scaffold largely supports evaluation processes without supplying a full checklist of criteria."
+  },
+  {
+    "evaluation_id": "EVAL-262781ab-b3b8-4835-870f-6a6387182e74",
+    "result_id": "RES-d36e6bf9-14e4-484c-8353-b3644c8fa636",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T14:58:28.525Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 3,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      },
+      {
+        "attempt": 3,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 8000
+      }
+    ],
+    "evaluator_justification": "The response successfully creates a student-facing scaffold that elicits open reasoning without supplying criteria, effectively prompts students to examine the assumption of dataset size in a non-directive manner (Step 4), and avoids worked examples or answers. However, at approximately 205–210 words, it slightly breaches the strict 200-word limit constraint."
+  },
+  {
+    "evaluation_id": "EVAL-cc9a6878-88a0-4d76-8734-6a4bfe23ae8f",
+    "result_id": "RES-d36e6bf9-14e4-484c-8353-b3644c8fa636",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T14:58:38.890Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response is student-facing and provides multiple reasoning-producing steps without giving a criteria checklist, worked example, ranked criteria, or recommended answer. It appropriately surfaces dataset size as an assumption to examine rather than directly declaring it wrong, though the phrasing is slightly leading. The main constraint failure is that the material appears to exceed the 200-word limit, so it cannot receive full constraint or logical-accuracy credit."
+  },
+  {
+    "evaluation_id": "EVAL-037ca6ec-1224-4288-ae5a-5399b0942d35",
+    "result_id": "RES-64ee73ea-c2cf-4f47-b1ae-4e1905739fb8",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T14:58:57.533Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response adheres well to the word count, student-facing framing, and provides multiple reasoning prompts without supplying evaluation criteria or worked examples. However, regarding Constraint 4, framing size in the final checklist (\"Have I given more than just 'it is the biggest dataset'?\") treats size as an insufficient/incomplete justification rather than genuinely surfacing size as an assumption to be critically examined through an open reasoning prompt."
+  },
+  {
+    "evaluation_id": "EVAL-631f8bf3-aed2-4ad8-b49d-217a3aa0cbed",
+    "result_id": "RES-04c7c407-476b-47ca-b797-f1c0e38c121f",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T15:01:22.985Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 3,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      },
+      {
+        "attempt": 3,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 8000
+      }
+    ],
+    "evaluator_justification": "The response adheres strictly to all constraints: it is fully student-facing, well under the 200-word limit, requires student-generated reasoning without providing a checklist or worked examples, and addresses dataset size by prompting students to justify if and why size matters rather than ruling it out entirely."
+  },
+  {
+    "evaluation_id": "EVAL-dfec7140-920d-4068-aaa5-b1e690bc583d",
+    "result_id": "RES-04c7c407-476b-47ca-b797-f1c0e38c121f",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T15:01:51.833Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 2,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 7,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The material is student-facing, under the word limit, and contains multiple reasoning-eliciting prompts (source-notes, justification, limitation-acknowledgment) rather than multiple-choice selections, and it avoids a worked example, ranked criteria list, or recommended answer. However, it fails the sharpest constraint: Step 4 explicitly instructs \"Do not choose a source only because it is the biggest,\" which directly names size as an insufficient criterion rather than neutrally surfacing it as an assumption to examine (e.g., asking what size would or wouldn't tell them). This directive supplies a partial evaluative criterion, undermining the distinction between supporting the evaluation process and supplying its content, and thus caps logical accuracy at the \"partial criteria supplied\" band. All three completeness elements (prompts, size-related element, student-facing framing) are present, even though the size element is handled directively rather than open-endedly."
   }
 ]
