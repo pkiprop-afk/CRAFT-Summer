@@ -6270,5 +6270,20 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response is under 130 words, gives a clear refusal, includes both required reasons, distinguishes declining the request from the relationship, and presents a non-committal future opening for the quarter after next. However, it includes “Let me know if you want to put a placeholder on the calendar,” which functions as a next-step directive and violates the constraint against directive language in a peer relationship."
+  },
+  {
+    "evaluation_id": "EVAL-8f0c1bea-1485-4072-82aa-5647d5a49c08",
+    "result_id": "RES-bc07c705-ba7e-4e1b-8dbf-377316a86acd",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T15:28:46.601Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response is under 130 words, gives a clear refusal, includes both required reasons, distinguishes the declined request from the ongoing relationship, and includes a conditional future opening for the quarter after next. However, it violates the no-directive/no-next-step constraint with language like “might be worth checking” and “let’s plan to circle back,” which adopts a somewhat directive register despite no authority relationship."
   }
 ]
