@@ -6981,5 +6981,20 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The reply opens with a clear non-confirmation within the first two sentences, stays under the word limit, and explicitly names all three items (18,000 funding, two engineers from 1 September, 12‑month extension) without confirming any of them even conditionally, while keeping the door open for a follow‑up meeting. However, the authority route is only clearly named for the funding item (\"my manager\"); for the staffing and contract items it lapses into vague phrasing (\"appropriate internal approval,\" \"our contract process\") rather than naming a specific manager, leaving the partner without a full route forward for two of the three items. This partial gap weakens constraint 4 and the completeness of the authority identification, though it does not amount to a rejection or a softened partial agreement."
+  },
+  {
+    "evaluation_id": "EVAL-54ae5efe-7b75-40f8-a2ec-94f75ffb2cf4",
+    "result_id": "RES-d7614700-b3f0-4407-a2f7-3fadb37e2036",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T15:47:15.633Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 7,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response is structurally separated, includes the required figures, provides technical cause, and lists concrete follow-up actions addressing the uncovered certificates/provisioning gap. However, it appears to exceed the 300-word limit when including the added framing and explanation, and the first 100 words contain unexplained technical terminology (“expired security certificate”), violating the executive-opening constraint. It also inconsistently states that “two other certificates” pose risk while later saying 3 are uncovered, weakening recurrence-risk accuracy."
   }
 ]
