@@ -8522,5 +8522,42 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response answers the March invoice question in the first sentence and gives the specific settlement date of 4 April within 100 words. However, it violates scope discipline by raising more than one additional matter and specifically introducing the contract renewal and expanded scope pitch, which the constraints explicitly prohibit. While the direct answer is present, the opportunistic additions make it poorly aligned with the client’s stated need."
+  },
+  {
+    "evaluation_id": "EVAL-50ff143c-0fb6-44d4-aaf4-5414f6e68e5f",
+    "result_id": "RES-51c6bd94-88db-46aa-b6ad-861de562d038",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T17:50:32.289Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response perfectly adheres to all constraints by directly answering the March invoice question in the first sentence, including the exact settlement date of 4 April, staying well under the 100-word limit, and completely avoiding any mention of the contract renewal or scope expansion during the quarter close."
+  },
+  {
+    "evaluation_id": "EVAL-0a9935c0-a0d9-4040-8f1a-b77a7d73efbd",
+    "result_id": "RES-51c6bd94-88db-46aa-b6ad-861de562d038",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T17:50:37.590Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The reply answers the March invoice question in the first sentence, explicitly states the settlement date of 4 April, stays within the word limit, and avoids introducing the contract renewal, scope expansion, or any sales pitch. It does not address the other three matters at all, which is permissible since the rubric only caps additions at one flagged item rather than requiring one; omitting extra content is not a violation. The response is concise, direct, and fully aligned with the client's stated need for a yes/no answer at quarter close."
   }
 ]
