@@ -8114,5 +8114,72 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response reports the exact required mean ($116,125) and median ($65,500), correctly implying proper averaging of the two central values to reach 65,500 rather than an incorrect single-value median. It explicitly recommends the median as more representative and justifies this by tying the mean's inflation directly to the founder's $480,000 outlier, without silently discarding that salary from the dataset. All constraints are satisfied, the statistics are accurate, the reasoning is sound and well-connected, and the response is complete with all required elements present."
+  },
+  {
+    "evaluation_id": "EVAL-569c16ff-a7ae-4606-ac45-8f461302a961",
+    "result_id": "RES-a03e690d-0eb5-4616-a7d1-f792c10a44ed",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T17:36:57.197Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response is under 300 words, identifies the departed designer, the company/marketing, and the public audience/reputational context. It separates policy permission from advisability by saying the policy likely allows publication while recommending caution before approval. It also identifies missing facts that could change the recommendation, including jurisdiction-specific moral rights and legal review/attribution issues. It does not collapse the question into ownership alone and gives practical advice beyond the policy text."
+  },
+  {
+    "evaluation_id": "EVAL-abfdbf36-8813-4b21-aa38-b2e6887bfd14",
+    "result_id": "RES-fa37e205-17bb-49dc-98a3-c68c2a903791",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T17:37:05.936Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 7,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response successfully stayed under 300 words, clearly separated the question of policy permission from strategic advisability, and identified multiple affected parties (the company, the designer, and the marketing team/creative community). However, it failed to explicitly identify an unsupplied missing fact that would alter the recommendation (such as whether a separate agreement existed or prior expectations were set), instead making narrative assumptions about the designer's portfolio and departure terms, which costs points across constraint adherence, logical accuracy, and completeness."
+  },
+  {
+    "evaluation_id": "EVAL-7c5005e8-0ebb-4f60-b9c7-ac8392a9a534",
+    "result_id": "RES-fa37e205-17bb-49dc-98a3-c68c2a903791",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T17:37:13.226Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 7,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response is under 300 words, identifies multiple affected parties including the designer, company/brand, marketing, and public/industry audience, and clearly separates policy permission from advisability. It also does not stop at the ownership/policy issue and gives practical advice. However, it fails to explicitly identify a missing fact that would change the recommendation, such as whether the designer was told external publication could occur, whether a separate agreement exists, or jurisdiction-specific moral rights rules as a determinative fact rather than a vague risk. This omission lowers both constraint adherence and completeness."
+  },
+  {
+    "evaluation_id": "EVAL-3f1d34ac-a263-432e-a1ab-503d2c634f61",
+    "result_id": "RES-dac05235-9a7f-4df5-89c0-7a6a3b227d47",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T17:37:24.636Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response adheres to all constraints by staying under 300 words (276 words), identifying multiple affected parties (the company, the designer, marketing, and the public/employees), and structurally separating policy permission from practical advisability. It also identifies relevant unsupplied facts (such as external contract terms and third-party asset licenses) that could alter the recommendation, providing a well-reasoned and complete evaluation."
   }
 ]
