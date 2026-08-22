@@ -4028,5 +4028,129 @@
     "retry_count": 0,
     "retry_log": [],
     "notes": ""
+  },
+  {
+    "result_id": "RES-d6a36732-06b3-4517-b69f-973433d3a240",
+    "task_id": "T033",
+    "task_version": "v1-c23f7fdb4b60e4bc3953c5f7bf029cdd",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T07:43:32.054Z",
+    "raw_model_output": "## the figures\n\n| Measure | Projected effect |\n|---|---:|\n| Patients gaining improved access at the central hospital | 34,000 |\n| Patients losing local access at rural clinics | 2,100 |\n| Average additional travel time for affected rural patients | 65 minutes each way |\n| Affected rural patients without access to a private vehicle | 41% |\n| Annual savings redirected to central hospital capacity | 4.2 million |\n\n## the assessment\n\nThe proposal produces a clear aggregate benefit: a much larger group of patients is expected to gain improved access at the central hospital, supported by a recurring £4.2 million reallocation of resources. On the projected figures, the number of patients benefiting is substantially greater than the number losing local access.\n\nHowever, the adverse effect is concentrated and material. The 2,100 rural patients losing local access would face a significant increase in travel time: around 130 minutes for a round trip before accounting for appointment duration, waiting time, mobility constraints, caring responsibilities, or public transport timetables. This is not a marginal inconvenience.\n\nThe impact is likely to fall hardest on patients with lower mobility, lower incomes, chronic conditions, older patients, and those requiring frequent appointments. The figure that 41% of affected rural patients lack access to a private vehicle is particularly important. For this group, the closure may translate into delayed care, missed appointments, greater reliance on family or community transport, or increased costs to other parts of the health and social care system.\n\nThe distributional issue is therefore central. The proposal improves access for many, but does so by removing local access from a smaller, more geographically isolated group whose ability to substitute central hospital access is constrained. The board should not treat the net patient count alone as sufficient justification. The case is strongest if the central hospital expansion addresses services with demonstrable unmet demand and if credible mitigations are in place for rural patients.\n\n## what would change it\n\nThe assessment would improve if the proposal included specific, funded mitigations for the affected rural patients, such as reliable patient transport, outreach clinics, mobile services, telehealth with local diagnostic support, or retained limited clinic sessions for high-need groups.\n\nIt would also improve if the board had evidence that the expanded central capacity would reduce waiting times, improve outcomes, or address critical bottlenecks for the 34,000 patients, rather than simply increasing activity in general terms.\n\nThe assessment would worsen if the affected rural patients include a high proportion of older, disabled, low-income, or high-frequency service users; if public transport is limited; if the 65-minute additional journey is an average masking much longer travel times for some communities; or if closures would increase non-attendance, emergency admissions, or delayed diagnoses.\n\nThe board should therefore require a full access and equality impact assessment, a transport and mitigation plan, and evidence that the redirected £4.2 million will deliver measurable improvements before approving the closure as presented.",
+    "anonymized_output_id": "OUT-0153",
+    "truncated": false,
+    "reasoning_tokens": 0,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-1fd4f2de-0033-4a97-a134-d604762f7f2a",
+    "task_id": "T033",
+    "task_version": "v1-c23f7fdb4b60e4bc3953c5f7bf029cdd",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T07:43:35.358Z",
+    "raw_model_output": "## Assessment of the proposal\n\nThe proposal has a clear system-wide benefit: closing three rural clinics would release an estimated **$4.2 million annually** to expand capacity at the central hospital, improving access for approximately **34,000 patients**. However, the cost is concentrated on a much smaller and likely more vulnerable group: **2,100 rural patients** who would lose local access, face an average additional travel burden of **65 minutes each way**, and among whom **41% lack access to a private vehicle**.\n\nOn the figures provided, the proposal may improve aggregate service capacity, but it raises significant equity, access, and clinical-risk concerns.\n\n---\n\n## Key benefits\n\n### 1. Improved access for a large patient group\nThe projected benefit applies to **34,000 patients**, which is substantially larger than the **2,100 patients** directly disadvantaged by clinic closures.\n\nIf the central hospital expansion reduces waiting times, increases specialist availability, improves emergency capacity, or enables more reliable services, the benefit could be clinically meaningful.\n\n### 2. Reinvestment rather than simple cost-cutting\nThe proposal redirects **$4.2 million** into expanded hospital capacity rather than removing the funds from the health system. That strengthens the case for the proposal, provided the reinvestment produces measurable improvements.\n\n### 3. Potential service consolidation benefits\nCentralization may improve staffing efficiency, equipment utilization, quality control, and service reliability, particularly if rural clinics are underused or difficult to staff.\n\n---\n\n## Key concerns\n\n### 1. The burden falls heavily on rural patients\nThe affected rural patients would face an average additional journey of **65 minutes each way**, or more than **two additional hours per visit**. For patients needing frequent appointments, chronic disease management, antenatal care, rehabilitation, mental health support, or follow-up care, this could become a serious barrier.\n\nThe burden is not just inconvenience; it may lead to missed appointments, delayed care, poorer disease management, and increased emergency presentations.\n\n### 2. Transport disadvantage is substantial\nThe fact that **41% of affected rural patients lack access to a private vehicle** is highly significant. For these patients, “access” to the central hospital may be theoretical rather than practical unless public, community, or health-service transport is available and reliable.\n\nThis creates an equity issue: the proposal improves access for many while reducing practical access for a smaller, geographically isolated, and transport-disadvantaged group.\n\n### 3. Risk of worsening health inequalities\nRural populations often already face poorer access to healthcare, longer travel times, lower service density, and higher barriers to early intervention. Closing clinics could deepen those inequalities unless mitigations are strong.\n\nThe board should be cautious about approving a proposal that improves overall efficiency while worsening outcomes for a group that may already be underserved.\n\n### 4. The figures do not show clinical impact\nThe figures identify numbers of patients affected and savings generated, but they do not show:\n\n- Which services the rural clinics currently provide.\n- How often affected patients use them.\n- Whether the 2,100 patients include high-need or high-risk patients.\n- Expected changes in missed appointments.\n- Expected impact on emergency admissions.\n- Whether travel time affects urgent, routine, or preventive care.\n- Whether the central hospital has enough capacity to absorb additional demand.\n- Whether the projected $4.2 million savings are net of transition, transport, outreach, or mitigation costs.\n\nWithout this information, the proposal cannot be assessed on financial and access numbers alone.\n\n---\n\n## Quantitative interpretation\n\nA simple comparison suggests:\n\n- **34,000 patients gain improved access**\n- **2,100 patients lose local access**\n- Ratio: approximately **16 patients gaining for every 1 patient losing local access**\n- Annual reinvestment: **$4.2 million**\n- Rural travel burden: **65 minutes each way**\n- Rural patients without private vehicle access: about **861 patients**  \n  — calculated as 41% of 2,100\n\nThis suggests the proposal has a strong aggregate-benefit argument, but the disadvantage is concentrated and potentially severe for around **2,100 people**, especially the roughly **861 patients without private vehicle access**.\n\n---\n\n## Conditions the board should require before approval\n\nThe board should not approve the closure proposal unconditionally. If it proceeds, it should be conditional on a rural access protection plan.\n\nRecommended conditions include:\n\n1. **Transport support**\n   - Funded shuttle services to the central hospital.\n   - Patient transport vouchers or reimbursement.\n   - Non-emergency medical transport for patients without vehicles.\n   - Scheduling support to coordinate appointments with transport availability.\n\n2. **Retention of essential local services**\n   - Maintain some local provision through part-time clinics, nurse-led services, mobile clinics, telehealth hubs, or rotating visiting specialists.\n   - Prioritize services where delay or non-attendance creates high clinical risk.\n\n3. **Impact assessment by patient group**\n   - Identify whether affected patients include older adults, disabled patients, low-income patients, pregnant patients, children, chronic disease patients, or patients needing frequent care.\n\n4. **Clinical risk modelling**\n   - Estimate likely effects on missed appointments, delayed diagnosis, preventable admissions, emergency department use, and continuity of care.\n\n5. **Ringfenced reinvestment**\n   - Ensure the full **$4.2 million** is genuinely redirected to central hospital capacity and not absorbed into general budgets.\n\n6. **Monitoring and review**\n   - Track rural appointment attendance, hospital admissions, travel-related complaints, patient outcomes, and waiting times.\n   - Set a formal review point after 6–12 months.\n   - Include a trigger for service restoration or additional mitigation if rural access deteriorates.\n\n7. **Community consultation**\n   - Engage directly with affected rural communities before final approval.\n   - The board should understand practical transport realities, not just average travel-time figures.\n\n---\n\n## Overall judgement\n\nThe proposal is potentially justified on efficiency and aggregate-benefit grounds, because it could improve access for a much larger number of patients and redirect significant funds into hospital capacity. However, it poses a serious equity problem: a smaller rural population would bear a large and concentrated loss of local access, with a substantial share lacking private transport.\n\nThe board should therefore treat the proposal as **promising but not acceptable in its current form**.\n\nA reasonable recommendation would be:\n\n> Approve the proposal only if accompanied by a robust rural access mitigation plan, including funded transport, retained local or mobile services for high-need care, ringfenced reinvestment of savings, and formal monitoring of rural health outcomes. Without those safeguards, the proposal risks improving headline access while materially worsening care for an already disadvantaged rural population.",
+    "anonymized_output_id": "OUT-0154",
+    "truncated": false,
+    "reasoning_tokens": 34,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-e50849f7-5e97-4e96-a9a3-547a12fc6950",
+    "task_id": "T034",
+    "task_version": "v1-3c20e0960d7adc83ab7382382f991e91",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T07:44:16.992Z",
+    "raw_model_output": "# Generative AI Use Policy — Client-Facing Written Work\n\n**Effective immediately.** This policy governs employee use of generative AI tools (e.g., ChatGPT, Claude, Copilot) when producing reports, proposals, or correspondence for clients.\n\n## Permitted Use\nEmployees may use approved generative AI tools to:\n- Draft or edit client deliverables using only **publicly available information, generic templates, or the employee's own prior work product** that contains no client-confidential data.\n- Improve grammar, tone, structure, or formatting of text that has already been stripped of client-identifying or confidential details.\n- Brainstorm outlines, frameworks, or generic industry content not tied to a specific client engagement.\n\nAll AI-assisted output must be reviewed and substantively edited by the employee before client delivery. The employee remains fully responsible for accuracy and quality.\n\n## Prohibited Use\nEmployees may **not**:\n- Input any client name, proprietary data, financial information, strategy details, or confidential materials into any generative AI tool.\n- Use generative AI tools at all — for any purpose — on work related to the three clients whose contracts contain confidentiality clauses restricting third-party data disclosure. (Current list maintained by the Compliance Lead; check before starting any task for these clients.)\n- Rely on AI output as a final deliverable without human review and editing.\n\n## Disclosure Requirement\nBefore submitting any deliverable that used generative AI assistance, the employee must log the following in the project file:\n1. Tool used\n2. Sections/portions of the deliverable it assisted with\n3. Confirmation that no confidential or client-identifying data was input\n\nViolations must be reported to the Compliance Lead within 24 hours of discovery.",
+    "anonymized_output_id": "OUT-0155",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-886a134c-0dfa-4d40-acfe-f22ea90100ea",
+    "task_id": "T034",
+    "task_version": "v1-3c20e0960d7adc83ab7382382f991e91",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T07:44:25.148Z",
+    "raw_model_output": "# Policy on Generative AI Use in Client-Facing Work\n\n## Permitted Use\n\nEmployees may use approved generative AI tools to draft, edit, or refine client-facing reports, proposals, and correspondence, provided that:\n\n- No client-identifying information, proprietary data, or confidential materials are entered into the tool.\n- Only publicly available or fully anonymised/generic content is used as input.\n- All AI-generated output is reviewed, verified for accuracy, and edited by the responsible employee before inclusion in any deliverable.\n- The employee remains fully accountable for the final content, as if it had been drafted without AI assistance.\n\n## Prohibited Use\n\nEmployees must not:\n\n- Input any data, documents, or information belonging to the following clients into any generative AI tool, under any circumstances: [Client A], [Client B], [Client C]. These clients' contracts contractually prohibit disclosure of their data to third-party services, and AI tools are considered third-party services for this purpose.\n- Upload client names, financial data, personal data, strategy documents, or any non-public client information into any AI tool, regardless of which client is involved.\n- Use AI output in a final deliverable without human review.\n- Use unapproved or personal AI accounts for any work-related drafting.\n\n## Disclosure\n\nBefore submitting any deliverable that used generative AI in its drafting, the employee must record this in the project file, noting which tool was used and confirming that no confidential or client-identifying information was input. Any prior undisclosed use of AI tools on client work must be reported to your manager immediately for review.",
+    "anonymized_output_id": "OUT-0156",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
   }
 ]

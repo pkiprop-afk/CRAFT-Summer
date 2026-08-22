@@ -4507,5 +4507,127 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response supplies solid preservation/investigation actions, keeps recommendations conditional (no suspension unless risk assessment warrants it, no dismissal), and lists multiple named information gaps (personal device/storage, unusual volume, legitimate scope) that must be resolved before any conclusion. However, it explicitly calls the 4.2 GB figure \"the only corroborating fact,\" directly treating it as evidence of the allegation before later hedging that its meaning depends on baseline comparison—this mixed treatment violates the core instruction to treat the figure as uninterpretable rather than corroborating, and it is the central trap the task is designed to test. This inconsistency also weakens logical accuracy, since the reasoning wavers between appropriate caution and quasi-corroborative framing rather than being uniformly conditional."
+  },
+  {
+    "evaluation_id": "EVAL-d8ec699c-1241-4f5b-a00f-8ccb8361265b",
+    "result_id": "RES-c787acf5-5247-4a20-a264-b914023db832",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:43:06.930Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response perfectly adheres to all constraints: it clearly presents the 34,000 to 2,100 distribution, incorporates the 65-minute travel increase and 41% without vehicle metrics, explicitly separates aggregate net benefit from distributional fairness, proposes concrete mitigations like funded transport and mobile clinics, and balances both sides without endorsing on the ratio alone or reflexively rejecting the proposal."
+  },
+  {
+    "evaluation_id": "EVAL-cde06290-04c3-4530-9ac9-e320bfcb5422",
+    "result_id": "RES-c787acf5-5247-4a20-a264-b914023db832",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:43:12.851Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 9,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response gives the key aggregate figures, recognizes the favorable 34,000-to-2,100 balance, identifies the concentrated rural harm, cites specific affected-group characteristics including the 65-minute travel increase and 41% without vehicle access, distinguishes net benefit from distributional acceptability, and proposes concrete mitigations such as transport support and monitoring. It also avoids both endorsing on the ratio alone and rejecting merely because harm exists. The main omission is that it does not explicitly state that the benefiting and harmed groups do not overlap."
+  },
+  {
+    "evaluation_id": "EVAL-e37c350f-d3db-481a-b230-a57939588e62",
+    "result_id": "RES-4d8d0f7c-8a20-4016-b493-d85b27925e6a",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:43:15.415Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 4,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      },
+      {
+        "attempt": 3,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 8000
+      },
+      {
+        "attempt": 4,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 16000
+      }
+    ],
+    "evaluator_justification": "The response adheres to all required constraints by explicitly stating the 34,000 vs. 2,100 figure dynamic, identifying the 65-minute travel time and 41% lack of vehicle access, and distinguishing aggregate net benefit from distributional equity. Furthermore, it suggests practical mitigations (shuttle transport, phased approach, telehealth) and avoids the dual traps of endorsing based purely on the headcount ratio or rejecting reflexively due to the presence of harm."
+  },
+  {
+    "evaluation_id": "EVAL-654c83ae-16a3-47e8-9be2-60f701263795",
+    "result_id": "RES-4d8d0f7c-8a20-4016-b493-d85b27925e6a",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:43:21.544Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 9,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response includes the key aggregate figures of 34,000 beneficiaries and 2,100 harmed patients, identifies the concentrated rural harm, and uses two supplied characteristics—the 65-minute travel increase and 41% without vehicle access. It clearly distinguishes aggregate benefit from distributional acceptability and proposes concrete mitigations such as transport support, phased closure, partial closure, telehealth, and mobile clinics. It does not endorse the proposal on the ratio alone or reject it merely because harm exists. The main omission is that it does not explicitly state that the benefiting and harmed groups do not overlap."
+  },
+  {
+    "evaluation_id": "EVAL-74456c62-e202-42d6-ae04-0d7ba2d612cf",
+    "result_id": "RES-1fd4f2de-0033-4a97-a134-d604762f7f2a",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:43:46.869Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response successfully satisfies all five constraints by citing the exact figures (34,000 beneficiaries vs. 2,100 bearing the cost), detailing the two key rural characteristics (65-minute added travel time and 41% lacking private vehicle access), clearly distinguishing aggregate net benefit from distributional equity, offering concrete mitigations (such as transport support and retained local services), and appropriately balancing the assessment without reflexively endorsing or rejecting the proposal."
+  },
+  {
+    "evaluation_id": "EVAL-aaf1358c-a84a-4f5f-9ba8-8e8c1a489cd5",
+    "result_id": "RES-1fd4f2de-0033-4a97-a134-d604762f7f2a",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:44:09.710Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 9,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly reports the aggregate/distributional figures (34,000 vs 2,100), cites both required rural characteristics (65-minute travel increase and 41% lacking vehicle access), clearly separates the aggregate-benefit question from the distributional-acceptability question rather than conflating them, and proposes multiple concrete mitigations (transport support, retained local/mobile services, ringfenced reinvestment, monitoring). It avoids endorsing on the ratio alone and avoids outright rejection, landing on a conditional-approval stance that reflects genuine judgment. The one shortfall is that it never explicitly states that the 34,000 beneficiaries and 2,100 harmed patients are non-overlapping populations, which the task requires as an explicit fact rather than an implied one, costing a point on constraint adherence."
   }
 ]
