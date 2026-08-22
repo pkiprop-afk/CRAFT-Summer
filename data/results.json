@@ -5733,5 +5733,470 @@
     "retry_count": 0,
     "retry_log": [],
     "notes": ""
+  },
+  {
+    "result_id": "RES-ef633935-dbd4-412f-bf0d-7c7dd5b79b19",
+    "task_id": "T047",
+    "task_version": "v1-dc308b2070acb308b4887fcc3812243f",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T14:43:32.239Z",
+    "raw_model_output": "The project will not deliver on 30 June. The realistic delivery date is 15 August — a six-week slip.\n\nCause: we depend on an external data migration that has not yet been scheduled and sits outside our team's control. Until it's scheduled, we cannot commit to a firm date, but 15 August is our best current estimate based on typical lead times for that migration.\n\nWe examined reducing scope to protect 30 June. It doesn't recover the date — the migration dependency blocks us regardless of scope.\n\nFor Thursday's review, I'd suggest reporting the slip now rather than holding position, with two asks to leadership: first, authority (or support) to escalate scheduling of the external migration, since that's the critical path; second, acknowledgement that 15 August is provisional until that scheduling is confirmed.\n\nI can join Thursday's session if it helps to have the detail firsthand, or send a one-page brief beforehand — let me know which is more useful.",
+    "anonymized_output_id": "OUT-0209",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-94d6a15f-9b69-4648-95d8-55f461e287ae",
+    "task_id": "T047",
+    "task_version": "v1-dc308b2070acb308b4887fcc3812243f",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T14:43:37.440Z",
+    "raw_model_output": "Subject: Project delivery date change\n\nI need to flag a material schedule issue ahead of your executive review on Thursday.\n\nThe project will not deliver on 30 June. The realistic delivery date is now 15 August, a slip of six weeks.\n\nThe cause is an external data migration dependency that has not yet been scheduled and is outside our team’s control. We have reviewed alternatives, including reducing scope, and there is no version of the plan that delivers on 30 June.\n\nFor Thursday, I recommend reporting the project as off-track, with 15 August as the revised forecast date, and calling out the unscheduled external migration as the critical dependency. We should also seek executive help to secure a confirmed migration slot and ownership for that dependency.\n\nI’m available today to walk you through the assessment and the options we examined.",
+    "anonymized_output_id": "OUT-0210",
+    "truncated": false,
+    "reasoning_tokens": 19,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-5ee8d5fc-13e2-4c89-b945-8f1b056797c6",
+    "task_id": "T047",
+    "task_version": "v1-dc308b2070acb308b4887fcc3812243f",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T14:43:40.587Z",
+    "raw_model_output": "The project will not deliver on 30 June. The realistic delivery date is 15 August, a six-week slip.\n\nThe cause is the external data migration dependency. It has not yet been scheduled and sits outside our team’s control. We have reviewed the plan in detail, including scope reduction options, and there is no viable version that delivers on 30 June. Reducing scope does not recover the date because the migration remains on the critical path.\n\nFor Thursday’s executive review, the status should be reported as red, with delivery forecast for 15 August. The key action needed is executive engagement with the external migration owner to secure a confirmed migration date and escalation path. Once that date is confirmed, we can rebaseline the plan and provide a controlled delivery schedule to 15 August.",
+    "anonymized_output_id": "OUT-0211",
+    "truncated": false,
+    "reasoning_tokens": 0,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-5219d20e-4142-4125-a30b-290a2885ae0c",
+    "task_id": "T048",
+    "task_version": "v1-6e2aa27f539d34f73e0a84bc4272722a",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T14:43:44.664Z",
+    "raw_model_output": "- Replacing 14-year-old claims system to meet January external audit deadline; non-compliance costs $40,000/month.\n\n- Budget: $3.1M total, $2.4M spent; go-live slipped from Q1 to Q3, leaving 4 months' margin.\n\n- Progress: only 2 of 5 workstreams complete; vendor has changed account leads twice.\n\n- Staff training has not started; 8-week parallel-run period still planned before go-live.\n\n- Head of claims has raised written concerns twice about training readiness.",
+    "anonymized_output_id": "OUT-0212",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-7b935a52-48e6-4610-ac3a-5b01a28d310c",
+    "task_id": "T048",
+    "task_version": "v1-6e2aa27f539d34f73e0a84bc4272722a",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T14:43:47.993Z",
+    "raw_model_output": "- Project replaces 14-year-old claims system to meet a January audit deadline; non-compliance costs £40,000/month.\n- Budget £3.1m, £2.4m spent; go-live slipped from Q1 to Q3, leaving 4 months' margin before deadline.\n- Progress: two of five workstreams complete; vendor has changed account leads twice, raising delivery risk.\n- Staff training has not started; head of claims has twice raised written concerns about readiness.\n- Eight-week parallel run is planned; training delay could squeeze this buffer and threaten the deadline.",
+    "anonymized_output_id": "OUT-0213",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-066d17f6-12ac-42b0-be68-c9038c3ee452",
+    "task_id": "T048",
+    "task_version": "v1-6e2aa27f539d34f73e0a84bc4272722a",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T14:43:50.331Z",
+    "raw_model_output": "- Replacing 14-year-old claims system to meet January audit requirement; non-compliance risks £40,000 monthly penalty.\n- Budget is £3.1m; £2.4m already spent, with two of five workstreams complete.\n- Go-live slipped from Q1 to Q3, leaving four months’ margin before January deadline.\n- Vendor instability: account lead changed twice, increasing delivery and accountability risk.\n- Staff training has not begun; claims head twice documented concerns about readiness.",
+    "anonymized_output_id": "OUT-0214",
+    "truncated": false,
+    "reasoning_tokens": 15,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-641a619d-d679-4bdf-95d8-9d3b31471ce8",
+    "task_id": "T048",
+    "task_version": "v1-6e2aa27f539d34f73e0a84bc4272722a",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T14:43:52.444Z",
+    "raw_model_output": "- Replaces 14-year-old claims system failing external audit requirements from January; non-compliance penalty is £40,000 monthly.\n- Budget is £3.1m; £2.4m spent to date, with two of five workstreams complete.\n- Go-live slipped from Q1 to Q3, leaving four months’ margin before the January regulatory deadline.\n- Vendor instability is material: account lead changed twice during delivery.\n- Training has not started; Head of Claims twice formally flagged readiness concerns despite planned eight-week parallel run.",
+    "anonymized_output_id": "OUT-0215",
+    "truncated": false,
+    "reasoning_tokens": 0,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-fc88b846-876d-4a9c-bb39-9752dae02cf2",
+    "task_id": "T049",
+    "task_version": "v1-bbabf0b0d6af62aca6a41c71b2aef278",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T14:43:56.298Z",
+    "raw_model_output": "Thanks for the summary, and glad the call was useful.\n\nI want to correct the record before this moves further: none of the three items below were agreed on the call. We discussed the integration work as one possible option, but no decisions were made.\n\n- £18,000 funding for the integration work — not agreed\n- Two data team engineers from 1 September — not agreed\n- 12-month contract extension on current terms — not agreed\n\nMy role lets me commit my own time and schedule meetings, but funding, staffing from other teams, and contract terms all require approval from my manager, and that hasn't happened yet.\n\nI'll raise these three points with my manager and come back to you with a clear answer. Happy to set up a follow-up call in the meantime if useful.",
+    "anonymized_output_id": "OUT-0216",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-95a0d839-43c7-4852-9d0e-58190c013448",
+    "task_id": "T049",
+    "task_version": "v1-bbabf0b0d6af62aca6a41c71b2aef278",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T14:44:00.792Z",
+    "raw_model_output": "Thank you for the summary, and for the productive discussion today. I want to clarify the outcome, as my recollection differs from your note in a few respects.\n\nOn the call, the integration work was raised as one possible option for moving forward, but no commitment was made regarding funding the 18,000 integration cost. Similarly, no agreement was reached to assign data team engineers from 1 September, and no decision was made to extend the contract by 12 months on current terms.\n\nAs project coordinator, I'm not in a position to confirm budget allocations, commit other teams' staff, or agree contract terms—these all require my manager's approval. I'll raise the integration proposal, staffing request, and contract extension with my manager this week and come back to you with a clear response on each point.\n\nI'm happy to schedule a follow-up call once I have that confirmation.",
+    "anonymized_output_id": "OUT-0217",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-019ee38b-39d4-4bb4-ae2d-73d058c71375",
+    "task_id": "T049",
+    "task_version": "v1-bbabf0b0d6af62aca6a41c71b2aef278",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T14:44:03.788Z",
+    "raw_model_output": "Subject: Re: Follow-up from today’s call\n\nThanks for the follow-up. I need to clarify that no commitments were agreed on the call regarding funding the £18,000 integration work, assigning data team engineers, or extending the contract by 12 months on current terms.\n\nThe integration work was discussed as one possible option, but any decisions on budget, staffing, or contract terms require approval from my manager and the relevant teams.\n\nWhat I can do is coordinate the next steps and set up a meeting with the appropriate decision-makers to review the proposal. Please let me know your availability, and I’ll arrange that.",
+    "anonymized_output_id": "OUT-0218",
+    "truncated": false,
+    "reasoning_tokens": 18,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-fd6b74b9-45e4-420b-bbda-d294d2a18aa1",
+    "task_id": "T049",
+    "task_version": "v1-bbabf0b0d6af62aca6a41c71b2aef278",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T14:44:07.088Z",
+    "raw_model_output": "Thank you for the discussion today. I cannot confirm the points as stated, as no funding, staffing, or contract extension commitments were made on the call. We discussed the 18,000 integration work as one option to consider, but funding approval would need to come from my manager. Likewise, any data team resourcing, including assigning two engineers from 1 September, would require the appropriate internal approval, and any 12-month contract extension on current terms would need to be reviewed and approved through our contract process. I can coordinate the next steps by setting up a follow-up meeting with the relevant internal stakeholders to review the option and confirm what can be approved.",
+    "anonymized_output_id": "OUT-0219",
+    "truncated": false,
+    "reasoning_tokens": 0,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-d7614700-b3f0-4407-a2f7-3fadb37e2036",
+    "task_id": "T050",
+    "task_version": "v1-fa88aedabd7001424c8a3cdd380ea01a",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T14:44:25.311Z",
+    "raw_model_output": "Here's a single incident note that leads with the executive-relevant summary (self-contained in the first ~90 words) and follows with full technical detail for engineering:\n\n---\n\n**Incident Report: Authentication Service Outage**\n**Status: Resolved**\n\nOn [date], 1,200 customers were unable to log in for 47 minutes due to an authentication service outage. The issue is fully resolved and all customers can log in normally. The root cause was an expired security certificate; it has been fixed. However, two other certificates share the same underlying gap and pose a similar risk. This is being treated as a priority fix, with corrective work already underway (see follow-up actions below).\n\n**Technical Details**\n\n*Root Cause:* The authentication service's TLS certificate expired. It was not covered by the automated renewal job because it was provisioned outside the standard process, which meant it never entered the renewal job's inventory. The renewal job currently covers 31 of 34 certificates; the 3 uncovered certificates were all added via non-standard provisioning, bypassing registration.\n\n*Resolution:* The expired certificate was manually reissued, restoring service. Total impact: 47 minutes, 1,200 customers affected.\n\n**Follow-Up Actions**\n1. Audit all 34 certificates to confirm status and identify the remaining 2 uncovered certificates. (Owner: TBD, Due: TBD)\n2. Bring all 3 non-standard certificates into the automated renewal job. (Owner: TBD, Due: TBD)\n3. Add a pre-expiry alert (e.g., 14-day warning) for any certificate not yet confirmed as renewal-job-covered, as a safety net. (Owner: TBD, Due: TBD)\n4. Update provisioning process to require renewal-job registration before production sign-off. (Owner: TBD, Due: TBD)\n5. Check for similar non-standard provisioning gaps in other automated infrastructure jobs. (Owner: TBD, Due: TBD)\n\n---\n\n**Why this structure works for both:** Executives get impact, resolution status, and recurrence risk in the opening block—no technical terms required, and it stands alone if they stop reading. Engineers get root cause and concrete, owned action items below, with the \"3 of 34\" detail spelled out precisely rather than summarized. (287 words)",
+    "anonymized_output_id": "OUT-0220",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-ecf5e24e-5896-4838-b8af-b0954f66351d",
+    "task_id": "T050",
+    "task_version": "v1-fa88aedabd7001424c8a3cdd380ea01a",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T14:44:33.004Z",
+    "raw_model_output": "# Incident Note: Authentication Service Outage\n\n## Summary\n\nOn [date], 1,200 customers were unable to log in for 47 minutes. The cause was an expired TLS certificate on the authentication service. The issue is resolved: the certificate was manually reissued and login access was restored for all affected customers. No customer data was compromised.\n\nRecurrence risk: a gap in our certificate renewal coverage allowed this certificate to expire unnoticed. That gap has been identified and is being closed (see Follow-Up Actions below). Until remediation is complete, there is residual risk of a similar expiry on the two remaining uncovered certificates.\n\n## Technical Detail\n\nThe authentication service's TLS certificate expired without renewal. Our automated renewal job covers 31 of 34 certificates across the estate. The expired certificate was one of 3 that fall outside this coverage. These 3 were provisioned outside the standard process, which is why they were never registered with the renewal automation.\n\nResolution was manual: the certificate was reissued and deployed, restoring service after 47 minutes of impact.\n\n## Follow-Up Actions\n\n1. **Immediate (this week):** Manually verify expiry dates on the remaining 2 uncovered certificates; reissue proactively if within 30 days of expiry. Owner: [name].\n2. **Short-term (2 weeks):** Bring all 3 non-standard certificates into the automated renewal job so coverage reaches 34 of 34. Owner: [name].\n3. **Process fix (3 weeks):** Add a provisioning-time check that blocks any new certificate from going live unless it is registered with the renewal system. Owner: [name].\n4. **Monitoring (2 weeks):** Add alerting at 14 and 7 days pre-expiry for all certificates, independent of renewal automation, as a backstop. Owner: [name].\n\nTarget date for full remediation: [date]. A confirmation update will follow once all four items are closed.",
+    "anonymized_output_id": "OUT-0221",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-6ac5725c-0306-439e-8bed-7b7d09162306",
+    "task_id": "T050",
+    "task_version": "v1-fa88aedabd7001424c8a3cdd380ea01a",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T14:44:37.954Z",
+    "raw_model_output": "## Incident Note: Authentication Login Outage\n\n**Executive summary:**  \nToday, 1,200 customers were unable to log in for 47 minutes due to an expired TLS certificate on the authentication service. The incident is resolved. Access was restored by manually reissuing the certificate. Recurrence is possible only if certificates remain outside automated renewal coverage; we have identified the gap and are adding controls to prevent it.\n\n**Technical cause:**  \nThe authentication service depended on a TLS certificate that expired. This certificate was not included in the automated certificate renewal job. The renewal job currently covers 31 of 34 certificates. The 3 uncovered certificates were added outside the standard provisioning process, so they were not registered for renewal.\n\n**Resolution:**  \nEngineering manually reissued the expired TLS certificate and restored authentication service.\n\n**Follow-up actions:**  \n1. Add the 3 uncovered certificates to the automated renewal job.  \n2. Audit all active certificates against the renewal inventory to confirm full coverage.  \n3. Update provisioning controls so new certificates cannot be added outside the standard process without renewal registration.  \n4. Add monitoring and alerting for certificate expiration across all authentication-related services.  \n5. Review whether similar non-standard certificates exist in other customer-facing systems.",
+    "anonymized_output_id": "OUT-0222",
+    "truncated": false,
+    "reasoning_tokens": 23,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-8738ed39-8f32-477a-995e-9c6eb2dcf179",
+    "task_id": "T050",
+    "task_version": "v1-fa88aedabd7001424c8a3cdd380ea01a",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T14:44:43.256Z",
+    "raw_model_output": "## Executive Summary\n\nFor 47 minutes, 1,200 customers could not log in. The outage is resolved. Access was restored after Engineering manually reissued the expired TLS certificate on the authentication service.\n\nThe incident can recur if any certificate remains outside automated renewal. We found that the renewal job covered 31 of 34 certificates; the 3 uncovered certificates were added outside the standard provisioning process. Those certificates are now being brought under automated renewal, and provisioning controls are being updated to prevent unmanaged certificates.\n\n## Impact\n\n- Duration: 47 minutes\n- Affected users: 1,200 customers\n- Customer-facing effect: customers could not log in\n- Service affected: authentication\n- Current status: resolved\n\n## Technical Cause\n\nThe authentication service TLS certificate expired. The automated certificate renewal job did not renew it because the certificate was not included in the job’s managed inventory.\n\nThe renewal job currently covers 31 of 34 certificates. The 3 uncovered certificates, including the authentication service certificate, were created outside the standard provisioning process and were not registered for automated renewal.\n\n## Resolution\n\nEngineering manually reissued the expired TLS certificate and restored authentication service operation.\n\n## Follow-up Actions\n\n1. Add the 3 uncovered certificates to the automated renewal job.\n2. Audit all environments for certificates not registered in the renewal inventory.\n3. Block or alert on certificate creation outside the standard provisioning process.\n4. Add monitoring for certificate expiry with escalation before service impact.\n5. Update the provisioning runbook so certificate registration in the renewal job is mandatory.\n6. Review ownership for certificate inventory and renewal coverage.",
+    "anonymized_output_id": "OUT-0223",
+    "truncated": false,
+    "reasoning_tokens": 0,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
   }
 ]
