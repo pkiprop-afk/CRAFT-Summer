@@ -3808,5 +3808,45 @@
     "retry_count": 0,
     "http_status": 200,
     "message": "provider stopped at its token limit (stop_reason \"max_tokens\") before emitting any text — the output budget is too small for this prompt"
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0188",
+    "recorded_at": "2026-08-22T15:15:30.882Z",
+    "outcome": "exhausted",
+    "retry_count": 4,
+    "http_status": null,
+    "message": "All 5 attempts failed. Last: 503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing"
+  },
+  {
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0188",
+    "recorded_at": "2026-08-22T15:15:39.317Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0189",
+    "recorded_at": "2026-08-22T15:15:42.624Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0189",
+    "recorded_at": "2026-08-22T15:15:52.476Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
   }
 ]

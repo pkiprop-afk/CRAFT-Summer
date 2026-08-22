@@ -5917,5 +5917,50 @@
       }
     ],
     "evaluator_justification": "The response adheres to all instructions and negative constraints: it stays under 180 words (168 words), addresses the student directly, references Criteria A through D by name with specific reasons for each mark, correctly treats Criterion C as a structural omission rather than poor effort/execution, provides a concrete additive next step for Criterion C, and avoids personal judgments or debates on the topic."
+  },
+  {
+    "evaluation_id": "EVAL-0de92f91-52c6-4156-a01b-9c522cd74d43",
+    "result_id": "RES-3575818d-6c0f-427a-9157-c035a6f15758",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T15:15:39.330Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly states up front that the brief cannot be met literally, shows the core arithmetic that 28 × 3 minutes = 84 minutes, avoids pretending a 40-minute whole-class plan works, distinguishes some fixed constraints from trade-offs, and offers multiple alternative structures. However, it does not explicitly show the required comparison of 84 minutes against the 30 minutes available after the fixed 5-minute introduction and 5-minute plenary, which is a specified constraint. Its proposed compromise is transparent about relaxing requirements rather than silently dropping them."
+  },
+  {
+    "evaluation_id": "EVAL-77fa2d43-694b-43fd-b799-c628b9c2103a",
+    "result_id": "RES-2de59ddf-7f1c-40de-88ee-47965006cec1",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T15:15:42.633Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response perfectly satisfies all instructions: it opens by explicitly stating the brief is impossible as written, calculates the exact arithmetic shortfall (84 minutes needed vs 30 minutes available before feedback), distinguishes fixed constraints from negotiable trade-offs, provides three distinct alternatives naming their relaxed requirements, and presents an adapted plan that clearly acknowledges which constraints have been compromised rather than falsely claiming to meet all initial requirements."
+  },
+  {
+    "evaluation_id": "EVAL-3a3787f2-68b4-49e3-915b-5cbe348d149d",
+    "result_id": "RES-2de59ddf-7f1c-40de-88ee-47965006cec1",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T15:15:52.489Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response explicitly states at the outset that the brief cannot be satisfied as written, shows the key arithmetic correctly, and explains that 84 minutes of presentation time alone exceeds the 30 minutes available after the fixed introduction and plenary. It does not falsely present a 40-minute plan satisfying all original requirements; instead it clearly identifies relaxed requirements in the proposed option and offers multiple alternatives, including shorter presentations and spreading presentations across lessons. It also distinguishes fixed elements from trade-offs sufficiently for the benchmark criteria, while preserving the impossibility finding."
   }
 ]
