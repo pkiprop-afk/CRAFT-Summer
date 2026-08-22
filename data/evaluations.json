@@ -6115,5 +6115,57 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response explicitly states the 11-point mean difference, identifies both the teaching approach and the assessment format (multiple-choice to written extended-response) as concurrent changes, clearly distinguishes \"scores fell\" from \"the teaching approach caused the fall,\" explicitly states the data cannot separate the two confounds, and proposes multiple concrete discriminating tests (common assessment, overlapping items, moderation, controlling for cohort differences). It also correctly refuses to endorse either reverting the new approach or declaring it a success, instead calling for further investigation. It even notes the differing cohort sizes (210 vs 198) as an aside, though it does not elaborate on this as a confound—this is a minor missed opportunity but not a required constraint. All required elements are satisfied thoroughly and accurately."
+  },
+  {
+    "evaluation_id": "EVAL-ad51f2fe-5800-4bdd-8aa8-96737cf00cc1",
+    "result_id": "RES-44e3eb1f-eb83-4718-a11b-b31e7d6fe106",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T15:22:01.938Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response states the 11-point mean difference, explicitly names the assessment-format change (multiple-choice vs. extended-response) as a second, distinct explanatory variable alongside the teaching change, and clearly separates the descriptive question (\"did scores fall?\") from the causal question (\"did the teaching approach cause it?\"), stating outright that the data cannot disentangle the two. It proposes several concrete discriminating tests (common anchor items, parallel groups, same-assessment comparison, pre/post measures), satisfying the evidence requirement multiple times over. It also avoids both forbidden conclusions—neither endorsing reversion nor declaring the new approach effective—and even notes the cohort-size difference as a secondary observation. All rubric constraints, logical requirements, and completeness criteria are fully satisfied."
+  },
+  {
+    "evaluation_id": "EVAL-c7e3de48-b925-49f3-824c-533166bec9fe",
+    "result_id": "RES-8542211d-de26-486d-81c2-eaffa7c1b30e",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T15:22:20.278Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response perfectly adheres to all constraints: it stays well under the 120-word limit, immediately opens with the ask and deadline without preliminary context, includes all three required figures (4 outages vs. 1 max, 12% cost increase, 3-week migration), clearly lays out both options with a recommendation while leaving the final choice to the director, and explicitly states the consequence of non-action (automatic renewal on the 30th for 12 months)."
+  },
+  {
+    "evaluation_id": "EVAL-561a5d2f-830e-41de-ba7b-3bb0e4abb957",
+    "result_id": "RES-8542211d-de26-486d-81c2-eaffa7c1b30e",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T15:22:35.192Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 6,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The message is under 120 words and opens with the ask, and it includes both options plus all three required figures. However, the actual decision deadline (“Friday the 25th”) is not within the first two sentences, and the no-response consequence is only implied through auto-renewal rather than explicitly stated as “if you do not respond.” It also leans toward asking for approval rather than clearly presenting a recommendation while leaving the decision with the director."
   }
 ]
