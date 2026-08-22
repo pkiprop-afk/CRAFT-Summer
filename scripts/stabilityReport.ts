@@ -86,12 +86,36 @@ function main(): void {
   const overall = complete.map((c) => popSd(c.scores));
   console.log(`\nMEAN WITHIN-CELL SD (complete cells, n=${complete.length}):  ${mean(overall).toFixed(3)}`);
 
+  // C2 — by model: the two run under different decoding regimes (Claude
+  // unpinned, GPT pinned at temperature 1.0), so their run-to-run behaviour is
+  // not expected to match and must not be pooled silently.
+  console.log("  by model (different decoding regimes):");
   for (const model of [...new Set(rows.map((c) => c.model))].sort()) {
     const ms = complete.filter((c) => c.model === model).map((c) => popSd(c.scores));
     console.log(
-      `  ${model.padEnd(22)} mean within-cell SD ${mean(ms).toFixed(3)}  ` +
-        `(n=${ms.length} cells)`
+      `    ${model.padEnd(22)} mean within-cell SD ${mean(ms).toFixed(3)}  (n=${ms.length} cells)`
     );
+  }
+
+  // C4 — by condition: if CRAFT output varies more run-to-run than baseline,
+  // that is a finding about the framework, not just noise.
+  console.log("  by condition:");
+  for (const condition of ["baseline", "craft"]) {
+    const cs = complete.filter((c) => c.condition === condition).map((c) => popSd(c.scores));
+    console.log(
+      `    ${condition.padEnd(22)} mean within-cell SD ${mean(cs).toFixed(3)}  (n=${cs.length} cells)`
+    );
+  }
+  console.log("  by model x condition:");
+  for (const model of [...new Set(rows.map((c) => c.model))].sort()) {
+    for (const condition of ["baseline", "craft"]) {
+      const cs = complete
+        .filter((c) => c.model === model && c.condition === condition)
+        .map((c) => popSd(c.scores));
+      console.log(
+        `    ${model.padEnd(22)} ${condition.padEnd(10)} ${mean(cs).toFixed(3)}  (n=${cs.length})`
+      );
+    }
   }
 
   const zeroSpread = complete.filter((c) => Math.max(...c.scores) === Math.min(...c.scores));
@@ -100,10 +124,50 @@ function main(): void {
     : 0;
   console.log(`\ncells with zero spread: ${zeroSpread.length}/${complete.length}`);
   console.log(`largest spread in any cell: ${maxSpread}`);
+  // C5 — SDs above are computed from PRIMARY scores only. Any extended-budget
+  // judging touched secondaries alone and is reported here, outside the
+  // variance computation.
+  const attempts = readJson<
+    Array<{ message?: string; anonymized_output_id?: string; evaluator_model?: string }>
+  >("eval_attempts.json", []);
+  const extendedTokens = new Set(
+    attempts
+      .filter((a) => (a.message ?? "").includes("extended budget"))
+      .map((a) => a.anonymized_output_id)
+  );
+  const affected = stability.filter((r) => extendedTokens.has(r.anonymized_output_id));
   console.log(
-    `\nCONTEXT: the main-study paired delta is -0.30. A mean within-cell SD ` +
-      `above that value means a single run's score moves more from sampling ` +
-      `noise than the average CRAFT effect — judge the delta against this.`
+    `\nEXTENDED-BUDGET NOTE (C5): ${affected.length} stability run(s) had their SECONDARY ` +
+      `judged at an extended budget after a judge truncation.`
+  );
+  if (affected.length > 0) {
+    for (const r of affected) {
+      console.log(`  ${r.task_id} / ${r.model_name} / ${r.prompt_condition} / run ${r.run_number}`);
+    }
+    console.log(
+      "  These are secondary-only and are EXCLUDED from every SD above, which uses\n" +
+        "  primary scores exclusively."
+    );
+  }
+
+  // C3 — the comparison that matters.
+  const MAIN_DELTA = -0.3;
+  const meanSd = mean(overall);
+  console.log(
+    `\nC3 — EFFECT vs NOISE:\n` +
+      `  main-study paired delta (pooled)   ${MAIN_DELTA.toFixed(2)}\n` +
+      `  mean within-cell SD (this subset)  ${meanSd.toFixed(3)}\n` +
+      `  ratio |delta| / SD                 ${(Math.abs(MAIN_DELTA) / meanSd).toFixed(2)}`
+  );
+  console.log(
+    meanSd >= Math.abs(MAIN_DELTA)
+      ? `  VERDICT: the average CRAFT effect is SMALLER than run-to-run noise on a\n` +
+          `  single cell. A one-run-per-cell design cannot resolve an effect this size\n` +
+          `  at the cell level; the pooled effect survives only because n=100 pairs\n` +
+          `  averages that noise down.`
+      : `  VERDICT: the average CRAFT effect is LARGER than run-to-run noise on a\n` +
+          `  single cell, so the observed delta is not attributable to sampling\n` +
+          `  variation alone.`
   );
   console.log("=".repeat(88));
 }

@@ -1,93 +1,15 @@
 [
   {
-    "task_id": "T034",
-    "prompt_condition": "baseline",
-    "producing_model": "gpt-5.5-2026-04-23",
-    "response_chars": 1825,
-    "diagnostic_budget": 4000,
-    "diagnostic_stop_reason": "max_tokens",
-    "diagnostic_thinking": "",
-    "fill_budget": 12000,
-    "fill_stop_reason": "end_turn",
-    "fill_thinking": "",
-    "fill_text": "Constraint adherence: 2/4\nLogical accuracy: 3/4\nCompleteness: 2/2\nTotal: 7/10\nJustification: The policy is close to the 250-word limit, has all three headed sections, gives concrete, testable permitted uses (outlining, grammar edits, template generation) and prohibited uses (uploading confidential data without written approval, unreviewed AI deliverables, personal AI accounts), and specifies a full disclosure chain (employee → project lead, trigger: before sending AI-assisted client materials; project lead → client, trigger: contract requirement). However, it fails two constraints: it never states a scope limitation or a \"seek guidance\" condition, presenting itself as exhaustive, and its treatment of the three confidentiality-clause clients is only a vague \"applies especially\" remark rather than a distinct, unambiguous obligation different from the general written-approval exception—this still requires interpretation. These two gaps keep constraint adherence at 2/4 and cap logical accuracy at 3/4 despite the otherwise specific, rule-based drafting; completeness is full since each section contains substantive, non-empty content."
-  },
-  {
-    "task_id": "T034",
+    "task_id": "T050",
     "prompt_condition": "craft",
     "producing_model": "gpt-5.5-2026-04-23",
-    "response_chars": 2023,
+    "response_chars": 1965,
     "diagnostic_budget": 4000,
     "diagnostic_stop_reason": "max_tokens",
     "diagnostic_thinking": "",
     "fill_budget": 12000,
     "fill_stop_reason": "end_turn",
     "fill_thinking": "",
-    "fill_text": "Constraint adherence: 1/4\nLogical accuracy: 2/4\nCompleteness: 2/2\nTotal: 5/10\nJustification: The policy is reasonably specific in its permitted/prohibited rules (e.g., \"may use for drafting, summarising non-confidential material,\" \"must not enter confidential client information\") and avoids the classic \"use responsibly\" trap for most clauses, but it fails several explicit constraints: it runs to roughly 268 words, exceeding the 250-word cap; the disclosure section never names a specific discloser or recipient (it mentions an \"internal file note\" and vague \"client disclosure... where required\" without specifying who tells whom what); it never distinguishes the three confidentiality-clause clients from other clients, instead using a generic \"any client whose contract prohibits disclosure\" clause; and it includes no acknowledged gap or condition under which staff should seek further guidance, presenting itself as exhaustive. These failures (word limit, disclosure chain specificity, client-specific treatment, and gap acknowledgment) place it in the mid-low range for logical accuracy despite full section coverage and generally concrete rule-writing."
-  },
-  {
-    "task_id": "T040",
-    "prompt_condition": "baseline",
-    "producing_model": "gpt-5.5-2026-04-23",
-    "response_chars": 888,
-    "diagnostic_budget": 4000,
-    "diagnostic_stop_reason": "end_turn",
-    "diagnostic_thinking": "",
-    "fill_budget": 12000,
-    "fill_stop_reason": "end_turn",
-    "fill_thinking": "",
-    "fill_text": "Constraint adherence: 2/4\nLogical accuracy: 2/4\nCompleteness: 1/2\nTotal: 5/10\nJustification: The scaffold is student-facing, within the word limit, and includes multiple genuine reasoning prompts (justify choice, compare rejected sources, defend against disagreement), satisfying constraints 1, 2, and 5 (no worked example, recommended answer, or ranked criteria list appears). However, it fails the sharpest requirement (constraint 4) and, relatedly, constraint 3: the final self-check item explicitly states students must give \"more than just 'it is the biggest dataset' or 'it has the most information'\"—this directly names size/volume as an insufficient criterion rather than surfacing it as an assumption to be examined, resolving the exact issue the activity is meant to develop. This turns part of the \"before submitting\" checklist into a supplied evaluative criterion, undermining the independent determination the task requires. Because this failure sits precisely at the rubric's identified trap, both constraint adherence and logical accuracy are markedly reduced, and completeness is docked for the size-assumption element not meeting its required non-resolving form."
-  },
-  {
-    "task_id": "T041",
-    "prompt_condition": "baseline",
-    "producing_model": "gpt-5.5-2026-04-23",
-    "response_chars": 1123,
-    "diagnostic_budget": 4000,
-    "diagnostic_stop_reason": "max_tokens",
-    "diagnostic_thinking": "",
-    "fill_budget": 12000,
-    "fill_stop_reason": "end_turn",
-    "fill_thinking": "",
-    "fill_text": "Constraint adherence: 3/4\nLogical accuracy: 3/4\nCompleteness: 2/2\nTotal: 8/10\nJustification: The response stays under the word limit, speaks directly to the student, and touches on all four criteria (claim, evidence, counterargument, mechanics), giving concrete reasons for the marks on evidence, counterargument, and mechanics rather than merely restating scores. It correctly frames Criterion C as a structural omission (\"the essay does not include an opposing view\") rather than weak execution, and it offers an additive next step (add an opposing perspective, then rebut it). However, in illustrating that step it introduces a substantive example about remote work (\"remote work can increase productivity by reducing commute time or distractions\") and frames the rebuttal as proving the student's argument \"still stronger,\" which edges into commenting on the merits of the essay's position on remote work—something the rubric prohibits. This partial lapse costs a point on constraint adherence and slightly undermines logical accuracy, since the feedback should have stayed purely structural. Completeness is full, as all four criteria, supporting reasons, and the Criterion C action step are present."
-  },
-  {
-    "task_id": "T041",
-    "prompt_condition": "craft",
-    "producing_model": "gpt-5.5-2026-04-23",
-    "response_chars": 1046,
-    "diagnostic_budget": 4000,
-    "diagnostic_stop_reason": "end_turn",
-    "diagnostic_thinking": "",
-    "fill_budget": 12000,
-    "fill_stop_reason": "end_turn",
-    "fill_thinking": "",
-    "fill_text": "Constraint adherence: 4/4\nLogical accuracy: 4/4\nCompleteness: 2/2\nTotal: 10/10\nJustification: The response stays under the word limit, addresses the student directly throughout, and names all four criteria (A–D) with specific, criterion-tied reasons (clear thesis for A, two connected studies for B, missing rebuttal for C, clean mechanics/incomplete citations for D). It correctly frames Criterion C as a structural omission (\"the essay does not state or answer an opposing view... no marks could be awarded\") rather than as weak or careless work, satisfying the key discriminator. It also provides a concrete additive next step for C—include a stated counterargument (e.g., fewer interruptions, more flexibility) and respond to it with reasoning or evidence—rather than a vague exhortation to improve. The feedback avoids any language about the student's effort, ability, or attitude, and refrains from asserting a position on remote work's actual productivity effects, only describing the essay's stance and needed structural content. All five constraint elements, the logical distinctions required, and the completeness requirements (four criteria, reasons, and next step) are fully met."
-  },
-  {
-    "task_id": "T042",
-    "prompt_condition": "baseline",
-    "producing_model": "gpt-5.5-2026-04-23",
-    "response_chars": 2724,
-    "diagnostic_budget": 4000,
-    "diagnostic_stop_reason": "end_turn",
-    "diagnostic_thinking": "",
-    "fill_budget": 12000,
-    "fill_stop_reason": "end_turn",
-    "fill_thinking": "",
-    "fill_text": "Constraint adherence: 4/4\nLogical accuracy: 3/4\nCompleteness: 2/2\nTotal: 9/10\nJustification: The response leads with an explicit impossibility statement, then shows the required arithmetic (28×3=84 vs. 30 minutes available after the 5+5 fixed blocks) before any plan is given, satisfying the core ordering and math requirements. It offers three alternative structures (group presentations with shortened time, extending the lesson, splitting across multiple lessons), each explicitly naming what requirement is relaxed, and it avoids presenting any 40-minute plan that falsely claims to satisfy all four original requirements—Option 1 explicitly flags what it fails to meet. The main shortfall is that it never explicitly separates \"fixed by the brief\" versus \"planner's to trade off\" as a distinct analytical step; this distinction is only implied through the options' captions rather than stated directly, which is why logical accuracy falls short of a perfect score despite otherwise rigorous reasoning."
-  },
-  {
-    "task_id": "T044",
-    "prompt_condition": "baseline",
-    "producing_model": "gpt-5.5-2026-04-23",
-    "response_chars": 446,
-    "diagnostic_budget": 4000,
-    "diagnostic_stop_reason": "end_turn",
-    "diagnostic_thinking": "",
-    "fill_budget": 12000,
-    "fill_stop_reason": "end_turn",
-    "fill_thinking": "",
-    "fill_text": "Constraint adherence: 4/4\nLogical accuracy: 4/4\nCompleteness: 2/2\nTotal: 10/10\nJustification: The message opens directly with the ask and deadline (“Please reply ‘Approve cancellation’ by EOD Friday…before the 30th”), satisfying the no-context-first rule and the first-two-sentence requirement. All three required figures (4 outages vs. max 1, 12% cost increase, 3-week migration) are included accurately. It offers a clear recommendation (“Recommended action: cancel now…”) while still framing the final call as the director’s (“Decision needed: approve cancellation…”), correctly balancing recommendation with autonomy. The consequence of inaction—automatic renewal for another 12 months—is explicitly stated. The message is concise (73 words), well within the 120-word limit, and hits every rubric element with no material omissions."
+    "fill_text": "Constraint adherence: 3/4\nLogical accuracy: 3/4\nCompleteness: 2/2\nTotal: 8/10\nJustification: The response includes all four required figures, uses clear headings to separate executive and technical content, and provides multiple concrete follow-up actions addressing the 3 uncovered certificates and the provisioning gap. However, the opening \"Summary\" section—meant for the non-technical executive reader—introduces unexplained technical terms (\"TLS certificate,\" \"manually reissued,\" \"automated renewal job\") within the first 100 words, violating constraint 5 (and undermining the spirit of constraint 1's audience separation). This leak of technical detail into the executive-facing opening is exactly the failure mode the rubric flags as capping logical accuracy at 2–3 rather than 4. The document otherwise correctly and honestly states residual recurrence risk (avoiding the trap of claiming full prevention) and includes all three required components (executive summary, technical cause, follow-up action), earning full completeness credit."
   }
 ]
