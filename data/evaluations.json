@@ -8751,5 +8751,20 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The message opens with a clean, unambiguous statement of the slip, both dates, and the 6‑week magnitude, and explicitly notes that scope reduction was examined and does not recover 30 June, closing off the sponsor’s likely first move. However, the final sentence—\"the end‑to‑end delivery date cannot be brought back to 30 June without that external activity being completed earlier\"—reintroduces a conditional framing that contradicts the earlier definitive closure (\"no credible version recovers the 30 June date\"), creating a reading in which 30 June could still be salvaged if the dependency were expedited. This subtly violates the \"no softening\" requirement and slightly undermines the otherwise firm, well-structured, and complete message."
+  },
+  {
+    "evaluation_id": "EVAL-1ff95d8d-04fd-4e33-8340-0dae1bb937bc",
+    "result_id": "RES-e22fc85e-df82-4789-91c8-69a933600987",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T17:58:18.368Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 7,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response is structurally separated, includes all four required figures, clearly states impact/resolution/recurrence risk, and provides concrete follow-up actions addressing the 3 uncovered certificates and provisioning gap. However, it likely exceeds 300 words, and the executive-facing opening uses unexplained technical terminology within the first 100 words, including “expired TLS certificate” and “automated renewal system,” which violates a key constraint. Logical accuracy is otherwise strong, with honest residual risk and a clear technical cause."
   }
 ]
