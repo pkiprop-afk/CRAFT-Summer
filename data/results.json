@@ -4927,5 +4927,160 @@
     "retry_count": 0,
     "retry_log": [],
     "notes": ""
+  },
+  {
+    "result_id": "RES-04c7c407-476b-47ca-b797-f1c0e38c121f",
+    "task_id": "T040",
+    "task_version": "v1-7931538660a40975cdadedc2cb5e94d2",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T14:39:34.984Z",
+    "raw_model_output": "**Choosing and Justifying a Data Source**\n\n1. Read the research question twice. Underline the part that tells you what the answer must be about.\n\n2. Look at each of the three data sources. For each one, write one short note:\n   - Source A could help because __________.\n   - Source B could help because __________.\n   - Source C could help because __________.\n\n3. Choose the one source you think is the best match for answering the research question.\n\n4. Do not choose a source only because it is the biggest. If size matters to your choice, explain why it matters for this question.\n\n5. Write your answer in this format:\n\n   **I choose Source ___ because __________.**\n\n   **This source is a better choice than the others because __________.**\n\n   **One possible limitation of my choice is __________, but I still think it is the best option because __________.**\n\n6. Before submitting, check that your explanation includes a reason, not just a choice.  \n   A complete answer should make clear why your chosen source helps answer the research question.",
+    "anonymized_output_id": "OUT-0183",
+    "truncated": false,
+    "reasoning_tokens": 46,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-b79f11b1-d860-4ff1-bbb9-97cb91e80cd1",
+    "task_id": "T041",
+    "task_version": "v1-f1d864124200beb165f862f2091077ac",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T14:39:40.348Z",
+    "raw_model_output": "Here's your feedback:\n\n---\n\nGreat work overall on this essay about remote work and productivity! Your position is clear and stays consistent throughout, which is exactly what Criterion A calls for—well done there (4/4).\n\nFor your evidence (3/4), you did well citing two studies and connecting them to your claim. To strengthen this further, make sure every connection is explained rather than just stated—one of your links between a source and your argument needed more explicit reasoning to fully convince the reader.\n\nThe biggest gap is Criterion C: your essay doesn't address any opposing viewpoint (0/4). Even a strong argument benefits from acknowledging a counterargument and explaining why your position still holds. Adding a paragraph that raises a reasonable objection (e.g., studies showing remote work *increases* productivity in some contexts) and rebuts it would significantly strengthen your essay.\n\nYour mechanics are solid (3/3)—clean spelling and grammar. Just remember to include page numbers in all your citations for full accuracy.\n\nFocus next time on building in that counterargument—it's the easiest way to boost your score!",
+    "anonymized_output_id": "OUT-0184",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-1fabb5e0-2391-4e46-98f1-4b40d7e4402c",
+    "task_id": "T041",
+    "task_version": "v1-f1d864124200beb165f862f2091077ac",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T14:39:45.948Z",
+    "raw_model_output": "Overall this is a solid piece of work with clear strengths and one significant gap to address.\n\n**Claim (4/4):** Your position that remote work reduces productivity is clearly stated and maintained consistently throughout — well done.\n\n**Evidence (3/4):** You cite two studies, which meets the basic requirement, and one is well connected to your claim. However, the second connection is asserted rather than explained — you need to spell out *how* the evidence supports your argument, not just state that it does.\n\n**Counterargument (0/4):** This is the area needing the most attention. No opposing view appears anywhere in the essay. A strong argumentative essay must acknowledge at least one credible counterpoint and then respond to it; without this, your essay reads as one-sided and misses a full quarter of the available marks.\n\n**Mechanics (3/4):** Your spelling and grammar are clean, which is great, but two citations are missing page numbers. Tighten up your citation formatting to ensure full accuracy.\n\n**Priority for revision:** add a counterargument and rebuttal, and strengthen the weaker evidence connection.",
+    "anonymized_output_id": "OUT-0185",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-0e672559-9445-487c-b880-7f771819a1c1",
+    "task_id": "T041",
+    "task_version": "v1-f1d864124200beb165f862f2091077ac",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T14:39:50.068Z",
+    "raw_model_output": "You present a clear, consistent claim that remote work reduces productivity, and you maintain that position throughout the essay. Your use of evidence is strong overall: you cite two relevant studies and connect both to your argument. To improve, make sure each piece of evidence is fully explained rather than simply asserted—show exactly how the study supports your point.\n\nThe main area to address is the counterargument. The essay does not include an opposing view, so you lost the marks for that criterion. In your revision, add a perspective someone might reasonably hold, such as the idea that remote work can increase productivity by reducing commute time or distractions. Then respond to that view and explain why your argument is still stronger.\n\nYour mechanics are very good, with clean spelling and grammar. However, check your citation format carefully: two citations are missing page numbers. Adding those will make your sourcing more complete and polished. Overall, this is a focused essay with a strong claim; adding a counterargument and strengthening explanation of evidence will improve it significantly.",
+    "anonymized_output_id": "OUT-0186",
+    "truncated": false,
+    "reasoning_tokens": 0,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-e7b27e99-e455-4536-bbc4-7558170845b5",
+    "task_id": "T041",
+    "task_version": "v1-f1d864124200beb165f862f2091077ac",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T14:39:56.183Z",
+    "raw_model_output": "Your claim is clear and consistently maintained, so Criterion A is fully met: the essay takes a definite position that remote work reduces productivity and does not drift from it. For Criterion B, you cite two relevant studies and connect both to your argument, earning strong credit. To reach full marks, strengthen the weaker connection by explaining how the evidence proves reduced productivity rather than simply asserting that it does. Criterion C is the major missing element: the essay does not state or answer an opposing view. You needed to include a reasonable counterargument, such as the view that remote work can increase productivity through fewer interruptions or better flexibility, and then respond to it using reasoning or evidence. Without this, no marks could be awarded for that criterion. For Criterion D, your spelling and grammar are clean, and the essay is easy to read. Your citation format is mostly effective, but two citations lack page numbers, so make sure all required citation details are complete in future work.",
+    "anonymized_output_id": "OUT-0187",
+    "truncated": false,
+    "reasoning_tokens": 0,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
   }
 ]
