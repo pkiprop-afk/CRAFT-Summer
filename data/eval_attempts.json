@@ -4718,5 +4718,15 @@
     "retry_count": 3,
     "http_status": 200,
     "message": null
+  },
+  {
+    "recorded_at": "2026-08-22T16:19:54.335Z",
+    "evaluator_model": "claude-sonnet-5",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0157",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": "post-run remedy: evaluated at extended budget 12000"
   }
 ]
