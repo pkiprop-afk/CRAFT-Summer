@@ -4883,5 +4883,371 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response exceeds the 300-word limit (~309 words), which is a clear failure of the word-count constraint, but it otherwise names three distinct parties (designer, company, marketing/HR-legal), addresses both the policy-permission and advisability questions in separate paragraphs, flags concrete missing facts (employment/IP agreements, portfolio-use terms), and goes well beyond a bare \"company owns the work\" answer. Its main weakness is that the opening line (\"Yes, the company can proceed…\") partially conflates the permission and advisability questions rather than explicitly framing them as two separate inquiries, slightly undercutting the required distinction, though the body of the answer does substantively separate the two considerations."
+  },
+  {
+    "evaluation_id": "EVAL-d17595df-8c85-4523-ba95-b79314ea4909",
+    "result_id": "RES-03272bae-f0e8-40cc-b083-432d080e2bcc",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T13:36:10.733Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response clearly names Option A as the recommendation in a single sentence, gives multiple concrete costs (reputational/scientific risk, follow-through burden, precedent-setting), and offers an implicit reversal condition (the acceptability rests on the error being \"identified, non-fraudulent, quantitatively limited, transparently disclosed, and correctable,\" implying reversal if any of these fail). However, it never explicitly separates the misconduct question from the advisability question—it only notes the duplication is \"not a case of fabrication\" without framing these as two distinct analytical questions, so the required distinction is only partially present. This causes a one-constraint deduction and caps logical accuracy at 3/4 per the rubric's guidance for a committed recommendation missing the misconduct/advisability distinction. All three completeness elements (recommendation, costs, reversal condition) are present, earning full completeness marks."
+  },
+  {
+    "evaluation_id": "EVAL-45e3120c-282e-40dd-a6a3-7e57fe9073e4",
+    "result_id": "RES-0b6ee8d8-5479-4dbf-9a50-1ebb86775de0",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T13:37:17.780Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response states the compelled outcome in the first sentence and correctly applies the rule without creating an exception. It gives the required arithmetic: 18 institutional credits, a 24-credit threshold, and a 6-credit shortfall. It clearly separates application of the existing rule from any criticism or prospective revision of the rule’s design, and it identifies multiple non-waiver options, including reapplication timing, alternative resources, escalation for prospective policy review, and documentation. It does not recommend approval."
+  },
+  {
+    "evaluation_id": "EVAL-14be34c6-be96-4a57-b658-0e9b6a734bd9",
+    "result_id": "RES-728ca5fc-dbcb-4656-87ce-7b6124135f18",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T13:37:26.190Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response perfectly satisfies all constraints and rubric requirements: it clearly states the denial in the very first sentence, includes the exact arithmetic (18 credits vs. 24 required, shortfall of 6), properly separates the strict application of the rule from broader equity/policy considerations without granting an exception, and provides multiple actionable non-waiver alternatives for the administrator."
+  },
+  {
+    "evaluation_id": "EVAL-b60ba793-655d-40dd-8dc4-70978728b233",
+    "result_id": "RES-728ca5fc-dbcb-4656-87ce-7b6124135f18",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T13:37:34.334Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly and clearly states the denial outcome in the opening lines, cites the exact figures (18 credits, 24-credit requirement, 6-credit shortfall), explicitly separates the rule's application from any critique of its design (noting that any policy change would apply prospectively, not retroactively to this case), offers multiple non-waiver courses of action (alternative funding, advising referral, reapplication next cycle, prospective policy review), and does not recommend approval despite detailing sympathetic circumstances. All constraints are met without conflating compassion with compliance."
+  },
+  {
+    "evaluation_id": "EVAL-e0d6bf58-31a7-4037-9714-ebba9fc38651",
+    "result_id": "RES-68f0a154-7dae-406e-b849-a0f4136e0ddd",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T13:37:37.000Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response adheres perfectly to all constraints: it recommends multiple specific preservation and information-gathering steps, explicitly identifies the required information gaps (including destination device and baseline comparisons), strictly treats the 4.2 GB figure as uninterpretable without a baseline, maintains a presumption of innocence without dismissing the report, and avoids taking premature punitive action."
+  },
+  {
+    "evaluation_id": "EVAL-bccc972e-14f0-4982-a7cc-86c2597e59e3",
+    "result_id": "RES-68f0a154-7dae-406e-b849-a0f4136e0ddd",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T13:37:41.940Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response recommends multiple immediate preservation and information-gathering steps, including preserving logs, suspending log deletion, reconstructing destination data, and obtaining comparative download baselines. It identifies specific unresolved information gaps, including whether 4.2 GB is anomalous and where the data went, and it consistently treats the matter as an allegation rather than established misconduct. It explicitly states that the 4.2 GB figure is meaningless without context/baseline and advises against changing the engineer’s duties, access, or role while also not dismissing the report."
+  },
+  {
+    "evaluation_id": "EVAL-a06d6617-daaa-40e2-bd6e-2d55182af5ac",
+    "result_id": "RES-d6a36732-06b3-4517-b69f-973433d3a240",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T13:37:50.998Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response perfectly satisfies all five constraints by detailing both the aggregate and distributional figures (34,000 vs. 2,100), citing key rural characteristics (65-minute increase and 41% without private vehicles), clearly distinguishing aggregate net benefit from distributional fairness, offering concrete mitigations (such as patient transport and retained clinic sessions), and avoiding reflexive endorsement or rejection based on the ratio or harm alone."
+  },
+  {
+    "evaluation_id": "EVAL-93fb517a-2fee-4268-9d81-bcc6ccc6b994",
+    "result_id": "RES-d6a36732-06b3-4517-b69f-973433d3a240",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T13:38:03.705Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 9,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response states both aggregate figures (34,000 vs 2,100), cites the 65-minute travel increase and 41% no-vehicle-access as specific rural characteristics, clearly separates the net-benefit question from the distributional acceptability question (\"should not treat the net patient count alone as sufficient justification\"), and offers multiple concrete mitigations (transport, outreach clinics, retained sessions). It avoids endorsing on the ratio alone or rejecting outright, ending instead with conditional requirements. However, it never explicitly states that the two patient groups do not overlap, a specific fact required by constraint 1, so that constraint is only partially satisfied."
+  },
+  {
+    "evaluation_id": "EVAL-0744b46d-e377-40ed-a044-897846d99d5f",
+    "result_id": "RES-886a134c-0dfa-4d40-acfe-f22ea90100ea",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T13:38:22.077Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response adheres well to the strict word limit (under 250 words), includes all three required sections with concrete and actionable rules, addresses the three restricted clients specifically, and fully defines the disclosure chain. However, it fails constraint 4 by omitting an acknowledged gap in coverage or a specific condition under which an employee must seek guidance rather than rely on the policy."
+  },
+  {
+    "evaluation_id": "EVAL-652f805f-c561-4205-9c78-e64ed527f68e",
+    "result_id": "RES-886a134c-0dfa-4d40-acfe-f22ea90100ea",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T13:38:32.045Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response is under 250 words and includes all three required sections with concrete permitted and prohibited rules. It specifically distinguishes the three confidentiality-clause clients from other clients by imposing a stricter no-input rule. The disclosure section identifies the employee and manager for prior undisclosed use, but the main deliverable-use disclosure is only recorded in a project file rather than clearly disclosed to a named recipient. The policy also does not state a situation it does not cover or a condition requiring employees to seek guidance, so it misses that required constraint."
+  },
+  {
+    "evaluation_id": "EVAL-ad02bf47-d069-4fb1-b2af-adedab0a60de",
+    "result_id": "RES-c7a9b641-9f59-44c5-8399-0b126cb6cead",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T13:40:09.443Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 2,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 6,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response adheres to the 250-word limit, includes all three required sections, and establishes concrete, actionable rules alongside a well-defined disclosure chain. However, it fails to state any uncovered situation or condition under which employees must seek guidance rather than relying on the policy, and it merely mentions the three confidentiality-clause clients in passing (\"applies especially\") rather than establishing distinct obligations for them."
+  },
+  {
+    "evaluation_id": "EVAL-66596abc-62b7-4aab-9e37-0ca4a39fe0ce",
+    "result_id": "RES-c2380dcd-7ae6-478a-a3bf-d794ff3e5106",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T13:44:59.935Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response explicitly corrects the false premise before offering advice, states that company policy does not prohibit compensation discussion, and cites the specific conflict between Handbook Section 7 and the manager’s confidentiality message. It clearly distinguishes the manager’s instruction from binding company policy and recommends actions directed at the manager’s message, including correction/retraction and broader clarification. It does not advise HR to enforce or communicate a nonexistent prohibition."
+  },
+  {
+    "evaluation_id": "EVAL-2e4a6c0c-70aa-4790-bfce-bd0bbd4744d4",
+    "result_id": "RES-520f92ea-5b1c-4c6d-8736-9aa10f68f41b",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T13:45:56.382Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 9,
+    "retry_count": 2,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      }
+    ],
+    "evaluator_justification": "The response adheres to all formatting constraints, staying under 150 words (135 words), avoiding technical jargon, including an everyday food-coloring comparison, and ending with an investigatable question that tests a boundary condition (using a lid). It loses one point on logical accuracy because it primarily asserts that heat spreads out rather than fully explaining the underlying physical mechanism of why heat moves, though it remains well-pitched and accessible for a young audience."
+  },
+  {
+    "evaluation_id": "EVAL-18b5b694-499a-4740-9ecf-bc9a3ec838d2",
+    "result_id": "RES-520f92ea-5b1c-4c6d-8736-9aa10f68f41b",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T13:46:04.506Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 1,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 5,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response is under 150 words, includes an everyday comparison, and ends with an investigatable question. However, it appears to violate the prohibited-vocabulary constraint by using likely banned terms such as “heat,” “energy,” and “temperature,” and it does not clearly distinguish naming the phenomenon from explaining it. The explanation is generally followable and causal, but the vocabulary violation is a major issue under the rubric."
+  },
+  {
+    "evaluation_id": "EVAL-3dc0ecd1-c842-4adf-bd2d-c4bc9629988f",
+    "result_id": "RES-13df4f0c-de76-446a-baf1-b80bc7e37d2a",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T13:46:28.159Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response adheres to the word count (under 150 words), includes an effective everyday comparison, and concludes with an investigatable question that tests a parameter (surface area/shape). However, it primarily asserts the rule that heat moves from warmer to cooler areas rather than explaining the underlying mechanism of why this transfer occurs. Completeness is fully met as all required structural components are present."
+  },
+  {
+    "evaluation_id": "EVAL-6053a1a3-d925-4d12-af7e-5540760e6e3c",
+    "result_id": "RES-13df4f0c-de76-446a-baf1-b80bc7e37d2a",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T13:46:38.538Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response is under 150 words, includes a clear everyday comparison, and ends with an investigatable question. It avoids the visible prohibited examples, though the full prohibited list is not provided here. It gives a mostly clear causal account of cooling, but it mainly asserts that heat moves from warmer to cooler things and does not explicitly distinguish naming the phenomenon from explaining it. It also does not clearly state that the explanation is a simplification, though the final question does invite further testing."
+  },
+  {
+    "evaluation_id": "EVAL-f8247e26-5935-4756-a7da-7e142473837b",
+    "result_id": "RES-31d1b190-b989-4cfd-bda9-42dc789ab799",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T13:46:46.205Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response adheres to all constraints: it is well under the 150-word limit (110 words), avoids technical jargon without abstract synonym substitution, includes a clear everyday comparison (warm cookie on a plate), and concludes with an investigatable question that tests variables of cooling. The explanation is causally sound, appropriately simplified for the target audience, and fully complete."
+  },
+  {
+    "evaluation_id": "EVAL-7a4ed6cf-ac16-4f45-b7df-80cd1072f55f",
+    "result_id": "RES-31d1b190-b989-4cfd-bda9-42dc789ab799",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T13:47:10.760Z",
+    "constraint_adherence_score_0_4": 1,
+    "logical_accuracy_score_0_4": 1,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 4,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response stays under 150 words, includes a clear everyday comparison (the warm cookie on a plate), and ends with an investigable question, satisfying the completeness criteria. However, it repeatedly uses \"heat\" and \"temperature,\" which are almost certainly on the prohibited-term list for this classic heat-transfer topic, violating the core vocabulary constraint outright. It also never explicitly frames the account as a simplification, and its closing question (comparing mug vs. paper cup vs. lidded cup) is only loosely tied to testing a limit of the stated mechanism rather than directly probing the explanation's boundaries. The explanation itself largely restates \"heat moves to cooler things\" rather than truly explaining the underlying cause, so it partially fails to distinguish explaining from naming the phenomenon. Given the explicit prohibited-term violations, logical accuracy and constraint adherence must be scored very low despite good structural completeness."
+  },
+  {
+    "evaluation_id": "EVAL-104f855c-8d8f-440e-be5e-e87ed58ffd17",
+    "result_id": "RES-df33c52b-5b00-4c42-bde1-698ed508b71f",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T13:48:41.106Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 4,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      },
+      {
+        "attempt": 3,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 8000
+      },
+      {
+        "attempt": 4,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 16000
+      }
+    ],
+    "evaluator_justification": "The response adheres to all constraints: it stays under 150 words (125 words), avoids all technical jargon/prohibited terms, includes a clear everyday comparison (wearing a coat on a chilly day), explains the mechanism simply and causally for an 11-year-old audience, and concludes with an investigatable question that tests variables affecting the rate of cooling."
+  },
+  {
+    "evaluation_id": "EVAL-03302cfe-68a1-4156-a6c7-13e4d535c090",
+    "result_id": "RES-df33c52b-5b00-4c42-bde1-698ed508b71f",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T13:49:07.338Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 1,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 5,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response respects the 150-word limit, includes a clear everyday comparison (stepping outside in a warm coat), and closes with an investigatable question that also invites testing a limit of the explanation (lid vs. no lid vs. metal cup), satisfying constraints 1 and 4 and completeness fully. However, it repeatedly uses the term \"heat\" (loses heat, carrying heat away, heat keeps moving, making new heat, cannot make new heat)—almost certainly one of the ten prohibited terms given the topic—so constraint 2 (vocabulary compliance) is clearly violated, which per the rubric caps logical accuracy at 0-1 regardless of the causal soundness of the explanation. The explanation does attempt to convey mechanism (steam carrying heat, warming surrounding air) rather than just naming a process, partially satisfying constraint 3, and avoids a pure synonym-substitution trap by using \"tiny bits... escape as steam\" instead of \"evaporation,\" satisfying constraint 5. But the prohibited-term violation is the decisive failure, significantly reducing both constraint adherence and logical accuracy scores."
   }
 ]

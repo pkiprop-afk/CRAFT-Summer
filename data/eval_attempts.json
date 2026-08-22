@@ -3048,5 +3048,265 @@
     "retry_count": 0,
     "http_status": 200,
     "message": null
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0134",
+    "recorded_at": "2026-08-22T13:35:33.529Z",
+    "outcome": "exhausted",
+    "retry_count": 4,
+    "http_status": null,
+    "message": "All 5 attempts failed. Last: 503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing"
+  },
+  {
+    "evaluator_model": "claude-sonnet-5",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0134",
+    "recorded_at": "2026-08-22T13:36:10.715Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0136",
+    "recorded_at": "2026-08-22T13:37:12.168Z",
+    "outcome": "exhausted",
+    "retry_count": 4,
+    "http_status": null,
+    "message": "All 5 attempts failed. Last: 503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing"
+  },
+  {
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0136",
+    "recorded_at": "2026-08-22T13:37:17.743Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0138",
+    "recorded_at": "2026-08-22T13:37:26.172Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "claude-sonnet-5",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0138",
+    "recorded_at": "2026-08-22T13:37:34.320Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0148",
+    "recorded_at": "2026-08-22T13:37:36.985Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0148",
+    "recorded_at": "2026-08-22T13:37:41.929Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0153",
+    "recorded_at": "2026-08-22T13:37:50.952Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "claude-sonnet-5",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0153",
+    "recorded_at": "2026-08-22T13:38:03.683Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0156",
+    "recorded_at": "2026-08-22T13:38:22.014Z",
+    "outcome": "succeeded_after_retry",
+    "retry_count": 1,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0156",
+    "recorded_at": "2026-08-22T13:38:32.032Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0157",
+    "recorded_at": "2026-08-22T13:40:09.418Z",
+    "outcome": "succeeded_after_retry",
+    "retry_count": 1,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "claude-sonnet-5",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0157",
+    "recorded_at": "2026-08-22T13:40:42.619Z",
+    "outcome": "judge_truncated",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": "provider stopped at its token limit (stop_reason \"max_tokens\") before emitting any text — the output budget is too small for this prompt"
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0158",
+    "recorded_at": "2026-08-22T13:41:51.111Z",
+    "outcome": "exhausted",
+    "retry_count": 4,
+    "http_status": null,
+    "message": "All 5 attempts failed. Last: 503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing"
+  },
+  {
+    "evaluator_model": "claude-sonnet-5",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0158",
+    "recorded_at": "2026-08-22T13:42:19.324Z",
+    "outcome": "judge_truncated",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": "provider stopped at its token limit (stop_reason \"max_tokens\") before emitting any text — the output budget is too small for this prompt"
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0159",
+    "recorded_at": "2026-08-22T13:44:55.734Z",
+    "outcome": "exhausted",
+    "retry_count": 4,
+    "http_status": null,
+    "message": "All 5 attempts failed. Last: 503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing"
+  },
+  {
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0159",
+    "recorded_at": "2026-08-22T13:44:59.898Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0163",
+    "recorded_at": "2026-08-22T13:45:56.351Z",
+    "outcome": "succeeded_after_retry",
+    "retry_count": 2,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0163",
+    "recorded_at": "2026-08-22T13:46:04.483Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0164",
+    "recorded_at": "2026-08-22T13:46:28.131Z",
+    "outcome": "succeeded_after_retry",
+    "retry_count": 1,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0164",
+    "recorded_at": "2026-08-22T13:46:38.514Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0165",
+    "recorded_at": "2026-08-22T13:46:46.179Z",
+    "outcome": "succeeded_after_retry",
+    "retry_count": 1,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "claude-sonnet-5",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0165",
+    "recorded_at": "2026-08-22T13:47:10.744Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0166",
+    "recorded_at": "2026-08-22T13:48:41.090Z",
+    "outcome": "succeeded_after_retry",
+    "retry_count": 4,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "claude-sonnet-5",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0166",
+    "recorded_at": "2026-08-22T13:49:07.329Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
   }
 ]
