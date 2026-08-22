@@ -1741,5 +1741,75 @@
     "model_name": "claude-sonnet-5",
     "prompt_condition": "craft",
     "allocated_at": "2026-08-22T16:58:47.711Z"
+  },
+  "OUT-0250": {
+    "token": "OUT-0250",
+    "task_id": "T040",
+    "model_name": "gpt-5.5-2026-04-23",
+    "prompt_condition": "baseline",
+    "allocated_at": "2026-08-22T16:58:53.784Z"
+  },
+  "OUT-0251": {
+    "token": "OUT-0251",
+    "task_id": "T040",
+    "model_name": "gpt-5.5-2026-04-23",
+    "prompt_condition": "craft",
+    "allocated_at": "2026-08-22T16:59:00.871Z"
+  },
+  "OUT-0252": {
+    "token": "OUT-0252",
+    "task_id": "T046",
+    "model_name": "claude-sonnet-5",
+    "prompt_condition": "baseline",
+    "allocated_at": "2026-08-22T16:59:03.730Z"
+  },
+  "OUT-0253": {
+    "token": "OUT-0253",
+    "task_id": "T046",
+    "model_name": "claude-sonnet-5",
+    "prompt_condition": "craft",
+    "allocated_at": "2026-08-22T16:59:07.137Z"
+  },
+  "OUT-0254": {
+    "token": "OUT-0254",
+    "task_id": "T046",
+    "model_name": "gpt-5.5-2026-04-23",
+    "prompt_condition": "baseline",
+    "allocated_at": "2026-08-22T16:59:09.086Z"
+  },
+  "OUT-0255": {
+    "token": "OUT-0255",
+    "task_id": "T046",
+    "model_name": "gpt-5.5-2026-04-23",
+    "prompt_condition": "craft",
+    "allocated_at": "2026-08-22T16:59:10.097Z"
+  },
+  "OUT-0256": {
+    "token": "OUT-0256",
+    "task_id": "T047",
+    "model_name": "claude-sonnet-5",
+    "prompt_condition": "baseline",
+    "allocated_at": "2026-08-22T16:59:15.829Z"
+  },
+  "OUT-0257": {
+    "token": "OUT-0257",
+    "task_id": "T047",
+    "model_name": "claude-sonnet-5",
+    "prompt_condition": "craft",
+    "allocated_at": "2026-08-22T16:59:19.847Z"
+  },
+  "OUT-0258": {
+    "token": "OUT-0258",
+    "task_id": "T047",
+    "model_name": "gpt-5.5-2026-04-23",
+    "prompt_condition": "baseline",
+    "allocated_at": "2026-08-22T16:59:23.683Z"
+  },
+  "OUT-0259": {
+    "token": "OUT-0259",
+    "task_id": "T047",
+    "model_name": "gpt-5.5-2026-04-23",
+    "prompt_condition": "craft",
+    "allocated_at": "2026-08-22T16:59:27.117Z"
   }
 }

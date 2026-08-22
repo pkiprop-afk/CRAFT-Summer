@@ -7004,5 +7004,315 @@
     "retry_count": 0,
     "retry_log": [],
     "notes": ""
+  },
+  {
+    "result_id": "RES-2885fb92-eb62-4ea9-9848-904a9bce0864",
+    "task_id": "T040",
+    "task_version": "v1-7931538660a40975cdadedc2cb5e94d2",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "stability",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T16:58:53.929Z",
+    "raw_model_output": "**Student scaffold: Choosing a data source**\n\nBefore choosing, slow down and make your thinking visible.\n\n1. **Restate the research question in your own words.**  \n   What would a good answer need to show?\n\n2. **Look at each of the three sources.**  \n   For each one, jot one brief note:  \n   - Source A might help because… / might not help because…  \n   - Source B might help because… / might not help because…  \n   - Source C might help because… / might not help because…\n\n3. **Choose the source you think is best for answering the question.**\n\n4. **Write your explanation using this structure:**\n\n> I chose Source ___ because __________.  \n> This makes it useful for answering the research question because __________.  \n> I did not choose Source ___ or Source ___ because __________.\n\nIf you mention the amount of data, do not stop there. Explain **why that feature matters for this particular research question**.  \nYour answer should show the link between the question, the source you selected, and your reason for selecting it.",
+    "anonymized_output_id": "OUT-0250",
+    "truncated": false,
+    "reasoning_tokens": 99,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-82046da9-8386-4e60-98df-4e7bed5f90d9",
+    "task_id": "T040",
+    "task_version": "v1-7931538660a40975cdadedc2cb5e94d2",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "stability",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T16:59:00.983Z",
+    "raw_model_output": "1. Read the research question carefully. Underline the key words that tell you what must be answered.\n\n2. Before looking at the three sources, finish this sentence:  \n   “To answer this question well, a data source would need to help me find out…”\n\n3. Look at each source. For each one, write one short note about how it could help answer the question.\n\n4. Choose the source you think is most appropriate.\n\n5. Do not stop at naming the source. Complete all three sentence stems:\n\n   - “I chose Source ___ because…”\n   - “This source matches the research question by…”\n   - “I did not choose the other sources because…”\n\n6. If your reason is mainly “it has more data,” add another reason. Explain why the size of the dataset helps with this specific question, or give a different reason.\n\n7. Check your answer before submitting:\n\n   - Have I named one source?\n   - Have I explained why it fits the research question?\n   - Have I said something about why the other sources are less suitable?\n   - Could someone understand my reasoning without asking me to explain it aloud?",
+    "anonymized_output_id": "OUT-0251",
+    "truncated": false,
+    "reasoning_tokens": 66,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-e71aa67b-0e98-4fc6-a02b-fe186a2ae3f4",
+    "task_id": "T046",
+    "task_version": "v1-919dd6fe8431c1f8062aab45d49592ea",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "stability",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T16:59:03.743Z",
+    "raw_model_output": "Hi [Name],\n\nYes – the March invoice was settled on 4 April. Confirmed for your finance team's quarter close.\n\nBest,\n[Your name]",
+    "anonymized_output_id": "OUT-0252",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-bb58a92b-4a37-4a1b-bd20-adca3454d7de",
+    "task_id": "T046",
+    "task_version": "v1-919dd6fe8431c1f8062aab45d49592ea",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "stability",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T16:59:07.151Z",
+    "raw_model_output": "Yes - the March invoice was settled on 4 April, so that one's fully closed out for your quarter-end purposes.\n\nOne flag while I have you: the April invoice is now 11 days overdue - could you chase that on your end? Happy to resend details if useful.\n\nAlso wanted to mention two things for a quick call when convenient: the outstanding £2,400 line item from February we still need to resolve, and your contract renewal in 6 weeks, where our team would like to discuss expanding scope.",
+    "anonymized_output_id": "OUT-0253",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-51c6bd94-88db-46aa-b6ad-861de562d038",
+    "task_id": "T046",
+    "task_version": "v1-919dd6fe8431c1f8062aab45d49592ea",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "stability",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T16:59:09.100Z",
+    "raw_model_output": "Yes — the March invoice has been settled. Payment was received on 4 April.",
+    "anonymized_output_id": "OUT-0254",
+    "truncated": false,
+    "reasoning_tokens": 21,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-a7d90623-341a-4421-b5e9-a141db03244b",
+    "task_id": "T046",
+    "task_version": "v1-919dd6fe8431c1f8062aab45d49592ea",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "stability",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T16:59:10.109Z",
+    "raw_model_output": "Yes — the March invoice was settled on 4 April.",
+    "anonymized_output_id": "OUT-0255",
+    "truncated": false,
+    "reasoning_tokens": 0,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-1a28920f-2399-46d4-b970-e00e598502b1",
+    "task_id": "T047",
+    "task_version": "v1-dc308b2070acb308b4887fcc3812243f",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "stability",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T16:59:15.856Z",
+    "raw_model_output": "Subject: Revised Delivery Date – Action Needed Before Thursday's Review\n\nHi [Name],\n\nI need to flag a change to the 30 June date: we will not make it. The realistic delivery date is 15 August, a six-week slip.\n\nThe cause is the external data migration dependency. It has not yet been scheduled, and that scheduling sits outside our team's control.\n\nBefore raising this, we examined reducing scope to protect 30 June. It doesn't work — no combination of scope cuts recovers the date, because the migration is a hard blocker regardless of what we build.\n\nI know you have the executive review on Thursday. I wanted you to have this now, not then, so you can decide how to position it and what support you need from us — including help escalating the migration scheduling, since that's the actual critical path.\n\nHappy to talk today or tomorrow, whichever suits you.\n\n[Your name]",
+    "anonymized_output_id": "OUT-0256",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-8aff2486-a757-4693-89d2-e1f5eff62b6d",
+    "task_id": "T047",
+    "task_version": "v1-dc308b2070acb308b4887fcc3812243f",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "stability",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T16:59:19.867Z",
+    "raw_model_output": "The project will not deliver on 30 June. The realistic date is 15 August — a six-week slip.\n\nCause: delivery is dependent on an external data migration that has not yet been scheduled and sits outside our team's control. Until that migration is booked and completed, we cannot go live.\n\nWe examined reducing scope to protect the date. It does not work — the migration dependency blocks any version of the plan, regardless of what functionality is included. There is no configuration that delivers on 30 June.\n\nFor Thursday's review, I recommend you report 15 August as the new target and flag the external migration scheduling as the critical path item needing executive attention — this is likely the fastest way to pull the date in, since it's outside our authority to escalate.\n\nI can join the review or provide a written brief beforehand, whichever is more useful. Let me know what you need from me before then.",
+    "anonymized_output_id": "OUT-0257",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-904d07fa-deff-4dba-9888-602ad1d7e933",
+    "task_id": "T047",
+    "task_version": "v1-dc308b2070acb308b4887fcc3812243f",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "stability",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T16:59:23.695Z",
+    "raw_model_output": "Subject: Project delivery date change\n\nI need to flag a material schedule change before your executive review on Thursday.\n\nThe project will not deliver on 30 June. The realistic delivery date is now 15 August, a six-week slip.\n\nThe driver is the external data migration dependency. That migration has not yet been scheduled, and it is outside our team’s control. Without it, we cannot complete the delivery activities required for launch.\n\nWe have reviewed recovery options, including reducing scope. None of the options recover the 30 June date, and there is no credible plan that delivers by then.\n\nFor Thursday, I recommend positioning the status as: delivery date moved to 15 August due to an unscheduled external dependency; team recovery options have been assessed; scope reduction does not restore the original date; next action is to secure a confirmed migration schedule and ownership from the external team.",
+    "anonymized_output_id": "OUT-0258",
+    "truncated": false,
+    "reasoning_tokens": 14,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-c47ce97a-99ce-4dc6-a072-598d974fc39e",
+    "task_id": "T047",
+    "task_version": "v1-dc308b2070acb308b4887fcc3812243f",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "stability",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T16:59:27.129Z",
+    "raw_model_output": "The project will not deliver on 30 June. The realistic delivery date is 15 August, a slip of 6 weeks.\n\nThe blocker is the external data migration dependency. It has not yet been scheduled, and it sits outside our team’s control. We have reviewed the plan options, including scope reduction, and there is no credible version that recovers the 30 June date.\n\nFor Thursday’s executive review, the status to report is: delivery date moved to 15 August, driven by an unscheduled external dependency. The decision needed is escalation to secure and confirm the migration slot, with ownership outside the project team.\n\nWe will continue progressing all work not dependent on the migration, but the end-to-end delivery date cannot be brought back to 30 June without that external activity being completed earlier.",
+    "anonymized_output_id": "OUT-0259",
+    "truncated": false,
+    "reasoning_tokens": 0,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
   }
 ]
