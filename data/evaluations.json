@@ -5454,5 +5454,100 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response perfectly satisfies all constraints and avoids both rubric traps. It provides four clearly numbered, cognitively distinct questions (recall, inference, novel scenario application, and further information needed) without leaking any causal mechanisms, without using the prohibited phrase \"keystone species,\" and with question 4 correctly asking for additional evidence rather than restating known limitations."
+  },
+  {
+    "evaluation_id": "EVAL-f9f5a5a7-da89-420f-b4ca-a6988739349f",
+    "result_id": "RES-604d1964-ae9e-4d50-a22f-8668d48cc71e",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T14:09:30.313Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response delivers exactly four numbered questions that map onto four genuinely distinct cognitive levels—recall (Q1, a direct fact retrieval), inference (Q2, framed generically as \"what can be inferred about the relationship,\" which requires synthesizing multiple facts rather than quoting a single sentence, and is corroborated by Q4's reference to an unproven \"conclusion\"), application (Q3, which introduces a wholly new coastal scenario requiring transfer of the underlying principle), and a metacognitive \"what further evidence is needed\" question (Q4, which correctly targets the causal-vs-correlational gap rather than restating an already-stated limitation). No question states or strongly implies its own answer—Q2 avoids the classic leakage trap by asking about \"the relationship\" rather than embedding the causal mechanism, and Q3's scenario prompts prediction without revealing the outcome. The forbidden phrase is never used, and the four questions are clearly non-redundant in type, satisfying every constraint without detectable violation."
+  },
+  {
+    "evaluation_id": "EVAL-24d656fc-2ec6-4d35-ba1c-180df9cd72f8",
+    "result_id": "RES-8daa1b33-a79e-4f65-a438-25fe12603c3a",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T14:10:02.479Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response adheres to all constraints by providing exactly four numbered questions representing distinct cognitive types (recall, inference, application, and further information). It avoids answer leakage and the prohibited phrase \"keystone species,\" provides an external scenario for the application question, and appropriately asks what additional data is needed for the fourth question without collapsing types."
+  },
+  {
+    "evaluation_id": "EVAL-6784a37f-1a28-47c1-bf59-ce971ad4c0b8",
+    "result_id": "RES-8daa1b33-a79e-4f65-a438-25fe12603c3a",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T14:10:19.728Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The set contains four clearly distinct cognitive types—Q1 is a straightforward recall of a stated fact, Q2 requires synthesizing otter–urchin–kelp facts into a relationship not explicitly stated as one sentence (genuine inference), Q3 introduces a novel disease scenario requiring transfer of the causal logic (application), and Q4 correctly asks what additional information would strengthen the causal claim rather than restating an already-implied limitation. No question states or strongly implies its answer, the forbidden term \"keystone species\" is avoided, and none of the four collapse into the same type. All four questions are present and correctly matched to their intended positions, satisfying every constraint and rubric criterion fully."
+  },
+  {
+    "evaluation_id": "EVAL-6f5a2223-d384-4bcf-b152-d40b93d413cb",
+    "result_id": "RES-b730dea0-b556-4b65-b4f9-3ac32e7919a2",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T14:10:46.410Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 7,
+    "retry_count": 2,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      }
+    ],
+    "evaluator_justification": "The response adheres to the word count limit and addresses the student in the second person while accurately identifying air resistance as the uncontrolled variable. However, it fails to explicitly validate the student's reasoning (only acknowledging the observation itself), proposes a test inaccessible to the student while asserting the outcome as fact, and directly repeats the rule that gravity accelerates all objects equally, violating Constraint 5."
+  },
+  {
+    "evaluation_id": "EVAL-df407c5c-b1c8-4002-a6e5-a0da8edbcc68",
+    "result_id": "RES-b730dea0-b556-4b65-b4f9-3ac32e7919a2",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T14:10:54.441Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 9,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response is under 200 words, uses second person, accepts the student’s observation, distinguishes observation from explanation, identifies air resistance as the confound, and proposes a vacuum/Moon test. It loses some constraint credit because it does not explicitly acknowledge that the student’s reasoning from the observation was valid before correcting the conclusion, and it briefly restates the “gravity accelerates all objects equally” rule, though not as the main explanation."
   }
 ]

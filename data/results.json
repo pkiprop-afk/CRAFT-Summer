@@ -4679,5 +4679,98 @@
     "retry_count": 0,
     "retry_log": [],
     "notes": ""
+  },
+  {
+    "result_id": "RES-8daa1b33-a79e-4f65-a438-25fe12603c3a",
+    "task_id": "T038",
+    "task_version": "v1-b7c833057dfd44c3ab338f0cd579864a",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T14:09:33.507Z",
+    "raw_model_output": "1. What happened to kelp forests in areas where sea otter populations declined through hunting?\n\n2. What relationship between sea otters and kelp forests can be inferred from the passage?\n\n3. In another coastal area, a disease greatly reduces the number of sea otters. Based on the passage, what change would you expect in the kelp forest, and why?\n\n4. What additional information would help strengthen the conclusion that changes in sea otter numbers caused the changes in kelp forests?",
+    "anonymized_output_id": "OUT-0174",
+    "truncated": false,
+    "reasoning_tokens": 25,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-b730dea0-b556-4b65-b4f9-3ac32e7919a2",
+    "task_id": "T039",
+    "task_version": "v1-e976937ca468a9989d599a56b3657cd7",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T14:10:24.685Z",
+    "raw_model_output": "Hi,\n\nYour observation is spot on — the stone really does land before the feather. The mistake isn't in what you saw, it's in the explanation you gave for it.\n\nThe stone and feather don't fall at different speeds because of weight. They fall differently because of **air resistance**. Air pushes back against falling objects, and how much it slows something down depends on its *shape and surface area* compared to its weight — not its weight alone. A feather has a huge surface area relative to how little it weighs, so air resistance has a big effect on it. A stone is compact and dense, so air barely slows it down at all.\n\nHere's the real test: if you dropped a stone and a feather in a vacuum (no air at all), they'd hit the ground at exactly the same time. This has actually been demonstrated — astronauts did it on the Moon with a hammer and a feather, and they landed together.\n\nSo gravity itself accelerates *all* objects equally, regardless of weight. What you're seeing with the stone and feather is air resistance getting in the way, not gravity treating them differently.\n\nGreat observation — just needed the right explanation behind it!",
+    "anonymized_output_id": "OUT-0175",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-452272d9-6a28-421e-adfe-3848754781b2",
+    "task_id": "T039",
+    "task_version": "v1-e976937ca468a9989d599a56b3657cd7",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T14:11:00.342Z",
+    "raw_model_output": "Your observation is completely accurate — the stone does land first. Where the reasoning goes wrong is in the next step: jumping from \"this happened\" to \"weight is the cause.\" That's a really natural move to make, but it skips over checking what else is different between a stone and a feather. Weight isn't the only thing that differs — shape and surface area do too, and those affect how much the air pushes back on each object as it falls.\n\nThink about it this way: gravity itself pulls every mass down with the same acceleration, regardless of weight. What changes the outcome in your stone-and-feather experiment is air resistance, which acts far more on the feather's large, light, spread-out shape than on the compact stone. If you dropped a feather and a stone in a vacuum, with no air at all, they'd hit the ground at exactly the same moment — this has actually been demonstrated, including on the Moon.\n\nSo your evidence is real, but it's evidence for \"air resistance affects light, wide objects more than heavy, compact ones,\" not for \"weight determines falling speed.\" Can you think of a fairer test you could run to isolate that variable?",
+    "anonymized_output_id": "OUT-0176",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
   }
 ]
