@@ -4772,5 +4772,36 @@
     "retry_count": 0,
     "retry_log": [],
     "notes": ""
+  },
+  {
+    "result_id": "RES-bcc9f042-a564-4091-9c1f-b5a785a67bf2",
+    "task_id": "T039",
+    "task_version": "v1-e976937ca468a9989d599a56b3657cd7",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T14:13:28.472Z",
+    "raw_model_output": "Your observation is a good one: if you drop a stone and a feather in normal air, the stone really does land first. The part to rethink is the conclusion that “weight decides falling speed.”\n\nWhat’s also acting is air resistance. A feather has a large surface area for its weight, so the air pushes up on it a lot compared with its weight. That slows it down greatly. A stone is compact and heavy, so air resistance has much less effect on its motion.\n\nIf there were no air, the stone and feather would fall at the same rate. Astronauts showed this on the Moon by dropping a hammer and a feather together; they landed at the same time.\n\nSo your evidence is real, but it includes two effects: gravity pulling down and air resistance pushing up. In everyday air, shape and air resistance can make objects fall differently. But gravity itself does not make heavier objects fall faster just because they are heavier.",
+    "anonymized_output_id": "OUT-0177",
+    "truncated": false,
+    "reasoning_tokens": 0,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
   }
 ]
