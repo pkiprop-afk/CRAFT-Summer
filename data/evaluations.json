@@ -7106,5 +7106,45 @@
       }
     ],
     "evaluator_justification": "The response perfectly satisfies all constraints and rubric criteria: it immediately rejects the question's false premise before offering advice, specifically cites the conflict between the handbook (Section 7) and the manager's message, explicitly distinguishes informal manager messaging from official policy, includes actionable steps to address the manager directly, and refuses to advise HR on enforcing a non-existent prohibition."
+  },
+  {
+    "evaluation_id": "EVAL-61565953-881e-419b-ae44-9918bb2e6aec",
+    "result_id": "RES-452272d9-6a28-421e-adfe-3848754781b2",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T16:02:48.167Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 6,
+    "retry_count": 4,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      },
+      {
+        "attempt": 3,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 8000
+      },
+      {
+        "attempt": 4,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 16000
+      }
+    ],
+    "evaluator_justification": "The response adheres to the word limit and addresses the student in the second person while accurately separating observation from inference and identifying air resistance as the confounding variable. However, it fails to propose a specific, actionable test for the student to run (merely prompting them to think of one) and directly violates the negative constraint by explicitly stating the rule of uniform gravitational acceleration."
   }
 ]
