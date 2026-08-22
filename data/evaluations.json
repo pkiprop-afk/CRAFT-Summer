@@ -6829,5 +6829,97 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response hits the bullet count and word limits, includes the audit rationale, schedule position, and a training-readiness risk, but it violates two explicit constraints: it uses semicolons to concatenate multiple facts into single bullets (bullets 1 and 2), and it retains the vendor account-lead change that should have been omitted as lower-priority detail for a new board member. These are the exact evasions the task rubric flags as failure modes, so despite accurate content and correct format mechanics, the summary does not demonstrate genuine prioritization or full adherence to the no-concatenation rule."
+  },
+  {
+    "evaluation_id": "EVAL-f9d3d486-cfcb-4f50-b9f4-944ca8533a5d",
+    "result_id": "RES-641a619d-d679-4bdf-95d8-9d3b31471ce8",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T15:40:55.402Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 2,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 6,
+    "retry_count": 3,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      },
+      {
+        "attempt": 3,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 8000
+      }
+    ],
+    "evaluator_justification": "The response adheres to the bullet count, word limits, and lack of preamble/closing, while successfully including the audit rationale, schedule status, and training risk. However, it fails two key constraints: it includes the low-priority vendor account-lead changes instead of omitting them, and it heavily relies on semicolons across bullets 1, 2, and 5 to concatenate multiple discrete facts, directly violating the instruction against using punctuation to cram all supplied material into the bullets."
+  },
+  {
+    "evaluation_id": "EVAL-6a5f8cd1-f040-4ccb-8bb5-a3c94292ad54",
+    "result_id": "RES-641a619d-d679-4bdf-95d8-9d3b31471ce8",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T15:41:18.812Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 2,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 6,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response hits the required bullet count (5) and stays under 20 words per bullet, and it includes the January audit rationale, the Q3 schedule position, and an open training-readiness risk. However, it falls into the exact trap the task was designed to test: it uses semicolons to concatenate multiple distinct facts into single bullets (bullets 1, 2, and 5), and it retains the explicitly lower-priority vendor account-lead change and the parallel-run duration rather than omitting them, showing no real selection/compression distinction. These failures (constraints 3 and 5) offset the otherwise correct structural and content inclusions, yielding a mid-range score."
+  },
+  {
+    "evaluation_id": "EVAL-021bec7b-46cd-4d55-86cb-225f39d45d1b",
+    "result_id": "RES-fc88b846-876d-4a9c-bb39-9752dae02cf2",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T15:41:41.027Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 2,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      }
+    ],
+    "evaluator_justification": "The response strictly adheres to the under-150-word limit and declines confirmation within the first two sentences. It explicitly addresses all three specific claims (£18,000 funding, two engineers from 1 September, 12-month extension), clearly states that no commitment was made without rejecting the proposals themselves, identifies the manager as the approving authority, and provides a clear path forward."
+  },
+  {
+    "evaluation_id": "EVAL-b0b90c8c-b0a0-4bec-b27f-bb88b3b84a55",
+    "result_id": "RES-fc88b846-876d-4a9c-bb39-9752dae02cf2",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T15:41:47.940Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 7,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response is under 150 words, declines to confirm in the second sentence, specifically corrects all three claimed agreements, avoids conditional confirmation, and keeps the discussion open without rejecting the proposals. However, it only refers to “my manager” rather than naming the manager with authority, which falls short of the required authority route specificity."
   }
 ]
