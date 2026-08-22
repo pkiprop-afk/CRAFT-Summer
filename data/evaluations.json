@@ -8422,5 +8422,20 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The scaffold is student-facing, under 200 words, and includes multiple genuine reasoning prompts (restating the question, weighing each source's fit, justifying the final choice) rather than offering selectable options. It avoids a checklist of evaluation criteria, a worked example, a recommended answer, and a ranked criteria list, satisfying constraints 1, 2, 3, and 5. It also directly addresses the size-based failure by requiring students who cite data amount to explain its relevance to the specific question—surfacing the assumption for examination. However, the phrasing \"do not stop there\" mildly signals that size alone is insufficient, which edges toward supplying a partial judgment rather than the more neutral \"what would size tell you or not tell you\" approach the task notes favor; this slightly weakens the non-directive treatment of the assumption, costing a point on logical accuracy. All required elements (reasoning prompts, size-assumption engagement, and student-facing format) are present, supporting full completeness."
+  },
+  {
+    "evaluation_id": "EVAL-ae614a8d-5b6d-47bb-bd69-7251beb266ec",
+    "result_id": "RES-82046da9-8386-4e60-98df-4e7bed5f90d9",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T17:48:15.852Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The material is properly student-facing, stays under the word limit, and contains multiple genuine reasoning prompts (the \"what would a source need to help me find out\" stem, the three sentence completions, and the size-justification prompt), so it avoids supplying a worked example, a recommended answer, or a ranked-criteria list. The final \"check your answer\" list is a process-completion check rather than a source-appropriateness checklist, so it largely respects the process/criteria distinction. However, the treatment of dataset size (\"If your reason is mainly 'it has more data,' add another reason... or give a different reason\") leans toward implying size alone is insufficient rather than neutrally asking what size would or wouldn't reveal, so it edges toward supplying a soft criterion rather than purely surfacing the assumption. This partial slippage on the sharpest constraint accounts for the deduction in both constraint adherence and logical accuracy, while completeness is fully satisfied since all required elements are present."
   }
 ]
