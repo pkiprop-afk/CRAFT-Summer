@@ -8955,5 +8955,54 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response computes all required within-department rates and aggregate rates correctly, explicitly identifies the reversal as Simpson’s paradox, correctly explains that the differing department/applicant mix causes the misleading aggregate result, and recommends Method B based on the stratified evidence rather than the pooled rate."
+  },
+  {
+    "evaluation_id": "EVAL-d43c6d33-081b-4fe2-91e9-5d59220aac88",
+    "result_id": "RES-e4b5c753-4ac2-4650-b312-8ae7f81ee9d3",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T18:10:29.175Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 3,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      },
+      {
+        "attempt": 3,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 8000
+      }
+    ],
+    "evaluator_justification": "The response satisfies all constraints accurately: it computes all four stratified rates and both aggregate rates correctly, explicitly identifies Simpson's paradox, clearly explains how the differing applicant mix caused the aggregate reversal, and recommends Method B based on the department-level evidence while noting reasonable caveats."
+  },
+  {
+    "evaluation_id": "EVAL-b77d538a-6b56-423c-9fdb-ff77cea0c714",
+    "result_id": "RES-e4b5c753-4ac2-4650-b312-8ae7f81ee9d3",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T18:10:32.237Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly computes all within-department hire rates and aggregate rates, explicitly identifies that Method B outperforms Method A in both departments while Method A leads in aggregate, names Simpson’s paradox, and correctly attributes the reversal to the differing applicant mix with Method A concentrated in the higher-baseline Support department. It appropriately favors the stratified evidence rather than recommending Method A based on the aggregate figure alone."
   }
 ]
