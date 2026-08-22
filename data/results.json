@@ -1362,5 +1362,129 @@
     "retry_count": 0,
     "retry_log": [],
     "notes": ""
+  },
+  {
+    "result_id": "RES-a8eed772-57ab-42e8-8f0b-bab133835f14",
+    "task_id": "T012",
+    "task_version": "v1-54f281c0f3f71e0f2fa3de71394a557d",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T06:51:10.887Z",
+    "raw_model_output": "**The figures**\n\n| Metric | Value |\n|---|---|\n| Total signups since launch | 4,000 |\n| Users churned | 2,600 (65% of signups) |\n| Currently active users | 1,400 (35% of signups) |\n| Survey responses received | 480 |\n| Respondents reporting satisfaction | 408 |\n| Satisfaction rate among respondents | 85% |\n| Survey response rate (of total signups) | 12% |\n| Survey response rate (of active users) | 34% |\n\n**Assessment of the claim**\n\nThe arithmetic is correct: 408/480 does equal 85%. But the claim that \"85% of users are satisfied\" overstates what the underlying data shows. The 85% figure describes survey respondents, not users. With only 480 responses out of 4,000 signups (12%) or 1,400 active users (34%), this is a minority sample, and there is no information here on who chose to respond. If satisfied users were more likely to bother answering a survey — a common pattern — the figure is inflated relative to the true population sentiment.\n\nMore importantly, the claim is being used to justify no change to the roadmap while sitting next to a 65% churn rate. Even taking 85% satisfaction at face value, that statistic is silent on the two-thirds of signups who have already left. A metric describing the mood of the remaining, more engaged base cannot be used to wave off attrition that has already occurred on this scale. If anything, the size of the churned population is the more decision-relevant number in this dataset, and the satisfaction figure does not offset it.\n\n**What the data does not establish**\n\n- Whether the 480 respondents are representative of the 1,400 active users, let alone the full 4,000 signups.\n- Whether churned users were surveyed at all; if the survey pool excludes them, \"85% satisfied\" cannot speak to why 2,600 people left.\n- Any reason for the 65% churn rate — the data provided has no information on cause, timing, or whether churn is still occurring.\n- Whether satisfaction has any relationship to the roadmap decision itself; satisfaction with the current product says nothing about the merits of proposed roadmap changes versus the status quo.\n- Response bias direction or magnitude — non-response could skew the 85% figure in either direction, and the data gives no way to check this.",
+    "anonymized_output_id": "OUT-0067",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-b98615e0-abf5-41e5-9536-881d2ec33d64",
+    "task_id": "T012",
+    "task_version": "v1-54f281c0f3f71e0f2fa3de71394a557d",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T06:51:28.582Z",
+    "raw_model_output": "The 85% figure is arithmetically correct (408/480), but it's being used to support a claim it can't actually carry. Here's why.\n\n## What \"85% satisfied\" actually measures\n\nThat number is the satisfaction rate **among survey respondents only** — not among users, not even among active users. To use it as \"85% of users are satisfied\" is a scope error. Let's put it in context against the denominators that actually matter:\n\n| Base | Calculation | % Satisfied |\n|---|---|---|\n| Survey respondents | 408 / 480 | 85% |\n| Currently active users | 408 / 1,400 | 29% |\n| All-time signups | 408 / 4,000 | ~10% |\n\nSame numerator, wildly different story depending on what you divide by. The team is reporting the version that sounds best, not the version that's most representative.\n\n## Two compounding bias problems\n\n**1. Survivorship bias (the big one).** 2,600 of 4,000 signups — 65% — have already churned. Churn is itself a strong revealed-preference signal of dissatisfaction, arguably stronger than a survey answer. If the satisfaction survey went only to the 1,400 currently active users (likely, given the response count), you are by construction excluding the majority of people who ever tried the product and are asking only the ones who stuck around whether they're happy. That's like measuring restaurant satisfaction by only interviewing people still in their seats after the ones who walked out mid-meal.\n\n**2. Non-response bias.** Only 480 of 1,400 active users (34%) responded — assuming the survey targeted active users. Roughly two-thirds didn't answer. Non-respondents are rarely a random cross-section: people who are indifferent, frustrated, or already disengaging are systematically less likely to fill out a survey than people who are actively happy. So even within the \"active users\" pool, the 85% is likely inflated relative to true sentiment.\n\nPut together, you have a satisfaction figure calculated on a subpopulation (survivors) that has already had dissatisfied members removed, further filtered by a response mechanism that likely screens out the remaining dissatisfied or apathetic users. Each filter pushes the number up.\n\n## What the data actually supports\n\nA defensible statement would be: *\"Among the 34% of currently active users who responded to our survey, 85% reported satisfaction — but this tells us nothing about the 65% of signups who have already churned, nor about the two-thirds of active users who didn't respond.\"*\n\nThat is a much thinner basis for \"keep the roadmap unchanged\" than the headline number suggests. The 65% churn rate is arguably the more decision-relevant statistic here, and it's being completely ignored in the framing.\n\n## What would make the claim sound\n\nBefore using this to justify a roadmap decision, I'd want:\n- Exit/churn survey data — why did the 2,600 leave? Even a partial response rate here would be more diagnostic than the current stat.\n- Clarity on who received the satisfaction survey (active only, or everyone including churned?) and the actual response rate against that base.\n- Some check on non-response bias — e.g., do known account/usage characteristics of non-respondents differ from respondents?\n- Trend data — is churn rate improving or worsening over time, and does satisfaction correlate with retention within cohorts?\n\n**Bottom line:** the calculation is correct, but the claim built on top of it isn't. \"85% satisfied\" is really \"85% of a self-selected 12% of all signups,\" while 65% of everyone who ever signed up is already gone. That's not evidence the roadmap is fine — at best it's silent on the question, and at worst it's masking a retention problem.",
+    "anonymized_output_id": "OUT-0068",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-6216b03c-b27f-4673-90a1-1593f299e92c",
+    "task_id": "T012",
+    "task_version": "v1-54f281c0f3f71e0f2fa3de71394a557d",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T06:52:06.037Z",
+    "raw_model_output": "The claim is **not sound as stated**.\n\nWhat the data directly supports is:\n\n- **408 out of 480 survey respondents reported satisfaction**\n- That is **85% of respondents**, not 85% of users.\n\n```text\n408 / 480 = 85%\n```\n\nBut respondents are only a subset of the user base:\n\n```text\n480 / 4,000 total signups = 12%\n480 / 1,400 currently active users = 34.3%\n```\n\nSo the defensible statement is:\n\n> “Among the 480 users who responded to the survey, 85% reported satisfaction.”\n\nIt is **not** valid to say:\n\n> “85% of users are satisfied.”\n\nThere are several problems with using this to justify keeping the roadmap unchanged.\n\n### 1. Survivorship bias\n\nThe product has had:\n\n```text\n2,600 churned users / 4,000 total signups = 65% churn\n1,400 active users / 4,000 total signups = 35% active\n```\n\nA large majority of users have already left. If the survey mostly reached or was answered by active users, the result likely overrepresents people who are already more satisfied.\n\nThe churned users may be exactly the people whose feedback is most relevant to roadmap changes.\n\n### 2. Nonresponse bias\n\nOnly 480 people responded. The 3,520 users who did not respond may have different opinions.\n\nThe satisfaction rate among respondents could be high while the broader user base is much less satisfied.\n\n### 3. The known satisfied population is much smaller\n\nThe number of users known to be satisfied is 408.\n\nRelative to total signups:\n\n```text\n408 / 4,000 = 10.2%\n```\n\nRelative to currently active users:\n\n```text\n408 / 1,400 = 29.1%\n```\n\nSo the data proves only that **10.2% of all signups** — or at most **29.1% of active users**, depending on who was surveyed — are confirmed satisfied.\n\n### 4. Churn contradicts the “everything is fine” interpretation\n\nA 65% churn rate is a major warning signal. Even if many remaining active users are satisfied, the roadmap may still be failing to address acquisition quality, onboarding, retention, product-market fit, pricing, missing features, or unmet expectations.\n\n### Better conclusion\n\nThe data supports this:\n\n> “85% of survey respondents are satisfied, but respondents represent only 12% of total signups and the product has experienced 65% churn. The survey result alone does not justify keeping the roadmap unchanged. We need to understand nonrespondents and churned users before drawing conclusions about overall user satisfaction.”\n\nRecommended next steps:\n\n- Segment satisfaction by active vs. churned users.\n- Survey churned users separately.\n- Compare respondents vs. nonrespondents.\n- Analyze reasons for churn.\n- Look at satisfaction by cohort, tenure, plan, use case, and feature adoption.\n- Avoid using respondent satisfaction as a proxy for total user satisfaction unless the sample is representative.\n\nBottom line: **“85% of respondents are satisfied” is true. “85% of users are satisfied” is not supported by the data.**",
+    "anonymized_output_id": "OUT-0069",
+    "truncated": false,
+    "reasoning_tokens": 350,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-3194a639-0980-4fd5-ba7d-e680a6839865",
+    "task_id": "T012",
+    "task_version": "v1-54f281c0f3f71e0f2fa3de71394a557d",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T06:52:35.354Z",
+    "raw_model_output": "## the figures\n\n| Measure | Count | Percentage / rate |\n|---|---:|---:|\n| Total signups since launch | 4,000 | 100% |\n| Users who have since churned | 2,600 | 65% of signups |\n| Currently active users | 1,400 | 35% of signups |\n| Survey responses received | 480 | 12% of signups; 34.3% of active users if surveyed population was active users |\n| Respondents reporting satisfaction | 408 | 85% of survey respondents |\n| Respondents not reporting satisfaction | 72 | 15% of survey respondents |\n| Satisfied respondents as share of all signups | 408 | 10.2% of signups |\n| Satisfied respondents as share of active users | 408 | 29.1% of active users, if all respondents were active users |\n\n## the assessment of the claim\n\nThe reported figure is arithmetically correct: 408 out of 480 survey respondents reported satisfaction, which is 85%.\n\nThe broader claim is not sound as stated. The data supports the narrower statement that **85% of survey respondents were satisfied**. It does not support the stronger conclusion that **85% of users are satisfied**, unless the survey respondents are shown to be representative of the relevant user population.\n\nThe renewal argument is also not supported by this figure alone. A high satisfaction rate among respondents sits alongside substantial churn: 2,600 of 4,000 signups have churned, a 65% churn rate. That materially weakens the use of respondent satisfaction as a standalone justification for renewing the roadmap unchanged.\n\n## what the data does not establish\n\nThe data does not establish:\n\n- that 85% of all users are satisfied;\n- that 85% of active users are satisfied;\n- that churned users were satisfied or dissatisfied;\n- that survey respondents are representative of all signups, active users, or churned users;\n- that non-respondents would report similar satisfaction levels;\n- that the current roadmap caused the reported satisfaction;\n- that the current roadmap did not contribute to churn;\n- that renewing the roadmap unchanged is the best decision;\n- what specific product areas are driving satisfaction, dissatisfaction, retention, or churn.",
+    "anonymized_output_id": "OUT-0070",
+    "truncated": false,
+    "reasoning_tokens": 116,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
   }
 ]

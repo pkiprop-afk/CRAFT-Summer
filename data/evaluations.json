@@ -1596,5 +1596,122 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response correctly reports n=15, median=3 hours, and 14/15 (93.3%) compliance, and rounds the mean to 18.9 (close to 18.93), but it never reports the mode (2 hours) at all, and it never quantifies the outlier's contribution (the required 16-hour/18.93-hour breakdown and the 3.14-hour mean excluding the outlier are missing entirely—only a vague \"heavily distorted\" statement is given). Most critically, despite correctly noting the median is more representative, the response ultimately concludes the SLA was \"breached\" under a \"strict per-ticket reading,\" directly undermining the required takeaway that median/percentage-within-target—not a single outlier or the mean—should govern the SLA conclusion. This produces a hedged, self-contradictory recommendation rather than a clear, defended one. Two required elements (mode, outlier quantification) are absent, and the conclusion partially conflicts with the intended nuanced verdict, warranting low-to-mid scores across all three dimensions."
+  },
+  {
+    "evaluation_id": "EVAL-ae13897b-fa77-4e9b-aa2f-2877bcdc49f3",
+    "result_id": "RES-a8eed772-57ab-42e8-8f0b-bab133835f14",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T06:51:42.597Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 7,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly verifies the arithmetic (408/480 = 85%), reports the 65% churn rate, and refuses to endorse the 85% claim based on the active vs. churned breakdown rather than relying solely on response rate. However, it fails to calculate that satisfied respondents represent a lower bound of 10.2% of all signups (408/4,000) and hedges on whether churned users were excluded rather than explicitly defining it as a survivorship/selection bias problem."
+  },
+  {
+    "evaluation_id": "EVAL-0badc59b-a7ae-456f-b558-a15a6f5ee97a",
+    "result_id": "RES-a8eed772-57ab-42e8-8f0b-bab133835f14",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T06:51:52.378Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 6,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly verifies that 408/480 = 85% and rejects interpreting that as overall user satisfaction. It also reports the 65% churn rate and notes that churned users are not represented in the satisfaction figure. However, it does not clearly name the issue as survivorship or selection bias, does not explicitly state that the excluded churned group is larger than the surveyed population, and omits the key calculation that satisfied respondents are at most 408/4,000 = 10.2% of all signups, as well as the point that this is a lower bound rather than an estimate of true satisfaction."
+  },
+  {
+    "evaluation_id": "EVAL-342f6b61-9391-4831-a782-1c5c98e50466",
+    "result_id": "RES-b98615e0-abf5-41e5-9536-881d2ec33d64",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T06:52:17.996Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 9,
+    "retry_count": 2,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      }
+    ],
+    "evaluator_justification": "The response accurately verifies the arithmetic (408/480 = 85%), correctly diagnoses survivorship bias from the 65% churn rate (2,600 of 4,000 users) as the primary issue over simple non-response bias, and evaluates the share of total signups (408/4,000 = ~10%). It loses one point on constraint adherence for rounding 10.2% to ~10% and failing to explicitly define this figure as a lower bound on true satisfaction."
+  },
+  {
+    "evaluation_id": "EVAL-52227e97-1b6f-481a-a012-6de5ed50f82b",
+    "result_id": "RES-b98615e0-abf5-41e5-9536-881d2ec33d64",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T06:52:26.999Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly verifies 408/480 = 85%, identifies survivorship/selection bias from excluding churned users, reports the 65% churn rate, notes the excluded churned group is larger than the active/surveyed group, and declines to treat 85% as overall satisfaction while not making response rate the sole issue. It also reports 408/4,000 as about 10%, but does not state the required exact 10.2% or clearly frame it as a lower bound rather than an estimate of true satisfaction, which prevents full credit."
+  },
+  {
+    "evaluation_id": "EVAL-bfea6aef-1dae-476c-a7e5-2e7e923e5589",
+    "result_id": "RES-6216b03c-b27f-4673-90a1-1593f299e92c",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T06:52:39.935Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response successfully meets all rubric criteria: it confirms the 85.0% arithmetic (408/480) while rejecting the product team's interpretation, explicitly identifies survivorship/selection bias regarding churned users, reports the 65.0% churn rate noting that the majority of users left, calculates the 10.2% confirmed satisfied rate out of all 4,000 signups, and properly distinguishes survivorship bias from nonresponse bias without relying solely on response rate."
+  },
+  {
+    "evaluation_id": "EVAL-cb3d00b1-930d-4256-9cd5-1332677c815a",
+    "result_id": "RES-3194a639-0980-4fd5-ba7d-e680a6839865",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T06:52:46.790Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 7,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response accurately verifies all underlying arithmetic (85.0% respondent satisfaction, 65.0% churn rate, 34.3% active response rate, and 10.2% total signup satisfaction share) and correctly rejects the claim that 85% of users are satisfied. However, it fails to explicitly name survivorship/selection bias, does not explicitly emphasize that the excluded churned group is larger than the surveyed population, and presents the 10.2% figure only in a table without explicitly identifying it as a lower bound on total satisfaction."
   }
 ]
