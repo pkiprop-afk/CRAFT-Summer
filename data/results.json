@@ -2106,5 +2106,563 @@
     "retry_count": 0,
     "retry_log": [],
     "notes": ""
+  },
+  {
+    "result_id": "RES-cd3b0f73-22f9-4f83-8ef9-b62aaac15ace",
+    "task_id": "T018",
+    "task_version": "v1-a0c4891610eeb12108786c108f8f5d5c",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T07:04:58.466Z",
+    "raw_model_output": "## Cash Flow Analysis\n\n**Running balance by month:**\n\n| Month | Net Cash Flow | Closing Balance |\n|-------|--------------|------------------|\n| Opening | — | $85,000 |\n| Jan | -$12,000 | $73,000 |\n| Feb | -$8,000 | $65,000 |\n| Mar | -$15,000 | $50,000 |\n| Apr | +$4,000 | $54,000 |\n| May | -$18,000 | $36,000 |\n| **Jun** | **-$22,000** | **$14,000** ⚠️ |\n| Jul | +$30,000 | $44,000 |\n| Aug | +$12,000 | $56,000 |\n| Sep | -$6,000 | $50,000 |\n| Oct | +$14,000 | $64,000 |\n| Nov | +$9,000 | $73,000 |\n| Dec | +$11,000 | $84,000 |\n\n## Result\n\n**Yes, the balance breaches the floor.**\n\n- **First breach month: June**\n- **Closing balance at breach: $14,000** — that's $6,000 below your $20,000 minimum floor.\n\nThe dip is driven by the cumulative effect of negative cash flows from March through June (-$15K, +$4K, -$18K, -$22K), which erode the cushion built up from the $85,000 opening balance. The business recovers strongly in July (+$30,000) and stays above the floor for the rest of the year, but June is where you'd need a cash injection, credit line draw, or expense deferral to stay compliant with your minimum.",
+    "anonymized_output_id": "OUT-0091",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-cadd84f7-86c4-4594-84e4-0edd7467d8b4",
+    "task_id": "T018",
+    "task_version": "v1-a0c4891610eeb12108786c108f8f5d5c",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T07:05:44.014Z",
+    "raw_model_output": "**Month-by-month position**\n\n| Month | Net Cash Flow ($000) | Closing Balance ($000) |\n|-------|----------------------|--------------------------|\n| Opening | – | 85 |\n| Jan | -12 | 73 |\n| Feb | -8 | 65 |\n| Mar | -15 | 50 |\n| Apr | +4 | 54 |\n| May | -18 | 36 |\n| Jun | -22 | 14 |\n| Jul | +30 | 44 |\n| Aug | +12 | 56 |\n| Sep | -6 | 50 |\n| Oct | +14 | 64 |\n| Nov | +9 | 73 |\n| Dec | +11 | 84 |\n\n**Finding**\n\nThe minimum operating cash floor of $20,000 is breached during the year. The balance remains above the floor through May, but the combined effect of a weak May and a heavier cash outflow in June pushes the closing position below the $20,000 threshold. June is the first month in which the floor is broken.\n\n**Closing balance for the month identified**\n\nThe closing cash balance for June is **$14,000**, which is $6,000 below the required minimum floor.",
+    "anonymized_output_id": "OUT-0092",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-595e96a8-c7ed-4cf9-9625-3f95e17fbf53",
+    "task_id": "T018",
+    "task_version": "v1-a0c4891610eeb12108786c108f8f5d5c",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T07:05:49.875Z",
+    "raw_model_output": "Yes. The cash balance first breaks below the minimum operating cash floor in **June**.\n\n| Month | Net Cash Flow | Closing Cash Balance |\n|---|---:|---:|\n| Opening | — | $85,000 |\n| Jan | -$12,000 | $73,000 |\n| Feb | -$8,000 | $65,000 |\n| Mar | -$15,000 | $50,000 |\n| Apr | +$4,000 | $54,000 |\n| May | -$18,000 | $36,000 |\n| Jun | -$22,000 | $14,000 |\n\nMinimum cash floor: **$20,000**  \nFirst breach: **June**  \nClosing balance in breach month: **$14,000**",
+    "anonymized_output_id": "OUT-0093",
+    "truncated": false,
+    "reasoning_tokens": 47,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-c512d9d2-5779-4052-8ef4-40c2aa775513",
+    "task_id": "T018",
+    "task_version": "v1-a0c4891610eeb12108786c108f8f5d5c",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T07:05:57.089Z",
+    "raw_model_output": "## Month-by-month position\n\n| Month | Net cash flow | Closing cash balance | Position vs. $20,000 floor |\n|---|---:|---:|---|\n| Jan | -$12,000 | $73,000 | Above floor |\n| Feb | -$8,000 | $65,000 | Above floor |\n| Mar | -$15,000 | $50,000 | Above floor |\n| Apr | +$4,000 | $54,000 | Above floor |\n| May | -$18,000 | $36,000 | Above floor |\n| Jun | -$22,000 | $14,000 | Below floor |\n| Jul | +$30,000 | $44,000 | Above floor |\n| Aug | +$12,000 | $56,000 | Above floor |\n| Sep | -$6,000 | $50,000 | Above floor |\n| Oct | +$14,000 | $64,000 | Above floor |\n| Nov | +$9,000 | $73,000 | Above floor |\n| Dec | +$11,000 | $84,000 | Above floor |\n\n## The finding\n\nThe minimum operating cash floor is broken in **June**. This is the first month in which the closing cash balance falls below the required **$20,000** floor.\n\n## Closing balance for the month identified\n\nThe closing cash balance in **June** is **$14,000**.",
+    "anonymized_output_id": "OUT-0094",
+    "truncated": false,
+    "reasoning_tokens": 41,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-6eacb415-10c1-4f54-a9a8-b13aa53229d2",
+    "task_id": "T019",
+    "task_version": "v1-f06061871e07589e1b423c75ddd21b93",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T07:06:16.110Z",
+    "raw_model_output": "Looking at your four quarterly ratios against the covenant requirement (strictly above 1.25):\n\n| Quarter | Ratio | Requirement | Status |\n|---------|-------|-------------|--------|\n| Q1 | 1.41 | > 1.25 | ✅ Pass |\n| Q2 | 1.33 | > 1.25 | ✅ Pass |\n| Q3 | 1.25 | > 1.25 | ❌ **Fail** |\n| Q4 | 1.52 | > 1.25 | ✅ Pass |\n\n**Q3 fails the covenant.** The word \"strictly\" is doing important work here — it means the ratio must be *greater than* 1.25, not merely equal to or greater than it. A ratio of exactly 1.25 does not satisfy \"strictly above 1.25,\" even though it might look fine at a glance.\n\n**What this means for the reporting year:**\n\n- **Technical default:** Since the covenant requires compliance *every quarter*, a single quarter's breach (Q3) constitutes a covenant violation for that period, even though Q1, Q2, and Q4 were compliant and Q4 shows a strong rebound.\n- **Not self-curing:** Compliance in Q4 does not retroactively fix the Q3 breach. Covenant tests are typically point-in-time (or trailing-period) tests, so a pass in a later quarter doesn't erase an earlier failure unless the loan agreement has specific cure or grace provisions.\n- **Likely consequences depend on the loan agreement's terms**, which I don't have in front of me, but commonly include:\n  - A notice/cure period during which the borrower can remedy the breach or seek a waiver.\n  - Lender's right to declare an event of default if uncured.\n  - Potential cross-default triggers if this loan is tied to other debt agreements.\n  - Possible requirement for a compliance certificate explaining the miss and remediation.\n\n**Practical next steps I'd suggest:**\n1. Check the loan agreement for any cure period, materiality threshold, or averaging/testing convention (e.g., some covenants use a trailing 12-month or rolling average rather than a strict single-quarter test — confirm which method actually applies here).\n2. Verify how \"1.25\" was calculated for Q3 — rounding conventions matter. If the underlying unrounded figure was, say, 1.253, some agreements define compliance based on the calculation methodology rather than the rounded reported number.\n3. Notify counsel or your lender relationship team promptly if a technical default has occurred, since many agreements require timely disclosure regardless of whether you believe a cure is likely.\n\nWould you like help reviewing the specific covenant language (e.g., cure periods, testing methodology) if you can share the relevant loan agreement excerpt?",
+    "anonymized_output_id": "OUT-0095",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-0b4a3207-7cd4-4b3e-9aba-751fadc55df0",
+    "task_id": "T019",
+    "task_version": "v1-f06061871e07589e1b423c75ddd21b93",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T07:06:39.488Z",
+    "raw_model_output": "# Quarter-by-Quarter Assessment\n\n| Quarter | DSCR | Threshold | Result |\n|---------|------|-----------|--------|\n| Q1 | 1.41 | > 1.25 | Compliant |\n| Q2 | 1.33 | > 1.25 | Compliant |\n| Q3 | 1.25 | > 1.25 | Non-compliant |\n| Q4 | 1.52 | > 1.25 | Compliant |\n\n# Failing Quarter\n\nQ3 fails the covenant. The ratio of 1.25 equals the threshold rather than exceeding it, and the covenant requires the ratio to remain strictly above 1.25. A value equal to the threshold does not satisfy a strict inequality test.\n\n# Consequence for the Year\n\nThe company did not comply with the covenant for the full reporting year. Compliance in three of four quarters does not cure the Q3 breach — covenant tests of this type are assessed on a per-quarter basis, and a single failing quarter constitutes a breach of the covenant for the year. This should be reported as a covenant violation, triggering whatever notice, cure, or waiver provisions are specified in the loan agreement.",
+    "anonymized_output_id": "OUT-0096",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-c7740dc0-a649-45fe-8c4b-ae6d418a83d9",
+    "task_id": "T019",
+    "task_version": "v1-f06061871e07589e1b423c75ddd21b93",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T07:06:45.080Z",
+    "raw_model_output": "No. The company did **not** comply in every quarter.\n\n| Quarter | Reported DSCR | Requirement: strictly above 1.25 | Result |\n|---|---:|---|---|\n| Q1 | 1.41 | > 1.25 | Compliant |\n| Q2 | 1.33 | > 1.25 | Compliant |\n| Q3 | 1.25 | > 1.25 | **Fails** |\n| Q4 | 1.52 | > 1.25 | Compliant |\n\nBecause the covenant requires the ratio to remain **strictly above 1.25**, a ratio of exactly **1.25** does **not** satisfy the covenant.\n\n**Failing quarter:** Q3.\n\n**Meaning for the reporting year:** The company was **not in compliance for the year**, because the covenant had to be satisfied in **each quarter**, and Q3 breached the requirement.",
+    "anonymized_output_id": "OUT-0097",
+    "truncated": false,
+    "reasoning_tokens": 21,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-ae43c736-c0a4-42a2-88ea-aae613abcc09",
+    "task_id": "T019",
+    "task_version": "v1-f06061871e07589e1b423c75ddd21b93",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T07:06:51.126Z",
+    "raw_model_output": "### Quarter-by-quarter assessment\n\n| Quarter | Reported DSCR | Covenant requirement | Assessment |\n|---|---:|---|---|\n| Q1 | 1.41 | Strictly above 1.25 | Compliant |\n| Q2 | 1.33 | Strictly above 1.25 | Compliant |\n| Q3 | 1.25 | Strictly above 1.25 | Non-compliant |\n| Q4 | 1.52 | Strictly above 1.25 | Compliant |\n\n### Failing quarter if any\n\nQ3 fails the covenant. The reported DSCR of 1.25 is not strictly above the required threshold of 1.25.\n\n### Consequence for the year\n\nThe company did not comply with the covenant for the reporting year because compliance was required in every quarter and Q3 failed.",
+    "anonymized_output_id": "OUT-0098",
+    "truncated": false,
+    "reasoning_tokens": 0,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-4ecc7e11-0956-41cb-a74d-764a65fa4627",
+    "task_id": "T020",
+    "task_version": "v1-069e7e553c3e1d325629d1c4b5bbc059",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T07:07:22.484Z",
+    "raw_model_output": "## Maximum Drawdown Analysis\n\n**Result: -21.49% (Peak: M4 → Trough: M5)**\n\n### Calculation\n| Month | Value | Running Peak | Drawdown from Peak |\n|-------|-------|--------------|---------------------|\n| M1 | 100,000 | 100,000 | 0.00% |\n| M2 | 112,000 | 112,000 | 0.00% |\n| M3 | 108,000 | 112,000 | -3.57% |\n| M4 | 121,000 | 121,000 | 0.00% |\n| **M5** | **95,000** | **121,000** | **-21.49%** ← max |\n| M6 | 103,000 | 121,000 | -14.88% |\n| M7 | 118,000 | 121,000 | -2.48% |\n| M8 | 116,000 | 121,000 | -4.13% |\n\n### The Math\n$$\\text{Drawdown} = \\frac{95{,}000 - 121{,}000}{121{,}000} = \\frac{-26{,}000}{121{,}000} = -21.49\\%$$\n\n### Summary\n- **Peak:** M4 at $121,000\n- **Trough:** M5 at $95,000\n- **Maximum drawdown:** −21.49%\n\nThis is the worst peak-to-trough decline in the series — even though M6 and M7 show smaller drawdowns relative to the same M4 peak, none exceed the drop realized at M5 before the portfolio partially recovered.",
+    "anonymized_output_id": "OUT-0099",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-7b6b46a5-1018-4d9f-b939-79d067a13ea8",
+    "task_id": "T020",
+    "task_version": "v1-069e7e553c3e1d325629d1c4b5bbc059",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T07:07:36.338Z",
+    "raw_model_output": "## Running Peak Position\n\nTracking the highest portfolio value reached up to and including each month:\n\n| Month | Portfolio Value | Running Peak | Drawdown from Peak |\n|-------|-----------------|--------------|---------------------|\n| M1 | 100,000 | 100,000 | 0.00% |\n| M2 | 112,000 | 112,000 | 0.00% |\n| M3 | 108,000 | 112,000 | -3.57% |\n| M4 | 121,000 | 121,000 | 0.00% |\n| M5 | 95,000 | 121,000 | -21.49% |\n| M6 | 103,000 | 121,000 | -14.88% |\n| M7 | 118,000 | 121,000 | -2.48% |\n| M8 | 116,000 | 121,000 | -4.13% |\n\nThe running peak rises through M1–M4, reaching its high point at M4, and remains at that level for the rest of the period since no subsequent month exceeds 121,000.\n\n## Peak and Trough Months\n\n- **Peak: M4 (121,000)**\n- **Trough: M5 (95,000)**\n\nThis is the largest fall from any running peak to a later trough. The drawdown at M5 (-21.49%) exceeds all other drawdown values in the table, including the later dip in the M4–M6 sequence and the smaller M2–M3 pullback.\n\n## Calculation\n\nMaximum drawdown is calculated as:\n\n$$\\text{Drawdown} = \\frac{\\text{Trough Value} - \\text{Peak Value}}{\\text{Peak Value}}$$\n\nSubstituting the M4 peak and M5 trough:\n\n$$\\text{Drawdown} = \\frac{95,000 - 121,000}{121,000} = \\frac{-26,000}{121,000} = -0.2149$$\n\n**Maximum drawdown = -21.49%**\n\nThis means the portfolio lost 21.49% of its value between the end of M4 and the end of M5, the steepest peak-to-trough decline across the eight-month period.",
+    "anonymized_output_id": "OUT-0100",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-bf69888d-b054-491f-be28-73f40882e8c0",
+    "task_id": "T020",
+    "task_version": "v1-069e7e553c3e1d325629d1c4b5bbc059",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T07:07:46.723Z",
+    "raw_model_output": "Maximum drawdown: **21.49%**\n\nIt occurs from the running peak at **M4** to the later trough at **M5**:\n\n- Peak value at **M4**: 121,000  \n- Trough value at **M5**: 95,000  \n- Drawdown:\n\n\\[\n\\frac{95{,}000 - 121{,}000}{121{,}000} = -21.49\\%\n\\]\n\nSo the largest percentage fall is **21.49% from M4 to M5**.",
+    "anonymized_output_id": "OUT-0101",
+    "truncated": false,
+    "reasoning_tokens": 98,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-39ae42f4-3b0b-4cd5-9ab0-2c8ea98e10f5",
+    "task_id": "T020",
+    "task_version": "v1-069e7e553c3e1d325629d1c4b5bbc059",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T07:08:09.597Z",
+    "raw_model_output": "## 1. Running peak position\n\n| Month | Portfolio value | Running peak | Drawdown from running peak |\n|---|---:|---:|---:|\n| M1 | 100,000 | 100,000 | 0.00% |\n| M2 | 112,000 | 112,000 | 0.00% |\n| M3 | 108,000 | 112,000 | -3.57% |\n| M4 | 121,000 | 121,000 | 0.00% |\n| M5 | 95,000 | 121,000 | -21.49% |\n| M6 | 103,000 | 121,000 | -14.88% |\n| M7 | 118,000 | 121,000 | -2.48% |\n| M8 | 116,000 | 121,000 | -4.13% |\n\n## 2. Peak and trough months\n\nThe largest percentage fall is from the running peak in **M4**, when the portfolio value was **121,000**, to the subsequent trough in **M5**, when the portfolio value was **95,000**.\n\n## 3. Calculation\n\n\\[\n\\text{Percentage fall} = \\frac{\\text{Trough value} - \\text{Peak value}}{\\text{Peak value}} \\times 100\n\\]\n\n\\[\n= \\frac{95{,}000 - 121{,}000}{121{,}000} \\times 100\n\\]\n\n\\[\n= \\frac{-26{,}000}{121{,}000} \\times 100\n\\]\n\n\\[\n= -21.49\\%\n\\]\n\nThe largest percentage fall from a running peak to a later trough is therefore **21.49%**, from **M4 to M5**.",
+    "anonymized_output_id": "OUT-0102",
+    "truncated": false,
+    "reasoning_tokens": 101,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-427cc523-8d41-4097-85b6-981250818034",
+    "task_id": "T021",
+    "task_version": "v1-f8551aa5a354c82984db3f4067fc7c98",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T07:08:38.454Z",
+    "raw_model_output": "## Calculations\n\n**Mean:**\nSum = 52,000 + 58,000 + 61,000 + 64,000 + 67,000 + 71,000 + 76,000 + 480,000 = **929,000**\nMean = 929,000 / 8 = **$116,125**\n\n**Median:**\nWith 8 values sorted, the median is the average of the 4th and 5th values:\n(64,000 + 67,000) / 2 = **$65,500**\n\n## Which one is more representative?\n\n**The median ($65,500) better represents typical pay at this firm.**\n\n### Why:\n- The mean is pulled sharply upward by the single $480,000 outlier (the founder's package). Notice that **7 of the 8 employees earn less than the mean** ($116,125) — that's not a \"typical\" value at all, it's skewed by one extreme data point.\n- The median, by contrast, sits right in the middle of the actual salary distribution (between $64,000 and $67,000), which reflects what most employees at this firm actually earn.\n- This is a classic case of an outlier distorting the average. Medians are specifically more robust to outliers because they depend on rank/position in the data rather than magnitude.\n\n### Rule of thumb:\nWhenever you have income, salary, home price, or other data with potential extreme outliers, the median is usually the better single-number summary of \"typical\" value. The mean is more useful when you care about totals (e.g., total payroll cost) rather than what a typical individual experiences.",
+    "anonymized_output_id": "OUT-0103",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-3f693064-2758-4f92-b40e-a064d0fd790c",
+    "task_id": "T021",
+    "task_version": "v1-f8551aa5a354c82984db3f4067fc7c98",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T07:09:12.686Z",
+    "raw_model_output": "## The Two Figures\n\n| Measure | Value |\n|---|---|\n| Mean | $116,125 |\n| Median | $65,500 |\n\n## Measure Recommended\n\nThe median ($65,500) better represents typical pay at the firm.\n\n## Justification\n\nThe founder's salary of $480,000 is an outlier relative to the other seven salaries, which cluster tightly between $52,000 and $76,000. This single value inflates the mean by over $50,000, producing a figure ($116,125) that exceeds all but one of the eight salaries — a distortion, not a representation of central tendency. The median, by contrast, is calculated from the middle of the ordered data set and is unaffected by the magnitude of the founder's package; it reflects what a typical employee at this firm actually earns. When a data set contains extreme values, as is common with founder or executive compensation, the median is the standard and more defensible choice for characterizing \"typical\" pay.",
+    "anonymized_output_id": "OUT-0104",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-e9357034-4ab2-42a7-8f50-b48b090fe374",
+    "task_id": "T021",
+    "task_version": "v1-f8551aa5a354c82984db3f4067fc7c98",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T07:09:18.039Z",
+    "raw_model_output": "- **Mean (average):**  \n  \\[\n  \\frac{52{,}000 + 58{,}000 + 61{,}000 + 64{,}000 + 67{,}000 + 71{,}000 + 76{,}000 + 480{,}000}{8}\n  = \\frac{929{,}000}{8}\n  = 116{,}125\n  \\]  \n  **Mean salary: $116,125**\n\n- **Median:**  \n  The salaries are already in order. With 8 values, the median is the average of the 4th and 5th values:\n\n  \\[\n  \\frac{64{,}000 + 67{,}000}{2} = 65{,}500\n  \\]\n\n  **Median salary: $65,500**\n\n**Better representation of typical pay: the median.**\n\nThe founder’s package of **$480,000** is far above the rest of the salaries and pulls the mean upward significantly. Most employees earn between **$52,000 and $76,000**, so the mean of **$116,125** gives a misleading impression of typical pay. The median, **$65,500**, is much closer to what a typical employee at the firm earns.",
+    "anonymized_output_id": "OUT-0105",
+    "truncated": false,
+    "reasoning_tokens": 85,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-020742e6-4b37-4e79-9788-be00d2149d92",
+    "task_id": "T021",
+    "task_version": "v1-f8551aa5a354c82984db3f4067fc7c98",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T07:09:24.950Z",
+    "raw_model_output": "## The two figures\n\n| Measure | Annual salary |\n|---|---:|\n| Mean | $116,125 |\n| Median | $65,500 |\n\n## The measure recommended\n\nThe median salary, $65,500, better represents typical pay at the firm.\n\n## The justification\n\nThe founder’s package of $480,000 is far above the other seven salaries and materially pulls the mean upward. As a result, the mean of $116,125 does not reflect what most employees earn.\n\nThe median is based on the middle of the salary distribution and is not distorted by the single extreme value. It is therefore the more appropriate measure for summarising typical pay at this firm.",
+    "anonymized_output_id": "OUT-0106",
+    "truncated": false,
+    "reasoning_tokens": 74,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-111c8722-dec7-45fb-b41a-a46e5e21929e",
+    "task_id": "T022",
+    "task_version": "v1-96fab8f49559488f279478aef234bb04",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T07:09:55.451Z",
+    "raw_model_output": "**Clients invoiced exactly once this quarter** (in order of first appearance):\n\n| Client | Amount |\n|---|---|\n| Cortez | 7,400 |\n| Dunmore | 3,300 |\n| Everly | 900 |\n\n**Total value of one-off invoices: 11,600**\n\n(Aldridge and Beacon were each invoiced twice, so they're recurring accounts and excluded from this list.)",
+    "anonymized_output_id": "OUT-0107",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-79cfa769-f064-4355-b856-b86a2d52cd4c",
+    "task_id": "T022",
+    "task_version": "v1-96fab8f49559488f279478aef234bb04",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T07:10:30.429Z",
+    "raw_model_output": "**One-off clients (invoiced exactly once, in order of first appearance):**\n1. Cortez — 7,400\n2. Dunmore — 3,300\n3. Everly — 900\n\n**Clients excluded (recurring accounts, invoiced more than once):**\n- Aldridge (4,200 and 5,600 — two invoices)\n- Beacon (1,850 and 2,100 — two invoices)\n\n**Total value of one-off invoices:** 11,600",
+    "anonymized_output_id": "OUT-0108",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
   }
 ]

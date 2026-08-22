@@ -1488,5 +1488,315 @@
     "retry_count": 0,
     "http_status": 200,
     "message": null
+  },
+  {
+    "evaluator_model": "claude-sonnet-5",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0090",
+    "recorded_at": "2026-08-22T07:04:50.432Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0091",
+    "recorded_at": "2026-08-22T07:05:33.292Z",
+    "outcome": "succeeded_after_retry",
+    "retry_count": 3,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0091",
+    "recorded_at": "2026-08-22T07:05:35.531Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0089",
+    "recorded_at": "2026-08-22T07:05:36.652Z",
+    "outcome": "exhausted",
+    "retry_count": 4,
+    "http_status": null,
+    "message": "All 5 attempts failed. Last: 503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing"
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0092",
+    "recorded_at": "2026-08-22T07:05:49.612Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0092",
+    "recorded_at": "2026-08-22T07:05:51.802Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0094",
+    "recorded_at": "2026-08-22T07:06:01.512Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "claude-sonnet-5",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0094",
+    "recorded_at": "2026-08-22T07:06:05.440Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0093",
+    "recorded_at": "2026-08-22T07:06:21.813Z",
+    "outcome": "succeeded_after_retry",
+    "retry_count": 2,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "claude-sonnet-5",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0093",
+    "recorded_at": "2026-08-22T07:06:35.000Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0095",
+    "recorded_at": "2026-08-22T07:06:35.868Z",
+    "outcome": "succeeded_after_retry",
+    "retry_count": 1,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0095",
+    "recorded_at": "2026-08-22T07:06:40.303Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0096",
+    "recorded_at": "2026-08-22T07:06:45.711Z",
+    "outcome": "succeeded_after_retry",
+    "retry_count": 1,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0096",
+    "recorded_at": "2026-08-22T07:06:48.466Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0098",
+    "recorded_at": "2026-08-22T07:07:10.675Z",
+    "outcome": "succeeded_after_retry",
+    "retry_count": 1,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "claude-sonnet-5",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0098",
+    "recorded_at": "2026-08-22T07:07:13.961Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0099",
+    "recorded_at": "2026-08-22T07:07:24.041Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0099",
+    "recorded_at": "2026-08-22T07:07:27.537Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0097",
+    "recorded_at": "2026-08-22T07:07:43.292Z",
+    "outcome": "exhausted",
+    "retry_count": 4,
+    "http_status": null,
+    "message": "All 5 attempts failed. Last: 503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing"
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0101",
+    "recorded_at": "2026-08-22T07:07:48.700Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "claude-sonnet-5",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0101",
+    "recorded_at": "2026-08-22T07:08:04.193Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0100",
+    "recorded_at": "2026-08-22T07:08:31.997Z",
+    "outcome": "exhausted",
+    "retry_count": 4,
+    "http_status": null,
+    "message": "All 5 attempts failed. Last: 503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing"
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0102",
+    "recorded_at": "2026-08-22T07:08:51.780Z",
+    "outcome": "succeeded_after_retry",
+    "retry_count": 3,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "claude-sonnet-5",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0102",
+    "recorded_at": "2026-08-22T07:09:07.168Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0103",
+    "recorded_at": "2026-08-22T07:09:10.961Z",
+    "outcome": "succeeded_after_retry",
+    "retry_count": 2,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0103",
+    "recorded_at": "2026-08-22T07:09:13.467Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0104",
+    "recorded_at": "2026-08-22T07:09:16.235Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0104",
+    "recorded_at": "2026-08-22T07:09:21.707Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0106",
+    "recorded_at": "2026-08-22T07:09:43.610Z",
+    "outcome": "succeeded_after_retry",
+    "retry_count": 1,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "claude-sonnet-5",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0106",
+    "recorded_at": "2026-08-22T07:09:52.091Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0105",
+    "recorded_at": "2026-08-22T07:10:27.073Z",
+    "outcome": "exhausted",
+    "retry_count": 4,
+    "http_status": null,
+    "message": "All 5 attempts failed. Last: 503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing"
   }
 ]

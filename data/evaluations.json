@@ -2390,5 +2390,502 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response correctly provides the full 10,000-lead breakdown (180 TP, 20 FN, 980 FP, 8,820 TN), calculates the positive predictive value as 180/1,160 (15.5%), explicitly refutes the 90% expectation, and clearly explains how the 2% base conversion rate causes false positives from the non-converting majority to dominate the flagged pool."
+  },
+  {
+    "evaluation_id": "EVAL-12188e0d-5de6-4789-95ff-d51b5b8a2105",
+    "result_id": "RES-bc316489-6fe0-4d7f-9082-3384e9918f68",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:04:50.447Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly derives the confusion‑matrix numbers (180 TP, 20 FN, 980 FP, 8,820 TN, 1,160 flagged) and computes the PPV as 15.5%, explicitly stating that the 90% conversion expectation is false. However, it never names or explicitly invokes \"base‑rate neglect\" as the underlying cognitive/statistical reason, and its explanation of why the low 2% base rate makes false positives dominate is only a brief restatement of the arithmetic rather than a clear discussion of how the far larger non‑converting population outweighs the smaller converting population even at 90% specificity. All three core elements (confusion matrix, PPV, base‑rate explanation) are present, satisfying completeness, but the depth of causal explanation falls short of full logical rigor."
+  },
+  {
+    "evaluation_id": "EVAL-31baee09-b92e-4ea4-b00f-ec2f699988ce",
+    "result_id": "RES-cd3b0f73-22f9-4f83-8ef9-b62aaac15ace",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:05:33.320Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 3,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      },
+      {
+        "attempt": 3,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 8000
+      }
+    ],
+    "evaluator_justification": "The response perfectly satisfies all constraints and rubric criteria, correctly computing the month-by-month running cash balances, accurately identifying June as the first breach month with a $14,000 closing balance, and explicitly stating the floor violation."
+  },
+  {
+    "evaluation_id": "EVAL-6a2a0b0d-d6c3-43c8-8750-1903732a7f9d",
+    "result_id": "RES-cd3b0f73-22f9-4f83-8ef9-b62aaac15ace",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:05:35.541Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response computes the running balance month by month, correctly identifies June as the first and only month below the $20,000 floor, reports the June closing balance as $14,000, and explicitly states that the floor is breached. It does not rely on the December closing balance to infer safety, and all arithmetic matches the verified balances."
+  },
+  {
+    "evaluation_id": "EVAL-55e107d6-643d-497a-997e-57079a3e35f5",
+    "result_id": "RES-cadd84f7-86c4-4594-84e4-0edd7467d8b4",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:05:49.661Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response perfectly satisfies all task constraints: it computes the full month-by-month running balance with exact arithmetic, explicitly states that the cash floor is breached, correctly identifies June as the first breach month, and accurately reports the June closing balance of $14,000."
+  },
+  {
+    "evaluation_id": "EVAL-eb9f5dfc-614d-4e47-ac03-c733167c07ba",
+    "result_id": "RES-cadd84f7-86c4-4594-84e4-0edd7467d8b4",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:05:53.079Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response computes the running balance month by month, correctly identifies June as the first month below the $20,000 floor, reports the June closing balance as $14,000, explicitly states that the floor is breached, and does not rely on the December closing balance to claim safety."
+  },
+  {
+    "evaluation_id": "EVAL-2d450fca-93a4-4286-af9b-cd3483b0ffe9",
+    "result_id": "RES-c512d9d2-5779-4052-8ef4-40c2aa775513",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:06:01.528Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response perfectly satisfies all constraints by calculating the accurate month-by-month running balance, explicitly identifying June as the first month the floor is breached, reporting the correct June closing balance of $14,000, and providing all required conclusions without relying on the year-end total."
+  },
+  {
+    "evaluation_id": "EVAL-5375c157-7c2a-40d0-a123-163ed31447ef",
+    "result_id": "RES-c512d9d2-5779-4052-8ef4-40c2aa775513",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:06:05.451Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response computes a correct month-by-month running balance (verified: 73, 65, 50, 54, 36, 14, 44, 56, 50, 64, 73, 84), correctly identifies June as the first (and only) month the balance falls below the $20,000 floor, explicitly states the floor is breached rather than leaving it implicit, reports the June closing balance as $14,000, and does not use the December closing balance of $84,000 as evidence of safety—instead correctly noting it is above the floor without contradicting the earlier breach finding. All constraints are satisfied, the arithmetic is fully correct, and the answer includes the running computation, critical month, and explicit conclusion."
+  },
+  {
+    "evaluation_id": "EVAL-b71ff181-b936-4fc5-942b-efa9271bcdd2",
+    "result_id": "RES-595e96a8-c7ed-4cf9-9625-3f95e17fbf53",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:06:21.823Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 2,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      }
+    ],
+    "evaluator_justification": "The response adheres to all stated constraints, correctly calculates the month-by-month running cash balance leading to the breach, explicitly identifies June as the first month falling below the $20,000 floor, and accurately reports the June closing balance of $14,000."
+  },
+  {
+    "evaluation_id": "EVAL-40660bc2-d5d5-4c24-848a-bec42dbe02c3",
+    "result_id": "RES-595e96a8-c7ed-4cf9-9625-3f95e17fbf53",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:06:35.029Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response builds a month-by-month running balance (correct through June: 73,65,50,54,36,14), correctly identifies June as the first month of breach, reports the correct $14,000 closing balance, and explicitly states the breach (\"Yes... first breaks below the minimum operating cash floor in June\") rather than leaving it implicit. It never invokes the December year-end figure as counter-evidence, so it avoids the targeted failure mode of summing flows and declaring safety based on a positive final balance. All required elements—running computation, critical month, and explicit conclusion—are present, satisfying full completeness and logical accuracy."
+  },
+  {
+    "evaluation_id": "EVAL-9805f88c-ac76-4f80-b133-863286d3f8a8",
+    "result_id": "RES-6eacb415-10c1-4f54-a9a8-b13aa53229d2",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:06:35.889Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response adheres to all constraints by correctly identifying Q3 as the failing quarter, explaining that exact equality to 1.25 fails the \"strictly above\" requirement, and definitively concluding that the company breached the covenant for the year without inventing outside data or misinterpreting the boundary condition."
+  },
+  {
+    "evaluation_id": "EVAL-e4451c42-272d-43cf-8d58-b5a874808e69",
+    "result_id": "RES-6eacb415-10c1-4f54-a9a8-b13aa53229d2",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:06:40.316Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly identifies Q3 as the only failing quarter, explicitly explains that exactly 1.25 does not satisfy a “strictly above 1.25” covenant, and states that the company breached the covenant/is in technical default for the reporting year because compliance was required every quarter. It does not treat equality as compliance or round the threshold, and while it mentions possible agreement-specific consequences, it keeps the compliance conclusion tied to the four supplied quarters."
+  },
+  {
+    "evaluation_id": "EVAL-f1a8fd2b-0224-4466-b085-cf327952368a",
+    "result_id": "RES-0b4a3207-7cd4-4b3e-9aba-751fadc55df0",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:06:45.726Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response perfectly satisfies all constraints and rubric criteria. It correctly identifies Q3 as non-compliant, explicitly explains that strict inequality excludes equality at 1.25, clearly states the resulting non-compliance consequence for the full year, and confines its analysis entirely to the supplied data without misinterpreting the boundary condition."
+  },
+  {
+    "evaluation_id": "EVAL-2d21ea37-b198-45d6-84c4-ab9a7f47a60c",
+    "result_id": "RES-0b4a3207-7cd4-4b3e-9aba-751fadc55df0",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:06:48.481Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly identifies Q3 as the only failing quarter, explicitly explains that 1.25 does not satisfy a covenant requiring the ratio to be strictly above 1.25, states that Q1, Q2, and Q4 pass, and concludes that the company is out of compliance for the reporting year. It does not round, reinterpret the threshold, or invent additional financial data."
+  },
+  {
+    "evaluation_id": "EVAL-5f69e428-694b-44ad-9fdd-f15268c6d41a",
+    "result_id": "RES-ae43c736-c0a4-42a2-88ea-aae613abcc09",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:07:10.836Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response adheres to all specified constraints by correctly identifying Q3 as non-compliant, explicitly noting that a DSCR of exactly 1.25 fails a strict inequality requirement, and confirming that the company is out of compliance for the full reporting year."
+  },
+  {
+    "evaluation_id": "EVAL-46f9ec91-03dc-4a72-824d-9ce840a823cf",
+    "result_id": "RES-ae43c736-c0a4-42a2-88ea-aae613abcc09",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:07:13.974Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly identifies Q3 (1.25) as the sole failing quarter, explicitly states that exactly 1.25 does not satisfy a \"strictly above 1.25\" requirement without rounding or reinterpreting the threshold, confines analysis to the four supplied quarters without inventing data, and concludes the company is out of compliance for the entire year rather than calling it borderline—fully satisfying all five constraints, demonstrating correct boundary-operator logic, and including all required completeness elements (failing quarter, boundary explanation, and compliance consequence)."
+  },
+  {
+    "evaluation_id": "EVAL-f99225c5-1ada-479c-a44b-1af404cf636c",
+    "result_id": "RES-4ecc7e11-0956-41cb-a74d-764a65fa4627",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:07:24.052Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response perfectly adheres to all constraints, correctly tracks the running peak across all months, identifies M4 as the peak and M5 as the trough, shows the explicit calculation, and accurately calculates the maximum drawdown as -21.49%."
+  },
+  {
+    "evaluation_id": "EVAL-3bf3f223-f946-4eb2-af3d-599165c58412",
+    "result_id": "RES-4ecc7e11-0956-41cb-a74d-764a65fa4627",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:07:27.548Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly tracks the running peak throughout the series, identifies M4 as the peak and M5 as the trough, reports the maximum drawdown as -21.49% (approximately 21.5%), and shows the calculation using the peak as the denominator. It does not confuse the M7-to-M8 decline with the maximum, and it includes a complete table demonstrating the running-peak methodology."
+  },
+  {
+    "evaluation_id": "EVAL-b2dec549-5c11-4096-83b3-896598a24fac",
+    "result_id": "RES-bf69888d-b054-491f-be28-73f40882e8c0",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:07:48.712Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response satisfies all constraints by correctly identifying M4 as the peak and M5 as the trough, properly applying the drawdown formula using the running peak, and presenting the exact calculation resulting in 21.49%."
+  },
+  {
+    "evaluation_id": "EVAL-5678ab21-e831-4a49-b975-ef1019f360ce",
+    "result_id": "RES-bf69888d-b054-491f-be28-73f40882e8c0",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:08:04.231Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly identifies M4 as the peak (121,000) and M5 as the trough (95,000), explicitly labels M4 as the \"running peak,\" shows the drawdown calculation, and arrives at the correct value of -21.49%, matching the expected ~21.5% figure. It does not mention or misidentify the M7-M8 decline as the maximum, and the arithmetic is accurate and clearly displayed, satisfying all constraint, logical, and completeness requirements."
+  },
+  {
+    "evaluation_id": "EVAL-adb95c75-154a-47b3-b329-a4107b787efa",
+    "result_id": "RES-39ae42f4-3b0b-4cd5-9ab0-2c8ea98e10f5",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:08:51.790Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 3,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      },
+      {
+        "attempt": 3,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 8000
+      }
+    ],
+    "evaluator_justification": "The response perfectly adheres to all constraints by correctly tracking running peaks across each month, identifying M4 as the peak and M5 as the trough, presenting the exact step-by-step drawdown calculation, and correctly reporting the maximum drawdown as 21.49%."
+  },
+  {
+    "evaluation_id": "EVAL-9b5e6219-bb8b-4784-abb6-4e0e33d9300b",
+    "result_id": "RES-39ae42f4-3b0b-4cd5-9ab0-2c8ea98e10f5",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:09:07.177Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly builds the running peak series (100k,112k,112k,121k,121k,121k,121k,121k), computes drawdowns at each point matching the verified figures (M3 -3.57%, M5 -21.49%, M6 -14.88%, M8 -4.13%, plus M7 -2.48%), correctly identifies M4 as peak and M5 as trough, shows the full calculation, and does not mistakenly flag the M7-M8 decline as maximum. All required constraints are satisfied with accurate arithmetic and complete reasoning."
+  },
+  {
+    "evaluation_id": "EVAL-68e5c10f-00ae-44d4-be5f-49982b9da014",
+    "result_id": "RES-427cc523-8d41-4097-85b6-981250818034",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:09:10.978Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 2,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      }
+    ],
+    "evaluator_justification": "The response perfectly satisfies all constraints by calculating the mean ($116,125) and median ($65,500) accurately, averaging the two middle elements of the even-sized dataset without discarding the outlier. It also provides a clear, well-reasoned justification recommending the median by highlighting how the founder's salary distorts the mean and noting that seven of eight employees earn below the average."
+  },
+  {
+    "evaluation_id": "EVAL-bcc89dd8-a05e-49ab-8f0a-03fc942961b6",
+    "result_id": "RES-427cc523-8d41-4097-85b6-981250818034",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:09:13.482Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly reports the mean as $116,125 and the median as $65,500, explicitly averaging the two central values for the even-sized sample. It recommends the median as more representative and clearly justifies this by explaining that the founder’s $480,000 compensation is a single outlier that distorts the mean, including the relevant observation that 7 of 8 employees earn below the mean. It does not improperly discard the founder’s salary and includes all required statistics, recommendation, and rationale."
+  },
+  {
+    "evaluation_id": "EVAL-f675a4fa-51b9-4e19-9d27-99e5cc385e42",
+    "result_id": "RES-3f693064-2758-4f92-b40e-a064d0fd790c",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:09:16.253Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response satisfies all constraints perfectly. It accurately calculates the mean ($116,125) and median ($65,500), correctly averaging the central values, recommends the median as the representative measure, and provides a thorough justification explaining how the founder's outlier salary distorts the mean."
+  },
+  {
+    "evaluation_id": "EVAL-bbb9525b-29fc-4eff-a055-8f9ca6ff4c4f",
+    "result_id": "RES-3f693064-2758-4f92-b40e-a064d0fd790c",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:09:21.722Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response reports the correct mean of $116,125 and median of $65,500, recommends the median as the more representative measure, and clearly explains that the founder’s $480,000 outlier inflates the mean. It also notes that the mean exceeds all but one salary, reinforcing the distortion point, and does not discard the founder’s salary."
+  },
+  {
+    "evaluation_id": "EVAL-334a0892-7795-4e65-8ea5-3d31ae735776",
+    "result_id": "RES-020742e6-4b37-4e79-9788-be00d2149d92",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:09:43.627Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response perfectly satisfies all constraints and rubric criteria, reporting the exact correct mean ($116,125) and median ($65,500), recommending the median, and accurately justifying the choice based on the distortion caused by the founder's outlier salary."
+  },
+  {
+    "evaluation_id": "EVAL-057d5b8d-5acb-47b5-b1dd-b846ceaea709",
+    "result_id": "RES-020742e6-4b37-4e79-9788-be00d2149d92",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:09:52.101Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 9,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response reports the correct mean ($116,125) and median ($65,500), implicitly averaging the two central values correctly, recommends the median, and explains that the founder's outlier salary inflates the mean without discarding it from the dataset — satisfying all five constraints. However, the justification is fairly thin: it does not explicitly surface the key supporting fact that seven of eight employees earn below the mean, which would have made the argument more rigorous and fully defended, so logical accuracy is docked slightly short of full marks."
   }
 ]

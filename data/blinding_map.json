@@ -628,5 +628,131 @@
     "model_name": "gpt-5.5-2026-04-23",
     "prompt_condition": "craft",
     "allocated_at": "2026-08-22T07:04:08.850Z"
+  },
+  "OUT-0091": {
+    "token": "OUT-0091",
+    "task_id": "T018",
+    "model_name": "claude-sonnet-5",
+    "prompt_condition": "baseline",
+    "allocated_at": "2026-08-22T07:04:58.456Z"
+  },
+  "OUT-0092": {
+    "token": "OUT-0092",
+    "task_id": "T018",
+    "model_name": "claude-sonnet-5",
+    "prompt_condition": "craft",
+    "allocated_at": "2026-08-22T07:05:43.996Z"
+  },
+  "OUT-0093": {
+    "token": "OUT-0093",
+    "task_id": "T018",
+    "model_name": "gpt-5.5-2026-04-23",
+    "prompt_condition": "baseline",
+    "allocated_at": "2026-08-22T07:05:49.863Z"
+  },
+  "OUT-0094": {
+    "token": "OUT-0094",
+    "task_id": "T018",
+    "model_name": "gpt-5.5-2026-04-23",
+    "prompt_condition": "craft",
+    "allocated_at": "2026-08-22T07:05:57.077Z"
+  },
+  "OUT-0095": {
+    "token": "OUT-0095",
+    "task_id": "T019",
+    "model_name": "claude-sonnet-5",
+    "prompt_condition": "baseline",
+    "allocated_at": "2026-08-22T07:06:16.097Z"
+  },
+  "OUT-0096": {
+    "token": "OUT-0096",
+    "task_id": "T019",
+    "model_name": "claude-sonnet-5",
+    "prompt_condition": "craft",
+    "allocated_at": "2026-08-22T07:06:39.467Z"
+  },
+  "OUT-0097": {
+    "token": "OUT-0097",
+    "task_id": "T019",
+    "model_name": "gpt-5.5-2026-04-23",
+    "prompt_condition": "baseline",
+    "allocated_at": "2026-08-22T07:06:45.067Z"
+  },
+  "OUT-0098": {
+    "token": "OUT-0098",
+    "task_id": "T019",
+    "model_name": "gpt-5.5-2026-04-23",
+    "prompt_condition": "craft",
+    "allocated_at": "2026-08-22T07:06:51.114Z"
+  },
+  "OUT-0099": {
+    "token": "OUT-0099",
+    "task_id": "T020",
+    "model_name": "claude-sonnet-5",
+    "prompt_condition": "baseline",
+    "allocated_at": "2026-08-22T07:07:22.476Z"
+  },
+  "OUT-0100": {
+    "token": "OUT-0100",
+    "task_id": "T020",
+    "model_name": "claude-sonnet-5",
+    "prompt_condition": "craft",
+    "allocated_at": "2026-08-22T07:07:36.325Z"
+  },
+  "OUT-0101": {
+    "token": "OUT-0101",
+    "task_id": "T020",
+    "model_name": "gpt-5.5-2026-04-23",
+    "prompt_condition": "baseline",
+    "allocated_at": "2026-08-22T07:07:46.707Z"
+  },
+  "OUT-0102": {
+    "token": "OUT-0102",
+    "task_id": "T020",
+    "model_name": "gpt-5.5-2026-04-23",
+    "prompt_condition": "craft",
+    "allocated_at": "2026-08-22T07:08:09.579Z"
+  },
+  "OUT-0103": {
+    "token": "OUT-0103",
+    "task_id": "T021",
+    "model_name": "claude-sonnet-5",
+    "prompt_condition": "baseline",
+    "allocated_at": "2026-08-22T07:08:38.442Z"
+  },
+  "OUT-0104": {
+    "token": "OUT-0104",
+    "task_id": "T021",
+    "model_name": "claude-sonnet-5",
+    "prompt_condition": "craft",
+    "allocated_at": "2026-08-22T07:09:12.672Z"
+  },
+  "OUT-0105": {
+    "token": "OUT-0105",
+    "task_id": "T021",
+    "model_name": "gpt-5.5-2026-04-23",
+    "prompt_condition": "baseline",
+    "allocated_at": "2026-08-22T07:09:18.026Z"
+  },
+  "OUT-0106": {
+    "token": "OUT-0106",
+    "task_id": "T021",
+    "model_name": "gpt-5.5-2026-04-23",
+    "prompt_condition": "craft",
+    "allocated_at": "2026-08-22T07:09:24.927Z"
+  },
+  "OUT-0107": {
+    "token": "OUT-0107",
+    "task_id": "T022",
+    "model_name": "claude-sonnet-5",
+    "prompt_condition": "baseline",
+    "allocated_at": "2026-08-22T07:09:55.441Z"
+  },
+  "OUT-0108": {
+    "token": "OUT-0108",
+    "task_id": "T022",
+    "model_name": "claude-sonnet-5",
+    "prompt_condition": "craft",
+    "allocated_at": "2026-08-22T07:10:30.415Z"
   }
 }
