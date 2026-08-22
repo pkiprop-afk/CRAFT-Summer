@@ -7078,5 +7078,33 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response makes a clear, committed choice for Option A, identifies multiple valid costs, and notes that the issue was an operational error rather than fabrication/misconduct. However, it fails to state an explicit condition under which the recommendation itself would reverse (e.g., if submission guidelines strictly prohibit uncorrected analyses), and the recommendation heading describes the action without explicitly naming \"Option A\" in that specific sentence."
+  },
+  {
+    "evaluation_id": "EVAL-8f4562d8-ae2c-47e1-bc3d-252ab257fc91",
+    "result_id": "RES-c2380dcd-7ae6-478a-a3bf-d794ff3e5106",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T16:01:07.690Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 2,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      }
+    ],
+    "evaluator_justification": "The response perfectly satisfies all constraints and rubric criteria: it immediately rejects the question's false premise before offering advice, specifically cites the conflict between the handbook (Section 7) and the manager's message, explicitly distinguishes informal manager messaging from official policy, includes actionable steps to address the manager directly, and refuses to advise HR on enforcing a non-existent prohibition."
   }
 ]
