@@ -65,8 +65,8 @@ const METRICS: Array<{
 /**
  * ICC(3,1) — two-way MIXED effects, single rater, absolute... no: consistency.
  *
- * Model (3,k=1) treats the judges as FIXED and named (gemini-2.5-pro plus the
- * rotating secondary), not a random sample from a population of judges, which
+ * Model (3,k=1) treats the judges as FIXED and named (gemini-3.7-flash as
+ * primary plus the rotating secondary), not a random sample of judges, which
  * matches this design: there is no intent to generalize to other judges.
  *
  *   ICC(3,1) = (MSR - MSE) / (MSR + (k-1) * MSE),  k = 2 raters
