@@ -5962,5 +5962,39 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response explicitly states at the outset that the brief cannot be satisfied as written, shows the key arithmetic correctly, and explains that 84 minutes of presentation time alone exceeds the 30 minutes available after the fixed introduction and plenary. It does not falsely present a 40-minute plan satisfying all original requirements; instead it clearly identifies relaxed requirements in the proposed option and offers multiple alternatives, including shorter presentations and spreading presentations across lessons. It also distinguishes fixed elements from trade-offs sufficiently for the benchmark criteria, while preserving the impossibility finding."
+  },
+  {
+    "evaluation_id": "EVAL-e1f3a6c4-a86f-469b-a942-06745e71e8fd",
+    "result_id": "RES-a0e7ac38-b940-4da2-a166-254c282c5ed4",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T15:16:35.391Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 3,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      },
+      {
+        "attempt": 3,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 8000
+      }
+    ],
+    "evaluator_justification": "The response perfectly satisfies all task constraints: it explicitly declares the brief impossible up front, shows the exact arithmetic (84 minutes of presentations vs. 30 minutes available), avoids producing a false 40-minute timetable, and provides three distinct workable alternatives with clearly stated trade-offs."
   }
 ]
