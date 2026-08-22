@@ -5549,5 +5549,48 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response is under 200 words, uses second person, accepts the student’s observation, distinguishes observation from explanation, identifies air resistance as the confound, and proposes a vacuum/Moon test. It loses some constraint credit because it does not explicitly acknowledge that the student’s reasoning from the observation was valid before correcting the conclusion, and it briefly restates the “gravity accelerates all objects equally” rule, though not as the main explanation."
+  },
+  {
+    "evaluation_id": "EVAL-d0647a26-9d2c-4646-9f87-ccd18bc94b21",
+    "result_id": "RES-23a8728a-e25a-4e65-8d71-a846166d9a6f",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T14:15:11.440Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 7,
+    "retry_count": 2,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      }
+    ],
+    "evaluator_justification": "The response adheres to the word count, uses the second person, validates the student's observation, and correctly identifies air resistance as the confounding variable. However, it fails to propose an actionable test or observation that the student could personally carry out to distinguish between the two explanations (such as dropping crumpled versus flat paper of equal weight), instead asserting the established outcome via historical vacuum/Moon experiments."
+  },
+  {
+    "evaluation_id": "EVAL-642e47ae-2ed5-447a-8c5b-142bfb4cc351",
+    "result_id": "RES-23a8728a-e25a-4e65-8d71-a846166d9a6f",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T14:15:33.515Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 2,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 6,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response validates the student's observation, keeps the tone second-person, stays near the word limit, and correctly identifies air resistance as the uncontrolled variable distinguishing observation from inference without calling the observation wrong. However, it never proposes a concrete test the student could personally perform to isolate the variable—it only cites that vacuum-tube and Moon experiments have already been done, which is an appeal to authority rather than an actionable observation for the student to make. This omission causes it to fail the \"propose a specific test\" constraint and lowers completeness, since the acknowledgement and diagnosis are present but the required student-facing test is missing."
   }
 ]
