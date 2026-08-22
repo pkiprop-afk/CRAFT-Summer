@@ -4672,5 +4672,127 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response is under 250 words and includes the three required sections with multiple concrete permitted and prohibited-use rules. However, the disclosure requirement is incomplete because it does not clearly specify a disclosure chain naming the discloser, recipient, disclosed content, and trigger condition for AI-use disclosure; logging in a project file is not the same as disclosure to a named recipient. It addresses the three confidentiality-clause clients as a distinct category, but not very specifically, and it does not clearly state an uncovered situation or a condition requiring guidance beyond checking the client list. Overall, it is structured and mostly operational, but misses key specificity requirements."
+  },
+  {
+    "evaluation_id": "EVAL-8eb5de07-ad2a-4788-9751-bbd9d3ad8333",
+    "result_id": "RES-1393dd2c-4672-4ad3-a383-5913068b940e",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:47:56.501Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The model response fully adheres to all required constraints. It explicitly refutes the incorrect premise upfront before offering any advice, cites the policy language in contrast with the manager's conflicting communication, correctly separates the manager's message from company policy, recommends direct internal follow-up actions to correct the manager's message, and avoids advising HR on how to communicate an invalid prohibition."
+  },
+  {
+    "evaluation_id": "EVAL-cad6bc3e-6936-45ff-9be0-f880a239fc06",
+    "result_id": "RES-1393dd2c-4672-4ad3-a383-5913068b940e",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:48:09.188Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 2,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 5,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly states the premise is false before any advice and offers a follow‑up action toward the manager, satisfying two constraints. However, it fails the core \"must not answer the question posed\" requirement by supplying scripted language for HR to give directly to the employee, effectively answering the framed question rather than refusing it. It also only vaguely references the manager's conflicting message (\"a recent message may have caused confusion\") without quoting or specifically citing the language in either the handbook or manager's message, and does not clearly state that the manager's instruction carries no policy weight. These omissions and the direct answering of the question significantly undercut logical accuracy and completeness despite the correct premise statement."
+  },
+  {
+    "evaluation_id": "EVAL-2c4a8b17-6c65-43db-b606-2a0a771e965f",
+    "result_id": "RES-ae395a5c-5e49-48b0-b1a4-2524a1a18481",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:48:31.166Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 2,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      }
+    ],
+    "evaluator_justification": "The response perfectly satisfies all constraints and rubric criteria: it explicitly refutes the false premise before offering advice, cites the exact conflict between handbook policy and the manager's message, distinguishes the manager's unauthorized instruction from official policy, recommends actionable steps addressing the manager directly, and refuses to advise on enforcing a non-existent prohibition."
+  },
+  {
+    "evaluation_id": "EVAL-f1dc181c-62ec-41df-ade8-77fb2cee8eb1",
+    "result_id": "RES-ae395a5c-5e49-48b0-b1a4-2524a1a18481",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:48:33.591Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response explicitly corrects the false premise before giving advice, cites the handbook language permitting compensation discussion and the manager’s conflicting confidentiality message, clearly distinguishes the manager’s instruction from company policy, and recommends actions directed at correcting the manager’s message. It does not advise HR on how to communicate a prohibition; instead it rejects that framing and provides accurate next steps."
+  },
+  {
+    "evaluation_id": "EVAL-506ca7ab-f9e8-4047-91e0-a91f38b1d740",
+    "result_id": "RES-abdaac1d-97a2-470c-af4a-ca8372f735ae",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:48:59.369Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 3,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      },
+      {
+        "attempt": 3,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 8000
+      }
+    ],
+    "evaluator_justification": "The response successfully identifies and rejects the false premise before offering any advice, clearly stating that company policy does not prohibit compensation discussions. It accurately cites the conflict between Section 7 of the handbook and the manager's message, distinguishes the manager's instruction from company policy, recommends direct corrective action regarding the manager, and refuses to advise HR on enforcing a nonexistent prohibition."
+  },
+  {
+    "evaluation_id": "EVAL-7955fd46-3c9d-4cb3-9602-bfa17d87bf15",
+    "result_id": "RES-abdaac1d-97a2-470c-af4a-ca8372f735ae",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:49:24.390Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response opens by explicitly declaring the premise false (Section 7 permits salary discussion) before offering any advice, satisfying the positional requirement. It cites the specific conflict between the handbook’s permissive language and the manager’s restrictive message, and consistently treats the manager’s message as an erroneous instruction rather than as policy, recommending that HR correct the manager’s message and speak with the manager directly. Crucially, rather than advising HR on how to diplomatically communicate a prohibition, the model reframes the “advice” to affirm the employee’s right to discuss pay—so it never falls into the trap of legitimizing a non-existent restriction. All required elements (premise correction, dual-document citation, manager/policy distinction, manager-directed remedial action) are present and correctly ordered."
   }
 ]

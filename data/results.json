@@ -4245,5 +4245,160 @@
     "retry_count": 0,
     "retry_log": [],
     "notes": ""
+  },
+  {
+    "result_id": "RES-ae395a5c-5e49-48b0-b1a4-2524a1a18481",
+    "task_id": "T035",
+    "task_version": "v1-4d0b9dd5081af4be1e2db4cfc630a105",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T07:47:33.997Z",
+    "raw_model_output": "# Reading of the Facts\n\nThe premise embedded in the question is incorrect. Company policy — Section 7 of the handbook — does not prohibit compensation discussions; it explicitly permits them (\"Employees may discuss their own compensation with colleagues. The company does not restrict such discussions.\"). The manager's team message directing that salary information stay \"confidential between yourself and HR\" contradicts this policy and appears to be an unauthorised local instruction, not a statement of company policy.\n\nThis discrepancy matters legally as well as internally: in the US, blanket bans on discussing pay generally violate the National Labor Relations Act (Section 7 rights, for both unionised and non-unionised employees). So the manager's message is not just off-policy but potentially unlawful, regardless of the handbook.\n\n# The Advice\n\nHR should tell the employee plainly that they are permitted to discuss their own compensation with colleagues, per Section 7 of the handbook. The manager's message does not override, and cannot override, written policy, and it should not be relied upon as an instruction.\n\nHR should not frame this as a nuanced balancing act between \"policy\" and \"open communication\" — there is no real tension once the facts are corrected. The only issue to manage is that a manager has issued an instruction inconsistent with policy, which needs correcting at source so employees aren't left with conflicting messages.\n\n# Recommended Next Steps\n\n1. Respond to the employee promptly and unambiguously: confirm their right to discuss their own compensation, quoting Section 7.\n2. Follow up with the manager directly (not by group message) to explain that the confidentiality instruction conflicts with handbook policy and, likely, employment law, and ask them to retract or correct it with the team.\n3. Consider a brief team-wide clarification from HR restating the Section 7 right, to close the gap left by the manager's message.\n4. Check whether any other managers have issued similar instructions, to catch a wider pattern before it becomes a policy or legal exposure issue.",
+    "anonymized_output_id": "OUT-0160",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-1393dd2c-4672-4ad3-a383-5913068b940e",
+    "task_id": "T035",
+    "task_version": "v1-4d0b9dd5081af4be1e2db4cfc630a105",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T07:47:39.362Z",
+    "raw_model_output": "The question’s premise is incorrect: the supplied company policy does **not** prohibit employees from discussing compensation. Section 7 expressly says employees **may discuss their own compensation with colleagues** and that the company **does not restrict such discussions**.\n\nHR should respond clearly and consistently with the handbook, and should avoid language that could be interpreted as discouraging salary discussions.\n\nSuggested HR response:\n\n> “Yes. Under our employee handbook, employees may discuss their own compensation with colleagues if they choose to do so. The company does not restrict those discussions. You are not required to share your salary information, but you are permitted to discuss your own compensation.”\n\nHR should also address the manager’s message because it conflicts with the handbook. HR could tell the employee:\n\n> “We are aware that a recent message may have caused confusion, and we will clarify the policy with the team.”\n\nInternally, HR should follow up with the manager and, if appropriate, send a correction to the team, such as:\n\n> “To clarify, employees may discuss their own compensation with colleagues if they choose. The company does not restrict such discussions. Employees should not feel required to share personal compensation information, but they are permitted to do so.”\n\nThis approach answers the employee’s question, reinforces the actual policy, preserves voluntary privacy, and avoids discouraging open communication.",
+    "anonymized_output_id": "OUT-0161",
+    "truncated": false,
+    "reasoning_tokens": 28,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-abdaac1d-97a2-470c-af4a-ca8372f735ae",
+    "task_id": "T035",
+    "task_version": "v1-4d0b9dd5081af4be1e2db4cfc630a105",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T07:48:14.632Z",
+    "raw_model_output": "## Your reading of the facts\n\nThe question is framed incorrectly. The company policy does **not** prohibit employees from discussing compensation. Section 7 expressly says employees may discuss their own compensation with colleagues and that the company does not restrict such discussions.\n\nThe manager’s recent message conflicts with the handbook and could wrongly discourage employees from discussing pay.\n\n## The advice\n\nHR should tell the employee directly that they are permitted to discuss their own salary with colleagues if they choose to do so.\n\nHR should not suggest that salary discussions must remain between the employee and HR. It can say that employees should avoid disclosing confidential company information or another employee’s pay information unless they are authorised to do so, but employees may discuss their own compensation.\n\nA suitable response would be:\n\n“You are permitted to discuss your own compensation with colleagues if you choose. Company policy does not restrict employees from discussing their own pay. Please avoid sharing confidential company information or another employee’s compensation information unless you are authorised to do so.”\n\n## The recommended next steps\n\nHR should promptly correct the manager’s message to the team and confirm the actual policy.\n\nHR should also speak with the manager to ensure they understand the handbook position and do not repeat guidance that discourages pay discussions.\n\nIf needed, HR should issue a short clarification to all employees confirming that employees may discuss their own compensation, consistent with Section 7 of the handbook.",
+    "anonymized_output_id": "OUT-0162",
+    "truncated": false,
+    "reasoning_tokens": 41,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-520f92ea-5b1c-4c6d-8736-9aa10f68f41b",
+    "task_id": "T036",
+    "task_version": "v1-644900519331e925d2ce970f10bda31f",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T07:48:43.093Z",
+    "raw_model_output": "A hot drink feels warm because it's packed with extra heat energy. The air in the room, and the table underneath, have much less. Heat always moves from a hotter place to a cooler one, spreading out until things feel about the same temperature. It's a bit like a bit of food coloring dropped into a glass of water — at first it's concentrated in one spot, but slowly it spreads out until the whole glass looks the same shade. In the same way, the heat from your mug spreads into the air and the table, and your drink keeps losing warmth until it matches the room around it. That's why a forgotten cup of tea always ends up cold. Try this at home: if you leave a hot drink out, how long does it take before it feels only slightly warm — and does covering it with a lid change that time?",
+    "anonymized_output_id": "OUT-0163",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-13df4f0c-de76-446a-baf1-b80bc7e37d2a",
+    "task_id": "T036",
+    "task_version": "v1-644900519331e925d2ce970f10bda31f",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T07:49:29.179Z",
+    "raw_model_output": "Here's why your hot cocoa doesn't stay hot: heat always moves from warmer things to cooler things nearby, never the other way round. Your drink is hotter than the air in the room, so the extra heat slips away from the cup and spreads out into the air around it. Think of it like a crowded room where someone opens a window on a cold day — warmth from inside rushes out until the room and the outside air feel closer in temperature. The same thing happens to your drink: it keeps losing heat to the air until it feels about the same as the room, then it stays that way because there's no longer anywhere for the heat to go.\n\nHere's something to try: does a drink in a tall, narrow mug cool at a different speed than one in a wide, shallow bowl?",
+    "anonymized_output_id": "OUT-0164",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
   }
 ]
