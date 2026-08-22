@@ -9248,5 +9248,48 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response correctly presents the full 10,000-lead breakdown (180 TP, 20 FN, 980 FP, 8,820 TN), computes the flagged total (1,160) and PPV (15.5%), and explicitly states the 90% conversion expectation is wrong. However, it never uses or clearly names \"base-rate neglect,\" and its explanation for why the mismatch occurs is thin—it notes the low base rate but does not explicitly walk through why the much larger non-converting population generates more false positives than the small converting population generates true positives even at 90% specificity, as required. This weakens both constraint adherence and the depth of logical accuracy, though the arithmetic and overall conclusion remain correct and complete."
+  },
+  {
+    "evaluation_id": "EVAL-e1edc8d3-e001-42c3-8382-2f9a75dfa20c",
+    "result_id": "RES-7b8ae20c-9441-4411-ad23-20516268149d",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T18:14:48.719Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 2,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      }
+    ],
+    "evaluator_justification": "The model met all constraints perfectly, accurately calculating the mean as $116,125 and the median as $65,500 by averaging the two middle elements. It clearly selected the median as the more representative statistic and provided a thorough, well-reasoned justification highlighting how the founder's outlier salary distorts the mean."
+  },
+  {
+    "evaluation_id": "EVAL-322a7ac9-413e-47e3-a222-923c7dbacbd9",
+    "result_id": "RES-7b8ae20c-9441-4411-ad23-20516268149d",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T18:14:51.975Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response reports the correct mean ($116,125) and median ($65,500), correctly averages the two central values for the even-sized sample, recommends the median as more representative, and clearly explains that the founder’s $480,000 compensation is a single outlier that distorts the mean. It also retains the founder’s salary in the dataset and notes that seven of eight salaries are far below the mean, making the justification complete and accurate."
   }
 ]
