@@ -6285,5 +6285,151 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response is under 130 words, gives a clear refusal, includes both required reasons, distinguishes the declined request from the ongoing relationship, and includes a conditional future opening for the quarter after next. However, it violates the no-directive/no-next-step constraint with language like “might be worth checking” and “let’s plan to circle back,” which adopts a somewhat directive register despite no authority relationship."
+  },
+  {
+    "evaluation_id": "EVAL-b0ff95a7-6df9-4734-8078-b01666f852a1",
+    "result_id": "RES-6dd452f1-de69-448a-b381-65785063db38",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T15:29:28.175Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 3,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      },
+      {
+        "attempt": 3,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 8000
+      }
+    ],
+    "evaluator_justification": "The response adheres to all constraints: it stays under the 130-word limit (114 words), states an unambiguous refusal without excessive hedging, includes both required reasons (two staff out next month and the deliverable on the 15th), preserves the peer relationship without adopting a directive or managerial tone, and frames the quarter after next as a non-committal, conditional future possibility."
+  },
+  {
+    "evaluation_id": "EVAL-c369ba75-d23b-45d8-9208-e2eeeb81dc2c",
+    "result_id": "RES-6dd452f1-de69-448a-b381-65785063db38",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T15:29:43.190Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The message states a clear, unambiguous refusal (\"we can’t take it on right now\"), cites both required reasons (two staff out next month, the 15th deliverable), and offers a non-committal future opening (\"quarter after next\") without promising it. It avoids directive or evaluative language about the request itself, staying in a peer register, and implicitly separates declining the task from valuing the relationship through friendly, cooperative phrasing. Word count (~107) is within the limit, and no hedging undermines the clarity of the refusal."
+  },
+  {
+    "evaluation_id": "EVAL-ab3e0eb4-60c4-4870-b3ed-5d88a4e687df",
+    "result_id": "RES-39454fcc-2b56-458b-9698-20d91710bc1e",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T15:29:52.144Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response perfectly adheres to all constraints. At 92 words, it clearly and unambiguously declines the request while maintaining a collaborative peer register without managerial or directive language. It accurately incorporates both specified reasons (two absent staff next month and the deliverable on the 15th) and introduces a non-committal conditional opening for the quarter after next."
+  },
+  {
+    "evaluation_id": "EVAL-961a7127-d7b3-480d-92a7-9232058e1709",
+    "result_id": "RES-39454fcc-2b56-458b-9698-20d91710bc1e",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T15:30:03.646Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response delivers an unambiguous refusal (\"We can't take over... we can't be the owning team this quarter\"), cites both required reasons (two staff out next month, the 15th deliverable), offers a peer-level gesture of support without giving directives or evaluating the request's appropriateness, and closes with a genuinely conditional future opening (\"Let's revisit... and see whether capacity and priorities line up\") rather than a promise. It stays within the word limit and avoids excessive hedging, satisfying all five constraints cleanly."
+  },
+  {
+    "evaluation_id": "EVAL-479c6aa1-6974-4d3f-80ba-03c3545a11e4",
+    "result_id": "RES-34d2b752-1f5d-4dcc-971b-a3509f6142df",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T15:30:26.728Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response perfectly adheres to all constraints: it answers the question directly in the first sentence, provides the exact settlement date of 4 April, stays well under the 100-word limit, and exercises excellent scope discipline by omitting the contract renewal and scope expansion."
+  },
+  {
+    "evaluation_id": "EVAL-734477ee-99a1-4bb7-9c30-a36a01bc9a8c",
+    "result_id": "RES-34d2b752-1f5d-4dcc-971b-a3509f6142df",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T15:30:30.391Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response is under 100 words, answers the March invoice question in the first substantive sentence, gives the specific settlement date of 4 April, and stays tightly within scope. It does not raise the renewal, scope expansion, or multiple outstanding matters, and it appropriately supports the client’s quarter-close need without turning the reply into a sales or broader account-management message."
+  },
+  {
+    "evaluation_id": "EVAL-c86278a5-aa00-473c-a1b2-113cc5773a98",
+    "result_id": "RES-bf2b3140-feb1-43b8-86c3-702f30fdd771",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T15:30:34.169Z",
+    "constraint_adherence_score_0_4": 1,
+    "logical_accuracy_score_0_4": 1,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 3,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "While the response correctly answered the question in the first sentence with the exact date (4 April) and stayed under the 100-word limit, it completely failed the scope discipline constraints by bringing up all three extraneous matters (the overdue April invoice, the February line item, and the contract renewal/scope expansion pitch). Per the rubric, raising the contract renewal and scope expansion severely penalizes logical accuracy and reduces completeness to 1."
+  },
+  {
+    "evaluation_id": "EVAL-e2f927e3-5711-46f3-9865-efee0fd5da60",
+    "result_id": "RES-bf2b3140-feb1-43b8-86c3-702f30fdd771",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T15:30:42.794Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 1,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 4,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response answers the March invoice question in the first sentence and gives the specific settlement date of 4 April within 100 words. However, it violates scope discipline by raising multiple additional matters, including the contract renewal and scope expansion, and uses the reply to open a sales-oriented discussion despite the client needing a simple quarter-close answer. It also exceeds the permitted single briefly flagged follow-up item."
   }
 ]
