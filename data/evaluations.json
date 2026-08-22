@@ -5865,5 +5865,35 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The material is student-facing, under the word limit, and contains multiple reasoning-eliciting prompts (source-notes, justification, limitation-acknowledgment) rather than multiple-choice selections, and it avoids a worked example, ranked criteria list, or recommended answer. However, it fails the sharpest constraint: Step 4 explicitly instructs \"Do not choose a source only because it is the biggest,\" which directly names size as an insufficient criterion rather than neutrally surfacing it as an assumption to examine (e.g., asking what size would or wouldn't tell them). This directive supplies a partial evaluative criterion, undermining the distinction between supporting the evaluation process and supplying its content, and thus caps logical accuracy at the \"partial criteria supplied\" band. All three completeness elements (prompts, size-related element, student-facing framing) are present, even though the size element is handled directively rather than open-endedly."
+  },
+  {
+    "evaluation_id": "EVAL-da54a833-c49c-493a-91b4-5886d429a493",
+    "result_id": "RES-b79f11b1-d860-4ff1-bbb9-97cb91e80cd1",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T15:03:27.332Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response is under 180 words, addresses the student directly, gives reasons for at least three marks, correctly identifies Criterion C as an absent counterargument rather than weak execution, and gives an additive next step for Criterion C. However, it does not clearly reference all four criteria by name or letter, since “evidence” and “mechanics” are not labeled as Criteria B and D. It also includes topic-specific language about remote work increasing productivity, which risks engaging the essay topic rather than only the rubric. Otherwise, the feedback is logically accurate and complete."
+  },
+  {
+    "evaluation_id": "EVAL-5ba58d3d-ec4c-4325-a75a-de1ad4cb8efa",
+    "result_id": "RES-1fabb5e0-2391-4e46-98f1-4b40d7e4402c",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T15:05:23.775Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response is under 180 words, addresses the student directly, and references all four criteria by name. It gives specific reasons for the marks in at least three criteria: the claim is clear and consistent, one evidence link is underexplained, the counterargument is absent, and citation formatting lacks page numbers. It correctly treats Criterion C/Counterargument as a structural omission rather than weak execution and gives an additive next step: add a counterargument and rebuttal. It does not critique the student’s effort or ability and does not evaluate the merits of the remote-work argument itself."
   }
 ]
