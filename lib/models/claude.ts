@@ -1,6 +1,9 @@
+// Relative + extension on value imports: this module is loaded by Node-run
+// scripts (the judge-truncation remedy) as well as by Next, and the "@/" alias
+// resolves only under Next. Type-only imports are erased and may keep aliases.
 import Anthropic from "@anthropic-ai/sdk";
-import { requireApiKey } from "@/lib/env";
-import { ANTHROPIC_MODEL_ID } from "@/lib/models/registry";
+import { requireApiKey } from "../env.ts";
+import { ANTHROPIC_MODEL_ID } from "./registry.ts";
 import type { ModelCallResult } from "@/lib/models/types";
 
 let client: Anthropic | null = null;

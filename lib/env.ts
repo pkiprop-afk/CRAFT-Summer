@@ -1,4 +1,5 @@
-import { FAMILY_LABEL, type ModelFamily } from "@/lib/models/registry";
+// Relative + extension: loaded by Node-run scripts through lib/models/claude.ts.
+import { FAMILY_LABEL, type ModelFamily } from "./models/registry.ts";
 
 export const ENV_VAR_BY_FAMILY: Record<ModelFamily, string> = {
   anthropic: "ANTHROPIC_API_KEY",
