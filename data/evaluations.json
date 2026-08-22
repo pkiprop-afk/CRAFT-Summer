@@ -7146,5 +7146,42 @@
       }
     ],
     "evaluator_justification": "The response adheres to the word limit and addresses the student in the second person while accurately separating observation from inference and identifying air resistance as the confounding variable. However, it fails to propose a specific, actionable test for the student to run (merely prompting them to think of one) and directly violates the negative constraint by explicitly stating the rule of uniform gravitational acceleration."
+  },
+  {
+    "evaluation_id": "EVAL-a6c4aca3-9ecf-4e92-8597-76a93f9bc76e",
+    "result_id": "RES-1fabb5e0-2391-4e46-98f1-4b40d7e4402c",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T16:06:12.631Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response perfectly adheres to all constraints: it is under 180 words (168 words), addresses the student directly, references all four criteria by name, and provides clear, specific justifications for the marks awarded across all criteria. It accurately diagnoses Criterion C as a complete structural omission (\"No opposing view appears anywhere\") rather than poor execution, provides an additive action step (\"add a counterargument and rebuttal\"), and avoids any evaluative commentary on the student's personal effort or the substantive merits of remote work."
+  },
+  {
+    "evaluation_id": "EVAL-f4a32560-3b5e-4015-ac63-ea50d103e2c9",
+    "result_id": "RES-0e672559-9445-487c-b880-7f771819a1c1",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T16:06:22.716Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response adheres to all specified constraints: it is under 180 words, addresses the student directly, references all four criteria by name, and provides clear, specific reasons for the marks awarded across all criteria. It correctly frames the Criterion C mark as a structural omission (\"does not include an opposing view\") rather than an execution or effort flaw, and offers a concrete, additive next step. Furthermore, it strictly evaluates the submission against the rubric criteria without commenting on the student's personal attributes or arguing the real-world merits of remote work."
   }
 ]
