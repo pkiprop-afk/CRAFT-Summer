@@ -7514,5 +7514,20 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The policy is close to the 250-word limit, has all three headed sections, gives concrete, testable permitted uses (outlining, grammar edits, template generation) and prohibited uses (uploading confidential data without written approval, unreviewed AI deliverables, personal AI accounts), and specifies a full disclosure chain (employee → project lead, trigger: before sending AI-assisted client materials; project lead → client, trigger: contract requirement). However, it fails two constraints: it never states a scope limitation or a \"seek guidance\" condition, presenting itself as exhaustive, and its treatment of the three confidentiality-clause clients is only a vague \"applies especially\" remark rather than a distinct, unambiguous obligation different from the general written-approval exception—this still requires interpretation. These two gaps keep constraint adherence at 2/4 and cap logical accuracy at 3/4 despite the otherwise specific, rule-based drafting; completeness is full since each section contains substantive, non-empty content."
+  },
+  {
+    "evaluation_id": "EVAL-f12a3e5a-be24-4510-b086-da7c34d16663",
+    "result_id": "RES-879ad721-9785-49de-8fdc-14ade0046289",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T16:21:32.874Z",
+    "constraint_adherence_score_0_4": 1,
+    "logical_accuracy_score_0_4": 2,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 5,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The policy is reasonably specific in its permitted/prohibited rules (e.g., \"may use for drafting, summarising non-confidential material,\" \"must not enter confidential client information\") and avoids the classic \"use responsibly\" trap for most clauses, but it fails several explicit constraints: it runs to roughly 268 words, exceeding the 250-word cap; the disclosure section never names a specific discloser or recipient (it mentions an \"internal file note\" and vague \"client disclosure... where required\" without specifying who tells whom what); it never distinguishes the three confidentiality-clause clients from other clients, instead using a generic \"any client whose contract prohibits disclosure\" clause; and it includes no acknowledged gap or condition under which staff should seek further guidance, presenting itself as exhaustive. These failures (word limit, disclosure chain specificity, client-specific treatment, and gap acknowledgment) place it in the mid-low range for logical accuracy despite full section coverage and generally concrete rule-writing."
   }
 ]
