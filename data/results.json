@@ -4400,5 +4400,67 @@
     "retry_count": 0,
     "retry_log": [],
     "notes": ""
+  },
+  {
+    "result_id": "RES-31d1b190-b989-4cfd-bda9-42dc789ab799",
+    "task_id": "T036",
+    "task_version": "v1-644900519331e925d2ce970f10bda31f",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T07:50:10.526Z",
+    "raw_model_output": "A hot drink cools because heat always moves from something warmer to things that are cooler. The drink gives heat to the cup, the table, and the air around it. Warm air near the drink also moves away and is replaced by cooler air, so more heat leaves. Little by little, the drink’s temperature gets closer to the room’s temperature.\n\nIt’s like a warm cookie on a plate: at first it feels hot, but after a while the plate and the air take some of its heat, and the cookie no longer feels warm.\n\nAt home, which stays hot longer: a drink in a mug, a paper cup, or a cup with a lid?",
+    "anonymized_output_id": "OUT-0165",
+    "truncated": false,
+    "reasoning_tokens": 216,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-df33c52b-5b00-4c42-bde1-698ed508b71f",
+    "task_id": "T036",
+    "task_version": "v1-644900519331e925d2ce970f10bda31f",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T07:50:34.661Z",
+    "raw_model_output": "When you leave a hot drink on a table, it slowly loses heat to everything around it. The cup warms the table and the air touching it, and tiny bits of the drink escape as steam, carrying heat away too. The room is cooler than the drink, so heat keeps moving out until the drink is about as cool as the room. It is a bit like stepping outside in a warm coat on a chilly day: your body keeps warming the air near you, so you feel colder unless you keep making more heat. A drink cannot make new heat, so it cools down. What changes if you put the same hot drink in a mug with a lid, a mug without a lid, and a metal cup?",
+    "anonymized_output_id": "OUT-0166",
+    "truncated": false,
+    "reasoning_tokens": 37,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
   }
 ]
