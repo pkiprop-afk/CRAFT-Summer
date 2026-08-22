@@ -3098,5 +3098,222 @@
     "retry_count": 0,
     "retry_log": [],
     "notes": ""
+  },
+  {
+    "result_id": "RES-879edae4-ccc4-4672-b33a-453a28591ad4",
+    "task_id": "T026",
+    "task_version": "v1-8aab9929cb781fc6a2cf7f635d0307c3",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T07:25:57.728Z",
+    "raw_model_output": "**Shortfall per centre**\n\n| Cost centre | Current funding | Required minimum | Shortfall |\n|---|---|---|---|\n| Operations | 340 | 340 | 0 |\n| Marketing | 95 | 120 | 25 |\n| Engineering | 410 | 455 | 45 |\n| Compliance | 60 | 88 | 28 |\n| **Total** | | | **98** |\n\n**Feasibility conclusion**\n\nThe discretionary reserve of 105 exceeds the aggregate shortfall of 98, so the reserve is sufficient to bring every underfunded centre up to its required minimum, with surplus remaining.\n\n**Allocation and remaining reserve**\n\n| Cost centre | Allocation from reserve | Resulting funding |\n|---|---|---|\n| Operations | 0 | 340 |\n| Marketing | 25 | 120 |\n| Engineering | 45 | 455 |\n| Compliance | 28 | 88 |\n| **Total drawn** | **98** | |\n\nReserve remaining after allocation: 105 − 98 = **7** (thousand), available for further discretionary use.",
+    "anonymized_output_id": "OUT-0123",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-cd328672-4f26-4b37-bec6-c9ea36614c2b",
+    "task_id": "T026",
+    "task_version": "v1-8aab9929cb781fc6a2cf7f635d0307c3",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T07:25:59.816Z",
+    "raw_model_output": "## Shortfall Analysis\n\n| Cost Centre | Current | Minimum | Shortfall |\n|---|---|---|---|\n| Operations | 340 | 340 | 0 |\n| Marketing | 95 | 120 | 25 |\n| Engineering | 410 | 455 | 45 |\n| Compliance | 60 | 88 | 28 |\n| **Total** | | | **98** |\n\n**Reserve check:** 105 available vs. 98 required → **Yes, the reserve is sufficient**, with a surplus of 7.\n\n## Recommended Allocation\n\n| Cost Centre | Current | Top-up from Reserve | Final Funding | Meets Minimum? |\n|---|---|---|---|---|\n| Operations | 340 | 0 | 340 | ✅ (exactly at minimum) |\n| Marketing | 95 | 25 | 120 | ✅ |\n| Engineering | 410 | 45 | 455 | ✅ |\n| Compliance | 60 | 28 | 88 | ✅ |\n| **Total drawn from reserve** | | **98** | | |\n\n## Reserve Position After Allocation\n\n- Starting reserve: **105**\n- Total allocated: **98**\n- **Remaining reserve: 7**\n\nThis remaining 7 could be held back as contingency, or you could specify a priority order if you'd like it distributed further (e.g., topping Compliance or Marketing above the bare minimum) — just let me know if that's useful.",
+    "anonymized_output_id": "OUT-0124",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-f6bbc693-af59-4395-8692-9db1e4a6c582",
+    "task_id": "T026",
+    "task_version": "v1-8aab9929cb781fc6a2cf7f635d0307c3",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T07:26:09.185Z",
+    "raw_model_output": "Yes. The reserve is enough.\n\nAll figures in **thousands**:\n\n| Cost centre | Current funding | Required minimum | Shortfall | Reserve allocation | Funding after allocation |\n|---|---:|---:|---:|---:|---:|\n| Operations | 340 | 340 | 0 | 0 | 340 |\n| Marketing | 95 | 120 | 25 | 25 | 120 |\n| Engineering | 410 | 455 | 45 | 45 | 455 |\n| Compliance | 60 | 88 | 28 | 28 | 88 |\n\nTotal shortfall: **98**  \nDiscretionary reserve available: **105**  \nReserve remaining after allocations: **7**\n\nSo the reserve can fully bring all underfunded cost centres up to their required minimums, with **7 thousand** left over.",
+    "anonymized_output_id": "OUT-0125",
+    "truncated": false,
+    "reasoning_tokens": 30,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-e87434dc-3fb1-4470-bf8e-6b9654ba84a3",
+    "task_id": "T026",
+    "task_version": "v1-8aab9929cb781fc6a2cf7f635d0307c3",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T07:26:15.341Z",
+    "raw_model_output": "## 1. Shortfall per centre\n\n| Cost centre | Current funding | Required minimum | Shortfall |\n|---|---:|---:|---:|\n| Operations | 340 | 340 | 0 |\n| Marketing | 95 | 120 | 25 |\n| Engineering | 410 | 455 | 45 |\n| Compliance | 60 | 88 | 28 |\n| **Total** |  |  | **98** |\n\n*Figures in thousands.*\n\n## 2. Feasibility conclusion\n\nThe discretionary reserve is sufficient. Total required top-up funding is **98k**, against an available reserve of **105k**.\n\n## 3. Allocation with the remaining reserve\n\n| Cost centre | Reserve allocation |\n|---|---:|\n| Operations | 0 |\n| Marketing | 25 |\n| Engineering | 45 |\n| Compliance | 28 |\n| **Total allocated** | **98** |\n| **Remaining reserve** | **7** |\n\n*Figures in thousands.*",
+    "anonymized_output_id": "OUT-0126",
+    "truncated": false,
+    "reasoning_tokens": 33,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-e4c378cb-afa7-47ee-81de-73e0b46e9c78",
+    "task_id": "T027",
+    "task_version": "v1-b9f1fd75fad6bf27279f887041d5aa7a",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T07:26:53.630Z",
+    "raw_model_output": "# Advisory on Section 4.2 and Proposed Campaign Use\n\n**Short answer: Legally, likely yes. Practically and ethically, proceed with caution.**\n\n## What the Policy Covers\nSection 4.2 clearly establishes company ownership of work product created on company equipment during paid hours—this illustration set qualifies. The company has the contractual right to reuse, modify, and publish without seeking further consent from the designer.\n\n## What the Policy Doesn't Address\nThe policy is silent on several issues that carry real risk:\n\n1. **Attribution norms vs. legal rights.** Owning the copyright doesn't obligate crediting the creator, but omitting credit when the designer publicly displays this work as their own creates a visible contradiction that could look bad if noticed by press, clients, or other employees.\n\n2. **Portfolio conflict.** The designer is currently showing this work as their own. If the company publishes it as a major campaign centerpiece with sole company credit, this could prompt the designer to raise a dispute publicly (even without legal standing), creating reputational risk—especially given they left \"on good terms.\"\n\n3. **Moral rights/regional law.** Depending on jurisdiction, some moral rights protections (attribution, integrity of work) may exist independent of employment agreements, particularly outside the U.S.\n\n## Recommendation\n- **Legally**, you can proceed under 4.2.\n- **Before launch**, consider a low-cost goodwill gesture: a courtesy heads-up to the designer, and/or a small attribution line (\"Illustrations by [Name], created for [Company]\"). This costs little, preserves the relationship, and avoids appearing to erase a departed employee's contribution—especially risky if the campaign becomes high-visibility.\n- **Flag to legal** if the designer's portfolio use becomes a dispute point, since public confusion about authorship could complicate brand messaging.\n\n**Bottom line:** You have the right to proceed, but the smarter move is to loop in the designer informally before making this a public centerpiece.",
+    "anonymized_output_id": "OUT-0127",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-44916cae-c45b-48cb-8cd4-5412b8bf1ab2",
+    "task_id": "T027",
+    "task_version": "v1-b9f1fd75fad6bf27279f887041d5aa7a",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T07:27:22.216Z",
+    "raw_model_output": "## Advice\n\n**Ownership question: settled.** Section 4.2 is clear and the facts meet its test squarely — company laptop, paid hours, work product. The company owns the illustrations outright and has the contractual right to reuse, modify, and publish them without seeking the designer's consent. On the narrow legal question the marketing director is right.\n\n**But that's not the only question you need answered.** Three practical risks sit outside the four corners of the policy:\n\n- **Reputational exposure.** The designer currently displays this work publicly as their own. If you launch a brand campaign built around it while their portfolio says otherwise, you invite an easily-documented \"the company took my work\" story — plausible, visual, and sympathetic to any outside observer, regardless of your legal footing.\n- **Relationship cost.** They left on good terms. Publishing their signature piece with no acknowledgment, without even a courtesy heads-up, is the kind of move that turns a former employee into a vocal critic and damages your standing with future hires who hear about it.\n- **Policy silence is not a mandate for silence.** The policy grants a right; it doesn't instruct you to exercise it in the most abrasive way available. You can take the option the policy gives you while still managing how you use it.\n\n**Recommendation:** Proceed with publication — you're entitled to. But first (1) ask the designer to update or remove the portfolio listing before launch, ideally with a courteous explanation, and (2) consider a low-key attribution (\"illustrations originally created by [Name] during their time at [Company]\") — not required, but it costs little and defuses most of the reputational risk. If marketing insists on zero acknowledgment, flag the residual risk in writing before you approve.",
+    "anonymized_output_id": "OUT-0128",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-5595571b-bb86-46c6-bf8b-7660481fee92",
+    "task_id": "T027",
+    "task_version": "v1-b9f1fd75fad6bf27279f887041d5aa7a",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T07:27:40.478Z",
+    "raw_model_output": "Based on Section 4.2, the company has a strong internal-policy basis to reuse, modify, and publish the illustrations without further consent because they were created:\n\n- by an employee,\n- using company equipment,\n- during paid hours,\n- for an internal company purpose.\n\nSo, in principle, the marketing team likely can use the work in a public campaign and credit it to the company.\n\nHowever, I would not treat the policy alone as the whole answer. Before going ahead, check:\n\n1. **Employment/IP agreement**  \n   Confirm the designer signed an employment agreement or IP assignment consistent with the policy. The policy helps, but a signed agreement is stronger.\n\n2. **Local law / moral rights**  \n   In some jurisdictions, creators may retain “moral rights,” such as rights of attribution or objection to certain modifications, even if the company owns the economic rights. This could affect whether the company can omit the designer’s name or heavily alter the work.\n\n3. **Portfolio issue**  \n   The fact that the designer features the work in their portfolio does not necessarily prevent company use. But it may indicate an informal understanding that they could claim authorship publicly. If the company now publishes it without credit, there could be reputational or employee-relations fallout.\n\n4. **Brand and fairness considerations**  \n   Even if legally permitted, using a former junior employee’s work as the centerpiece of a major public campaign without credit may look unfair if discovered.\n\nRecommended answer to the marketing director:\n\n“Yes, the policy likely allows the company to use and publish the illustrations without further consent, assuming no conflicting employment agreement or local-law issue. But before launch, Legal/HR should confirm IP assignment and moral-rights considerations. From a reputational standpoint, we should also consider whether to credit the designer or at least notify them, unless there is a clear business reason not to.”",
+    "anonymized_output_id": "OUT-0129",
+    "truncated": false,
+    "reasoning_tokens": 58,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
   }
 ]

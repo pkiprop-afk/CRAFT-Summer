@@ -456,7 +456,12 @@ export default function BatchRunnerPage() {
     const newJobs = markExistingCells(built, existing, runType);
 
     setJobs(newJobs);
-    checkpointConsumed.current = false;
+    // The checkpoint is a one-time pause at CHECKPOINT_AFTER_GENERATIONS TOTAL
+    // generations, not once per browser session. On a resume past that point
+    // every pending job already sits beyond the boundary, so without this the
+    // gate fires before dispatching anything and the run can never continue.
+    const alreadyGenerated = existing.filter((r) => r.run_type === runType).length;
+    checkpointConsumed.current = alreadyGenerated >= CHECKPOINT_AFTER_GENERATIONS;
     activeMs.current = 0;
     setElapsedMs(null);
 
