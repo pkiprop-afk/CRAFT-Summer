@@ -339,6 +339,10 @@ function main(): void {
     console.log(`  total attempts            ${st.total}`);
     console.log(`    succeeded first try     ${st.succeededFirstTry}`);
     console.log(`    succeeded after retry   ${st.succeededAfterRetry}`);
+    console.log(
+      `    no justification        ${st.parsedWithoutJustification}` +
+        `   (scores kept; counted, not discarded)`
+    );
     console.log(`    exhausted retries       ${st.exhausted}`);
     console.log(`    unparseable             ${st.unparseable}`);
     console.log(`    failed (non-retryable)  ${st.failedNonRetryable}`);
