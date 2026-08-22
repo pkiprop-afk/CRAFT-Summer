@@ -3473,5 +3473,20 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response satisfies all required constraints: it states the absolute change as 1 percentage point, the relative increase as 50%, explains that both descriptions refer to the same result in different units, reports conversions as 1,000 before and 1,500 after with a 500-conversion increase, and recommends an unambiguous phrasing. It also correctly identifies “increased by 1 percent” as misleading because it invites interpretation as a relative percent change."
+  },
+  {
+    "evaluation_id": "EVAL-9e5f59ee-7719-439d-b9af-47da7a362c16",
+    "result_id": "RES-bb7c3d9d-4827-45ca-a127-0cb240ababea",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:22:12.464Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 6,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly rejects the causal claim, names regression to the mean, explains selection on the lowest Q1 scorers, notes the whole-team average is nearly flat at 71.4 to 71.8, and proposes appropriate designs such as randomization or a matched low-scoring control group. However, it does not explicitly compute the coached mean of 48.3 to 58.3, does not compute the uncoached mean of 81.3 to 77.6, and does not give the top-three Q1 mean decline from 88.3 to 82.3. It gestures at the symmetric high-performer decline but does so incompletely and with an erroneous example including D rather than clearly identifying A, B, and C."
   }
 ]
