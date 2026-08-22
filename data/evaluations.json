@@ -6996,5 +6996,72 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response is structurally separated, includes the required figures, provides technical cause, and lists concrete follow-up actions addressing the uncovered certificates/provisioning gap. However, it appears to exceed the 300-word limit when including the added framing and explanation, and the first 100 words contain unexplained technical terminology (“expired security certificate”), violating the executive-opening constraint. It also inconsistently states that “two other certificates” pose risk while later saying 3 are uncovered, weakening recurrence-risk accuracy."
+  },
+  {
+    "evaluation_id": "EVAL-2429baf4-5db6-4c72-9253-24269c492488",
+    "result_id": "RES-ecf5e24e-5896-4838-b8af-b0954f66351d",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T15:48:46.251Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response is under 300 words, structurally separates summary, technical detail, and follow-up actions, includes all required figures, and provides specific remediation for the 3 uncovered certificates/provisioning gap. However, the first 100 words include unexplained technical terminology (“expired TLS certificate” and “certificate renewal”), violating the executive-facing opening requirement. It otherwise accurately states impact, resolution, and residual recurrence risk, though the technical leakage prevents full credit."
+  },
+  {
+    "evaluation_id": "EVAL-1df27857-f10f-4a31-8d6d-4cd03e5aae92",
+    "result_id": "RES-6ac5725c-0306-439e-8bed-7b7d09162306",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T15:49:01.199Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response adheres to the word limit, includes all four required figures, structurally separates the audiences, and details appropriate follow-up actions addressing the 3 uncovered certificates and provisioning controls. However, it fails the technical terminology constraint by explicitly referencing \"expired TLS certificate\" and \"automated renewal coverage\" within the executive summary (first 100 words), leading to deductions in constraint adherence and logical accuracy."
+  },
+  {
+    "evaluation_id": "EVAL-c8de2b04-fa0d-49a2-94f5-5bd571abafa5",
+    "result_id": "RES-6ac5725c-0306-439e-8bed-7b7d09162306",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T15:49:20.398Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 2,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 6,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The note nails structural separation, all four required figures, and a concrete follow-up action targeting the 3 uncovered certificates and the provisioning gap, and it appropriately avoids overstating that recurrence is fully prevented. However, it directly violates the explicit trap: the executive-facing \"Executive summary\" names \"TLS certificate\" and references \"automated renewal coverage,\" both unexplained technical terms placed within the first 100 words, which the task rubric flags as an automatic constraint-1 failure and also breaches constraint 5 (no unexplained jargon in the opening). This leak of technical detail into the audience-1 section is the core failure mode the task was designed to test, so despite strong completeness and good figure/structure coverage, both constraint adherence and logical accuracy are penalized."
+  },
+  {
+    "evaluation_id": "EVAL-21743074-c067-4e6d-b71f-ffcf9b17b9a3",
+    "result_id": "RES-8738ed39-8f32-477a-995e-9c6eb2dcf179",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T15:49:40.078Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response adheres to the word limit, clearly presents all four required figures, maintains structural separation across sections, honestly addresses the residual recurrence risk, and provides concrete follow-up actions. However, it violates Constraint 5 (and the executive audience criteria of Constraint 1) by including unexplained technical terms (\"TLS certificate\", \"renewal job\") directly within the first 100 words of the executive summary."
   }
 ]
