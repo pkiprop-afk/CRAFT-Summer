@@ -6694,5 +6694,129 @@
     "retry_count": 0,
     "retry_log": [],
     "notes": ""
+  },
+  {
+    "result_id": "RES-a03e690d-0eb5-4616-a7d1-f792c10a44ed",
+    "task_id": "T027",
+    "task_version": "v1-b9f1fd75fad6bf27279f887041d5aa7a",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "stability",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T16:56:50.592Z",
+    "raw_model_output": "**Short answer:** Technically, likely yes — but I'd pause before giving the marketing director a clean \"go ahead.\"\n\n**Why the policy supports the company:**\nSection 4.2 is broad and clear: work created on company equipment during paid hours belongs to the company, and the company can reuse/modify/publish it without further consent. The illustration set fits squarely within that definition — company laptop, work hours, work product. So on ownership grounds, marketing has a colorable claim to proceed.\n\n**Why I'd still flag concerns before approving:**\n\n1. **Moral rights / attribution laws.** Depending on jurisdiction, creators may retain a right of attribution even after copyright/ownership transfers to an employer (common in EU and some other countries, less so in the U.S.). If applicable, omitting credit could create legal exposure the policy doesn't address.\n\n2. **Conflicting public claims.** The designer is currently showcasing this work as their own in a public portfolio. If the company also publishes it as an anonymous \"company\" campaign centerpiece, you risk public confusion, accusations of erasing credit, or a dispute if the designer objects publicly — a reputational risk independent of legal risk.\n\n3. **Scope mismatch.** The policy was likely written with routine work reuse in mind (updating a deck, reusing an internal graphic), not repurposing a specific person's signature creative work as the face of an external brand campaign. That's a bigger, more visible use than the policy's plain language anticipated.\n\n**Recommendation:**\n- Confirm no jurisdiction-specific moral rights apply (quick legal check).\n- Consider a low-cost goodwill gesture: give credit, or contact the designer to align on messaging/portfolio conflict — especially since they left on good terms.\n- If marketing wants zero attribution and no designer contact, get sign-off from legal, not just a policy citation, given the public-facing scale.\n\nOwnership isn't the only variable here — visibility and attribution risk are.",
+    "anonymized_output_id": "OUT-0240",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-fa37e205-17bb-49dc-98a3-c68c2a903791",
+    "task_id": "T027",
+    "task_version": "v1-b9f1fd75fad6bf27279f887041d5aa7a",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "stability",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T16:56:59.313Z",
+    "raw_model_output": "## Advice: Proceed with caution, not a straight yes\n\n**What the policy gives you.** Section 4.2 is clear: work created on company equipment during paid hours is company property, and you have the right to reuse, modify, or publish it without seeking the designer's consent. On ownership, marketing's reading is correct — you don't need permission to use these illustrations.\n\n**What the policy doesn't cover.** Ownership is not the only issue here. Two practical risks sit outside the text of 4.2:\n\n- **Attribution and the designer's portfolio.** The designer is currently displaying this work publicly as their own. If you publish it simultaneously as an uncredited company campaign, you create a visible conflict — a former employee's portfolio claim next to your brand's claim of exclusive authorship. That's a reputational and possibly legal friction point (implied misrepresentation, moral rights arguments in some jurisdictions), even if the underlying IP is yours.\n- **Relationship and reputation.** The designer left on good terms. Publishing their signature work at scale with zero acknowledgment, right as it appears in their portfolio, is the kind of move that turns a good departure into a public grievance — and that story travels in creative industry circles.\n\n**Recommended course.** Go ahead with publication; the right to do so is not in question. But before you do: (1) give the designer courtesy notice, not as a permission request but as professional courtesy; (2) consider a low-cost credit line (\"original illustrations by [Name]\") — it costs you nothing legally and buys considerable goodwill; (3) if you insist on no credit, at minimum flag internally that the designer's public portfolio claim is unresolved and decide how you'd respond if it becomes a public conflict.\n\n**Bottom line:** legally clear, relationally risky if handled carelessly.",
+    "anonymized_output_id": "OUT-0241",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-dac05235-9a7f-4df5-89c0-7a6a3b227d47",
+    "task_id": "T027",
+    "task_version": "v1-b9f1fd75fad6bf27279f887041d5aa7a",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "stability",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T16:57:08.381Z",
+    "raw_model_output": "Based on Section 4.2 alone, the company has a strong internal policy basis to reuse, modify, and publish the illustrations without further consent because they were created:\n\n- by an employee,\n- using company equipment,\n- during paid work hours,\n- for a company training deck.\n\nSo the marketing director’s basic conclusion — “we own it” — is likely correct under the policy.\n\nHowever, I would not treat that as the end of the analysis. Before publishing publicly, you should check:\n\n1. **Employment/IP agreements**: Confirm the designer’s employment contract or IP assignment does not contain different or limiting terms.\n\n2. **Third-party materials**: Make sure the illustrations do not incorporate licensed fonts, stock assets, reference images, templates, or other materials cleared only for internal use.\n\n3. **Jurisdictional moral rights/attribution rules**: In some places, creators may retain certain moral rights even if the company owns the economic rights. This may affect modification, attribution, or derogatory treatment of the work.\n\n4. **Portfolio use**: The fact that the designer displays the work in their portfolio does not necessarily prevent the company from using it, but it may indicate the designer views it as personal authorship. Consider whether company policy permits former employees to display internal work publicly.\n\n5. **Reputational/practical risk**: Publishing the work as a major public campaign without any designer credit may be legally permissible but could create employee-relations or public-relations issues if the designer objects.\n\nMy practical advice: the company can likely proceed, but marketing should first confirm IP clearance and legal/jurisdictional issues. Even if not required, consider notifying the former designer or giving a neutral credit such as “Illustration developed for [Company]” if consistent with brand practice. If the campaign is high-profile, get legal sign-off before launch.",
+    "anonymized_output_id": "OUT-0242",
+    "truncated": false,
+    "reasoning_tokens": 91,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-8fa03147-c5b3-4ad5-aad8-a1891d16bc0f",
+    "task_id": "T027",
+    "task_version": "v1-b9f1fd75fad6bf27279f887041d5aa7a",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "stability",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T16:57:15.012Z",
+    "raw_model_output": "**Recommendation:** Yes, the company can proceed under Section 4.2, but it should do so with some care.\n\nThe policy clearly states that work product created using company equipment during paid hours is company property and may be reused, modified, or published without further consent. On the facts, the illustration set falls within that provision: it was created by the designer during paid work time, on a company laptop, for an internal company training deck. The designer’s departure does not change the company’s ownership or reuse rights.\n\nHowever, publishing the illustrations as the centerpiece of an external brand campaign is a higher-profile use than the original internal training purpose. The company is not required by this policy to seek the former employee’s consent or provide individual credit, but leadership should consider reputational and employee-relations risk. The designer already features the work in their portfolio, so a public campaign credited only to the company could prompt concern that the company is obscuring individual creative contribution, even if it is within its rights.\n\n**Suggested path:** Proceed, but first confirm there are no separate employment agreement, IP assignment, portfolio, attribution, or moral rights provisions that alter the position. Assuming there are none, the company may publish under company credit.\n\nAs a practical step, I recommend notifying the former designer courteously before launch, making clear that the company owns the work but appreciates their contribution. The company can decide whether to include individual credit, but if the brand convention is company-only credit, that is acceptable under the policy.\n\nAlso ensure the portfolio use is not inconsistent with company confidentiality or brand plans. If the company is content for the designer to keep showing the work, say so; if not, address that separately.\n\n**Bottom line:** The policy permits the campaign without further consent or designer credit, but a brief courtesy communication and final check of related agreements are advisable before publication.",
+    "anonymized_output_id": "OUT-0243",
+    "truncated": false,
+    "reasoning_tokens": 0,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
   }
 ]
