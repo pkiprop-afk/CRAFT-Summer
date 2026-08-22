@@ -8702,5 +8702,54 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The message states the slip unambiguously early (\"will not deliver on 30 June\"), includes both specific dates (30 June, 15 August) with the six-week magnitude, explicitly closes off scope reduction as a recovery option, and asserts plainly that no plan delivers 30 June without hedging language like \"at risk.\" It contains no apology to conflate with the factual report, and stays within the 160-word limit while covering all required elements, leaving no ambiguity that the original date is gone."
+  },
+  {
+    "evaluation_id": "EVAL-84b2f485-784e-4211-9b06-1dcd17393146",
+    "result_id": "RES-c47ce97a-99ce-4dc6-a072-598d974fc39e",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T17:54:59.463Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 3,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      },
+      {
+        "attempt": 3,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 8000
+      }
+    ],
+    "evaluator_justification": "The response adheres to all instructions and constraints: it is well under the 160-word limit, states the date slip and both dates (30 June and 15 August) along with the 6-week magnitude within the first two sentences, explicitly rules out scope reduction as an option, avoids unnecessary apologies, and communicates the unrecoverable nature of the slip definitively without ambiguity or softening."
+  },
+  {
+    "evaluation_id": "EVAL-eafe0dc5-8be8-4d60-9ffc-ee3f58c67a43",
+    "result_id": "RES-c47ce97a-99ce-4dc6-a072-598d974fc39e",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T17:55:27.838Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The message opens with a clean, unambiguous statement of the slip, both dates, and the 6‑week magnitude, and explicitly notes that scope reduction was examined and does not recover 30 June, closing off the sponsor’s likely first move. However, the final sentence—\"the end‑to‑end delivery date cannot be brought back to 30 June without that external activity being completed earlier\"—reintroduces a conditional framing that contradicts the earlier definitive closure (\"no credible version recovers the 30 June date\"), creating a reading in which 30 June could still be salvaged if the dependency were expedited. This subtly violates the \"no softening\" requirement and slightly undermines the otherwise firm, well-structured, and complete message."
   }
 ]
