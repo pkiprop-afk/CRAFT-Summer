@@ -6818,5 +6818,98 @@
     "retry_count": 0,
     "retry_log": [],
     "notes": ""
+  },
+  {
+    "result_id": "RES-f221a7aa-af2e-4e81-b962-96a8e1e1e710",
+    "task_id": "T033",
+    "task_version": "v1-c23f7fdb4b60e4bc3953c5f7bf029cdd",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "stability",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T16:57:33.260Z",
+    "raw_model_output": "# Assessment: Rural Clinic Closure and Central Hospital Expansion Proposal\n\n## Summary of the Trade-off\n\nThis proposal presents a classic concentrated-cost, diffuse-benefit structure. Before endorsing the \"clear overall benefit\" framing, the board should scrutinize how that benefit is calculated and whether the aggregate numbers obscure material risks to a vulnerable subgroup.\n\n## Key Concerns with the Figures as Presented\n\n**1. The 34,000 vs. 2,100 comparison is not apples-to-apples.**\n\"Improved access\" for 34,000 people likely means shorter wait times, better equipment, or expanded services—marginal gains for people who already have care. The 2,100 rural patients face a qualitatively different harm: loss of access altogether, not degradation of an existing service. Aggregating these into a simple headcount comparison (16:1 ratio) implies the benefit is 16x the cost, but the units aren't equivalent. The board should ask: what is the actual clinical/quality-of-life delta on each side, not just the number of people touched?\n\n**2. The 41% without private vehicle access is likely the most important number in this dataset.**\nA 65-minute average one-way trip is burdensome for anyone, but for the ~860 patients without a car, this may translate into effectively losing access to care—not just inconvenience. This matters enormously for:\n- Chronic disease management (dialysis, insulin, mental health appointments)\n- Emergency situations where 65+ minutes could be life-threatening\n- Elderly or disabled populations who may disproportionately lack vehicle access\n\nThis subgroup's outcomes could include delayed diagnoses, ED visits replacing primary care, or health deterioration—costs that don't show up in the $4.2M savings line but may show up later as downstream costs (ambulance usage, hospital readmissions) or in the \"34,000 improved access\" number's benefits being partially offset.\n\n**3. The $4.2M savings figure needs a distributional check.**\nIs this a genuine net saving, or does it exclude:\n- Increased ambulance/emergency transport costs for the rural population?\n- Potential downstream costs if delayed care leads to more expensive interventions later?\n- One-time closure costs (severance, facility disposal)?\n\nIf the \"savings\" are gross rather than net of these offsets, the $4.2M may be overstated.\n\n## What's Missing for a Complete Assessment\n\n- **Alternative mitigations**: Has the health service considered a shuttle service, telehealth expansion, or a mobile clinic for the 41% without vehicles? This could preserve most of the savings while reducing the concentrated harm.\n- **Demographic profile of the 2,100**: Age, chronic condition prevalence, and income data would clarify severity.\n- **Baseline health outcomes data**: Historical evidence from comparable closures (if available) on what happens to rural patients post-closure—did ED usage spike, did chronic disease control worsen?\n- **Time horizon**: Are the 34,000 \"gains\" recurring annually, while the rural harm is also recurring? Confirm both sides are measured over the same period.\n\n## Recommendation\n\nThe board should not treat this as a simple 34,000-vs-2,100 calculus. I'd recommend:\n\n1. Request disaggregated data on the ~860 vehicle-less patients specifically (their conditions, current utilization patterns).\n2. Request a mitigation cost estimate (e.g., subsidized transport) and see how much of the $4.2M it would consume—this reframes the decision as \"closure + mitigation\" vs. \"status quo\" rather than \"closure\" vs. \"status quo.\"\n3. Ask the proposing team to quantify the *type* of benefit for the 34,000 (marginal improvement) versus the *type* of cost for the 2,100 (potential loss of access), rather than treating both as equivalent \"patients affected\" units.\n\nThe proposal may still be justified on balance, but the current figures don't yet support the \"clear overall benefit\" characterization without this additional scrutiny.",
+    "anonymized_output_id": "OUT-0244",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-8dbcfeee-afc0-4bf6-a5c0-868885dc7cb6",
+    "task_id": "T033",
+    "task_version": "v1-c23f7fdb4b60e4bc3953c5f7bf029cdd",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "stability",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T16:57:50.514Z",
+    "raw_model_output": "# The Figures\n\n| Metric | Value |\n|---|---|\n| Patients gaining improved access (central hospital) | 34,000 |\n| Patients losing local access (rural clinics) | 2,100 |\n| Additional travel time, each way | 65 minutes |\n| Affected rural patients without a private vehicle | 41% (~861 patients) |\n| Annual savings redirected | £4.2 million |\n\n# The Assessment\n\nThe aggregate case is straightforward: 34,000 beneficiaries against 2,100 people bearing the cost is a ratio of roughly 16:1, and the £4.2 million funds a genuine capacity expansion rather than an efficiency exercise with vague returns. On these terms alone the proposal clears a normal cost-benefit threshold comfortably.\n\nBut the board should not assess this as a single net figure, because the benefit and the harm do not fall on the same population and are not of the same kind. The 34,000 gaining improved access experience a service enhancement — shorter waits, better-resourced care, at a facility many already use. The 2,100 losing local access experience a service *removal* — this is not a marginal inconvenience traded against a marginal gain, it is a step change from \"clinic nearby\" to \"clinic 65 minutes away.\" For a substantial minority of that group, the change is more severe still: the 41% without a private vehicle (roughly 861 patients) face a 65-minute journey with no reliable means of making it. For this subgroup, \"additional travel time\" understates the effect — the realistic outcome for some is not delayed access but forgone access, particularly for routine or urgent-but-not-emergency care.\n\nSo the proposal should be read as two decisions bundled into one: a well-supported investment in central capacity, and a separately-justified withdrawal of service from a specific, identifiable, and partly transport-poor population. The aggregate figures justify the first. They do not, by themselves, justify the second — a large diffuse benefit does not make a concentrated harm proportionate; it only makes the harm affordable to the system as a whole. Whether it is *acceptable* depends on what happens to that 861-patient core, not on the 34,000.\n\nMy assessment: the capacity expansion is sound and should proceed. The clinic closures, as currently specified, are not adequately justified by the figures given, because no mitigation for the transport-disadvantaged subgroup is included in the proposal.\n\n# What Would Change the Assessment\n\n- **Transport provision for the 41% without a vehicle** — a funded shuttle, subsidised transport scheme, or equivalent — would address the sharpest edge of the harm without requiring the clinics to stay open.\n- **A breakdown of what the 2,100 rural patients actually use the clinics for.** If it is predominantly routine or repeat care that could be handled via outreach visits, telehealth, or a visiting clinician model, the loss is more manageable than a blanket closure implies.\n- **Evidence on health outcomes, not just access** — if closure is projected to cause deferred diagnoses, missed chronic-condition management, or increased emergency admissions among the rural cohort, that changes the cost side materially and may erode part of the £4.2 million saving through downstream demand.\n- **A staged closure or retained minimal presence** (e.g., a reduced-hours clinic or nurse-led post) rather than full withdrawal, which could preserve most of the saving while cutting the harm to the hardest-hit patients substantially.\n\nAbsent these, I would recommend the board approve the hospital expansion in principle but send the closure component back for a mitigation plan before final sign-off.",
+    "anonymized_output_id": "OUT-0245",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-e3e43faf-7dc1-4b75-b861-c0563709a92a",
+    "task_id": "T033",
+    "task_version": "v1-c23f7fdb4b60e4bc3953c5f7bf029cdd",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "stability",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T16:58:08.191Z",
+    "raw_model_output": "The proposal has a plausible system-wide benefit, but it creates a serious equity and access problem for a smaller, more vulnerable group. The board should not assess it only by comparing “34,000 patients helped” against “2,100 patients harmed,” because the harm is concentrated, potentially severe, and likely to fall disproportionately on rural patients with limited transport options.\n\n## Summary assessment\n\n**Potential benefit:**  \nClosing the three rural clinics would free up **£/€/$4.2 million annually** to expand central hospital capacity, improving access for an estimated **34,000 patients**. If the central hospital is currently overloaded, this could reduce waiting times, improve specialist availability, and benefit a large regional population.\n\n**Main cost:**  \nAbout **2,100 rural patients** would lose local clinic access. Each would face an average additional travel burden of **65 minutes each way**, or **130 minutes per round trip**, before accounting for waiting time, mobility limitations, cost, weather, or public transport constraints. Importantly, **41%** of these patients — roughly **861 people** — do not have access to a private vehicle.\n\n## Key concerns\n\n### 1. The burden is not just numerical; it is practical and clinical\nFor rural patients, losing a local clinic can mean more than inconvenience. Longer travel times may lead to:\n\n- missed or delayed appointments;\n- poorer management of chronic conditions;\n- increased emergency presentations;\n- higher out-of-pocket costs;\n- greater burden on carers or family members;\n- reduced access for elderly, disabled, low-income, or medically fragile patients.\n\nA 65-minute extra journey each way may be manageable for some patients but prohibitive for others, especially those without a car.\n\n### 2. Equity risk is substantial\nThe proposal improves access for many but worsens access for a smaller rural population. That raises a fairness issue: the savings are generated by removing services from a group that may already face worse access to care.\n\nThe **41% without private vehicles** is particularly important. Unless there is reliable public or community transport, the policy could effectively remove practical access to care for hundreds of patients.\n\n### 3. The proposal may shift costs rather than eliminate them\nThe projected **4.2 million annual savings** may overstate the true net benefit if the closure leads to:\n\n- more ambulance or patient transport demand;\n- higher emergency department use;\n- increased missed appointments;\n- worsened health outcomes requiring more expensive treatment later;\n- additional pressure on the central hospital from patients who previously used local clinics.\n\nThe board should request a net-impact model, not just a savings figure.\n\n### 4. Central hospital expansion may be valuable, but the case needs detail\nThe figure of **34,000 patients gaining improved access** is compelling, but the board should ask:\n\n- What does “improved access” mean — shorter waits, more appointments, new services, better outcomes?\n- How large is the improvement per patient?\n- Which patient groups benefit?\n- Are the benefits clinically significant or mainly operational?\n- Are there alternatives that preserve rural access while still expanding central capacity?\n\n## Recommendation\n\nThe board should **not approve the proposal in its current form without mitigation**. The proposal may be justified in principle if the central hospital expansion produces major benefits, but only if the rural access harms are directly addressed.\n\nA reasonable position would be:\n\n**Conditional approval, subject to a rural access mitigation plan and a stronger impact assessment.**\n\n## Required mitigations before approval\n\nThe board should require some combination of the following:\n\n1. **Guaranteed transport support**\n   - Free or subsidized patient transport for affected rural patients.\n   - Special provision for the roughly **861 patients without private vehicle access**.\n   - Scheduling aligned with transport availability.\n\n2. **Mobile or rotating outreach clinics**\n   - Regular visiting clinicians or mobile clinic days in the affected rural areas.\n   - Priority for chronic disease management, older patients, maternal care, mental health, and preventive services.\n\n3. **Telehealth plus local support**\n   - Telemedicine alone will not solve the problem, but it could reduce unnecessary travel if paired with local diagnostic, nursing, or pharmacy support.\n\n4. **Protection for high-need patients**\n   - Exemptions or alternative arrangements for patients with mobility issues, frequent appointments, disability, or complex conditions.\n\n5. **Phased implementation**\n   - Do not close all three clinics at once.\n   - Pilot the model, monitor impacts, and pause if access or outcomes deteriorate.\n\n6. **Outcome monitoring**\n   Track:\n   - missed appointment rates;\n   - emergency admissions from affected areas;\n   - travel-related complaints;\n   - chronic disease indicators;\n   - patient satisfaction;\n   - use of transport services;\n   - actual versus projected savings.\n\n## Board conclusion\n\nThe proposal offers a clear aggregate benefit: **34,000 patients may gain improved central hospital access, funded by 4.2 million in annual redirected savings**. However, it imposes a concentrated and potentially severe burden on **2,100 rural patients**, especially the approximately **861 without private vehicle access**.\n\nThe board should treat this as an equity-sensitive service redesign, not a simple efficiency measure. Approval would be defensible only if the health service can demonstrate that rural patients will retain realistic, affordable, and timely access to care. Without such protections, the proposal risks improving system efficiency at the expense of an already disadvantaged group.",
+    "anonymized_output_id": "OUT-0246",
+    "truncated": false,
+    "reasoning_tokens": 33,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
   }
 ]
