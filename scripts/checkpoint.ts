@@ -20,6 +20,7 @@ import {
   type EvalAttemptRecord,
 } from "../lib/evalTelemetry.ts";
 import { computeIrr } from "../lib/irr.ts";
+import { pairedTTest, wilcoxonSignedRank } from "../lib/stats.ts";
 import type { EvaluationRecord, PromptCondition, ResultRecord } from "../types/index.ts";
 
 const REPO = process.cwd();
@@ -492,6 +493,45 @@ function main(): void {
     for (const [k, v] of [...driverTally.entries()].sort((a, b) => b[1] - a[1])) {
       console.log(`    ${k.padEnd(24)} ${v}`);
     }
+  }
+
+  // -------------------------------------------------------------- SIGNIFICANCE
+  // Paired tests on the primary-judge deltas, one delta per complete pair.
+  // Wilcoxon signed-rank is primary: the ceiling zero-inflates the deltas, so
+  // normality is not assumed — the t-test is reported alongside with the
+  // shape facts needed to weigh it.
+  const deltas = complete.map((p) => p.craft!.primaryTotal! - p.baseline!.primaryTotal!);
+  if (deltas.length >= 2) {
+    const w = wilcoxonSignedRank(deltas);
+    const t = pairedTTest(deltas);
+    console.log("\nPAIRED SIGNIFICANCE  (primary-judge deltas, craft - baseline, per pair)");
+    console.log(`  n pairs                   ${deltas.length}`);
+    console.log(
+      `  zero deltas               ${w.nZero}  (${pct(w.nZero, deltas.length)} — ` +
+        `dropped by Wilcoxon; the ceiling's signature)`
+    );
+    console.log(
+      `  Wilcoxon signed-rank      W = ${w.statistic} (W+ ${w.wPlus}, W- ${w.wMinus}), ` +
+        `n = ${w.nNonZero} non-zero`
+    );
+    console.log(
+      `                            p = ${w.pTwoSided === null ? "not estimable" : w.pTwoSided.toFixed(4)} ` +
+        `(two-sided, ${w.method})`
+    );
+    console.log(
+      `  paired t-test             t(${t.df}) = ${t.t === null ? "n/a" : t.t.toFixed(3)}, ` +
+        `p = ${t.pTwoSided === null ? "not estimable" : t.pTwoSided.toFixed(4)} (two-sided)`
+    );
+    console.log(
+      `                            mean delta ${t.meanDifference.toFixed(3)}, ` +
+        `sd ${t.sdDifference.toFixed(3)}`
+    );
+    console.log(
+      "  NOTE: with " +
+        pct(w.nZero, deltas.length) +
+        " of deltas at exactly zero the differences are not normal; weigh the " +
+        "Wilcoxon result, and read the t-test as corroboration only."
+    );
   }
 
   // ------------------------------------------------------------------------ IRR
