@@ -2664,5 +2664,439 @@
     "retry_count": 0,
     "retry_log": [],
     "notes": ""
+  },
+  {
+    "result_id": "RES-2e20d7e9-a5ee-4f3b-88e9-837f7ed73df8",
+    "task_id": "T022",
+    "task_version": "v1-96fab8f49559488f279478aef234bb04",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T07:11:33.227Z",
+    "raw_model_output": "Clients invoiced exactly once, in order of first appearance:\n\n1. Cortez — 7,400  \n2. Dunmore — 3,300  \n3. Everly — 900  \n\nTotal value of one-off invoices: 11,600",
+    "anonymized_output_id": "OUT-0109",
+    "truncated": false,
+    "reasoning_tokens": 41,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-836abc05-dd86-430e-ba66-ca9082f54740",
+    "task_id": "T022",
+    "task_version": "v1-96fab8f49559488f279478aef234bb04",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T07:11:42.150Z",
+    "raw_model_output": "### One-off clients\n1. Cortez — 7,400\n2. Dunmore — 3,300\n3. Everly — 900\n\n### Clients excluded\nAldridge — invoiced twice  \nBeacon — invoiced twice\n\n### Total value\n11,600",
+    "anonymized_output_id": "OUT-0110",
+    "truncated": false,
+    "reasoning_tokens": 50,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-fe73914c-d1da-427f-a00a-76dcefb0d133",
+    "task_id": "T023",
+    "task_version": "v1-2fe1c0d436d80ea3bb93c5febb3d1c7d",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T07:11:51.952Z",
+    "raw_model_output": "## Entry-by-Entry Check\n\n| Entry | Debit | Credit | Balanced? |\n|-------|------:|-------:|:---------:|\n| JE-01 | 12,000 | 12,000 | ✅ |\n| JE-02 | 3,500 | 3,500 | ✅ |\n| JE-03 | 8,000 | 8,000 | ✅ |\n| JE-04 | 6,400 | 6,400 | ✅ |\n| JE-05 | 2,700 | 2,000 | ❌ |\n\n**JE-05 is unbalanced** — Inventory is debited for 2,700 but Accounts Payable is only credited for 2,000, leaving a **$700 shortfall on the credit side** of that entry.\n\n## Total Debits vs. Total Credits\n\n- Total Debits: 12,000 + 3,500 + 8,000 + 6,400 + 2,700 = **32,600**\n- Total Credits: 12,000 + 3,500 + 8,000 + 6,400 + 2,000 = **31,900**\n- **Net imbalance: 700 (debits exceed credits)**\n\n## Conclusion\n\nThe books don't balance. The problem is isolated entirely to **JE-05**, which is short $700 on the credit side (either Accounts Payable was under-credited, or the debit to Inventory was overstated). Since it's the only faulty entry, fixing JE-05 to have equal debits and credits will bring the whole set back into balance — no other entries need adjustment.",
+    "anonymized_output_id": "OUT-0111",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-103611b8-309d-4588-aa12-316df0b80665",
+    "task_id": "T023",
+    "task_version": "v1-2fe1c0d436d80ea3bb93c5febb3d1c7d",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T07:12:07.531Z",
+    "raw_model_output": "## Entry-Level Check\n\n| Entry | Debit Account | Debit Amount | Credit Account | Credit Amount | Balanced? |\n|-------|---------------|-------------:|-----------------|---------------:|-----------|\n| JE-01 | Cash | 12,000 | Revenue | 12,000 | Yes |\n| JE-02 | Rent Expense | 3,500 | Cash | 3,500 | Yes |\n| JE-03 | Equipment | 8,000 | Accounts Payable | 8,000 | Yes |\n| JE-04 | Wages Expense | 6,400 | Cash | 6,400 | Yes |\n| JE-05 | Inventory | 2,700 | Accounts Payable | 2,000 | **No** |\n\nJE-05 fails the entry-level check: debit of 2,700 against credit of 2,000, a shortfall of 700 on the credit side.\n\n## Aggregate Check\n\n- Total debits: 12,000 + 3,500 + 8,000 + 6,400 + 2,700 = **32,600**\n- Total credits: 12,000 + 3,500 + 8,000 + 6,400 + 2,000 = **31,900**\n\nDebits exceed credits by 700. The set does not balance in aggregate.\n\n## Entry at Fault and Imbalance\n\nJE-05 is the source of the discrepancy. The debit to Inventory (2,700) was not matched by an equal credit to Accounts Payable (2,000), leaving an unposted credit of **700**. This shortfall accounts fully for the aggregate imbalance identified above; no other entry contributes to the variance. Recommend verifying the intended credit amount for JE-05 — either the Accounts Payable credit should be 2,700, or the Inventory debit should be reduced to 2,000, depending on the correct underlying transaction.",
+    "anonymized_output_id": "OUT-0112",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-ddd9046e-eb0b-4c25-b11a-9c0860260341",
+    "task_id": "T023",
+    "task_version": "v1-2fe1c0d436d80ea3bb93c5febb3d1c7d",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T07:12:34.021Z",
+    "raw_model_output": "The books **do not balance**.\n\n| Entry | Debit | Credit | Status |\n|---|---:|---:|---|\n| JE-01 | 12,000 | 12,000 | Balanced |\n| JE-02 | 3,500 | 3,500 | Balanced |\n| JE-03 | 8,000 | 8,000 | Balanced |\n| JE-04 | 6,400 | 6,400 | Balanced |\n| JE-05 | 2,700 | 2,000 | **Unbalanced** |\n\n**Faulty entry:** JE-05  \n**Imbalance in JE-05:** Debits exceed credits by **700**\n\n### Overall totals\n\n- **Total debits:** 32,600  \n- **Total credits:** 31,900  \n\n### Leftover imbalance\n\nDebits exceed credits by **700**.\n\nSo the issue is entirely in **JE-05**, where the credit side is short by **700**.",
+    "anonymized_output_id": "OUT-0113",
+    "truncated": false,
+    "reasoning_tokens": 82,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-5cc9c34f-1897-452c-8bfc-68f0ca1ae2e0",
+    "task_id": "T023",
+    "task_version": "v1-2fe1c0d436d80ea3bb93c5febb3d1c7d",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T07:12:46.777Z",
+    "raw_model_output": "## Entry-level check\n\n| Entry | Debit account | Debit | Credit account | Credit | Entry balanced? | Difference |\n|---|---:|---:|---|---:|---|---:|\n| JE-01 | Cash | 12,000 | Revenue | 12,000 | Yes | 0 |\n| JE-02 | Rent Expense | 3,500 | Cash | 3,500 | Yes | 0 |\n| JE-03 | Equipment | 8,000 | Accounts Payable | 8,000 | Yes | 0 |\n| JE-04 | Wages Expense | 6,400 | Cash | 6,400 | Yes | 0 |\n| JE-05 | Inventory | 2,700 | Accounts Payable | 2,000 | No | 700 |\n\n## Aggregate check\n\n| Total debits | Total credits | Aggregate balanced? | Difference |\n|---:|---:|---|---:|\n| 32,600 | 31,900 | No | 700 |\n\n## Entry at fault with the imbalance\n\n| Entry at fault | Issue | Imbalance |\n|---|---|---:|\n| JE-05 | Debit exceeds credit: Inventory 2,700 vs Accounts Payable 2,000 | 700 |\n\nJE-05 is the unbalanced entry. The full set is out of balance by 700, with debits exceeding credits.",
+    "anonymized_output_id": "OUT-0114",
+    "truncated": false,
+    "reasoning_tokens": 86,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-ccae160c-f4bf-493c-a133-336946091110",
+    "task_id": "T024",
+    "task_version": "v1-55653a7a991ca450067ac65dd09a4850",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T07:12:57.348Z",
+    "raw_model_output": "Here are the growth figures:\n\n| Unit | Year 1 | Year 2 | % Growth |\n|------|--------|--------|----------|\n| A | 400,000 | 520,000 | **+30.0%** |\n| B | 250,000 | 200,000 | **−20.0%** |\n| C | 0 | 180,000 | **N/A (new unit)** |\n\n**Calculations for A and B:**\n- A: (520,000 − 400,000) / 400,000 = 30.0%\n- B: (200,000 − 250,000) / 250,000 = −20.0%\n\n**On Unit C:**\nPercentage growth is mathematically undefined when the starting value is zero — you'd be dividing by zero. Rather than showing something misleading like \"∞%\" or defaulting to \"0%\" (which would understate what happened), I'd recommend labeling it as **\"N/A\" or \"New\"** in your report, with the raw revenue figure called out separately (e.g., \"$180,000 in first-year revenue\").\n\nIf you need it for a chart or table that requires a numeric value, common conventions include:\n- Leaving it blank or marking \"N/M\" (not meaningful)\n- Showing \"New\" as a category rather than a percentage\n- If you must have a number for sorting/filtering purposes, some analysts use a placeholder like 100% (implying \"went from nothing to full amount\"), but flag it as a convention, not a true growth rate\n\nI'd avoid presenting a fabricated percentage as if it's comparable to A and B's figures, since it isn't measuring the same thing (existing growth vs. launch revenue).",
+    "anonymized_output_id": "OUT-0115",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-ae3403bf-8970-4907-b208-f8378c845d42",
+    "task_id": "T024",
+    "task_version": "v1-55653a7a991ca450067ac65dd09a4850",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T07:13:00.086Z",
+    "raw_model_output": "## Growth Figures\n\n| Business Unit | Year 1 Revenue | Year 2 Revenue | Growth |\n|---|---|---|---|\n| Unit A | 400,000 | 520,000 | +30.0% |\n| Unit B | 250,000 | 200,000 | -20.0% |\n| Unit C | 0 | 180,000 | N/A (not calculable) |\n\n## Treatment of the Launch Case\n\nUnit C is reported as \"N/A\" rather than assigned a numerical growth rate or a placeholder such as \"100%\" or \"∞%.\" No growth percentage is calculated for this unit.\n\n## Reasoning for the Treatment\n\nPercentage growth is mathematically defined as the change in value divided by the starting value. With a Year 1 base of zero, this calculation involves division by zero and produces an undefined result, not simply a large or infinite number in any meaningful sense. Assigning an arbitrary figure — such as treating the launch-year revenue as \"infinite growth\" — would misrepresent the nature of the change: Unit C did not grow from an existing base, it began operating. The two events (organic growth from a prior baseline vs. a new launch) are not comparable on a percentage scale, and forcing a number into that cell would overstate the case and distort any averaging or aggregation done later with these figures. Reporting the 180,000 revenue figure alongside \"N/A\" preserves the underlying data while correctly flagging that no valid growth rate exists.",
+    "anonymized_output_id": "OUT-0116",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-03d16fb0-4061-4138-ac54-b225c710710f",
+    "task_id": "T024",
+    "task_version": "v1-55653a7a991ca450067ac65dd09a4850",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T07:13:08.108Z",
+    "raw_model_output": "Percentage growth by unit:\n\n| Unit | Year 1 | Year 2 | Change | Growth |\n|---|---:|---:|---:|---:|\n| Unit A | 400,000 | 520,000 | +120,000 | **+30.0%** |\n| Unit B | 250,000 | 200,000 | -50,000 | **-20.0%** |\n| Unit C | 0 | 180,000 | +180,000 | **N/A — new launch** |\n\nFor Unit C, percentage growth is not meaningful because the starting revenue was zero. Mathematically, the standard growth formula divides by Year 1 revenue, so it would require division by zero. I’d report it as **“new launch: +180,000 revenue from a zero base”** rather than assigning a percentage.",
+    "anonymized_output_id": "OUT-0117",
+    "truncated": false,
+    "reasoning_tokens": 48,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-d3aa230a-c5f2-43be-9535-e6cb4a2adb35",
+    "task_id": "T024",
+    "task_version": "v1-55653a7a991ca450067ac65dd09a4850",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T07:13:31.214Z",
+    "raw_model_output": "## Growth figures\n\n| Business unit | Year 1 revenue | Year 2 revenue | Percentage growth |\n|---|---:|---:|---:|\n| Unit A | 400,000 | 520,000 | 30.0% |\n| Unit B | 250,000 | 200,000 | -20.0% |\n| Unit C | 0 | 180,000 | Not meaningful / N.M. |\n\n## Treatment of the launch case\n\nUnit C should not be reported with a percentage growth rate. Because it had no Year 1 revenue, the percentage growth calculation would require division by zero. It should be shown as a launch-year case with Year 2 revenue of 180,000 and growth marked as “Not meaningful” or “N.M.”\n\n## Reasoning for that treatment\n\nPercentage growth is calculated as:\n\n\\[\n\\frac{\\text{Year 2 revenue} - \\text{Year 1 revenue}}{\\text{Year 1 revenue}} \\times 100\n\\]\n\nFor Unit C, Year 1 revenue is zero, so the denominator is zero. A percentage increase from zero is therefore mathematically undefined and would be misleading if presented as a standard growth rate. The appropriate treatment is to disclose that the unit launched in Year 2 and report the absolute revenue generated rather than a percentage growth figure.",
+    "anonymized_output_id": "OUT-0118",
+    "truncated": false,
+    "reasoning_tokens": 27,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-749fbc77-e281-4d8f-bf77-54fda6571439",
+    "task_id": "T025",
+    "task_version": "v1-6a0859a61a607c2fc8bf576aed02cfc5",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T07:13:40.390Z",
+    "raw_model_output": "## Quarter-over-Quarter Analysis\n\n**Most recent decline:** Q12 (60.2) vs Q11 (61.5)\n- **Fall:** $1.3 million (a drop of about 2.1%)\n\n**Total number of declines across all 12 quarters:** 4\n\nHere's the breakdown of every quarter-over-quarter change:\n\n| Quarter | Revenue | Change | Direction |\n|---------|---------|--------|-----------|\n| Q1 | 42.0 | — | — |\n| Q2 | 45.5 | +3.5 | ↑ |\n| Q3 | 44.1 | **-1.4** | ↓ |\n| Q4 | 48.0 | +3.9 | ↑ |\n| Q5 | 51.2 | +3.2 | ↑ |\n| Q6 | 49.8 | **-1.4** | ↓ |\n| Q7 | 53.4 | +3.6 | ↑ |\n| Q8 | 56.0 | +2.6 | ↑ |\n| Q9 | 54.7 | **-1.3** | ↓ |\n| Q10 | 58.1 | +3.4 | ↑ |\n| Q11 | 61.5 | +3.4 | ↑ |\n| Q12 | 60.2 | **-1.3** | ↓ |\n\n**Summary:** Despite the four dips (Q3, Q6, Q9, Q12), the overall trend across the 12 quarters is upward — revenue grew from $42.0M to $60.2M, an increase of about 43%.",
+    "anonymized_output_id": "OUT-0119",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-04465edc-64cb-43db-9ac4-a60cc976f1ce",
+    "task_id": "T025",
+    "task_version": "v1-6a0859a61a607c2fc8bf576aed02cfc5",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T07:13:52.779Z",
+    "raw_model_output": "The most recent quarter with a revenue decline was **Q12**, compared with **Q11**.\n\n- **Q11 revenue:** 61.5 million  \n- **Q12 revenue:** 60.2 million  \n- **Fall:** **1.3 million**\n\nAcross the full twelve-quarter period, there were **4 quarterly declines** in total: Q3, Q6, Q9, and Q12.",
+    "anonymized_output_id": "OUT-0120",
+    "truncated": false,
+    "reasoning_tokens": 101,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-4b67343d-87e3-486d-9510-2dd809690609",
+    "task_id": "T025",
+    "task_version": "v1-6a0859a61a607c2fc8bf576aed02cfc5",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T07:13:55.091Z",
+    "raw_model_output": "## Quarter-on-Quarter Movements\n\n| Quarter | Revenue ($m) | Change vs Prior Quarter ($m) | Direction |\n|---------|-------------|-------------------------------|-----------|\n| Q1 | 42.0 | — | — |\n| Q2 | 45.5 | +3.5 | Increase |\n| Q3 | 44.1 | -1.4 | Decline |\n| Q4 | 48.0 | +3.9 | Increase |\n| Q5 | 51.2 | +3.2 | Increase |\n| Q6 | 49.8 | -1.4 | Decline |\n| Q7 | 53.4 | +3.6 | Increase |\n| Q8 | 56.0 | +2.6 | Increase |\n| Q9 | 54.7 | -1.3 | Decline |\n| Q10 | 58.1 | +3.4 | Increase |\n| Q11 | 61.5 | +3.4 | Increase |\n| Q12 | 60.2 | -1.3 | Decline |\n\n## Most Recent Decline\n\nThe most recent quarter-on-quarter decline occurred in **Q12**, where revenue fell from $61.5m to $60.2m — a decrease of **$1.3m**.\n\n## Total Count of Declines\n\nAcross the twelve-quarter series, revenue declined against the prior quarter on **four occasions**: Q3, Q6, Q9, and Q12.",
+    "anonymized_output_id": "OUT-0121",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-8f8105cc-654e-4f15-9479-581bdb56b20f",
+    "task_id": "T025",
+    "task_version": "v1-6a0859a61a607c2fc8bf576aed02cfc5",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T07:14:13.188Z",
+    "raw_model_output": "## Quarter-on-quarter movements\n\n| Quarter | Revenue (millions) | Movement vs preceding quarter (millions) |\n|---|---:|---:|\n| Q2 | 45.5 | +3.5 |\n| Q3 | 44.1 | -1.4 |\n| Q4 | 48.0 | +3.9 |\n| Q5 | 51.2 | +3.2 |\n| Q6 | 49.8 | -1.4 |\n| Q7 | 53.4 | +3.6 |\n| Q8 | 56.0 | +2.6 |\n| Q9 | 54.7 | -1.3 |\n| Q10 | 58.1 | +3.4 |\n| Q11 | 61.5 | +3.4 |\n| Q12 | 60.2 | -1.3 |\n\n## Most recent decline\n\nThe most recent quarterly decline was in **Q12**, when revenue fell from **61.5 million in Q11 to 60.2 million in Q12**, a decline of **1.3 million**.\n\n## Total count of declines\n\nThere were **4 quarterly declines** across the full period.",
+    "anonymized_output_id": "OUT-0122",
+    "truncated": false,
+    "reasoning_tokens": 111,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
   }
 ]
