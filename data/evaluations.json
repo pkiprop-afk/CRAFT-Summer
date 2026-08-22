@@ -5249,5 +5249,210 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response respects the 150-word limit, includes a clear everyday comparison (stepping outside in a warm coat), and closes with an investigatable question that also invites testing a limit of the explanation (lid vs. no lid vs. metal cup), satisfying constraints 1 and 4 and completeness fully. However, it repeatedly uses the term \"heat\" (loses heat, carrying heat away, heat keeps moving, making new heat, cannot make new heat)—almost certainly one of the ten prohibited terms given the topic—so constraint 2 (vocabulary compliance) is clearly violated, which per the rubric caps logical accuracy at 0-1 regardless of the causal soundness of the explanation. The explanation does attempt to convey mechanism (steam carrying heat, warming surrounding air) rather than just naming a process, partially satisfying constraint 3, and avoids a pure synonym-substitution trap by using \"tiny bits... escape as steam\" instead of \"evaporation,\" satisfying constraint 5. But the prohibited-term violation is the decisive failure, significantly reducing both constraint adherence and logical accuracy scores."
+  },
+  {
+    "evaluation_id": "EVAL-69facde0-a16f-4e22-b72f-96ea05a2a396",
+    "result_id": "RES-e33214e3-f312-49e8-b910-0e63691679b0",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T14:02:41.671Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response satisfies all rubric constraints and requirements: it delivers an immediate negative verdict within the first sentence, analyses the cognitive demands of all four individual questions, explicitly contrasts the objective's evaluative demands with the draft's recall demands while noting the lack of competing explanations, provides a fully written revised prompt that aligns with the objective, and avoids treating the draft assessment as adequate."
+  },
+  {
+    "evaluation_id": "EVAL-ce10a83f-d642-453d-a019-0755722158ba",
+    "result_id": "RES-e33214e3-f312-49e8-b910-0e63691679b0",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T14:02:45.866Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response gives a clear early verdict that the assessment is not aligned, analyzes the cognitive demand of all four questions as recall/understanding rather than evaluation, explicitly distinguishes the objective’s requirement to evaluate and justify competing explanations from the assessment’s recall/description demands, and states that no question requires comparing competing explanations. It also provides a concrete revised question that would align with the objective. While it mentions secondary issues like rubric and mark allocation, these are not the basis of the critique, so it satisfies the alignment-focused requirements fully."
+  },
+  {
+    "evaluation_id": "EVAL-9deb789d-4267-4ee7-818e-b757cb38b1d9",
+    "result_id": "RES-a9a86d9d-16ae-41a4-9903-9a6bfe45ee49",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T14:06:09.825Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 3,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      },
+      {
+        "attempt": 3,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 8000
+      }
+    ],
+    "evaluator_justification": "The response adheres strictly to all five constraints. It delivers an immediate verdict in the first sentence, evaluates the specific cognitive demands of all four questions, clearly contrasts the objective's demand for evaluation/justification against recall/description while noting the absence of competing explanations, and provides a fully drafted, well-aligned revision."
+  },
+  {
+    "evaluation_id": "EVAL-0f666559-ecb2-4d64-afac-d7f45c3816a1",
+    "result_id": "RES-a9a86d9d-16ae-41a4-9903-9a6bfe45ee49",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T14:06:20.339Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response opens with a clear misalignment verdict within the first sentence, satisfying the positional constraint. It analyzes the cognitive demand of all four questions (recall, definition, recall, description), clearly contrasts these with the objective's demand for evaluation and evidence-based justification, and effectively conveys that no question requires comparing competing explanations (via the explicit list of alternative causal explanations and the statement that the assessment never asks students to weigh them). It provides a concrete, well-specified revised question (an essay task requiring comparison and justification) rather than vague advice, and it explicitly refuses to treat the assessment as adequate, focusing its critique on cognitive/task-type misalignment rather than surface features like marks or wording. All constraints are met, fulfilling both logical accuracy and completeness criteria for full marks."
+  },
+  {
+    "evaluation_id": "EVAL-652c9466-9e71-41e2-8898-3a91379c3d99",
+    "result_id": "RES-69f3f676-ea1a-4700-8af5-0a4a851d8ddb",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T14:06:35.870Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response adheres strictly to all five specified constraints: it delivers a direct negative verdict within the first two sentences, analyzes the cognitive demands of all four draft questions, explicitly contrasts the objective's demand for evaluation and justification with the draft's focus on recall and description while noting the absence of competing explanations, and provides a fully formulated replacement prompt."
+  },
+  {
+    "evaluation_id": "EVAL-90b5b82c-29ca-49c1-9984-89ea730a68a4",
+    "result_id": "RES-69f3f676-ea1a-4700-8af5-0a4a851d8ddb",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T14:06:46.451Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response opens with an unambiguous non-alignment verdict within the first two sentences, then analyzes all four questions individually, correctly identifying their cognitive demand as recall, definition, factual recall, and description respectively. It explicitly contrasts these demands with the objective's requirement to evaluate competing explanations and justify a judgement using evidence, repeatedly noting the absence of any comparison of competing explanations. It concludes with a concrete, fully worded revised question plus rubric criteria, and at no point treats the assessment as adequate or limits critique to surface features like marks or wording. All five constraints are satisfied, warranting full marks across all three dimensions."
+  },
+  {
+    "evaluation_id": "EVAL-d9600e3b-2a01-4a83-b7bc-6ccde3fb282c",
+    "result_id": "RES-ff2b049f-8e9b-4c13-a700-96589e01a754",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T14:07:58.412Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response adheres to all specified constraints without error. It provides exactly four numbered questions representing distinct cognitive tiers (direct recall, inference, out-of-passage application, and identifying needed additional information). It avoids the prohibited phrase \"keystone species,\" contains no answer leakage, and successfully avoids cognitive type collapse."
+  },
+  {
+    "evaluation_id": "EVAL-54e37439-838d-4b42-a82d-513548d2e8f3",
+    "result_id": "RES-ff2b049f-8e9b-4c13-a700-96589e01a754",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T14:08:07.803Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response provides exactly four clearly numbered questions, each aligned with a distinct intended type: recall, inference, application, and further-evidence/strengthening. It avoids the prohibited phrase, does not plainly give away the answers, and question 2 requires interpretation rather than simple sentence lookup. Question 3 uses an outside scenario, and question 4 properly asks what additional evidence would be needed rather than merely restating a limitation."
+  },
+  {
+    "evaluation_id": "EVAL-6a9d0b54-6fe3-4bed-b329-c3e95566c0b4",
+    "result_id": "RES-fa8aaa7e-e292-4c0c-8c1f-bae1255c8bdc",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T14:08:42.173Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response perfectly satisfies all constraints and instructions: it produces exactly four numbered questions covering distinct cognitive types (recall, inference, novel scenario application, and further information needed), avoids answer leakage and the prohibited phrase \"keystone species,\" and appropriately asks for additional evidence in question 4."
+  },
+  {
+    "evaluation_id": "EVAL-5fc981f6-e0c5-4f49-86a8-576b540f30c3",
+    "result_id": "RES-fa8aaa7e-e292-4c0c-8c1f-bae1255c8bdc",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T14:08:47.095Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response provides exactly four numbered questions with distinct cognitive roles: recall, inference, application, and further-evidence evaluation. It avoids the prohibited phrase, does not directly state the answers, and the inference question requires reasoning beyond simply locating a sentence. The application question uses a new scenario outside the passage, and question 4 properly asks what additional evidence would be needed rather than merely asking students to restate a limitation."
+  },
+  {
+    "evaluation_id": "EVAL-11da80dc-a815-4317-a660-28f4d20feae3",
+    "result_id": "RES-604d1964-ae9e-4d50-a22f-8668d48cc71e",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T14:08:52.590Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response perfectly satisfies all constraints and avoids both rubric traps. It provides four clearly numbered, cognitively distinct questions (recall, inference, novel scenario application, and further information needed) without leaking any causal mechanisms, without using the prohibited phrase \"keystone species,\" and with question 4 correctly asking for additional evidence rather than restating known limitations."
   }
 ]

@@ -44,12 +44,11 @@ type TestModel = TestModelId;
 // Cap on simultaneous in-flight model/evaluator calls, to avoid overwhelming
 // the upstream APIs or their rate limits during a batch run.
 //
-// Lowered 3 -> 2: at ~11 s/generation there is ample schedule headroom, and
-// judge reliability is worth more here than throughput. The primary judge was
-// retrying on ~45% of calls and exhausting on ~15% at limit 3. If the failure
-// rate is unchanged at 2, the cause is provider-side rather than pressure we
-// are applying.
-const CONCURRENCY_LIMIT = 2;
+// Lowered 3 -> 2 -> 1. The 3 -> 2 step left the primary judge's failure rate
+// unchanged (14.5% -> 28.6%), establishing the failures as provider-side; 1 is
+// the final leg's setting because ~56 generations cost only ~15 minutes at
+// serial dispatch, which is nothing against another mid-run halt.
+const CONCURRENCY_LIMIT = 1;
 
 // Re-check callability every N completed jobs. Small enough that an exhausted
 // balance is caught within a few calls; large enough that the probes are a

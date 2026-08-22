@@ -4462,5 +4462,222 @@
     "retry_count": 0,
     "retry_log": [],
     "notes": ""
+  },
+  {
+    "result_id": "RES-e33214e3-f312-49e8-b910-0e63691679b0",
+    "task_id": "T037",
+    "task_version": "v1-cc43f39ab3578bfc72a4540d3e9b2ed0",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T14:02:39.174Z",
+    "raw_model_output": "# Assessment Evaluation: Not Ready\n\n**Short answer: No, this assessment does not measure the stated objective, and it shouldn't be used as-is.**\n\n## The Core Problem\n\nThe learning objective requires three specific cognitive operations:\n1. **Evaluate competing explanations** (plural — requires at least two explanations to be in play)\n2. **Justify** a comparative judgment (requires reasoning/argumentation)\n3. Ground that judgment **in evidence** (requires students to weigh evidence, not just recite it)\n\nThis is Bloom's *evaluate/analyze* territory. Every question on the draft sits at *remember/understand*:\n\n| Question | What it actually asks for | Bloom level |\n|---|---|---|\n| Q1 | Recall a list | Remember |\n| Q2 | Recall a definition + example | Remember/Understand |\n| Q3 | Recall a date and provisions | Remember |\n| Q4 | Recall a sequence | Remember/Understand |\n\nNone of the four questions ask students to compare explanations against each other, weigh evidence, or make a defensible judgment call. A student could score full marks by memorizing a textbook chapter and never construct an argument.\n\n## What's Missing\n\nFor this objective, you'd expect to see something like:\n\n> \"Historians disagree about the primary cause of the 1929 crash. Explanation A attributes it primarily to structural weaknesses in the banking system; Explanation B attributes it primarily to speculative excess and margin buying. Using the evidence provided, evaluate these two explanations and justify which is better supported. Address at least one weakness in the explanation you reject.\"\n\nThat kind of question forces students to:\n- Hold two explanations in mind simultaneously\n- Apply evidence selectively and comparatively\n- Produce a justified conclusion, not just information\n\n## Secondary Issues (even if content were fine)\n\n- **No rubric visible** for what \"justify\" or \"better supported\" would look like in a scored response — hard to grade evaluation consistently without one.\n- **Mark allocation mismatch**: 40 of 50 marks reward recall; if this were repurposed, the marks should shift toward the evaluative task.\n- **Q4 is descriptive narrative**, not analytical — even a strong student answering it well is not demonstrating the target skill.\n\n## Recommendation to the Department Head\n\nDon't approve as-is. The questions may be reusable as scaffolding/background knowledge checks (useful groundwork before the evaluative task), but at least one substantial question needs to be added or substituted that explicitly requires comparing named competing explanations and justifying a choice with evidence. I'd also want a rubric that scores *quality of justification and evidence use*, not just presence of correct facts.\n\nWould you like me to draft a replacement question with an accompanying rubric?",
+    "anonymized_output_id": "OUT-0167",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-52bc5912-ba32-42da-8e10-94ca7ac62d6a",
+    "task_id": "T037",
+    "task_version": "v1-cc43f39ab3578bfc72a4540d3e9b2ed0",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T14:03:01.081Z",
+    "raw_model_output": "# VERDICT\n\nThe assessment is not ready to use. It is not fit for purpose. All four questions test recall and description; none require students to evaluate competing explanations or to justify a comparative judgement about evidential support. As it stands, this instrument measures knowledge of the 1929 crash, not the historiographical reasoning skill named in the objective. A student could score full marks (50/50) without ever comparing two explanations or making an evidence-based argument for one over another.\n\n# QUESTION-BY-QUESTION ANALYSIS\n\n**Question 1 (List four causes, 10 marks):** Tests recall of a list. \"Listing\" causes is not the same as weighing them against each other or against evidence. There is no requirement to compare explanations or judge relative strength. Does not address the objective.\n\n**Question 2 (Define 'speculation' + example, 10 marks):** Tests vocabulary and factual illustration. This is definitional/recall work, one step removed from causal analysis entirely. Does not address the objective.\n\n**Question 3 (Glass-Steagall Act: year + provisions, 10 marks):** Tests memorised facts about a policy response that occurred *after* the crash. It is not even about competing explanations for the crash's causes; it is arguably off-topic relative to the objective as stated. Does not address the objective.\n\n**Question 4 (Describe sequence of events, 20 marks):** Tests narrative/chronological recall. Description of a sequence is not evaluation of explanations. Even at 20 marks — the largest allocation — this rewards accurate storytelling, not argumentation about which causal account is best supported. Does not address the objective.\n\nAcross all four questions, the command verbs are list, define, state, name, describe — none of which require evaluate, compare, weigh, or justify. There is also no evidence base provided (primary sources, historians' accounts, data) for students to adjudicate between, which is a structural precondition for the objective the assessment claims to measure.\n\n# CHANGES REQUIRED\n\n1. **Introduce genuinely competing explanations.** The assessment must name or provide at least two rival accounts of the crash's causes (e.g., monetary contraction vs. structural overproduction/inequality vs. speculative bubble/margin lending) rather than treating \"causes\" as a single agreed list to be recited.\n\n2. **Provide evidence for students to weigh.** Include excerpts, data, or summarised historians' arguments (e.g., a short passage from Friedman & Schwartz versus one from Galbraith) so students have material to adjudicate between, rather than being asked to reproduce the instructor's own synthesis from memory.\n\n3. **Replace recall verbs with evaluative tasks.** Restructure toward a prompt such as: \"Explanation A attributes the crash primarily to X; Explanation B attributes it primarily to Y. Using the evidence provided, evaluate which explanation is better supported, and justify your judgement.\" This should carry the majority of the marks.\n\n4. **Build a mark scheme that rewards argumentation, not content coverage.** Marks should be allocated for: accurate representation of each competing explanation, explicit comparison/weighing, use of evidence to support the judgement, and a defensible, reasoned conclusion — not for volume of factual detail recalled.\n\n5. **Cut or repurpose Questions 1–3.** These can remain only as low-stakes scaffolding (e.g., ungraded prerequisite knowledge checks) but cannot count toward assessment of this objective. Question 4's narrative task could be retained only if reframed to ask why the sequence of events supports one causal explanation over another.\n\n6. **Rebalance the mark allocation** so that the evaluative/justification component carries most of the weight (I would suggest 70–80%), since that is the actual competency named in the objective.",
+    "anonymized_output_id": "OUT-0168",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-a9a86d9d-16ae-41a4-9903-9a6bfe45ee49",
+    "task_id": "T037",
+    "task_version": "v1-cc43f39ab3578bfc72a4540d3e9b2ed0",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T14:04:42.391Z",
+    "raw_model_output": "No — this assessment is **not ready to use** if the goal is to measure the stated learning objective.\n\n## Learning objective\n\n> “Students will be able to **evaluate competing explanations** for a historical event and **justify which is better supported by the available evidence**.”\n\nThis objective requires students to demonstrate higher-order historical thinking. Specifically, they need to:\n\n1. Identify or understand more than one explanation for a historical event.\n2. Compare those explanations.\n3. Use evidence to assess the strength of each explanation.\n4. Make and justify a judgment about which explanation is better supported.\n\n## What the draft assessment measures\n\nThe draft questions mostly measure factual recall and basic description:\n\n- **Question 1:** List four causes of the 1929 stock market crash.  \n  - Measures recall of causes.\n- **Question 2:** Define “speculation” and give an example.  \n  - Measures vocabulary knowledge and simple application.\n- **Question 3:** State the year of the Glass-Steagall Act and name provisions.  \n  - Measures factual recall.\n- **Question 4:** Describe the sequence of events between October 24 and October 29, 1929.  \n  - Measures chronological description.\n\nThese are useful background-knowledge questions, but they do **not** require students to evaluate competing explanations or justify an evidence-based conclusion.\n\n## Main alignment problem\n\nThe assessment asks students to know facts about the stock market crash and related financial history, but the learning objective asks students to **argue which explanation is better supported by evidence**.\n\nFor example, a student could earn full marks on this assessment by memorizing facts and never once comparing explanations such as:\n\n- The crash was mainly caused by excessive speculation.\n- The crash was mainly caused by weak banking and credit structures.\n- The crash was mainly caused by unequal wealth distribution and overproduction.\n- The crash was mainly caused by poor government policy.\n\nThe current assessment does not ask students to decide which explanation is more persuasive or to use evidence in support of that judgment.\n\n## Recommendation\n\nThe assessment should be revised before use. Some factual recall questions could remain as supporting items, but the assessment needs at least one substantial task that directly measures evaluation and justification.\n\n## Example of a better-aligned assessment task\n\n> **Essay Question:**  \n> Historians disagree about the main cause of the 1929 stock market crash. Some argue that the crash was mainly caused by excessive speculation and buying on margin. Others argue that deeper weaknesses in the economy, such as unequal wealth distribution, overproduction, and unstable banking practices, were more important.  \n>   \n> Using evidence from class materials and the sources provided, evaluate these competing explanations. Which explanation is better supported by the available evidence? Justify your answer.\n\nThis would directly measure the objective because students must compare explanations, use evidence, and defend a conclusion.\n\n## Possible rubric criteria\n\nA rubric could assess whether students can:\n\n| Criterion | What to look for |\n|---|---|\n| Identifies competing explanations | Clearly explains at least two different interpretations of the event |\n| Uses relevant evidence | Selects accurate evidence from sources or class materials |\n| Evaluates evidence | Explains how strongly the evidence supports each explanation |\n| Makes a justified judgment | States which explanation is better supported and explains why |\n| Historical accuracy and clarity | Uses accurate information and communicates reasoning clearly |\n\n## Overall judgment\n\nThe current assessment is **not sufficiently aligned** with the learning objective. It measures recall, definition, and description, but not evaluation of competing explanations or evidence-based justification. It should be revised before being used as the main assessment for this objective.",
+    "anonymized_output_id": "OUT-0169",
+    "truncated": false,
+    "reasoning_tokens": 33,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-69f3f676-ea1a-4700-8af5-0a4a851d8ddb",
+    "task_id": "T037",
+    "task_version": "v1-cc43f39ab3578bfc72a4540d3e9b2ed0",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T14:06:29.394Z",
+    "raw_model_output": "## The verdict\n\nNot ready to use. The draft assessment does not measure the stated learning objective.\n\nThe objective requires students to **evaluate competing explanations** for a historical event and **justify which explanation is better supported by available evidence**. The draft assessment instead measures recall and description: causes, definitions, dates, provisions, and chronology. It does not ask students to compare explanations, assess evidence, judge relative support, or construct a justified historical argument.\n\n## The question-by-question analysis\n\n**Question 1: “List four causes of the 1929 stock market crash.”**  \nThis assesses whether students can recall commonly cited causes. It does not ask them to distinguish between competing explanations, weigh their evidentiary basis, or decide which explanation is stronger. Listing causes is relevant background knowledge, but it is not evidence of the target skill.\n\n**Question 2: “Define the term ‘speculation’ and give one example from the 1920s.”**  \nThis assesses conceptual knowledge and contextual recall. It may support understanding of one possible explanation for the crash, but it does not require evaluation of that explanation against alternatives or use of evidence to justify a judgement.\n\n**Question 3: “State the year the Glass-Steagall Act was passed and name two of its provisions.”**  \nThis is a factual recall question about later regulatory response. It is only indirectly related to explaining the crash and does not address competing explanations or evidentiary evaluation.\n\n**Question 4: “Describe the sequence of events between October 24 and October 29, 1929.”**  \nThis assesses chronological description. It may establish knowledge of the event itself, but it does not require students to evaluate explanations for why the crash happened or to justify which explanation is best supported.\n\n## The changes required\n\nTo measure the objective, the assessment must require students to:\n\n1. **Engage with at least two competing explanations** for the historical event.  \n   For example: over-speculation, margin buying, weak banking structures, overproduction, income inequality, Federal Reserve policy, or international financial instability.\n\n2. **Use available evidence**, ideally supplied in the assessment or clearly specified from course materials.\n\n3. **Evaluate the strength of the evidence** for each explanation, not merely mention it.\n\n4. **Make a justified judgement** about which explanation is better supported.\n\nA suitable replacement task would be along these lines:\n\n> “Using the sources provided and your own knowledge, compare two explanations for the 1929 stock market crash: the role of speculative investment and the role of structural weaknesses in the banking and credit system. Which explanation is better supported by the available evidence? Justify your answer by evaluating the reliability, relevance, and sufficiency of the evidence for each explanation.”\n\nThe marking scheme should reward comparison, evidentiary judgement, and justified conclusion, not just factual coverage. A ready-to-use assessment would need a rubric with criteria such as: identification of competing explanations, accurate use of evidence, evaluation of evidence quality, comparison of explanatory power, and clarity of final judgement.",
+    "anonymized_output_id": "OUT-0170",
+    "truncated": false,
+    "reasoning_tokens": 0,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-ff2b049f-8e9b-4c13-a700-96589e01a754",
+    "task_id": "T038",
+    "task_version": "v1-b7c833057dfd44c3ab338f0cd579864a",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T14:07:34.970Z",
+    "raw_model_output": "Here are four questions based on the passage:\n\n**Question 1 (direct):** According to the passage, what happened to sea urchin numbers in areas where sea otter populations declined due to hunting?\n\n**Question 2 (inference):** Based on the sequence of events described, what does the timing of the kelp forest recovery after otter reintroduction suggest about the relationship between otters and kelp?\n\n**Question 3 (application):** Imagine a lake ecosystem where a fish species that preys on algae-eating snails is removed by pollution, and the snail population subsequently explodes. Using the pattern shown in the passage, what would you predict happens to the algae in that lake?\n\n**Question 4 (strengthening the conclusion):** What additional information or evidence would help rule out other possible explanations for the kelp forest recovery, besides the return of sea otters?",
+    "anonymized_output_id": "OUT-0171",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-fa8aaa7e-e292-4c0c-8c1f-bae1255c8bdc",
+    "task_id": "T038",
+    "task_version": "v1-b7c833057dfd44c3ab338f0cd579864a",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T14:08:11.499Z",
+    "raw_model_output": "1. According to the passage, what effect did rising sea urchin numbers have on kelp forests?\n\n2. Why might the removal of a single predator species from an ecosystem lead to such a dramatic change in plant life several steps down the food chain?\n\n3. A coastal region has no sea otters but supports a large population of fish that prey on sea urchins. If these fish were removed due to overfishing, what would you predict happening to the kelp forests in that region, and why?\n\n4. What further evidence would help confirm that the recovery of kelp forests was caused by the return of sea otters rather than by some other environmental change occurring at the same time?",
+    "anonymized_output_id": "OUT-0172",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-604d1964-ae9e-4d50-a22f-8668d48cc71e",
+    "task_id": "T038",
+    "task_version": "v1-b7c833057dfd44c3ab338f0cd579864a",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T14:08:50.420Z",
+    "raw_model_output": "1. What happened to kelp forests in areas where sea otter populations declined through hunting?\n\n2. What can be inferred about the relationship between sea otters and sea urchin populations?\n\n3. If a different coastal area has many sea urchins and very little kelp, how might introducing a predator that eats sea urchins affect that area over time?\n\n4. What additional evidence would help support the conclusion that changes in sea otter numbers caused the changes in kelp forests?",
+    "anonymized_output_id": "OUT-0173",
+    "truncated": false,
+    "reasoning_tokens": 54,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
   }
 ]
