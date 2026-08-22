@@ -11387,5 +11387,20 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response adheres to the word count limit, provides all four required numerical figures, structurally separates content for the two audiences, and outlines actionable follow-up steps addressing the provisioning gap. However, it fails constraint 5 by introducing unexplained technical terminology (\"TLS certificate\", \"automated renewal job\") directly into the executive summary within the first 100 words, resulting in a deduction for constraint adherence and logical accuracy."
+  },
+  {
+    "evaluation_id": "EVAL-1ee98fde-ad8a-43e5-b298-cacd442d6278",
+    "result_id": "RES-c835a8e4-41e8-47e3-a202-7328ed967f3b",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T19:21:08.328Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 2,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 6,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response provides all four required figures, uses clear headings to separate executive and technical content, and includes a concrete follow-up action addressing the 3 uncovered certificates and the provisioning gap—strong points that satisfy constraints 2, 3, and 4, and give full completeness credit (executive summary, technical cause, and follow-up action are all present). However, the \"Executive Summary\" section explicitly names \"TLS certificate,\" \"renewal job,\" \"certificate inventory,\" and \"provisioning process\" within the first ~67 words—exactly the failure mode the task calls out as disqualifying for a non-technical reader—so both constraint 1 (impact/resolution/recurrence stated appropriately for the audience) and constraint 5 (no unexplained jargon in the first 100 words) are violated. This is the core \"averaging trap\" the task warns against: technical vocabulary leaks into the executive-facing opening, undermining the audience separation despite correct facts and honest treatment of recurrence risk (correctly stated as not fully prevented)."
   }
 ]
