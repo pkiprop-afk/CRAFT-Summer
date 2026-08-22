@@ -5996,5 +5996,124 @@
       }
     ],
     "evaluator_justification": "The response perfectly satisfies all task constraints: it explicitly declares the brief impossible up front, shows the exact arithmetic (84 minutes of presentations vs. 30 minutes available), avoids producing a false 40-minute timetable, and provides three distinct workable alternatives with clearly stated trade-offs."
+  },
+  {
+    "evaluation_id": "EVAL-50b8827f-e4a6-433a-8525-74a1cd48231a",
+    "result_id": "RES-4cc5afd7-889d-46e6-84bf-acff254e1e38",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T15:18:55.111Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 2,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 5,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly opens with an explicit impossibility statement and shows valid arithmetic (84 min for presentations + 10 min fixed = 94 min vs 40 min available), satisfying two of the five listed constraints. However, it fails to distinguish which requirements are fixed by the brief versus which are the planner's to trade off, and—critically—it does not present any alternative structures (e.g., shortened presentations, multi-lesson spread, group presentations) that name an explicit relaxed requirement; instead it offers a single \"non-compliant\" 10-student plan and lists what is not achieved, which is transparent about failure but not a set of proposed remedial structures. It correctly avoids the trap of presenting a false 40-minute plan that claims to meet all requirements. Overall the response is honest and arithmetically sound but incomplete relative to the required alternative-structure and fixed/negotiable-distinction constraints."
+  },
+  {
+    "evaluation_id": "EVAL-39243916-6915-43ff-b40e-1c7bf0f59191",
+    "result_id": "RES-78862c4d-f6b6-4fd7-839c-c18597ae7b8f",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T15:19:22.469Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response perfectly satisfies all five constraints. It explicitly identifies the 11-point mean drop, highlights the two concurrent changes (teaching method and format shift from multiple-choice to extended-response), clearly explains why the data cannot separate the two effects, proposes concrete methods to isolate the variables in future cycles or via common items, and correctly advises against either reverting or declaring the new approach a success."
+  },
+  {
+    "evaluation_id": "EVAL-494ac471-f742-487c-aed2-596e9692839e",
+    "result_id": "RES-78862c4d-f6b6-4fd7-839c-c18597ae7b8f",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T15:19:26.691Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response explicitly states the 11-point drop, identifies both the teaching change and the assessment format change, names the shift from multiple-choice to written extended-response as a rival explanation, and clearly distinguishes the observed score decline from any causal claim about the teaching approach. It states that the current data cannot separate the two changes and proposes appropriate discriminating evidence, including holding the assessment format constant and examining common item/rubric-level performance. It appropriately avoids recommending reversion or concluding that the new approach is working."
+  },
+  {
+    "evaluation_id": "EVAL-4abc4b5c-a2b1-4d04-8d21-342c034a9d8f",
+    "result_id": "RES-e218718f-a571-4dd5-b943-247b4bdc1956",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T15:19:50.813Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response perfectly satisfies all task constraints: it explicitly notes the 11-point score drop, correctly identifies the simultaneous shift from multiple-choice to written extended-response as a primary confounding rival explanation, and explains why the current data cannot separate the two factors. It also details multiple specific, rigorous methods to isolate the variables while appropriately advising against reverting the teaching method based on the confounded data."
+  },
+  {
+    "evaluation_id": "EVAL-1c5fd03d-bb59-45d4-9851-b9c2c3aa1b0d",
+    "result_id": "RES-e218718f-a571-4dd5-b943-247b4bdc1956",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T15:19:55.518Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response fully identifies the 11-point mean drop, explicitly notes that both teaching approach and assessment format changed, names the shift from multiple-choice to written extended-response as a rival explanation, and clearly distinguishes the observed score decline from any causal claim about teaching effectiveness. It states that the supplied data cannot separate the confounded changes, avoids unsupported conclusions about reverting or validating the new teaching approach, and proposes several appropriate discriminating tests, including holding assessment format constant and comparing common or analogous evidence."
+  },
+  {
+    "evaluation_id": "EVAL-16225617-fb3f-4b11-854e-37c2d310f614",
+    "result_id": "RES-4a705f8e-1de0-475e-aa56-f7928ec9f5d7",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T15:20:00.451Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response satisfies all constraints: it identifies the 11 percentage point drop and highlights that both the teaching method and the assessment format changed simultaneously. It explicitly notes that the data cannot isolate the cause of the drop due to confounding, provides actionable ways to separate the effects (such as using common assessment items), and appropriately advises against both immediate reversion and declaring the new method a success."
+  },
+  {
+    "evaluation_id": "EVAL-51d9c87a-c6e1-47d3-b831-bdfbada36214",
+    "result_id": "RES-4a705f8e-1de0-475e-aa56-f7928ec9f5d7",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T15:20:08.684Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response explicitly states the 11-point mean difference, identifies both the teaching approach and the assessment format (multiple-choice to written extended-response) as concurrent changes, clearly distinguishes \"scores fell\" from \"the teaching approach caused the fall,\" explicitly states the data cannot separate the two confounds, and proposes multiple concrete discriminating tests (common assessment, overlapping items, moderation, controlling for cohort differences). It also correctly refuses to endorse either reverting the new approach or declaring it a success, instead calling for further investigation. It even notes the differing cohort sizes (210 vs 198) as an aside, though it does not elaborate on this as a confound—this is a minor missed opportunity but not a required constraint. All required elements are satisfied thoroughly and accurately."
   }
 ]
