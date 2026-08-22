@@ -195,10 +195,16 @@ export async function POST(request: Request) {
   await recordEvalAttempt({
     ...attemptBase,
     recorded_at: new Date().toISOString(),
-    outcome: retries.length === 0 ? "succeeded_first_try" : "succeeded_after_retry",
+    // A missing justification is reported as its own outcome so the omission
+    // rate is countable, but it is still a success: the scores are intact.
+    outcome: parsed.justification_missing
+      ? "parsed_without_justification"
+      : retries.length === 0
+        ? "succeeded_first_try"
+        : "succeeded_after_retry",
     retry_count: retries.length,
     http_status: 200,
-    message: null,
+    message: parsed.justification_missing ? "judge omitted the Justification line" : null,
   });
 
   return NextResponse.json({
@@ -207,6 +213,7 @@ export async function POST(request: Request) {
     completeness: parsed.completeness,
     total: parsed.total,
     justification: parsed.justification,
+    justification_missing: parsed.justification_missing,
     evaluator,
     evaluator_provenance_fingerprint: evaluatorProvenance,
     evaluator_truncated: call.truncated,

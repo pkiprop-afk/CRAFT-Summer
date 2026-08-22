@@ -42,7 +42,13 @@ type TestModel = TestModelId;
 
 // Cap on simultaneous in-flight model/evaluator calls, to avoid overwhelming
 // the upstream APIs or their rate limits during a batch run.
-const CONCURRENCY_LIMIT = 3;
+//
+// Lowered 3 -> 2: at ~11 s/generation there is ample schedule headroom, and
+// judge reliability is worth more here than throughput. The primary judge was
+// retrying on ~45% of calls and exhausting on ~15% at limit 3. If the failure
+// rate is unchanged at 2, the cause is provider-side rather than pressure we
+// are applying.
+const CONCURRENCY_LIMIT = 2;
 
 // Re-check callability every N completed jobs. Small enough that an exhausted
 // balance is caught within a few calls; large enough that the probes are a
@@ -436,8 +442,17 @@ export default function BatchRunnerPage() {
 
   async function handleStartBatch() {
     if (keyBlocked) return;
-    const newJobs = buildBatchJobs(tasks, selectedIds, conditionScope, selectedModels);
-    if (newJobs.length === 0) return;
+    const built = buildBatchJobs(tasks, selectedIds, conditionScope, selectedModels);
+    if (built.length === 0) return;
+
+    // Resume semantics: a cell already generated is not re-run. The main study
+    // is n=1 and /api/run refuses duplicates, so without this every previously
+    // completed cell would come back as a 409 failure.
+    const existing: ResultRecord[] = await fetch("/api/results")
+      .then((r) => (r.ok ? r.json() : []))
+      .catch(() => []);
+    runNumberCounts.current = seedRunNumberCounts(existing);
+    const newJobs = markExistingCells(built, existing, runType);
 
     setJobs(newJobs);
     checkpointConsumed.current = false;
@@ -446,7 +461,7 @@ export default function BatchRunnerPage() {
 
     await dispatchJobs(
       newJobs,
-      newJobs.map((_, i) => i)
+      newJobs.flatMap((j, i) => (j.status === "pending" ? [i] : []))
     );
   }
 
