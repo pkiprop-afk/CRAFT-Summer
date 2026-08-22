@@ -11342,5 +11342,35 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response is under 300 words, includes customer impact, resolution status, and recurrence risk within the first 100 words, states all four required figures, uses clear structural separation, and includes specific follow-up actions addressing the 3 uncovered certificates and provisioning gap. However, the opening summary uses unexplained technical terminology (“TLS certificate” and “automated renewal system”) within the first 100 words, violating the non-technical executive-opening constraint."
+  },
+  {
+    "evaluation_id": "EVAL-e21d3d1d-4f1b-44a6-9897-2a79ccfd5cc9",
+    "result_id": "RES-93507fa4-2432-4597-8960-6e923ddbd794",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T19:19:43.416Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response is under 300 words, includes the key impact/resolution/risk information early, states all four required figures, uses structural separation, and gives specific follow-up actions for the 3 uncovered certificates and provisioning gap. However, the executive-facing opening uses unexplained technical terms such as “TLS certificate” and “automated renewal process/job” within the first 100 words, violating the non-technical opening constraint. Otherwise, the technical cause and residual recurrence risk are accurately described."
+  },
+  {
+    "evaluation_id": "EVAL-e67948e3-62a9-4a60-96f6-f57967c87011",
+    "result_id": "RES-73ffedec-dca8-4e9e-b025-e217ed5f5eba",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T19:19:51.284Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response adheres to the word count limit, clearly separates the audiences structurally, includes all four required numerical figures, and provides concrete follow-up actions addressing both the three uncovered certificates and the provisioning gap. However, it fails the strict non-technical constraint for the executive opening by explicitly referencing certificate reissuance and automated renewal coverage within the first 100 words rather than confining the certificate mechanism to the technical section."
   }
 ]
