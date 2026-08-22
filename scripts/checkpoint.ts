@@ -15,6 +15,10 @@ import { readFileSync, existsSync } from "node:fs";
 import path from "node:path";
 import { joinResults, type ScoredResult } from "../lib/resultsJoin.ts";
 import { TEST_MODELS } from "../lib/models/registry.ts";
+import {
+  computeEvalAttemptStats,
+  type EvalAttemptRecord,
+} from "../lib/evalTelemetry.ts";
 import type { EvaluationRecord, PromptCondition, ResultRecord } from "../types/index.ts";
 
 const REPO = process.cwd();
@@ -224,7 +228,7 @@ function main(): void {
   const evalRetried = mainEvals.filter((e) => (e.retry_count ?? 0) > 0);
   const primaryRetried = evalRetried.filter((e) => e.is_primary).length;
   console.log(
-    `  evals with retries    ${evalRetried.length}` +
+    `  saved evals w/retries ${evalRetried.length}` +
       (evalRetried.length > 0
         ? `   (${primaryRetried} on the PRIMARY judge — reliability signal)`
         : "")
@@ -251,6 +255,42 @@ function main(): void {
         `    ${p.task_id} / ${p.model} — missing ${p.baseline ? "craft" : "baseline"}`
       );
     }
+  }
+
+  // ------------------------------------------------- EVALUATION ATTEMPTS (M2)
+  const attempts = readJson<EvalAttemptRecord[]>("eval_attempts.json", []);
+  const st = computeEvalAttemptStats(attempts);
+
+  console.log("\nEVALUATION ATTEMPTS  (API-level: every call, including ones that failed)");
+  if (st.total === 0) {
+    console.log("  no attempts recorded");
+  } else {
+    console.log(`  total attempts            ${st.total}`);
+    console.log(`    succeeded first try     ${st.succeededFirstTry}`);
+    console.log(`    succeeded after retry   ${st.succeededAfterRetry}`);
+    console.log(`    exhausted retries       ${st.exhausted}`);
+    console.log(`    unparseable             ${st.unparseable}`);
+    console.log(`    failed (non-retryable)  ${st.failedNonRetryable}`);
+    console.log("");
+    // Reported separately and with raw counts: one measures instability, the
+    // other measures loss. A run can be very retry-heavy and still lose nothing.
+    console.log(
+      `  RETRY RATE                ${st.retried}/${st.total} = ` +
+        `${((st.retryRate ?? 0) * 100).toFixed(1)}%   (threshold 20%)`
+    );
+    console.log(
+      `  FAILURE RATE              ${st.failed}/${st.total} = ` +
+        `${((st.failureRate ?? 0) * 100).toFixed(1)}%   (threshold 10%)`
+    );
+    console.log(
+      `  primary judge             ${st.primaryRetried}/${st.primaryTotal} retried, ` +
+        `${st.primaryFailed}/${st.primaryTotal} failed`
+    );
+    console.log(
+      "  NOTE: the denominator is ALL attempts. A failed evaluation never becomes a\n" +
+        "        saved EvaluationRecord, so a rate computed over saved rows would drop\n" +
+        "        failures from its own denominator and understate degradation."
+    );
   }
 
   // -------------------------------------------------------------------- TIMING

@@ -5,6 +5,7 @@ import { callOpenAI } from "@/lib/models/openai";
 import { buildEvaluatorPrompt, parseEvaluatorResponse } from "@/lib/evaluator";
 import { MissingApiKeyError } from "@/lib/env";
 import { checkJudgeAllowed } from "@/lib/blindingGuard";
+import { recordEvalAttempt } from "@/lib/evalTelemetry";
 import {
   callWithRetry,
   NonRetryableError,
@@ -98,6 +99,14 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Unsupported evaluator" }, { status: 400 });
   }
 
+  // M1 — every terminal path below records exactly one attempt, so the
+  // denominator includes failures that never become an EvaluationRecord.
+  const attemptBase = {
+    evaluator_model: evaluator,
+    is_primary: evaluator === GOOGLE_MODEL_ID,
+    anonymized_output_id,
+  };
+
   let call: ModelCallResult;
   let retries: RetryAttempt[] = [];
   try {
@@ -121,6 +130,14 @@ export async function POST(request: Request) {
       );
     }
     if (err instanceof RetriesExhaustedError) {
+      await recordEvalAttempt({
+        ...attemptBase,
+        recorded_at: new Date().toISOString(),
+        outcome: "exhausted",
+        retry_count: Math.max(0, err.attempts.length - 1),
+        http_status: null,
+        message: err.message.slice(0, 300),
+      });
       return NextResponse.json(
         {
           error: `Evaluation failed after ${err.attempts.length} attempts: ${err.message}`,
@@ -130,11 +147,27 @@ export async function POST(request: Request) {
       );
     }
     if (err instanceof NonRetryableError) {
+      await recordEvalAttempt({
+        ...attemptBase,
+        recorded_at: new Date().toISOString(),
+        outcome: "failed_non_retryable",
+        retry_count: 0,
+        http_status: err.httpStatus ?? null,
+        message: err.message.slice(0, 300),
+      });
       return NextResponse.json(
         { error: err.message, http_status: err.httpStatus },
         { status: 502 }
       );
     }
+    await recordEvalAttempt({
+      ...attemptBase,
+      recorded_at: new Date().toISOString(),
+      outcome: "failed_non_retryable",
+      retry_count: 0,
+      http_status: null,
+      message: (err instanceof Error ? err.message : "Evaluator call failed").slice(0, 300),
+    });
     return NextResponse.json(
       { error: err instanceof Error ? err.message : "Evaluator call failed" },
       { status: 502 }
@@ -143,11 +176,30 @@ export async function POST(request: Request) {
 
   const parsed = parseEvaluatorResponse(call.text);
   if (!parsed) {
+    // M1 — counted server-side. Detecting this by scraping the page for an
+    // error string could miss cases exactly when the job list is longest.
+    await recordEvalAttempt({
+      ...attemptBase,
+      recorded_at: new Date().toISOString(),
+      outcome: "unparseable",
+      retry_count: retries.length,
+      http_status: 200,
+      message: call.text.slice(0, 300),
+    });
     return NextResponse.json(
       { error: "Failed to parse evaluator response", raw_response: call.text },
       { status: 422 }
     );
   }
+
+  await recordEvalAttempt({
+    ...attemptBase,
+    recorded_at: new Date().toISOString(),
+    outcome: retries.length === 0 ? "succeeded_first_try" : "succeeded_after_retry",
+    retry_count: retries.length,
+    http_status: 200,
+    message: null,
+  });
 
   return NextResponse.json({
     constraint_adherence: parsed.constraint_adherence,

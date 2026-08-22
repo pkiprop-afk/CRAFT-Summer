@@ -25,6 +25,27 @@ async function writeJson(filePath: string, data: unknown): Promise<void> {
 }
 
 /**
+ * Serializes append-style mutations, per file.
+ *
+ * Appends are read-modify-write on a JSON array. The batch runner saves results
+ * and evaluations from concurrent jobs, so two overlapping appends would both
+ * read the same array and the second write would silently discard the first
+ * record. Losing an evaluation is not a visible failure — the cell simply looks
+ * singly-judged — which is the worst kind of data loss to have.
+ */
+const appendChains = new Map<string, Promise<unknown>>();
+
+function serializeByFile<T>(filePath: string, op: () => Promise<T>): Promise<T> {
+  const previous = appendChains.get(filePath) ?? Promise.resolve();
+  const run = previous.then(op);
+  appendChains.set(
+    filePath,
+    run.catch(() => undefined)
+  );
+  return run;
+}
+
+/**
  * Tasks are always returned with a freshly computed task_version, so a stored
  * hash can never drift from the content it describes (e.g. if tasks.json is
  * hand-edited). The persisted value is only a cache.
@@ -61,9 +82,11 @@ export async function getResults(): Promise<ResultRecord[]> {
 }
 
 export async function appendResult(result: ResultRecord): Promise<void> {
-  const results = await getResults();
-  results.push(result);
-  await writeJson(RESULTS_PATH, results);
+  return serializeByFile(RESULTS_PATH, async () => {
+    const results = await getResults();
+    results.push(result);
+    await writeJson(RESULTS_PATH, results);
+  });
 }
 
 /**
@@ -75,9 +98,11 @@ export async function getEvaluations(): Promise<EvaluationRecord[]> {
 }
 
 export async function appendEvaluation(evaluation: EvaluationRecord): Promise<void> {
-  const evaluations = await getEvaluations();
-  evaluations.push(evaluation);
-  await writeJson(EVALUATIONS_PATH, evaluations);
+  return serializeByFile(EVALUATIONS_PATH, async () => {
+    const evaluations = await getEvaluations();
+    evaluations.push(evaluation);
+    await writeJson(EVALUATIONS_PATH, evaluations);
+  });
 }
 
 export async function getEvaluationsForResult(resultId: string): Promise<EvaluationRecord[]> {

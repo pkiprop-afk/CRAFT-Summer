@@ -16,6 +16,9 @@ const REPO = process.cwd();
 const RESULTS_PATH = path.join(REPO, "data", "results.json");
 const EVALUATIONS_PATH = path.join(REPO, "data", "evaluations.json");
 const BLINDING_PATH = path.join(REPO, "data", "blinding_map.json");
+// Instrumentation, not study data — but it must be cleared with the runs, or
+// rates would be computed across two different runs.
+const ATTEMPTS_PATH = path.join(REPO, "data", "eval_attempts.json");
 
 function readJson<T>(filePath: string, fallback: T): T {
   if (!existsSync(filePath)) return fallback;
@@ -31,6 +34,7 @@ function main(): void {
 
   const results = readJson<ResultRecord[]>(RESULTS_PATH, []);
   const evaluations = readJson<EvaluationRecord[]>(EVALUATIONS_PATH, []);
+  const attempts = readJson<unknown[]>(ATTEMPTS_PATH, []);
 
   const byRunType = new Map<string, number>();
   for (const r of results) {
@@ -62,6 +66,9 @@ function main(): void {
   const orphaned = evaluations.filter((e) => !resultIds.has(e.result_id)).length;
   if (orphaned > 0) console.log(`\n  ${orphaned} evaluation(s) already orphaned`);
 
+  console.log(`\neval_attempts.json ${attempts.length} attempt record(s)`);
+  if (attempts.length === 0) console.log("  (empty)");
+
   if (!confirmed) {
     console.log("\nRefusing to delete without --confirm.");
     console.log("Re-run as:  npm run clear-runs -- --confirm");
@@ -69,16 +76,20 @@ function main(): void {
     return;
   }
 
-  if (results.length === 0 && evaluations.length === 0) {
-    console.log("\nNothing to delete — both stores are already empty.");
+  if (results.length === 0 && evaluations.length === 0 && attempts.length === 0) {
+    console.log("\nNothing to delete — the stores are already empty.");
     return;
   }
 
   writeJsonArray(RESULTS_PATH);
   writeJsonArray(EVALUATIONS_PATH);
+  writeJsonArray(ATTEMPTS_PATH);
 
-  console.log(`\nDELETED ${results.length} result(s) and ${evaluations.length} evaluation(s).`);
-  console.log("results.json and evaluations.json are now [].");
+  console.log(
+    `\nDELETED ${results.length} result(s), ${evaluations.length} evaluation(s), ` +
+      `${attempts.length} attempt record(s).`
+  );
+  console.log("results.json, evaluations.json and eval_attempts.json are now [].");
 
   if (existsSync(BLINDING_PATH)) {
     const map = readJson<Record<string, unknown>>(BLINDING_PATH, {});
