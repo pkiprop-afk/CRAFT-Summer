@@ -1486,5 +1486,191 @@
     "retry_count": 0,
     "retry_log": [],
     "notes": ""
+  },
+  {
+    "result_id": "RES-d003ae93-6254-40cd-ad59-75016968defc",
+    "task_id": "T013",
+    "task_version": "v1-910dc24ee2643518b1d227fbef8fc8e6",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T06:53:31.547Z",
+    "raw_model_output": "Both numbers are mathematically \"correct\" — they're just measuring different things. The confusion comes from conflating **percentage points** (an absolute difference) with **percent change** (a relative difference).\n\n## The math\n\n| Metric | Before | After |\n|---|---|---|\n| Conversion rate | 2.0% | 3.0% |\n| Conversions (2.0%/3.0% × 50,000) | 1,000 | 1,500 |\n\n**Absolute difference:** 3.0% − 2.0% = **1 percentage point**\n**Relative difference:** (3.0% − 2.0%) / 2.0% = **50% increase**\n\n## Who's \"right\"?\n\n- The growth team's *number* (1) is fine, but their *unit* is wrong. Saying \"increased by 1 percent\" implies a relative change, which would mean going from 2.0% to 2.02% — nowhere close to what happened. They should have said \"1 **percentage point**.\"\n- The analyst's \"50% increase\" is the correct way to describe the relative change, and it matches the real-world impact: conversions rose from 1,000/month to 1,500/month — a 50% jump in actual conversions.\n\nSo the analyst's framing is the accurate one; the growth team just used sloppy terminology that happens to share a number with the correct percentage-point figure.\n\n## Unambiguous way to state it\n\n> \"The redesign increased the conversion rate by 1 percentage point, from 2.0% to 3.0% — a 50% relative increase, resulting in 500 additional conversions per month (1,000 → 1,500) at constant traffic of 50,000 visitors.\"\n\nThis version gives the reader both the absolute and relative framing plus the raw conversion counts, so there's no room to misinterpret the size of the effect.",
+    "anonymized_output_id": "OUT-0071",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-3c814579-ad59-4ff7-8e6b-f8b2556ffc1a",
+    "task_id": "T013",
+    "task_version": "v1-910dc24ee2643518b1d227fbef8fc8e6",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T06:53:38.425Z",
+    "raw_model_output": "**The figures**\n\n| Metric | Before | After | Change |\n|---|---|---|---|\n| Monthly visitors | 50,000 | 50,000 | — |\n| Conversion rate | 2.0% | 3.0% | +1.0 percentage point |\n| Conversions/month | 1,000 | 1,500 | +500 (+50% relative) |\n\n**The correct characterisation**\n\nBoth teams are describing the same result correctly, but each has dropped the qualifier that makes their number unambiguous. The growth team's \"1 percent\" is the *absolute* change in conversion rate (1.0 percentage point). The analyst's \"50 percent\" is the *relative* change in the conversion rate (or equivalently, in conversion volume). Neither figure is wrong; both are incomplete as stated, and \"1 percent\" is particularly prone to misreading as a 1% relative change, which would be a hundredfold understatement of the actual effect.\n\nThe unambiguous statement: **the redesign raised the conversion rate from 2.0% to 3.0%, a 1.0 percentage point increase, equivalent to a 50% relative increase in conversions.**\n\n**Recommended phrasing**\n\nReport both figures together with units stated explicitly — e.g., \"Conversion rate rose 1.0 percentage point (from 2.0% to 3.0%), a 50% relative increase, worth an estimated 500 additional conversions per month at current traffic.\" Do not publish \"1 percent\" or \"50 percent\" in isolation.\n\nWhat the data does not establish:\n- Causality — this is a before/after comparison, not a controlled test. Nothing here rules out seasonality, traffic-mix changes, concurrent campaigns, or a novelty effect from the redesign itself.\n- Statistical significance — no sample-level data (e.g., visitor-level variance, confidence interval, test duration) is given, so we cannot say the difference is unlikely to be noise, even though the volumes (1,000 vs 1,500 conversions) make a large jump improbable by chance alone.\n- Durability — a single before/after snapshot says nothing about whether the lift persists over time.\n- Generalisability — the 50,000 visitor base and its composition (traffic source, device, geography) may not represent future traffic, so the 50% relative gain should not be assumed to hold if the mix changes.",
+    "anonymized_output_id": "OUT-0072",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-aa2d1f1a-ab12-45e1-b4f1-085b21bc3b0c",
+    "task_id": "T013",
+    "task_version": "v1-910dc24ee2643518b1d227fbef8fc8e6",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T06:54:00.797Z",
+    "raw_model_output": "Both descriptions are referring to the same underlying change, but one needs more precise wording.\n\n- Before redesign: 50,000 × 2.0% = 1,000 conversions\n- After redesign: 50,000 × 3.0% = 1,500 conversions\n- Increase: 500 additional conversions per month\n\nThe conversion rate rose from 2.0% to 3.0%.\n\nThat is:\n\n- a 1 percentage point increase in conversion rate\n- a 50% relative increase in conversion rate, because 3.0% is 50% higher than 2.0%\n\nSo the unambiguous wording would be:\n\n> The redesign increased the conversion rate from 2.0% to 3.0%, a gain of 1 percentage point, equivalent to a 50% relative increase. With 50,000 monthly visitors, that means conversions increased from 1,000 to 1,500 per month.",
+    "anonymized_output_id": "OUT-0073",
+    "truncated": false,
+    "reasoning_tokens": 73,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-6cd08407-18ed-4445-9f88-f6f8b37efc90",
+    "task_id": "T013",
+    "task_version": "v1-910dc24ee2643518b1d227fbef8fc8e6",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T06:54:37.301Z",
+    "raw_model_output": "## the figures\n\n| Metric | Before redesign | After redesign | Change |\n|---|---:|---:|---:|\n| Monthly visitors | 50,000 | 50,000 | 0 |\n| Conversion rate | 2.0% | 3.0% | +1.0 percentage point |\n| Monthly conversions | 1,000 | 1,500 | +500 |\n| Relative change in conversion rate | — | — | +50% |\n\n## the correct characterisation\n\nBoth descriptions can refer to the same movement, but only if stated precisely:\n\n- The conversion rate increased by **1 percentage point**, from 2.0% to 3.0%.\n- That is a **50% relative increase** in the conversion rate, because 3.0% is 50% higher than 2.0%.\n- Saying the redesign increased conversion by **“1 percent”** is ambiguous and likely misleading. The correct absolute wording is **“1 percentage point,”** not “1 percent.”\n\nThe data does **not** establish that the redesign caused the increase unless the figures come from a valid experiment or other causal design. It also does not establish statistical significance, durability of the lift, impact on revenue or profit, or whether the additional conversions were of equal quality.\n\n## the recommended phrasing\n\n“Conversion rate increased from **2.0% to 3.0%**, a gain of **1.0 percentage point**, equivalent to a **50% relative increase**. With monthly visitors unchanged at **50,000**, this corresponds to an increase from **1,000 to 1,500 monthly conversions**, or **500 additional conversions per month**. These figures describe the observed change; they do not by themselves prove that the redesign caused it.”",
+    "anonymized_output_id": "OUT-0074",
+    "truncated": false,
+    "reasoning_tokens": 93,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-9c444cc6-c960-47e2-955f-8048e567e91d",
+    "task_id": "T014",
+    "task_version": "v1-f962f768415a9fdb62a9dd74b5bc84e7",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T06:55:33.660Z",
+    "raw_model_output": "# Assessment: This Conclusion Is Not Supported by the Data\n\n**The core problem: sample size.**\n\nThe West region has only **12 customers**. A jump from 0% to 25% defect rate sounds alarming, but with n=12, that \"25%\" represents just **3 defective units** (3/12 = 25%). Going from 0 to 3 defects is a small, easily explained fluctuation — not an \"explosion.\"\n\nCompare this to North and South, which have ~1,200 customers each and show stable, gradual changes (4.1%→4.3%, 3.9%→4.0%). Those are statistically meaningful trends because the sample size supports them. West's number is statistical noise dressed up as a signal.\n\n**Why the percentage is misleading:**\n\n| Region | Customers | Q1 Defects | Q2 Defects | Change in raw units |\n|---|---|---|---|---|\n| North | 1,250 | ~51 | ~54 | +3 |\n| South | 1,180 | ~46 | ~47 | +1 |\n| West | 12 | 0 | 3 | +3 |\n\nWest's *raw* increase (+3 defects) is identical to North's — but because West's denominator is 100x smaller, the percentage move looks 8x more dramatic. This is a classic small-sample-size distortion: percentages become extremely volatile when the base is tiny. If West had 1 defect instead of 3, the rate would be ~8%; if it had 4, it'd be ~33%. The metric is unstable, not necessarily the process.\n\n**What I'd do next:**\n\n1. **Ask why West only has 12 customers.** Is this a new market, a niche segment, or a data-filtering artifact (e.g., wrong region code excluding most records)? This matters more than the defect rate itself.\n2. **Pull the underlying defect events**, not just the rate — look at what the 3 defects actually were. Are they linked (one bad batch, one supplier issue) or independent failures? Root cause matters more than the headline number.\n3. **Check historical volatility for West**, if available. Does its defect rate normally swing between 0% and 20%+ quarter to quarter just from small-N noise? If so, this may be within its \"normal\" range.\n4. **Use a statistical test (e.g., Fisher's exact test)** to check if 3/12 is significantly different from 0/12 — with this sample size, it likely won't be.\n5. **Reframe the ask to the regional manager**: rather than an \"urgent investigation\" premised on a false trend, suggest monitoring West for another quarter or two to see if the rate stabilizes, while doing a quick root-cause check on the specific 3 defects now (which is cheap and useful regardless of whether the trend is real).\n\n**Bottom line:** The data doesn't support \"the defect rate exploded\" — it supports \"we got 3 defects out of 12 customers, and we don't yet have enough data to know if that's a real problem or noise.\" The recommended action isn't necessarily a full urgent investigation into West's *processes*, but rather looking at *those specific 3 defects* and reassessing after more data comes in.",
+    "anonymized_output_id": "OUT-0075",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-46a52a7b-708c-47fd-8457-a5ac818a77a5",
+    "task_id": "T014",
+    "task_version": "v1-f962f768415a9fdb62a9dd74b5bc84e7",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T06:55:34.046Z",
+    "raw_model_output": "## The Figures\n\n| Region | Customers | Q1 Defect Rate | Q2 Defect Rate | Approx. Defective Units (Q2) |\n|--------|-----------|-----------------|-----------------|-------------------------------|\n| North | 1,250 | 4.1% | 4.3% | ~54 |\n| South | 1,180 | 3.9% | 4.0% | ~47 |\n| West | 12 | 0.0% | 25.0% | ~3 |\n\n## The Assessment\n\nThe data does not support treating West as a quality crisis on par with a genuine regional defect problem. With only 12 customers, a move from 0% to 25% reflects a change of roughly three units. A swing of this size is well within the range of ordinary sampling noise for a base this small — one or two additional defects would produce a similarly large percentage swing in either direction. By contrast, North and South, with sample sizes two orders of magnitude larger, show defect rates that are stable and an order of magnitude lower than West's reported figure, but a rate calculated from 12 units cannot be meaningfully compared to rates calculated from over a thousand.\n\nWhat the data does support: West's small customer base makes its defect rate volatile and currently uninformative on its own. It does not support a conclusion that West has a systemic quality problem, nor does it rule one out.\n\n## Recommended Next Step\n\nBefore commissioning a quality investigation, get the underlying unit counts (not just percentages) for West, and check whether West's low customer count reflects a new or limited rollout. If the sample remains this small, wait for at least one more quarter of data, or expand the analysis to pool West's units with a longer time window, before treating the 25% figure as a signal. If West's customer base is expected to stay this size, consider a different reporting method (e.g., raw defect counts) rather than percentages for this region going forward.",
+    "anonymized_output_id": "OUT-0076",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
   }
 ]

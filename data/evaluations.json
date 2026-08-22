@@ -1713,5 +1713,137 @@
       }
     ],
     "evaluator_justification": "The response accurately verifies all underlying arithmetic (85.0% respondent satisfaction, 65.0% churn rate, 34.3% active response rate, and 10.2% total signup satisfaction share) and correctly rejects the claim that 85% of users are satisfied. However, it fails to explicitly name survivorship/selection bias, does not explicitly emphasize that the excluded churned group is larger than the surveyed population, and presents the 10.2% figure only in a table without explicitly identifying it as a lower bound on total satisfaction."
+  },
+  {
+    "evaluation_id": "EVAL-e66694e4-a6b4-4ed9-bf53-4b4005f0b225",
+    "result_id": "RES-6216b03c-b27f-4673-90a1-1593f299e92c",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T06:53:19.851Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly verifies 408/480=85%, states the 65% churn rate, computes the 10.2% (408/4,000) bound, and explicitly refuses to equate \"85% of respondents\" with \"85% of users,\" while also not blaming the problem solely on the 34.3% response rate (it treats nonresponse as a secondary issue alongside survivorship bias). However, its treatment of the survivorship/selection-bias mechanism is hedged rather than definitive—it says the survey \"likely\" overrepresents active users \"if\" it mostly reached them, rather than stating outright that churned users were excluded from the survey frame and that this excluded group (2,600) dwarfs the surveyed population (480). This softens the core diagnostic claim the task requires as a firm conclusion. All three completeness elements (arithmetic check, bias identification, lower-bound statement) are present, but the hedged phrasing on the central bias mechanism costs a point in both constraint adherence and logical accuracy."
+  },
+  {
+    "evaluation_id": "EVAL-789dc92c-1b2a-4fa6-bf31-1d39498eb0c6",
+    "result_id": "RES-3c814579-ad59-4ff7-8e6b-f8b2556ffc1a",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T06:53:53.258Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response satisfies all expected constraints fully and accurately. It correctly identifies the 1.0 percentage point absolute change, the 50% relative change, and the absolute conversion increase from 1,000 to 1,500 (+500), while explaining that neither analyst is arithmetically wrong since the difference is purely one of units. It also explicitly highlights why \"1 percent\" is misleading and provides a clear, recommended unambiguous phrasing."
+  },
+  {
+    "evaluation_id": "EVAL-a76649cd-5642-4c97-9fcb-62fb35773904",
+    "result_id": "RES-3c814579-ad59-4ff7-8e6b-f8b2556ffc1a",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T06:53:56.836Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly states the conversion-rate change as +1.0 percentage point, the relative increase as 50%, and the absolute conversions as 1,000 before and 1,500 after, an increase of 500. It explicitly explains that both analysts are describing the same result in different units and that neither is arithmetically wrong. It also identifies “increased conversion by 1 percent” as misleading because it can be read as a relative change, and it provides clear recommended phrasing with units."
+  },
+  {
+    "evaluation_id": "EVAL-578c3f51-e565-4fca-9620-cd49de92d279",
+    "result_id": "RES-6cd08407-18ed-4445-9f88-f6f8b37efc90",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T06:55:00.838Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response perfectly addresses all five constraints: it calculates the 1.0 percentage point difference, the 50% relative increase, and the absolute conversion counts (1,000 to 1,500, +500), explains that both analysts are describing the same underlying data using different units/framings, notes why \"1 percent\" is misleading, and provides an unambiguous recommended phrasing."
+  },
+  {
+    "evaluation_id": "EVAL-ce2fc2de-c7b2-4b38-81aa-c5a2244b19ca",
+    "result_id": "RES-aa2d1f1a-ab12-45e1-b4f1-085b21bc3b0c",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T06:55:10.447Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 9,
+    "retry_count": 2,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      }
+    ],
+    "evaluator_justification": "The response accurately computes the absolute conversion counts (1,000 to 1,500, an increase of 500), explains both the 1 percentage point absolute change and the 50% relative change, recognizes that both describe the same underlying result, and provides an unambiguous restatement. It loses one point in constraint adherence for not explicitly identifying \"increased conversion by 1 percent\" as the misleading phrasing that invites confusion with relative change."
+  },
+  {
+    "evaluation_id": "EVAL-6456ae29-3ab2-4d14-aa17-25246c3ba116",
+    "result_id": "RES-6cd08407-18ed-4445-9f88-f6f8b37efc90",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T06:55:20.913Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly computes all figures (1.0 percentage point, 50% relative increase, 1,000→1,500 conversions, +500) and gives a specific, well-formed recommended phrasing, satisfying the numeric and completeness requirements. However, it never explicitly states that the two analysts' figures are both arithmetically correct and that the disagreement is purely a matter of units rather than fact; it only vaguely notes the descriptions \"can refer to the same movement... if stated precisely,\" which stops short of the required explicit reconciliation. It does correctly flag \"increased conversion by 1 percent\" as ambiguous/misleading, satisfying that part of the final constraint, but the missing explicit \"neither is wrong\" framing slightly weakens both constraint adherence and logical accuracy."
+  },
+  {
+    "evaluation_id": "EVAL-64a218ba-4303-464b-a74d-6cf75b7d6768",
+    "result_id": "RES-aa2d1f1a-ab12-45e1-b4f1-085b21bc3b0c",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T06:55:25.161Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly computes all required figures (1.0 percentage point, 50% relative increase, 1,000→1,500 conversions, +500) and frames the two descriptions as referring to the \"same underlying change,\" implicitly treating both as correct rather than declaring one wrong. It also gives a clear recommended phrasing that includes all key numbers. However, it never explicitly states that the disagreement is a matter of units (percentage points vs. relative percent) rather than fact, and it fails to explicitly call out \"increased conversion by 1 percent\" as the misleading formulation that invites a relative-change misreading—only vaguely noting that \"one needs more precise wording.\" These omissions cost points on constraint adherence and slightly weaken the logical accuracy regarding the units-of-measure explanation, though completeness is otherwise fully satisfied."
   }
 ]
