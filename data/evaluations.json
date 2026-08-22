@@ -9627,5 +9627,54 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response reports both aggregate figures (34,000 vs. 2,100), cites two specific characteristics of the affected rural group (65-minute travel increase and 41% lacking vehicle access), clearly separates the net-benefit question from the distributional-acceptability question, and offers multiple concrete mitigations (transport provision, outreach clinics, protected access for high-need patients). It also avoids endorsing purely on the ratio or rejecting purely on harm, framing the proposal as conditional on mitigation. The one missing element is an explicit statement that the two groups (beneficiaries and those harmed) do not overlap—this fact is implied by the description but never stated directly, so one constraint is only partially met."
+  },
+  {
+    "evaluation_id": "EVAL-cec8bcea-a4a5-46fb-876f-e5da914da641",
+    "result_id": "RES-57c88931-dcb3-420d-9dcd-b35c743cf0f4",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T18:31:34.114Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 7,
+    "retry_count": 3,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      },
+      {
+        "attempt": 3,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 8000
+      }
+    ],
+    "evaluator_justification": "The response meets the word count, is directly student-facing, includes generative reasoning prompts rather than supplied criteria, and avoids worked examples or ranked criteria lists. However, it fails Constraint 4 by explicitly telling students `not \"big\"`, which rules out size as a wrong criterion rather than surfacing size as an assumption for students to critically examine."
+  },
+  {
+    "evaluation_id": "EVAL-33745985-073d-41c8-bb6b-51c229f43e0b",
+    "result_id": "RES-57c88931-dcb3-420d-9dcd-b35c743cf0f4",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T18:31:40.794Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 7,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response is under 200 words, student-facing, and includes multiple reasoning-producing steps without giving a full checklist or worked answer. It largely supports the evaluation process by having students generate and apply their own criteria. However, it directly says “not ‘big,’” which treats dataset size as an invalid criterion rather than surfacing it as an assumption to examine, so it partially performs the intended reasoning for students and fails the sharp size-assumption constraint."
   }
 ]
