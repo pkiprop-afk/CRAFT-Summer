@@ -1,4 +1,7 @@
-import { assembleCraftPrompt } from "@/lib/craft";
+// Relative + extension: the "@/" alias resolves under Next but not under plain
+// Node, and this module is loaded by Node-run tests. Type-only imports are
+// erased so they may keep the alias; value imports may not.
+import { assembleCraftPrompt } from "./craft.ts";
 import type { Domain, TaskRecord } from "@/types";
 
 const VALID_DOMAINS: Domain[] = [
@@ -109,6 +112,36 @@ export type ConstraintSplitMethod = "json" | "pipe" | "numbered" | "unsplit";
 export interface ConstraintSplit {
   values: string[];
   method: ConstraintSplitMethod;
+  /**
+   * For the numbered method: the digit of each "(n)" marker the split keyed on,
+   * in order of appearance. Lets the validator detect a parenthesized digit
+   * that is NOT a constraint marker — e.g. a constraint quoting `is_locked(5)`
+   * splits at that literal, silently importing 6 constraints where 5 were
+   * authored. The digits of true markers run exactly 1..count; any duplicate,
+   * gap, or out-of-order digit betrays a stray.
+   */
+  markerDigits?: number[];
+}
+
+/**
+ * The rubric scores constraint adherence 0-4 against a five-constraint task
+ * definition. A task that silently imports with 4 or 6 constraints is scored
+ * on a different denominator from every other task — structurally invisible
+ * once inside the registry, so it must be stopped at the boundary.
+ */
+export const REQUIRED_CONSTRAINT_COUNT = 5;
+
+/**
+ * Positions (1-based) at which the numbered split keyed on a digit that cannot
+ * be a true marker. Markers must run exactly (1), (2), ... in order; the first
+ * deviation and everything after it is suspect.
+ */
+export function strayMarkerPositions(markerDigits: number[]): number[] {
+  const stray: number[] = [];
+  for (let i = 0; i < markerDigits.length; i++) {
+    if (markerDigits[i] !== i + 1 - stray.length) stray.push(i + 1);
+  }
+  return stray;
 }
 
 function sliceByMarkers(text: string, markers: RegExpMatchArray[]): string[] {
