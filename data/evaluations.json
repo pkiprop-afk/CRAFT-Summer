@@ -6615,5 +6615,60 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response is under 160 words and states the slip in the first two sentences, with both required dates and the six-week magnitude. It plainly closes off 30 June and explicitly says scope reduction was examined and does not recover the date. It is logically clear enough for the sponsor to act. The only weakness is that it does not explicitly distinguish reporting the slip from apologising for it; it avoids apology language, but the required distinction is not directly made."
+  },
+  {
+    "evaluation_id": "EVAL-1144a1fa-cbc2-4272-ad91-ed32894e2f00",
+    "result_id": "RES-94d6a15f-9b69-4648-95d8-55f461e287ae",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T15:36:05.610Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 4,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      },
+      {
+        "attempt": 3,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 8000
+      },
+      {
+        "attempt": 4,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 16000
+      }
+    ],
+    "evaluator_justification": "The response adheres to all instructions and constraints: it is well under the 160-word limit, states the slip plainly within the first two sentences, explicitly names 30 June, 15 August, and the six-week magnitude, rules out scope reduction as a recovery option, and avoids softening language or unneeded apologies."
+  },
+  {
+    "evaluation_id": "EVAL-e9bb2ab7-51c0-4c67-92c5-e387a66bd2a9",
+    "result_id": "RES-94d6a15f-9b69-4648-95d8-55f461e287ae",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T15:36:23.142Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The message states the slip within the first two sentences, gives both specific dates (30 June and 15 August) and the six-week magnitude, plainly states no plan recovers 30 June, explicitly notes scope reduction was examined and failed to recover the date, and contains no hedging language (e.g., \"at risk,\" \"protect the timeline\") that would leave the deadline appearing negotiable. It reports the fact without apologizing, staying within word limits and providing clear, actionable guidance for the sponsor's Thursday review."
   }
 ]
