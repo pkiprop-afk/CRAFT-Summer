@@ -8559,5 +8559,148 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The reply answers the March invoice question in the first sentence, explicitly states the settlement date of 4 April, stays within the word limit, and avoids introducing the contract renewal, scope expansion, or any sales pitch. It does not address the other three matters at all, which is permissible since the rubric only caps additions at one flagged item rather than requiring one; omitting extra content is not a violation. The response is concise, direct, and fully aligned with the client's stated need for a yes/no answer at quarter close."
+  },
+  {
+    "evaluation_id": "EVAL-d2d0fcff-7400-4b3b-8b00-de21f413afef",
+    "result_id": "RES-a7d90623-341a-4421-b5e9-a141db03244b",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T17:51:59.691Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The reply directly answers \"yes\" in the first sentence, states the exact settlement date (4 April) as required, stays well under the word limit, and does not introduce the contract renewal or scope expansion. It avoids all three unrelated matters entirely, which is permissible since the constraint sets a ceiling of \"at most one\" flagged item rather than mandating one. The response is concise, on-point, and avoids any sales or upsell framing, fully satisfying the quarter-close context the client specified."
+  },
+  {
+    "evaluation_id": "EVAL-8babc034-29ae-47a8-9096-787ee9c842ee",
+    "result_id": "RES-1a28920f-2399-46d4-b970-e00e598502b1",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T17:52:32.043Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 3,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      },
+      {
+        "attempt": 3,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 8000
+      }
+    ],
+    "evaluator_justification": "The response adheres to all instructions and constraints: it is under 160 words (148 words including subject and sign-off), states the slip within the first two sentences, specifies both dates (30 June and 15 August) and the six-week magnitude, avoids unnecessary apologies, unequivocally states that 30 June cannot be met, and explicitly closes off scope reduction."
+  },
+  {
+    "evaluation_id": "EVAL-207ba84f-6429-492f-8bb1-66ae91028528",
+    "result_id": "RES-1a28920f-2399-46d4-b970-e00e598502b1",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T17:52:39.451Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The message is under 160 words and states the slip within the first two sentences, including both 30 June and 15 August and the six-week magnitude. It plainly closes off 30 June with “we will not make it” and “no combination of scope cuts recovers the date,” while also explaining that scope reduction was examined and does not work. The wording is clear and actionable, with no hedging that leaves the date open."
+  },
+  {
+    "evaluation_id": "EVAL-7270a78e-74fc-4ec4-be02-938c6b4bd982",
+    "result_id": "RES-8aff2486-a757-4693-89d2-e1f5eff62b6d",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T17:52:58.054Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response adheres to all constraints: it is under 160 words (155 words), clearly states both dates and the six-week slip within the first two sentences, explicitly closes off scope reduction, avoids any softening or apologies, and firmly confirms that 30 June is impossible under any configuration."
+  },
+  {
+    "evaluation_id": "EVAL-e9d1d5b7-11bf-4fc0-8ba1-87f9ad894244",
+    "result_id": "RES-8aff2486-a757-4693-89d2-e1f5eff62b6d",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T17:53:03.962Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The message is under 160 words, states in the first two sentences that 30 June will not be met, gives 15 August and the six-week slip, and plainly closes off 30 June with “There is no configuration that delivers on 30 June.” It explicitly says scope reduction was examined and does not recover the date. The tone is direct rather than hedged, so the sponsor would not reasonably read 30 June as still under discussion."
+  },
+  {
+    "evaluation_id": "EVAL-24d94325-c027-42bd-9874-907d90dde819",
+    "result_id": "RES-904d07fa-deff-4dba-9888-602ad1d7e933",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T17:53:44.438Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 3,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      },
+      {
+        "attempt": 3,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 8000
+      }
+    ],
+    "evaluator_justification": "The response adheres to all constraints: it is under 160 words, states the date slip within the first two sentences, includes both 30 June and 15 August alongside the six-week magnitude, explicitly rules out scope reduction and any plan delivering by 30 June, and maintains unambiguous clarity without softening or unnecessary apologies."
+  },
+  {
+    "evaluation_id": "EVAL-2bc16527-ab5d-438b-a5ce-b5f8636e906c",
+    "result_id": "RES-904d07fa-deff-4dba-9888-602ad1d7e933",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T17:54:09.290Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The message states the slip unambiguously early (\"will not deliver on 30 June\"), includes both specific dates (30 June, 15 August) with the six-week magnitude, explicitly closes off scope reduction as a recovery option, and asserts plainly that no plan delivers 30 June without hedging language like \"at risk.\" It contains no apology to conflate with the factual report, and stays within the 160-word limit while covering all required elements, leaving no ambiguity that the original date is gone."
   }
 ]
