@@ -7354,5 +7354,82 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response adheres to all constraints: it is under 150 words, declines confirmation in the second sentence, accurately addresses all three specific items, keeps the discussion open without confirming or outright rejecting the substance, and directs the partner to the manager and relevant approval processes."
+  },
+  {
+    "evaluation_id": "EVAL-d383613b-f376-4131-a317-a979c2049191",
+    "result_id": "RES-d7614700-b3f0-4407-a2f7-3fadb37e2036",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T16:11:48.854Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 9,
+    "retry_count": 4,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      },
+      {
+        "attempt": 3,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 8000
+      },
+      {
+        "attempt": 4,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 16000
+      }
+    ],
+    "evaluator_justification": "The response adheres well to the word limit, cleanly separates the non-technical executive summary from the technical details and follow-up actions, accurately captures all four required figures, and honestly conveys the residual risk. A minor deduction is made in constraint adherence because the opening non-technical section mentions an \"expired security certificate\" rather than completely avoiding naming the underlying certificate mechanism."
+  },
+  {
+    "evaluation_id": "EVAL-307a6bb5-352d-43e8-9cfc-a18f1239eb47",
+    "result_id": "RES-ecf5e24e-5896-4838-b8af-b0954f66351d",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T16:11:57.933Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response adheres well to the word limit, includes all four required figures, provides clear structural separation for the two audiences, and outlines actionable follow-up items addressing the provisioning gap and residual risk. However, it explicitly violates Constraint 5 by referencing TLS certificate expiry and renewal coverage within the first 100 words intended for a non-technical executive reader, which warrants a deduction in constraint adherence and logical accuracy."
+  },
+  {
+    "evaluation_id": "EVAL-9462ec69-4650-4964-97ff-642627dee597",
+    "result_id": "RES-8738ed39-8f32-477a-995e-9c6eb2dcf179",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T16:12:15.781Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 2,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 6,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly separates executive and technical sections and includes all four required figures, structural headings, and multiple follow-up actions addressing the 3 uncovered certificates. However, it directly commits the specific failure the task warns against: the executive-facing opening explicitly names \"TLS certificate\" within the first ~28 words, introducing unexplained technical terminology into the non-technical section and thus violating both constraint 1 (non-technical opening) and constraint 5 (no jargon in first 100 words). This is a significant flaw since it undermines the core requirement of true structural/audience separation, even though the rest of the document (technical cause, resolution, honest recurrence risk, follow-up actions) is accurate and complete."
   }
 ]
