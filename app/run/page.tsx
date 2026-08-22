@@ -8,6 +8,7 @@ import { ApiKeyBanner, isFamilyReady, useKeyStatuses } from "@/components/ui/Api
 import { familyOf, judgesFor, TEST_MODELS } from "@/lib/models/registry";
 import { generateEvaluationId, generateResultId } from "@/lib/anonymize";
 import { DEFAULT_MAX_TOKENS } from "@/lib/runSettings";
+import { claimRunNumber, seedRunNumberCounts, type RunNumberScope } from "@/lib/runNumber";
 import type { DecodingParams } from "@/lib/decoding";
 import type { RetryAttempt } from "@/lib/retry";
 import { composedPromptFor } from "@/lib/promptAssembly";
@@ -188,13 +189,14 @@ export default function PromptRunnerPage() {
     setSaving(true);
     setSaveError(null);
     // F1 — sequences are per run_type: main is always 1 (n=1), stability 1..3.
-    const runNumber =
-      results.filter(
-        (r) =>
-          r.task_id === selectedTask.task_id &&
-          r.prompt_condition === condition &&
-          r.run_type === runType
-      ).length + 1;
+    // Scoped per CELL, model included — see lib/runNumber.ts.
+    const scope: RunNumberScope = {
+      task_id: selectedTask.task_id,
+      model_name: testModel,
+      prompt_condition: condition,
+      run_type: runType,
+    };
+    const runNumber = claimRunNumber(seedRunNumberCounts(results), scope);
 
     const result: ResultRecord = {
       result_id: generateResultId(),

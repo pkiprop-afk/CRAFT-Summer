@@ -17,7 +17,9 @@ import {
 } from "@/lib/models/registry";
 import { DEFAULT_MAX_TOKENS } from "@/lib/runSettings";
 import { decodingParamsFor } from "@/lib/decoding";
+import { LATENCY_FAIL_MS } from "@/lib/callability";
 import { runWithConcurrency } from "@/lib/concurrency";
+import { claimRunNumber, seedRunNumberCounts, type RunNumberScope } from "@/lib/runNumber";
 import { generateEvaluationId, generateResultId } from "@/lib/anonymize";
 import {
   buildBatchJobs,
@@ -78,8 +80,10 @@ export default function BatchRunnerPage() {
   const activeMs = useRef(0);
   const [elapsedMs, setElapsedMs] = useState<number | null>(null);
 
-  // Tracks the next run_number per task_id+condition, seeded from existing
-  // results, so concurrent batch jobs never collide on the same run_number.
+  // Tracks the next run_number per CELL (task x model x condition x run_type),
+  // seeded from existing results, so concurrent batch jobs never collide on the
+  // same run_number. Keying lives in lib/runNumber.ts — see there for why the
+  // model belongs in the key.
   const runNumberCounts = useRef<Map<string, number>>(new Map());
 
   useEffect(() => {
@@ -91,12 +95,7 @@ export default function BatchRunnerPage() {
     fetch("/api/results")
       .then((r) => r.json())
       .then((existing: ResultRecord[]) => {
-        const counts = new Map<string, number>();
-        for (const r of existing) {
-          const key = `${r.task_id}::${r.prompt_condition}::${r.run_type}`;
-          counts.set(key, Math.max(counts.get(key) ?? 0, r.run_number));
-        }
-        runNumberCounts.current = counts;
+        runNumberCounts.current = seedRunNumberCounts(existing);
       })
       .catch(() => {});
     // Read-only: the subset is frozen and this page never writes it.
@@ -108,15 +107,8 @@ export default function BatchRunnerPage() {
 
   // F1 — run_number sequences per run_type: main is always 1 (n=1), stability
   // is 1..3 within its own series.
-  function nextRunNumber(
-    taskId: string,
-    condition: PromptCondition,
-    type: RunType
-  ): number {
-    const key = `${taskId}::${condition}::${type}`;
-    const next = (runNumberCounts.current.get(key) ?? 0) + 1;
-    runNumberCounts.current.set(key, next);
-    return next;
+  function nextRunNumber(scope: RunNumberScope): number {
+    return claimRunNumber(runNumberCounts.current, scope);
   }
 
   // A task that's no longer ready for the active condition scope must not stay
@@ -217,7 +209,12 @@ export default function BatchRunnerPage() {
         model_name: model,
         model_provenance_fingerprint: runData.model_provenance_fingerprint,
         prompt_condition: condition,
-        run_number: nextRunNumber(task.task_id, condition, runType),
+        run_number: nextRunNumber({
+          task_id: task.task_id,
+          model_name: model,
+          prompt_condition: condition,
+          run_type: runType,
+        }),
         run_type: runType,
         decoding_params: runData.decoding_params,
         max_tokens: maxTokens,
@@ -319,12 +316,28 @@ export default function BatchRunnerPage() {
       const report = await r.json();
       if (r.ok && report.allCallable) return true;
 
-      const failures: Array<{ family: string; state: string; message: string | null }> =
-        report.results?.filter((x: { callable: boolean }) => !x.callable) ?? [];
+      // allCallable now means USABLE: a provider answering 200 above the latency
+      // ceiling halts the run too. Sustained degradation is judged on the median
+      // of several probes, so one slow call cannot stop a healthy run.
+      type Row = {
+        family: string;
+        state: string;
+        message: string | null;
+        callable: boolean;
+        latencyState: string;
+        latencyMedianMs: number | null;
+      };
+      const rows: Row[] = report.results ?? [];
+      const unusable = rows.filter((x) => !x.callable || x.latencyState === "too_slow");
       setAbortReason(
         `Run halted by the callability check: ` +
-          failures
-            .map((f) => `${f.family} is ${f.state}${f.message ? ` — ${f.message}` : ""}`)
+          unusable
+            .map((f) =>
+              f.callable && f.latencyState === "too_slow"
+                ? `${f.family} is answering but too slow — median ${f.latencyMedianMs} ms ` +
+                  `(ceiling ${LATENCY_FAIL_MS} ms)`
+                : `${f.family} is ${f.state}${f.message ? ` — ${f.message}` : ""}`
+            )
             .join("; ")
       );
       return false;

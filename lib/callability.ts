@@ -31,7 +31,44 @@ export type CallabilityState =
   | "unauthenticated"
   | "rate_limited"
   | "bad_request"
-  | "unreachable";
+  | "unreachable"
+  /**
+   * Returns 200, but so slowly the workload cannot run on it. Reachability is
+   * not usability: a judge answering in 42s still passes every status-code
+   * check while making a 400-evaluation study take days and exhausting the
+   * retry budget on timeouts. Treated as a hard fail.
+   */
+  | "too_slow";
+
+/**
+ * Latency thresholds, measured as the MEDIAN of PROBE_SAMPLES probes so one
+ * unlucky call cannot condemn a healthy provider, nor one lucky call excuse a
+ * degraded one.
+ */
+export const LATENCY_WARN_MS = 5_000;
+export const LATENCY_FAIL_MS = 10_000;
+export const PROBE_SAMPLES = 3;
+/**
+ * Caps a single probe. Without it a hung provider stalls the mid-batch check
+ * for minutes; a probe that hits the cap is itself evidence of too_slow.
+ */
+export const PROBE_TIMEOUT_MS = 30_000;
+
+export type LatencyState = "ok" | "slow" | "too_slow";
+
+export function median(values: number[]): number | null {
+  if (values.length === 0) return null;
+  const sorted = [...values].sort((a, b) => a - b);
+  const mid = Math.floor(sorted.length / 2);
+  return sorted.length % 2 === 0 ? (sorted[mid - 1] + sorted[mid]) / 2 : sorted[mid];
+}
+
+export function classifyLatency(medianMs: number | null): LatencyState {
+  if (medianMs === null) return "ok";
+  if (medianMs > LATENCY_FAIL_MS) return "too_slow";
+  if (medianMs > LATENCY_WARN_MS) return "slow";
+  return "ok";
+}
 
 export interface CallabilityResult {
   family: ModelFamily;
@@ -48,7 +85,13 @@ export interface CallabilityResult {
   httpStatus: number | null;
   errorCode: string | null;
   message: string | null;
+  /** Latency of the last probe. Kept for compatibility with single-probe callers. */
   latencyMs: number | null;
+  /** Every probe's latency, in order. */
+  latencySamplesMs: number[];
+  /** The number decisions are made on. */
+  latencyMedianMs: number | null;
+  latencyState: LatencyState;
 }
 
 const PROBE_PROMPT = "Reply with the single word: ok";
@@ -113,34 +156,47 @@ export function classifyFailure(
   return { state: "unreachable", hardFail: true, errorCode };
 }
 
-async function probe(
+type SingleProbe = Omit<
+  CallabilityResult,
+  "latencySamplesMs" | "latencyMedianMs" | "latencyState"
+>;
+
+async function probeOnce(
   family: ModelFamily,
   modelId: string,
-  request: () => Promise<Response>
-): Promise<CallabilityResult> {
+  request: (signal: AbortSignal) => Promise<Response>
+): Promise<SingleProbe> {
   const base = {
     family,
     model_id: modelId,
     authenticated: false,
     available: null,
-    latencyMs: null as number | null,
   };
 
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), PROBE_TIMEOUT_MS);
   const started = Date.now();
   let response: Response;
   try {
-    response = await request();
+    response = await request(controller.signal);
   } catch (err) {
+    const latencyMs = Date.now() - started;
+    const aborted = err instanceof Error && err.name === "AbortError";
     return {
       ...base,
       callable: false,
-      state: "unreachable",
+      // A probe that outran the cap is a latency verdict, not a connectivity one.
+      state: aborted ? "too_slow" : "unreachable",
       hardFail: true,
       httpStatus: null,
       errorCode: null,
-      message: sanitize(err instanceof Error ? err.message : "request failed"),
-      latencyMs: Date.now() - started,
+      message: aborted
+        ? `probe exceeded ${PROBE_TIMEOUT_MS} ms and was aborted`
+        : sanitize(err instanceof Error ? err.message : "request failed"),
+      latencyMs,
     };
+  } finally {
+    clearTimeout(timer);
   }
 
   const latencyMs = Date.now() - started;
@@ -175,68 +231,142 @@ async function probe(
   };
 }
 
-export function probeAnthropic(apiKey: string, modelId: string): Promise<CallabilityResult> {
-  return probe("anthropic", modelId, () =>
-    fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: {
-        "x-api-key": apiKey,
-        "anthropic-version": "2023-06-01",
-        "content-type": "application/json",
-      },
-      // No temperature: claude-sonnet-5 rejects it.
-      body: JSON.stringify({
-        model: modelId,
-        max_tokens: PROBE_MAX_TOKENS,
-        messages: [{ role: "user", content: PROBE_PROMPT }],
+/**
+ * Probes a provider PROBE_SAMPLES times and judges it on the median.
+ *
+ * Samples run sequentially on purpose: parallel samples of one endpoint measure
+ * our own contention, not the provider's latency. Stops early on a failure that
+ * repeating cannot change (no credit, bad key), so a dead provider costs one
+ * call rather than three.
+ */
+async function probe(
+  family: ModelFamily,
+  modelId: string,
+  request: (signal: AbortSignal) => Promise<Response>,
+  samples: number = PROBE_SAMPLES
+): Promise<CallabilityResult> {
+  const latencies: number[] = [];
+  let last: SingleProbe | null = null;
+
+  for (let i = 0; i < samples; i++) {
+    last = await probeOnce(family, modelId, request);
+    if (last.latencyMs !== null) latencies.push(last.latencyMs);
+    if (!last.callable) break;
+  }
+
+  const result = last!;
+  const latencyMedianMs = median(latencies);
+  const latencyState = result.callable ? classifyLatency(latencyMedianMs) : "too_slow";
+
+  return {
+    ...result,
+    // A provider answering above the ceiling is unusable for this workload even
+    // though every probe returned 200 — so it is a hard fail, like no credit.
+    state: result.callable && latencyState === "too_slow" ? "too_slow" : result.state,
+    hardFail: result.hardFail || (result.callable && latencyState === "too_slow"),
+    latencySamplesMs: latencies,
+    latencyMedianMs,
+    latencyState: result.callable ? latencyState : classifyLatency(latencyMedianMs),
+  };
+}
+
+export function probeAnthropic(
+  apiKey: string,
+  modelId: string,
+  samples?: number
+): Promise<CallabilityResult> {
+  return probe(
+    "anthropic",
+    modelId,
+    (signal) =>
+      fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        signal,
+        headers: {
+          "x-api-key": apiKey,
+          "anthropic-version": "2023-06-01",
+          "content-type": "application/json",
+        },
+        // No temperature: claude-sonnet-5 rejects it.
+        body: JSON.stringify({
+          model: modelId,
+          max_tokens: PROBE_MAX_TOKENS,
+          messages: [{ role: "user", content: PROBE_PROMPT }],
+        }),
       }),
-    })
+    samples
   );
 }
 
-export function probeOpenAI(apiKey: string, modelId: string): Promise<CallabilityResult> {
-  return probe("openai", modelId, () =>
-    fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        model: modelId,
-        max_completion_tokens: PROBE_MAX_TOKENS,
-        messages: [{ role: "user", content: PROBE_PROMPT }],
+export function probeOpenAI(
+  apiKey: string,
+  modelId: string,
+  samples?: number
+): Promise<CallabilityResult> {
+  return probe(
+    "openai",
+    modelId,
+    (signal) =>
+      fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        signal,
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          model: modelId,
+          max_completion_tokens: PROBE_MAX_TOKENS,
+          messages: [{ role: "user", content: PROBE_PROMPT }],
+        }),
       }),
-    })
+    samples
   );
 }
 
-export function probeGoogle(apiKey: string, modelId: string): Promise<CallabilityResult> {
-  return probe("google", modelId, () =>
-    fetch(`https://generativelanguage.googleapis.com/v1beta/models/${modelId}:generateContent`, {
-      method: "POST",
-      headers: { "x-goog-api-key": apiKey, "content-type": "application/json" },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: PROBE_PROMPT }] }],
-        generationConfig: { maxOutputTokens: PROBE_MAX_TOKENS },
+export function probeGoogle(
+  apiKey: string,
+  modelId: string,
+  samples?: number
+): Promise<CallabilityResult> {
+  return probe(
+    "google",
+    modelId,
+    (signal) =>
+      fetch(`https://generativelanguage.googleapis.com/v1beta/models/${modelId}:generateContent`, {
+        method: "POST",
+        signal,
+        headers: { "x-goog-api-key": apiKey, "content-type": "application/json" },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: PROBE_PROMPT }] }],
+          generationConfig: { maxOutputTokens: PROBE_MAX_TOKENS },
+        }),
       }),
-    })
+    samples
   );
 }
 
 export interface CallabilityReport {
   checkedAt: string;
   results: CallabilityResult[];
+  /**
+   * USABLE, not merely reachable: every provider answered AND did so inside the
+   * latency ceiling. Callers gate on this, so a provider degraded to 42s halts
+   * a run exactly as an error response would.
+   */
   allCallable: boolean;
-  /** Any quota/credit/auth failure — the run must not start or continue. */
+  /** Any quota/credit/auth failure, or latency past the ceiling. */
   hardFailures: CallabilityResult[];
+  /** Answering, but above the warning threshold — advisory, not a halt. */
+  slow: CallabilityResult[];
 }
 
 export function summarize(results: CallabilityResult[]): CallabilityReport {
   return {
     checkedAt: new Date().toISOString(),
     results,
-    allCallable: results.every((r) => r.callable),
+    allCallable: results.every((r) => r.callable && r.latencyState !== "too_slow"),
     hardFailures: results.filter((r) => r.hardFail),
+    slow: results.filter((r) => r.callable && r.latencyState === "slow"),
   };
 }

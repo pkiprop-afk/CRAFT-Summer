@@ -1,6 +1,14 @@
 import { test, describe } from "node:test";
 import assert from "node:assert/strict";
-import { classifyFailure, summarize, type CallabilityResult } from "../lib/callability.ts";
+import {
+  classifyFailure,
+  classifyLatency,
+  LATENCY_FAIL_MS,
+  LATENCY_WARN_MS,
+  median,
+  summarize,
+  type CallabilityResult,
+} from "../lib/callability.ts";
 import { runWithConcurrency } from "../lib/concurrency.ts";
 
 /**
@@ -92,6 +100,9 @@ describe("callability — report summary", () => {
     errorCode: null,
     message: null,
     latencyMs: 100,
+    latencySamplesMs: [100, 100, 100],
+    latencyMedianMs: 100,
+    latencyState: "ok",
     ...over,
   });
 
@@ -116,6 +127,66 @@ describe("callability — report summary", () => {
     assert.equal(r.hardFailures.length, 1);
     assert.equal(r.hardFailures[0].authenticated, true);
     assert.equal(r.hardFailures[0].available, true);
+  });
+
+  test("a provider answering 200 above the ceiling is NOT usable", () => {
+    // The gemini-3.7-flash failure mode: every probe returns 200 at ~42s, so
+    // every status-code check passes while the workload is unrunnable.
+    const r = summarize([
+      make({}),
+      make({
+        family: "google",
+        callable: true,
+        state: "too_slow",
+        hardFail: true,
+        latencySamplesMs: [42503, 39120, 44890],
+        latencyMedianMs: 42503,
+        latencyState: "too_slow",
+      }),
+    ]);
+    assert.equal(r.allCallable, false, "reachable must not imply usable");
+    assert.equal(r.hardFailures.length, 1);
+    assert.equal(r.hardFailures[0].callable, true, "it did answer — that is the point");
+  });
+
+  test("slow but under the ceiling is advisory, not a halt", () => {
+    const r = summarize([
+      make({ latencyMedianMs: 6500, latencyState: "slow", latencySamplesMs: [6000, 6500, 7000] }),
+    ]);
+    assert.equal(r.allCallable, true);
+    assert.equal(r.slow.length, 1);
+    assert.equal(r.hardFailures.length, 0);
+  });
+});
+
+describe("latency ceiling", () => {
+  test("median ignores a single outlier in either direction", () => {
+    assert.equal(median([100, 120, 42000]), 120);
+    assert.equal(median([42000, 41000, 90]), 41000);
+  });
+
+  test("median of an even sample averages the middle pair", () => {
+    assert.equal(median([100, 200, 300, 400]), 250);
+  });
+
+  test("empty sample has no median and does not condemn", () => {
+    assert.equal(median([]), null);
+    assert.equal(classifyLatency(null), "ok");
+  });
+
+  test("thresholds are exclusive at the boundary", () => {
+    assert.equal(classifyLatency(LATENCY_WARN_MS), "ok");
+    assert.equal(classifyLatency(LATENCY_WARN_MS + 1), "slow");
+    assert.equal(classifyLatency(LATENCY_FAIL_MS), "slow");
+    assert.equal(classifyLatency(LATENCY_FAIL_MS + 1), "too_slow");
+  });
+
+  test("the observed gemini degradation classifies as too_slow", () => {
+    assert.equal(classifyLatency(42503), "too_slow");
+  });
+
+  test("this morning's gemini latency classifies as ok", () => {
+    assert.equal(classifyLatency(867), "ok");
   });
 });
 

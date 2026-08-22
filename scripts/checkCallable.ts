@@ -20,6 +20,9 @@
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import {
+  LATENCY_FAIL_MS,
+  LATENCY_WARN_MS,
+  PROBE_SAMPLES,
   probeAnthropic,
   probeGoogle,
   probeOpenAI,
@@ -82,7 +85,12 @@ async function main(): Promise<void> {
   const keyFor = (f: ModelFamily) => (env[ENV_VAR[f]] ?? "").trim();
 
   console.log("CALLABILITY PREFLIGHT");
-  console.log("one minimal generation per provider (~10 tokens each)\n");
+  console.log(
+    `${PROBE_SAMPLES} minimal generations per provider (~10 tokens each), judged on the median\n` +
+      `latency ceiling: warn above ${LATENCY_WARN_MS} ms, HARD FAIL above ${LATENCY_FAIL_MS} ms\n` +
+      `(reachability is not usability — a provider answering 200 far too slowly is\n` +
+      ` functionally down for a 400-evaluation workload)\n`
+  );
 
   // Availability first — listing endpoints, free.
   async function listFor(family: ModelFamily): Promise<ProviderListing> {
@@ -122,6 +130,9 @@ async function main(): Promise<void> {
       errorCode: null,
       message: `${ENV_VAR[family]} is missing or blank`,
       latencyMs: null,
+      latencySamplesMs: [],
+      latencyMedianMs: null,
+      latencyState: "ok",
     };
   }
 
@@ -144,16 +155,44 @@ async function main(): Promise<void> {
   const report = summarize(results);
 
   console.log(
-    "family      model                        authenticated  available  callable  state"
+    "family      model                        auth   avail  callable  median      samples (ms)          state"
   );
-  console.log("-".repeat(96));
+  console.log("-".repeat(112));
   for (const r of report.results) {
+    const flag =
+      r.latencyState === "too_slow" ? " !!" : r.latencyState === "slow" ? " ! " : "   ";
     console.log(
       `${r.family.padEnd(11)} ${r.model_id.padEnd(28)} ` +
-        `${String(r.authenticated).padEnd(14)} ${String(r.available).padEnd(10)} ` +
-        `${String(r.callable).padEnd(9)} ${r.state}` +
-        (r.latencyMs !== null ? `  (${r.latencyMs}ms)` : "")
+        `${String(r.authenticated).padEnd(6)} ${String(r.available).padEnd(6)} ` +
+        `${String(r.callable).padEnd(9)} ` +
+        `${(r.latencyMedianMs !== null ? `${r.latencyMedianMs}ms` : "n/a").padEnd(9)}${flag} ` +
+        `${(r.latencySamplesMs.join(", ") || "-").padEnd(21)} ${r.state}`
     );
+  }
+
+  if (report.slow.length > 0) {
+    console.log("\n--- SLOW (advisory, not a halt) ---");
+    for (const s of report.slow) {
+      console.log(
+        `  ${s.family}: median ${s.latencyMedianMs} ms is above the ${LATENCY_WARN_MS} ms warning\n` +
+          `    threshold but below the ${LATENCY_FAIL_MS} ms ceiling. A batch will run, slowly.`
+      );
+    }
+  }
+
+  const tooSlow = report.results.filter((r) => r.callable && r.latencyState === "too_slow");
+  if (tooSlow.length > 0) {
+    console.log("\n--- TOO SLOW (HARD FAIL) ---");
+    for (const t of tooSlow) {
+      console.log(
+        `\n  ${t.family} / ${t.model_id}` +
+          `\n    median      : ${t.latencyMedianMs} ms  (ceiling ${LATENCY_FAIL_MS} ms)` +
+          `\n    samples     : ${t.latencySamplesMs.join(", ")} ms` +
+          `\n    NOTE        : every probe returned 200. This provider is REACHABLE but not\n` +
+          `                  USABLE — status-code checks pass it while the workload stalls\n` +
+          `                  and the retry budget drains on timeouts.`
+      );
+    }
   }
 
   const failures = report.results.filter((r) => !r.callable);
@@ -183,12 +222,18 @@ async function main(): Promise<void> {
 
   console.log("");
   if (report.allCallable) {
-    console.log("PASSED — all providers are callable.");
+    console.log(
+      "PASSED — all providers are callable and within the latency ceiling." +
+        (report.slow.length > 0 ? "  (see SLOW advisory above)" : "")
+    );
     return;
   }
 
+  const parts: string[] = [];
+  if (failures.length > 0) parts.push(`${failures.length} provider(s) not callable`);
+  if (tooSlow.length > 0) parts.push(`${tooSlow.length} above the latency ceiling`);
   console.log(
-    `FAILED — ${failures.length} provider(s) not callable, ` +
+    `FAILED — ${parts.join(", ")}, ` +
       `${report.hardFailures.length} hard failure(s). This is a stop-work condition.`
   );
   process.exitCode = 1;

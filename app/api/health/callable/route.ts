@@ -42,6 +42,9 @@ function notConfigured(family: ModelFamily, modelId: string): CallabilityResult 
     errorCode: null,
     message: `${ENV_VAR_BY_FAMILY[family]} is missing or blank`,
     latencyMs: null,
+    latencySamplesMs: [],
+    latencyMedianMs: null,
+    latencyState: "ok",
   };
 }
 

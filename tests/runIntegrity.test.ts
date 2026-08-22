@@ -12,6 +12,7 @@ import {
   PAIRED_SCOPE,
 } from "../lib/batch.ts";
 import { runWithConcurrency } from "../lib/concurrency.ts";
+import { claimRunNumber, runNumberKey, seedRunNumberCounts } from "../lib/runNumber.ts";
 import { decodingParamsFor } from "../lib/decoding.ts";
 import { joinResults, REQUIRED_JUDGES_PER_RESULT } from "../lib/resultsJoin.ts";
 import { RESULTS_COLUMNS, EVALUATIONS_COLUMNS } from "../lib/exportShape.ts";
@@ -134,6 +135,68 @@ describe("5b — execution-layer pairing", () => {
 describe("5c — truncation defaults", () => {
   test("default max_tokens raised to 4000", () => {
     assert.equal(DEFAULT_MAX_TOKENS, 4000);
+  });
+});
+
+describe("run_number is scoped per cell, model included", () => {
+  const scope = (model: string, condition = "baseline", run_type = "main") =>
+    ({
+      task_id: "T001",
+      model_name: model,
+      prompt_condition: condition,
+      run_type,
+    }) as Parameters<typeof claimRunNumber>[1];
+
+  test("two models on the same task+condition BOTH get run_number 1", () => {
+    // The bug this pins: a shared counter made whichever model ran second
+    // run_number 2, failing the n=1 parity check.
+    const counts = new Map<string, number>();
+    assert.equal(claimRunNumber(counts, scope("claude-sonnet-5")), 1);
+    assert.equal(claimRunNumber(counts, scope("gpt-5.5-2026-04-23")), 1);
+  });
+
+  test("all four cells of one task are run 1", () => {
+    const counts = new Map<string, number>();
+    for (const m of ["claude-sonnet-5", "gpt-5.5-2026-04-23"]) {
+      for (const c of ["baseline", "craft"]) {
+        assert.equal(claimRunNumber(counts, scope(m, c)), 1, `${m}/${c}`);
+      }
+    }
+  });
+
+  test("a genuine repeat of the SAME cell still increments", () => {
+    const counts = new Map<string, number>();
+    assert.equal(claimRunNumber(counts, scope("claude-sonnet-5")), 1);
+    assert.equal(claimRunNumber(counts, scope("claude-sonnet-5")), 2);
+  });
+
+  test("main and stability are separate series", () => {
+    const counts = new Map<string, number>();
+    assert.equal(claimRunNumber(counts, scope("claude-sonnet-5", "baseline", "main")), 1);
+    assert.equal(claimRunNumber(counts, scope("claude-sonnet-5", "baseline", "stability")), 1);
+  });
+
+  test("seeding from existing results resumes each cell independently", () => {
+    const existing = [
+      { task_id: "T001", model_name: "claude-sonnet-5", prompt_condition: "baseline", run_type: "stability", run_number: 2 },
+      { task_id: "T001", model_name: "gpt-5.5-2026-04-23", prompt_condition: "baseline", run_type: "stability", run_number: 1 },
+    ] as Parameters<typeof seedRunNumberCounts>[0];
+    const counts = seedRunNumberCounts(existing);
+    assert.equal(claimRunNumber(counts, scope("claude-sonnet-5", "baseline", "stability")), 3);
+    assert.equal(claimRunNumber(counts, scope("gpt-5.5-2026-04-23", "baseline", "stability")), 2);
+    // An untouched cell is unaffected by the other model's history.
+    assert.equal(claimRunNumber(counts, scope("claude-sonnet-5", "craft", "main")), 1);
+  });
+
+  test("the key distinguishes all four dimensions", () => {
+    const keys = new Set(
+      ["claude-sonnet-5", "gpt-5.5-2026-04-23"].flatMap((m) =>
+        ["baseline", "craft"].flatMap((c) =>
+          ["main", "stability"].map((t) => runNumberKey(scope(m, c, t)))
+        )
+      )
+    );
+    assert.equal(keys.size, 8, "every cell must key uniquely");
   });
 });
 
