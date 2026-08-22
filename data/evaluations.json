@@ -7063,5 +7063,20 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response adheres to the word limit, clearly presents all four required figures, maintains structural separation across sections, honestly addresses the residual recurrence risk, and provides concrete follow-up actions. However, it violates Constraint 5 (and the executive audience criteria of Constraint 1) by including unexplained technical terms (\"TLS certificate\", \"renewal job\") directly within the first 100 words of the executive summary."
+  },
+  {
+    "evaluation_id": "EVAL-497af754-96c8-40bb-ac1d-2185dc8d723f",
+    "result_id": "RES-03272bae-f0e8-40cc-b083-432d080e2bcc",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T16:00:22.214Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 7,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response makes a clear, committed choice for Option A, identifies multiple valid costs, and notes that the issue was an operational error rather than fabrication/misconduct. However, it fails to state an explicit condition under which the recommendation itself would reverse (e.g., if submission guidelines strictly prohibit uncorrected analyses), and the recommendation heading describes the action without explicitly naming \"Option A\" in that specific sentence."
   }
 ]

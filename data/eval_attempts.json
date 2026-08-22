@@ -4528,5 +4528,15 @@
     "retry_count": 0,
     "http_status": 200,
     "message": "Constraint adherence:"
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0134",
+    "recorded_at": "2026-08-22T16:00:22.103Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
   }
 ]
