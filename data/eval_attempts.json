@@ -1008,5 +1008,45 @@
     "retry_count": 4,
     "http_status": null,
     "message": "All 5 attempts failed. Last: empty response body (HTTP 200 with no text)"
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0032",
+    "recorded_at": "2026-08-22T06:48:39.725Z",
+    "outcome": "succeeded_after_retry",
+    "retry_count": 4,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "claude-sonnet-5",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0060",
+    "recorded_at": "2026-08-22T06:49:02.864Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "claude-sonnet-5",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0061",
+    "recorded_at": "2026-08-22T06:49:23.483Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "claude-sonnet-5",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0064",
+    "recorded_at": "2026-08-22T06:49:44.082Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
   }
 ]

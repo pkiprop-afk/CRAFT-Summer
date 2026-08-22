@@ -1496,5 +1496,90 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response correctly identifies the median (3 hours), mean (~18.9 hours), and the 93.3% SLA compliance rate, recommending the median as the representative metric. However, it fails to report the mode (2 hours), does not mathematically quantify the outlier's specific contribution to the mean (16 hours / 3.14 hours adjusted mean), and omits the full outlier analysis required by the prompt."
+  },
+  {
+    "evaluation_id": "EVAL-110eafe4-fdce-4754-b27c-d5bc4bae143b",
+    "result_id": "RES-bdbc3ba2-3e06-46a0-a01e-4b8f29b50ac2",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T06:48:39.739Z",
+    "constraint_adherence_score_0_4": 0,
+    "logical_accuracy_score_0_4": 0,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 2,
+    "retry_count": 4,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      },
+      {
+        "attempt": 3,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 8000
+      },
+      {
+        "attempt": 4,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 16000
+      }
+    ],
+    "evaluator_justification": "The response provides a complete structure with a diagnosis, explanation, and corrected function (2/2 for completeness), but it addresses calculating the median rather than the deduplication specification outlined in the rubric. Consequently, it fails 4 out of the 5 expected constraints (missing the deduplication identification, the single-pass seen-set explanation, returning [1, 3, 4] on the test case, and preserving input order), and fails the logical accuracy criteria regarding occurrence counting."
+  },
+  {
+    "evaluation_id": "EVAL-64a28507-0e63-495a-9844-dc5d1d39ccc8",
+    "result_id": "RES-c6d2f69f-c6cc-4eed-aedd-c5c0f3fdf066",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T06:49:02.873Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly reports the ad-spend/revenue correlation (~0.999), explicitly refuses to treat correlation as proof of causation, identifies sales headcount as a confound whose effect cannot be cleanly separated from ad spend (via a lockstep data table and a discussion of multicollinearity), and proposes concrete causal tests (controlled/regional experiments, longer time series, lag analysis). However, it never reports numeric correlation values for headcount-revenue or ad spend-headcount (only \"extremely correlated\"), and critically fails to note that headcount correlates with revenue at least as strongly as ad spend does—the sharpest analytical point the rubric rewards—so it misses a full demonstration of the confound's severity. This costs it a point on both constraint adherence and logical accuracy, while completeness is fully satisfied since all three major components (correlation discussion, causal refusal, proposed test) are present."
+  },
+  {
+    "evaluation_id": "EVAL-273c6011-4dd3-490d-ad1c-da036c1ed575",
+    "result_id": "RES-500ce21d-3971-438c-9b23-1f323ddbf4fd",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T06:49:23.493Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 2,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 5,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response gives a qualitative (not numeric) description of the strong ad‑spend/revenue relationship and correctly identifies sales headcount as a confound that cannot be separated from advertising spend, and it explicitly states the data does not establish causation. However, it never quantifies or explicitly states that headcount correlates with revenue at least as strongly as ad spend (missing the key comparative/confound-strength claim), and—critically—it proposes no concrete method (controlled experiment, holdout region, staggered rollout) to test the causal claim, leaving the \"what should be done next\" element entirely absent. This omission caps both logical accuracy and completeness, since a full causal-inference critique requires not just refusing the causal claim but also outlining how it could be properly tested."
+  },
+  {
+    "evaluation_id": "EVAL-049baa67-2e30-403a-af45-69508f717d2b",
+    "result_id": "RES-47953007-76df-4e53-b0cb-580c0d782247",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T06:49:44.092Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 6,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly reports the mean (≈18.9), median (3 hours), and percentage within SLA (93.3%, 14/15), and appropriately avoids basing its SLA conclusion solely on the mean. However, it omits the mode (2 hours) entirely, and it fails to quantify that the 240-hour outlier contributes exactly 16 of the 18.93 hours to the mean—only noting the mean excluding the outlier (3.1 hours) without this specific breakdown. The recommendation to use the median/percentage as the better summary measure is present but only loosely tied to an explicit call for percentage-within-target as the primary reported metric. These omissions (mode, precise outlier contribution) reduce completeness and constraint adherence, though the core logic and numerical accuracy are otherwise sound."
   }
 ]
