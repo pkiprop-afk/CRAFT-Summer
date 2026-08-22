@@ -387,22 +387,43 @@ async function main(): Promise<void> {
   // own configuration, it is deterministic, and it correlates with task
   // difficulty — so it removes data selectively rather than at random, which
   // biases inter-rater reliability instead of merely shrinking the sample.
-  const attempts = readJson<Array<{ outcome?: string; evaluator_model?: string }>>(
-    "data/eval_attempts.json",
-    []
-  );
+  const attempts = readJson<
+    Array<{ outcome?: string; evaluator_model?: string; anonymized_output_id?: string }>
+  >("data/eval_attempts.json", []);
   const truncatedJudge = attempts.filter((a) => a.outcome === "judge_truncated");
   if (truncatedJudge.length > 0) {
-    const byJudge = new Map<string, number>();
-    for (const a of truncatedJudge) {
-      const k = a.evaluator_model ?? "(unknown)";
-      byJudge.set(k, (byJudge.get(k) ?? 0) + 1);
+    // A truncation is an ERROR only while the affected (cell, judge) still
+    // lacks a saved evaluation. Once the remedy has filled it, the historical
+    // attempt record is a reportable event, not a standing defect — a validate
+    // that stays red forever after the fix teaches people to ignore red.
+    const judgedPairs = new Set(
+      evaluations.map((e) => {
+        const parent = resultById.get(e.result_id);
+        return `${parent?.anonymized_output_id}::${e.evaluator_model}`;
+      })
+    );
+    const unremedied = truncatedJudge.filter(
+      (a) => !judgedPairs.has(`${a.anonymized_output_id}::${a.evaluator_model}`)
+    );
+    const remedied = truncatedJudge.length - unremedied.length;
+    if (unremedied.length > 0) {
+      const byJudge = new Map<string, number>();
+      for (const a of unremedied) {
+        const k = a.evaluator_model ?? "(unknown)";
+        byJudge.set(k, (byJudge.get(k) ?? 0) + 1);
+      }
+      for (const [judge, count] of byJudge) {
+        err(
+          `${judge}: ${count} evaluation(s) truncated at the judge token limit and STILL ` +
+            `unevaluated. This is a configuration defect, not provider flakiness — ` +
+            `raise the evaluator output budget and re-run those cells.`
+        );
+      }
     }
-    for (const [judge, count] of byJudge) {
-      err(
-        `${judge}: ${count} evaluation(s) truncated at the judge token limit before ` +
-          `producing a score. This is a configuration defect, not provider flakiness — ` +
-          `raise the evaluator output budget and re-run those cells.`
+    if (remedied > 0) {
+      warn(
+        `${remedied} historical judge-truncation event(s) whose cells have since been ` +
+          `evaluated — reportable as an instrument event, no action needed`
       );
     }
   }
