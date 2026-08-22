@@ -3821,5 +3821,171 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response fulfills almost all requirements: it clearly distinguishes between policy permission and practical/ethical advisability, identifies multiple affected parties (the departed designer, the company, marketing, and the public), highlights unsupplied facts (such as side agreements on portfolio use/attribution), and provides actionable guidance beyond merely citing the policy. However, it slightly exceeds the 300-word limit (approximately 309 words), resulting in a 1-point deduction for constraint adherence."
+  },
+  {
+    "evaluation_id": "EVAL-dc6c2323-3be8-4d50-93b1-84727ec1280e",
+    "result_id": "RES-c0e6989e-8445-48e7-abe8-0af20f505007",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:29:48.554Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 2,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 5,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response successfully makes a committed recommendation (Option A) in an identifiable opening sentence, avoids declining to choose, and clearly specifies a reversal condition. However, it fails to state two specific costs of selecting Option A (focusing almost entirely on benefits and mitigation) and does not explicitly distinguish the question of whether duplication constitutes research misconduct from the question of whether submitting is advisable, despite briefly referencing a non-fabrication error."
+  },
+  {
+    "evaluation_id": "EVAL-4f607c7e-ed4b-4f6e-9697-576ae307300b",
+    "result_id": "RES-c0e6989e-8445-48e7-abe8-0af20f505007",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:29:57.256Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 2,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 5,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response names Option A initially, but later says “Don’t choose between A and B blind” and advises doing an intermediate check to decide, which weakens the required non-deferred commitment. It provides a reversal condition and indicates the facts point to a merge/script error rather than fabrication, while separating validity/advisability from misconduct to some extent. However, it does not state at least two specific costs of choosing Option A, and its final recommendation is hedged rather than a single clear course of action."
+  },
+  {
+    "evaluation_id": "EVAL-fe6b3f92-3486-42ba-b514-5b5e18a12711",
+    "result_id": "RES-e646cfae-619a-4c6c-8dde-cbcc796986b5",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:30:25.912Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 7,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response clearly selects Option A in a single sentence, details multiple specific costs, and notes that the issue is a mechanical error rather than fabrication. However, it fails to state any condition under which the recommendation would reverse and does not fully formalize the distinction between research misconduct and submission advisability."
+  },
+  {
+    "evaluation_id": "EVAL-d750c7d9-503e-43b9-b15d-32fff9ac624a",
+    "result_id": "RES-e646cfae-619a-4c6c-8dde-cbcc796986b5",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:30:33.723Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 7,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response makes a clear committed recommendation for Option A in a single identifiable sentence, does not decline to choose, states multiple concrete costs of that option, and says the facts indicate a mechanical error rather than fabrication. It also largely separates the nature of the duplication from the advisability of submitting. However, it fails to state a condition under which the recommendation would reverse; noting possible correction or retraction if the rerun changes results is not the same as saying the recommendation would instead become Option B under specified conditions."
+  },
+  {
+    "evaluation_id": "EVAL-eb7452f4-0940-4bcb-af65-df5469adc652",
+    "result_id": "RES-5595571b-bb86-46c6-bf8b-7660481fee92",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:30:53.440Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 4,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      },
+      {
+        "attempt": 3,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 8000
+      },
+      {
+        "attempt": 4,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 16000
+      }
+    ],
+    "evaluator_justification": "The response adheres to the word limit (under 300 words), clearly distinguishes between policy permission and advisability, and explicitly names multiple affected parties (the designer, the company, the marketing team, and current employees). It also correctly identifies missing facts that could alter the recommendation, such as the existence of a separate signed IP assignment agreement or local moral rights laws, fulfilling all task criteria accurately and completely."
+  },
+  {
+    "evaluation_id": "EVAL-4b383ec6-eb0c-403c-ab9c-edf9f1f4ccb6",
+    "result_id": "RES-8a239333-ddbb-4c42-b744-6ce60b909b5e",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:30:58.286Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 2,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 5,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response clearly selects Option B in a single sentence and does not decline to choose, but it fails several explicit constraints. It does not formally distinguish research misconduct from advisability (nor explicitly state error versus fabrication), does not clearly state two distinct costs of choosing Option B, and fails to state a clear condition under which the recommendation would reverse."
+  },
+  {
+    "evaluation_id": "EVAL-e16fe4de-cbb2-4ada-99aa-bd992ec077a0",
+    "result_id": "RES-5595571b-bb86-46c6-bf8b-7660481fee92",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:31:23.407Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response stays within the ~300-word limit, explicitly separates the policy"
+  },
+  {
+    "evaluation_id": "EVAL-83043088-be36-401e-a387-236a98a0d050",
+    "result_id": "RES-8a239333-ddbb-4c42-b744-6ce60b909b5e",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:31:33.023Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 7,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response clearly and unambiguously recommends Option B in a single sentence, satisfying the \"must not decline to choose\" requirement, and it offers an implicit reversal condition (running quick diagnostics before the deadline could justify submitting instead). However, it only clearly identifies one specific cost of Option B (risk to the student's funding renewal) rather than two distinct costs, and it never explicitly separates the question of research misconduct from the question of submission advisability, nor does it state that the facts indicate an honest processing error rather than fabrication—an omission the rubric flags as a required element. These two missing/incomplete constraints (sufficient costs, misconduct/advisability distinction) reduce the constraint-adherence score, and the logical-accuracy score is capped in the 2–3 range due to the missing misconduct discussion despite an otherwise coherent, decisive argument. Completeness is otherwise strong: a recommendation, at least one cost, and a reversal condition are all present."
   }
 ]

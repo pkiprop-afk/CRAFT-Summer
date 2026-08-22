@@ -2378,5 +2378,95 @@
     "retry_count": 0,
     "http_status": 200,
     "message": null
+  },
+  {
+    "evaluator_model": "claude-sonnet-5",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0130",
+    "recorded_at": "2026-08-22T07:29:16.522Z",
+    "outcome": "judge_truncated",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": "provider stopped at its token limit (stop_reason \"max_tokens\") before emitting any text — the output budget is too small for this prompt"
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0131",
+    "recorded_at": "2026-08-22T07:29:48.541Z",
+    "outcome": "succeeded_after_retry",
+    "retry_count": 1,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0131",
+    "recorded_at": "2026-08-22T07:29:57.244Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0132",
+    "recorded_at": "2026-08-22T07:30:25.900Z",
+    "outcome": "succeeded_after_retry",
+    "retry_count": 1,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0132",
+    "recorded_at": "2026-08-22T07:30:33.710Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0129",
+    "recorded_at": "2026-08-22T07:30:53.429Z",
+    "outcome": "succeeded_after_retry",
+    "retry_count": 4,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0133",
+    "recorded_at": "2026-08-22T07:30:58.272Z",
+    "outcome": "succeeded_after_retry",
+    "retry_count": 1,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "claude-sonnet-5",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0129",
+    "recorded_at": "2026-08-22T07:31:23.396Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "claude-sonnet-5",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0133",
+    "recorded_at": "2026-08-22T07:31:33.010Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
   }
 ]

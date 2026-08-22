@@ -3346,5 +3346,160 @@
     "retry_count": 0,
     "retry_log": [],
     "notes": ""
+  },
+  {
+    "result_id": "RES-c0e6989e-8445-48e7-abe8-0af20f505007",
+    "task_id": "T028",
+    "task_version": "v1-8c48b6dae6a101a0a51984552682cb87",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T07:29:30.012Z",
+    "raw_model_output": "Here's my recommendation: **Option A**, but with a specific set of guardrails that make it defensible.\n\n## Why A over B\n\nThe framing makes this look like a tradeoff between \"rigor\" and \"expediency,\" but it isn't really. A 40/1,200 duplication rate (3.3%) from a documented merge error is a known, bounded, mechanical problem — not an unknown unknown. You can characterize its likely impact on your results *now*, even without a full re-run:\n\n- Spot-check whether the duplicates cluster in any particular condition, subgroup, or time window (merge errors are often systematic, not random — this matters a lot for whether they bias results or just add noise).\n- Re-run the core analysis on the deduplicated 1,160 records only (not the full six-day pipeline) to see if key estimates/p-values/effect sizes shift materially. This is almost always much faster than the full six-day re-analysis, since you're not rebuilding the pipeline — just re-pointing it at clean data for the headline results.\n- If the core findings are stable under this quick check, disclosure + a footnote is honest and low-risk.\n- If the core findings shift meaningfully, that itself is critical information — and it changes the calculus (see below).\n\n## The condition that flips this to B\n\nIf the quick deduplicated re-check shows the results are *not* stable — i.e., significance flips, effect sizes move a lot, or the duplicates are concentrated in a way that could have driven the findings — then submitting isn't a disclosure problem anymore, it's a validity problem. In that case, footnoting it doesn't fix it, and you should withdraw (Option B) rather than submit something you don't actually trust.\n\n## Why this resolves the stated conflict better than a flat A-or-B choice\n\n- It protects the student's funding (a submission goes in) without requiring you to submit something you have reason to believe is wrong.\n- It's more honest than \"submit and hope,\" since you're not just disclosing a limitation, you're disclosing a *characterized* limitation (\"we checked, it doesn't change the conclusions\" is a very different footnote than \"we didn't have time to check\").\n- It costs you maybe a day, not six — so it fits inside your four-day window.\n\n## Bottom line\n\nDon't choose between A and B blind. Spend one day doing the cheap version of the fix (dedupe + re-run core results only), and let *that* result — not the deadline pressure — decide between A and B. If forced to pick without that check, I'd lean A with disclosure, since a documented, small, non-fabrication error disclosed transparently is a normal and recoverable event in research, while losing five months and jeopardizing funding over an unverified assumption of harm is a disproportionate cost.",
+    "anonymized_output_id": "OUT-0131",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-e646cfae-619a-4c6c-8dde-cbcc796986b5",
+    "task_id": "T028",
+    "task_version": "v1-8c48b6dae6a101a0a51984552682cb87",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T07:30:13.263Z",
+    "raw_model_output": "**THE RECOMMENDATION**\n\nSubmit now under Option A, disclosing the duplication in a footnote, and commit the lab to completing the corrected analysis before any camera-ready deadline.\n\n**THE REASONING**\n\nThe facts point clearly in one direction. The error is mechanical (a merge script fault), not fabrication, and it affects 3.3% of records — a magnitude unlikely to overturn the paper's core findings, though that must be confirmed once the rerun is done. Withdrawing does not solve the underlying data problem; it only delays the paper by five months while the same correction still has to be made. Meanwhile the funding renewal is tied to a submission this quarter, and a five-month gap almost certainly falls outside that window — turning a data-quality issue into a funding crisis for the student, which is a disproportionate cost for a 3.3% duplication error.\n\nDisclosure in a footnote is the honest move: it puts reviewers on notice, protects the lab's integrity, and gives you the standing to publish a corrected version without it reading as concealment. Most venues allow, and expect, exactly this kind of correction between submission and camera-ready. The six days needed for the full rerun do not have to happen before the deadline — they have to happen before the paper is finalized for publication, and that window will exist if the paper is accepted.\n\n**THE COSTS**\n\n- Reviewers may read the footnote unfavorably and reject on that basis alone, even though the underlying science is likely sound.\n- If the rerun ultimately shows figures or claims materially change, you will owe the venue a substantive correction or, in the worst case, a retraction — a heavier reputational cost than a clean resubmission later would have been.\n- The lab is committing to complete the six-day rerun promptly and transparently, which will consume staff time under time pressure right after the deadline rather than before it.\n- The student carries the residual risk that even a disclosed, accepted paper draws scrutiny during review or after publication, which is a harder position than presenting fully clean data from the outset.\n\nThis is the correct trade against the alternative, but it is a trade, not a clean outcome — accept the exposure now in exchange for protecting the student's funding and the lab's publication timeline.",
+    "anonymized_output_id": "OUT-0132",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-8a239333-ddbb-4c42-b744-6ce60b909b5e",
+    "task_id": "T028",
+    "task_version": "v1-8c48b6dae6a101a0a51984552682cb87",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T07:30:41.276Z",
+    "raw_model_output": "Recommend **Option B: withdraw from this deadline and submit to the next conference after correcting the dataset and re-running the analysis**.\n\nThe key reason is that the lab already knows the submitted results are based on a contaminated dataset, and the full impact cannot be established before the deadline. Even though the error was accidental and relatively small — 40 duplicated records out of 1,200 — the paper’s conclusions may change after correction. Submitting now would mean asking reviewers to evaluate results the authors know may be unreliable.\n\nA footnote disclosure helps, but it does not fully solve the problem. It would effectively say: “These results are based on a known data-processing error, and we have not yet checked whether the conclusions hold.” That is a weak basis for conference review and could damage the student’s and lab’s credibility if the corrected analysis later differs materially.\n\nThe student’s funding situation is serious, but it should not determine the scientific choice. The better course is to:\n\n1. **Do not submit the flawed paper.**\n2. **Immediately document the error, its cause, and the correction plan.**\n3. **Notify the relevant advisor, department, or funding administrator** that the submission was delayed for research-integrity reasons.\n4. **Seek an exception, bridge funding, or confirmation that a delayed submission can satisfy the renewal requirement.**\n5. **Re-run the analysis and submit a clean version to the next venue.**\n\nIf there is time before the deadline to do a limited check, the lab could run quick diagnostics to estimate whether the duplicates materially affect headline results. But given the stated fact that the full analysis takes six days and the deadline is in four, the defensible recommendation between the two options is **Option B**.",
+    "anonymized_output_id": "OUT-0133",
+    "truncated": false,
+    "reasoning_tokens": 72,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-03272bae-f0e8-40cc-b083-432d080e2bcc",
+    "task_id": "T028",
+    "task_version": "v1-8c48b6dae6a101a0a51984552682cb87",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T07:31:34.685Z",
+    "raw_model_output": "## The recommendation\n\nSubmit now with a clear footnote disclosing the 40 duplicated records and committing to replace the analysis with the corrected dataset before any final publication.\n\n## The reasoning\n\nThe error is known, limited in scale, and not a case of fabrication. With 40 duplicated records in a dataset of 1,200, the flaw affects approximately 3.3% of the data; that is material enough to disclose, but not automatically disqualifying if the submission is transparent and the lab commits to correction before publication.\n\nBecause the full re-analysis requires six days and the deadline is in four days, the lab cannot produce a fully corrected submission in time. The choice is therefore between transparent submission of an imperfect draft and losing the conference cycle altogether. Given that the student’s funding renewal depends on having a submitted paper by the end of the quarter, Option A better protects both the research opportunity and the student’s position while remaining within acceptable research practice, provided the disclosure is explicit and not minimized.\n\nThe submission should not imply that the results are final. The footnote should state that a merge-script error introduced 40 duplicate records, that the full analysis is being re-run on the corrected dataset, and that any accepted version will be updated before camera-ready submission or withdrawn if the corrected results materially change the paper’s claims.\n\n## The costs of the course recommended\n\nSubmitting now carries reputational and scientific risk. Reviewers may view the paper as less reliable, and the disclosure may reduce the chance of acceptance. If the corrected analysis changes the conclusions materially, the lab may need to revise substantially, narrow the claims, or withdraw the paper after acceptance.\n\nThe recommendation also imposes a strict follow-through obligation. The lab must complete the corrected analysis promptly, document the merge-script error and correction, preserve an audit trail, and ensure that no final version is published with the duplicated records. Senior authors will need to supervise this closely.\n\nFinally, this course may set an internal precedent that submission under known data limitations is permissible when disclosed. That precedent should be bounded: it is acceptable here because the error is identified, non-fraudulent, quantitatively limited, transparently disclosed, and correctable before publication.",
+    "anonymized_output_id": "OUT-0134",
+    "truncated": false,
+    "reasoning_tokens": 164,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-85ece198-c9c9-45f5-9c16-ddc0b6c048a1",
+    "task_id": "T029",
+    "task_version": "v1-4b9eb584b1091db75309e60f82942036",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T07:31:41.645Z",
+    "raw_model_output": "# Eligibility Determination\n\n**Outcome: The application does not meet the eligibility requirement and should be denied.**\n\n## Reasoning\n\nThe rule sets a clear, quantifiable threshold with an explicit exclusion:\n\n- **Requirement:** 24 credit hours completed *at this institution*\n- **Applicant's institutional credits:** 18\n- **Shortfall:** 6 credit hours\n- **Transfer credits:** Explicitly excluded by the rule's plain language (\"do not count toward this requirement\"), so the 30 transferred credits cannot be added to reach the threshold\n- **\"No exceptions\"** clause forecloses any discretionary override based on merits\n\n## On the Other Factors\n\nThe applicant's circumstances — first-generation status, work hours, high GPA, risk of withdrawal, and the good-faith misreading of the rule — are all sympathetic and may be worth flagging to the administrator as context. However, none of them are **eligibility criteria** under this rule. The rule does not contain hardship provisions, GPA-based discretion, or good-faith exceptions. Given the explicit \"no exceptions\" language, these factors cannot cure the shortfall in institutional credit hours.\n\n## Recommendation to the Administrator\n\n1. **Deny the current application** on the stated eligibility ground (18 < 24 institutional credit hours).\n2. **Communicate clearly** to the applicant why transfer credits don't count, since the misunderstanding suggests the rule may not be well-publicized or clearly worded in program materials.\n3. **Consider flagging this case** (separately from the eligibility decision) to whoever oversees scholarship *policy* — if hardship cases like this recur, it may be worth asking whether the institution wants a hardship exception process. But that's a policy question, not something the administrator can resolve by reinterpreting this rule.\n4. **Suggest alternative resources** — e.g., emergency financial aid, work-study, or other scholarships with different criteria — given the applicant's stated risk of withdrawal.\n\nIf the administrator wants, I can help draft a denial letter that is clear and empathetic, or help identify other aid programs the applicant might qualify for.",
+    "anonymized_output_id": "OUT-0135",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
   }
 ]
