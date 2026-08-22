@@ -7431,5 +7431,39 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response correctly separates executive and technical sections and includes all four required figures, structural headings, and multiple follow-up actions addressing the 3 uncovered certificates. However, it directly commits the specific failure the task warns against: the executive-facing opening explicitly names \"TLS certificate\" within the first ~28 words, introducing unexplained technical terminology into the non-technical section and thus violating both constraint 1 (non-technical opening) and constraint 5 (no jargon in first 100 words). This is a significant flaw since it undermines the core requirement of true structural/audience separation, even though the rest of the document (technical cause, resolution, honest recurrence risk, follow-up actions) is accurate and complete."
+  },
+  {
+    "evaluation_id": "EVAL-39a19c9b-6b48-4124-8c5f-842e1727c9b7",
+    "result_id": "RES-54911881-ff32-494f-82e5-3a397fd3a647",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T16:14:27.894Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 3,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      },
+      {
+        "attempt": 3,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 8000
+      }
+    ],
+    "evaluator_justification": "The response adheres to all constraints, remaining under the 200-word limit and presenting a student-facing scaffold with open-ended reasoning prompts. It effectively guides the evaluation process without supplying pre-baked criteria, checklists, or worked examples. Furthermore, it addresses the dataset-size failure by prompting students to examine the validity of the size assumption for the specific research question rather than flatly dismissing it as an invalid criterion."
   }
 ]
