@@ -4188,5 +4188,25 @@
     "retry_count": 0,
     "http_status": 200,
     "message": null
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0207",
+    "recorded_at": "2026-08-22T15:32:17.677Z",
+    "outcome": "succeeded_after_retry",
+    "retry_count": 3,
+    "http_status": 200,
+    "message": null
+  },
+  {
+    "evaluator_model": "claude-sonnet-5",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0207",
+    "recorded_at": "2026-08-22T15:32:24.244Z",
+    "outcome": "succeeded_first_try",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": null
   }
 ]
