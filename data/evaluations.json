@@ -3757,5 +3757,69 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response is under 300 words, identifies the departed designer, the company, and additional affected parties such as press, clients, employees, and legal/public stakeholders. It clearly separates policy permission (“legally, you can proceed under 4.2”) from advisability (“proceed with caution” and loop in the designer before launch). It does not stop at the policy answer and discusses ethical/reputational risks. It also identifies missing facts that could affect the recommendation, especially jurisdiction/moral rights and potential dispute/confusion around portfolio use."
+  },
+  {
+    "evaluation_id": "EVAL-99a7d05b-00c6-4072-831e-681e7559f2f8",
+    "result_id": "RES-44916cae-c45b-48cb-8cd4-5412b8bf1ab2",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:28:18.977Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 7,
+    "retry_count": 3,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      },
+      {
+        "attempt": 3,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 8000
+      }
+    ],
+    "evaluator_justification": "The response adheres to the word count limit, clearly distinguishes policy permission from practical advisability, names at least three affected parties (the departed designer, the company, and future hires/outside observers), and goes well beyond the policy question. However, it fails to identify a specific unsupplied fact (such as a separate agreement or prior external publication disclosures) that would alter the recommendation, resulting in deductions across constraint adherence, logical accuracy, and completeness."
+  },
+  {
+    "evaluation_id": "EVAL-7372fbf3-5102-4d8b-b5cc-b40538c922b3",
+    "result_id": "RES-44916cae-c45b-48cb-8cd4-5412b8bf1ab2",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:28:24.356Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 7,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response is under 300 words, identifies multiple affected parties including the designer, company/marketing, future hires, and outside observers, and clearly separates policy permission from broader advisability. It also does not stop at ownership alone and gives practical advice. However, it fails to identify a specific missing fact that could change the recommendation, such as whether the designer was told the work might be externally published or whether a separate agreement exists. This omission also reduces completeness."
+  },
+  {
+    "evaluation_id": "EVAL-f627ccf5-a8ca-45b4-89da-d76992f598f0",
+    "result_id": "RES-decfd15b-35c3-4eca-8d44-45de11aa51d1",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:28:43.680Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 9,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response fulfills almost all requirements: it clearly distinguishes between policy permission and practical/ethical advisability, identifies multiple affected parties (the departed designer, the company, marketing, and the public), highlights unsupplied facts (such as side agreements on portfolio use/attribution), and provides actionable guidance beyond merely citing the policy. However, it slightly exceeds the 300-word limit (approximately 309 words), resulting in a 1-point deduction for constraint adherence."
   }
 ]

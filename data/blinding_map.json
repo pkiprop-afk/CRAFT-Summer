@@ -901,5 +901,12 @@
     "model_name": "gpt-5.5-2026-04-23",
     "prompt_condition": "baseline",
     "allocated_at": "2026-08-22T07:27:40.466Z"
+  },
+  "OUT-0130": {
+    "token": "OUT-0130",
+    "task_id": "T027",
+    "model_name": "gpt-5.5-2026-04-23",
+    "prompt_condition": "craft",
+    "allocated_at": "2026-08-22T07:28:30.942Z"
   }
 }

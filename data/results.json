@@ -3315,5 +3315,36 @@
     "retry_count": 0,
     "retry_log": [],
     "notes": ""
+  },
+  {
+    "result_id": "RES-decfd15b-35c3-4eca-8d44-45de11aa51d1",
+    "task_id": "T027",
+    "task_version": "v1-b9f1fd75fad6bf27279f887041d5aa7a",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T07:28:30.951Z",
+    "raw_model_output": "**Recommendation:** Yes, the company can proceed under Section 4.2, but it should do so with two safeguards: confirm there is no separate agreement altering ownership, and handle attribution deliberately.\n\nThe policy is clear that work product created with company equipment during paid hours belongs to the company and may be reused, modified, or published without further consent. On the facts, the illustrations were created over three weeks for an internal training deck, using a company laptop during work hours. That places the work squarely within the policy. The designer’s later departure does not change the company’s right to use the work.\n\nThat said, this use is materially different in visibility and purpose from the original internal training use. Publishing the illustrations as the centerpiece of a public brand campaign increases reputational sensitivity. Before launch, HR/legal should quickly check the designer’s employment agreement, any IP assignment terms, freelance/contract status if relevant, and any written side arrangement about portfolio use or attribution. If those documents are consistent with the policy, no further consent is required.\n\nOn credit, the policy allows publication “without further consent,” but it does not expressly address attribution. Crediting only the company is likely permissible if that is the company’s standard approach for employee work product. However, leadership should consider whether omission of the designer’s name could create avoidable employee-relations or public-relations friction, especially because the designer already displays the work in their portfolio.\n\nMy advice is: proceed, but notify the former designer courteously before launch, making clear the company owns the work and will use it in the campaign. Do not ask for permission unless you are prepared to treat refusal as meaningful. If marketing strongly prefers company-only credit, that is acceptable, but ensure internal records preserve the designer’s authorship contribution. If brand values support visible creative attribution, a discreet credit could reduce friction without weakening ownership.",
+    "anonymized_output_id": "OUT-0130",
+    "truncated": false,
+    "reasoning_tokens": 0,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
   }
 ]
