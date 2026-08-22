@@ -6780,5 +6780,54 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response has exactly five bullets under 20 words and includes the January audit rationale, current schedule position, and training/readiness risks. However, it repeatedly uses semicolons to concatenate facts, includes lower-priority vendor account-lead changes and parallel-run detail, and does not clearly prioritize selection over compression."
+  },
+  {
+    "evaluation_id": "EVAL-ee8c7d99-7923-4069-b3d6-7f11738f73ab",
+    "result_id": "RES-066d17f6-12ac-42b0-be68-c9038c3ee452",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T15:39:10.552Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 2,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 6,
+    "retry_count": 3,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      },
+      {
+        "attempt": 3,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 8000
+      }
+    ],
+    "evaluator_justification": "The response adheres to the bullet and word counts and includes no preamble or closing, but it violates two explicit constraints: it uses semicolons to concatenate distinct facts within single bullets, and it fails to omit lower-priority details (explicitly retaining the vendor account-lead changes instead of filtering material for the reader). However, it successfully captures the essential rationale (January audit), schedule position, and training readiness risk, earning full completeness."
+  },
+  {
+    "evaluation_id": "EVAL-81d698a2-4001-498a-a25e-687208ea3816",
+    "result_id": "RES-066d17f6-12ac-42b0-be68-c9038c3ee452",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T15:39:28.362Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 2,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 6,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response hits the bullet count and word limits, includes the audit rationale, schedule position, and a training-readiness risk, but it violates two explicit constraints: it uses semicolons to concatenate multiple facts into single bullets (bullets 1 and 2), and it retains the vendor account-lead change that should have been omitted as lower-priority detail for a new board member. These are the exact evasions the task rubric flags as failure modes, so despite accurate content and correct format mechanics, the summary does not demonstrate genuine prioritization or full adherence to the no-concatenation rule."
   }
 ]
