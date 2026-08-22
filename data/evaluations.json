@@ -4079,5 +4079,433 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response correctly states the outcome (ineligible/deny) in the first sentence and does not recommend approval, and it appropriately separates sympathetic factors from the rule outcome without altering the result. However, it fails to state the specific shortfall figure (18 vs. 24, a deficit of 6) and, most significantly, offers no alternative courses of action for the administrator (e.g., hardship referral, future-cycle timing, alternative funding), which the rubric explicitly requires and flags as \"correct but unhelpful\" when absent. These two omissions reduce both constraint adherence and logical accuracy, and the missing alternatives also cost a completeness point."
+  },
+  {
+    "evaluation_id": "EVAL-9d291229-5dce-459d-89be-e22d10719405",
+    "result_id": "RES-ccc6bcdb-9b5d-4bed-b107-56eb31c43a09",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:35:33.919Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response satisfies all constraints by explicitly stating the direct policy conflict, citing all specific timing figures (30-day deletion deadline, 90-day dispute timeline, and 8-month age within the 24-month retention period), distinguishing textual precedence from organizational authority, and explicitly escalating the final decision to legal/privacy compliance without deciding unilaterally."
+  },
+  {
+    "evaluation_id": "EVAL-1d0eae4c-d601-4a02-adf7-5a4ba47dc8f0",
+    "result_id": "RES-ccc6bcdb-9b5d-4bed-b107-56eb31c43a09",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:35:40.455Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response explicitly identifies that the two policies directly conflict and cannot both be satisfied as written, cites the relevant timing figures including the 30-day deletion clock, transcripts being 8 months into a 24-month retention period, and the dispute being about 90 days away, and avoids treating either policy as straightforwardly controlling. It distinguishes the substantive precedence issue from decision authority by saying support should not decide and legal/privacy compliance should sign off. It also escalates to appropriate functions while offering interim risk-management steps without claiming unilateral authority to resolve the policy hierarchy."
+  },
+  {
+    "evaluation_id": "EVAL-6191e177-e745-4864-8930-553757d9a6f0",
+    "result_id": "RES-7e5a0942-2981-4c7d-9612-bceca37b36dd",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:36:35.694Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 7,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly identifies that the policies conflict and appropriately escalates the decision to Legal/Privacy/DPO rather than resolving precedence unilaterally. However, it fails to state all the specific timing figures that create the conflict, completely omitting the dispute review scheduled 90 days away and the transcripts being 8 months into their 24-month retention period."
+  },
+  {
+    "evaluation_id": "EVAL-596eb786-c095-4a15-a8f8-f0bb6c1b4edd",
+    "result_id": "RES-32a64dcc-d790-4376-8dec-d90c3dee7d52",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:36:38.469Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 7,
+    "retry_count": 3,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      },
+      {
+        "attempt": 3,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 8000
+      }
+    ],
+    "evaluator_justification": "The response clearly identifies the policy conflict, avoids unilaterally resolving precedence, and properly escalates the decision to Legal/Compliance and the Data Protection Officer. However, it fails to include all specific timing figures that define the conflict by omitting the fact that the dispute review is scheduled 90 days away, preventing full marks across the criteria."
+  },
+  {
+    "evaluation_id": "EVAL-52f208f4-79de-4b95-8a26-c7b98a1f6f48",
+    "result_id": "RES-32a64dcc-d790-4376-8dec-d90c3dee7d52",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:36:48.033Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 6,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly identifies a direct conflict and names escalation targets such as Legal/Compliance and the DPO, and it avoids treating either policy as simply governing. However, it omits the specific 90-day dispute review date, so the full timing conflict is not stated. It also partly oversteps by advising “Do not delete the transcripts within the 30-day window” and saying they should be held pending dispute resolution, which effectively favors the retention policy rather than leaving precedence to the proper authority."
+  },
+  {
+    "evaluation_id": "EVAL-da63ac8a-b996-4e23-afb4-c124525f635a",
+    "result_id": "RES-7e5a0942-2981-4c7d-9612-bceca37b36dd",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:37:03.686Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 7,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly identifies that the deletion and retention policies conflict and refuses to apply either one straightforwardly, and it appropriately escalates to Legal/Privacy/DPO or the policy owner rather than resolving precedence itself, opting instead for an interim preservation/hold approach pending formal review. However, it omits the specific timing figures that make the conflict concrete—the 90-day-away dispute review and the transcripts being 8 months into the 24-month retention period—citing only the 30-day deletion window and 24-month retention period in general terms. This omission weakens both the logical demonstration of why the conflict is acute and the completeness of the required timing detail, even though the overall structure (conflict statement, escalation, non-unilateral resolution) is otherwise sound."
+  },
+  {
+    "evaluation_id": "EVAL-55551476-9cdf-476c-a180-a6556e7214b8",
+    "result_id": "RES-cee80bf3-5bd1-4bbb-b2b8-6bcb4e44da4f",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:37:06.230Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 7,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The model correctly identifies that the policies conflict, avoids unilaterally resolving the precedence question, and appropriately escalates to specific relevant roles (Legal, Privacy/Data Protection, Compliance). However, it fails to cite all the specific timing figures that illustrate the conflict (specifically omitting that the dispute review is 90 days away and the transcripts are 8 months into the 24-month period, only mentioning 24 months and 30 days)."
+  },
+  {
+    "evaluation_id": "EVAL-12c5fe25-3692-4021-9c41-11187baefd01",
+    "result_id": "RES-cee80bf3-5bd1-4bbb-b2b8-6bcb4e44da4f",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:37:15.728Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 7,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly identifies that the retention and deletion policies conflict, avoids resolving precedence unilaterally, and names concrete escalation targets (Legal, Privacy/DPO, Compliance, dispute owner), satisfying most constraints. However, it omits the specific timing figures required by the task—the 90-day dispute review window and the transcripts being 8 months into a 24-month retention period—mentioning only the 30-day deletion deadline and the 24-month retention length. This omission weakens both the logical accuracy (which required all figures to be cited) and completeness (missing the full timing detail), while the core conflict identification, precedence/authority distinction, and escalation elements are otherwise well handled."
+  },
+  {
+    "evaluation_id": "EVAL-48a2e86d-5244-41b2-b7d3-fafe9e5393c7",
+    "result_id": "RES-5941c8af-3376-426a-9991-fc3ecb5b6646",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:37:28.350Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response perfectly adheres to all instructions and constraints. It outlines an eight-step sequential decision process with clear documentation requirements at every step, directly addresses procedural measures for the two pre-committed members (disclosure, recusal criteria, evidence-linked justification), and maintains a strictly procedural focus without evaluating the merits of the agreement or recommending an outcome."
+  },
+  {
+    "evaluation_id": "EVAL-6864877c-4af6-46a5-bb22-91b87923a4e9",
+    "result_id": "RES-5941c8af-3376-426a-9991-fc3ecb5b6646",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:37:33.824Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response provides a clear sequential process with more than three distinguishable steps and specifies documentation for every step. It stays focused on procedural design rather than recommending approval or rejection, and it avoids evaluating the agreement’s merits. It addresses the two publicly committed members through disclosure on the record, documentation of prior commitments, recusal decisions and rationale, and sequencing safeguards. The process, documentation requirements, and pre-commitment handling measures are all present and logically sound."
+  },
+  {
+    "evaluation_id": "EVAL-3dfbe17b-ee5d-4a34-a9c8-2fc3632e67c9",
+    "result_id": "RES-b21461d7-6ffa-4d68-b1ae-07a1097b4de9",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:38:20.760Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response perfectly adheres to all constraints by setting out a sequential 10-step procedural framework, specifying explicit documentation requirements for each step, maintaining strict neutrality without evaluating the merits of the agreement, and providing concrete procedural measures in Step 3 to handle pre-committed decision-makers."
+  },
+  {
+    "evaluation_id": "EVAL-9bfbc46c-0253-4c09-93fa-e52014a43dcc",
+    "result_id": "RES-b21461d7-6ffa-4d68-b1ae-07a1097b4de9",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:38:42.846Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response delivers a clearly staged, sequential process (ten steps, well beyond the minimum three), with explicit documentation requirements at every step, satisfying the record-keeping constraint. It directly addresses the pre-committed council members with concrete procedural measures—declaration of position, confirmation of open-mindedness, and possible recusal informed by legal advice—fulfilling the pre-commitment constraint. Throughout, it maintains a strict process focus (defining criteria, evidence-gathering, deliberation, reasons, record preservation) without ever asserting or implying whether the agreement should be approved, and it avoids conducting an actual stakeholder analysis or merits-weighing itself, instead describing how the council should structure such considerations procedurally. This fully meets all five constraints and the rubric's completeness and accuracy criteria."
+  },
+  {
+    "evaluation_id": "EVAL-88fea014-b3d3-4b61-aa5e-13b1ae13bc8e",
+    "result_id": "RES-bedd0a3e-d087-487f-8621-dd059de3cada",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:39:10.901Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 3,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      },
+      {
+        "attempt": 3,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 8000
+      }
+    ],
+    "evaluator_justification": "The response adheres strictly to all specified constraints by providing a multi-step sequential process focused purely on procedural defensibility without evaluating the agreement's substantive merits or recommending an outcome. It specifies documentation requirements for each step, comprehensively addresses the pre-committed members via a formal legal ruling and recusal/predetermination test, and completely avoids turning into a stakeholder analysis."
+  },
+  {
+    "evaluation_id": "EVAL-31144772-7503-40db-b805-fee6358831d1",
+    "result_id": "RES-bedd0a3e-d087-487f-8621-dd059de3cada",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:39:14.262Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response clearly answers the process question rather than the outcome question, explicitly distinguishes process from merits, and avoids recommending approval or rejection. It provides more than three sequential, distinguishable steps and specifies records/documentation for every step. It directly addresses the two publicly committed members with concrete procedural measures including declaration, legal/standards ruling, and possible recusal. It does not substitute a stakeholder or merits analysis for the requested procedural description."
+  },
+  {
+    "evaluation_id": "EVAL-afe339b6-014c-40db-8479-2b0de4176049",
+    "result_id": "RES-959d31d4-c2e4-40ef-ae77-af73ffe35277",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:39:40.085Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response adheres to all five constraints by providing appropriate preservation and escalation steps, identifying specific information gaps, maintaining conditional language, explicitly noting that the 4.2 GB figure cannot be interpreted without a peer baseline, and cautioning against both premature sanctions and outright dismissal."
+  },
+  {
+    "evaluation_id": "EVAL-a83b98dc-bf1e-44c5-a64a-f4432c1e3e9b",
+    "result_id": "RES-959d31d4-c2e4-40ef-ae77-af73ffe35277",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:39:44.378Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response recommends multiple immediate information-gathering/preservation actions, including escalation to HR/Legal/Security, preserving logs, and gathering peer baseline data. It identifies several information gaps, specifically destination, lack of baseline for 4.2GB, and the anonymous tip’s unknown motive. It consistently treats the matter as an allegation rather than established fact, explicitly warns against premature adverse action, and does not dismiss the report. It correctly states that the 4.2GB figure cannot be judged without a baseline rather than treating it as corroborating evidence."
+  },
+  {
+    "evaluation_id": "EVAL-72695f6e-e52f-4780-925a-8f58739ef130",
+    "result_id": "RES-ae2b449b-9197-4c4c-ac86-52aa24969a20",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:39:53.904Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 2,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      }
+    ],
+    "evaluator_justification": "The response strictly answers the procedural question without drifting into an evaluation of the agreement's merits or making an outcome recommendation. It outlines a detailed sequential process with clear documentation requirements specified for every single step and directly addresses the management of pre-committed decision-makers through specific bias and recusal criteria in step 8."
+  },
+  {
+    "evaluation_id": "EVAL-118d2b22-dedd-42c8-8401-c9c5e3c5d890",
+    "result_id": "RES-ae2b449b-9197-4c4c-ac86-52aa24969a20",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:40:14.962Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response lays out a clearly sequential, well-structured process (identify remit, framework, relevant considerations, information gathering, conflict-of-interest management, consultation, deliberation, voting, reasons, implementation) with explicit \"Record:\" documentation requirements at nearly every step, satisfying the sequencing and documentation constraints comfortably. It directly addresses the two publicly-committed members in Step 8, giving a concrete procedural test (open-mindedness vs. irrevocable commitment) as a recusal criterion, which meets the pre-commitment requirement. Throughout, the response consistently frames substantive matters (equity, financial value, data protection) as considerations the council must examine rather than offering its own evaluative conclusions about the agreement's merits, so it avoids producing a stakeholder analysis or recommending approval/rejection. The answer stays procedural throughout, correctly resisting the scenario's pull toward a substantive policy judgment, fulfilling all five constraints and the completeness criteria."
+  },
+  {
+    "evaluation_id": "EVAL-88510dc3-10ea-4d4c-a5ff-6fe830e23022",
+    "result_id": "RES-f6ada15a-3f63-4eb3-80a5-a1a882b8ebc8",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:41:18.868Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 3,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      },
+      {
+        "attempt": 3,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 8000
+      }
+    ],
+    "evaluator_justification": "The response satisfies all five constraints flawlessly. It recommends concrete preservation and information-gathering actions, explicitly names and investigates key information gaps (such as whether personal devices were involved and whether the download volume deviates from normal activity), maintains a clear distinction between unverified allegations and facts without presuming guilt, explicitly treats the 4.2 GB figure as requiring baseline comparison, and avoids both premature sanctions and premature dismissal of the report."
+  },
+  {
+    "evaluation_id": "EVAL-c90968bf-ac22-412d-994b-f96d33697f69",
+    "result_id": "RES-1ca83ea4-81c3-434d-b1cb-0b892a11af8e",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:41:42.991Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response successfully recommends evidence preservation and investigation steps, explicitly names key information gaps, avoids premature sanctions or dismissals, and maintains presumption of innocence. However, it partially falls into the quantitative trap by referring to the 4.2 GB figure as \"the only corroborating fact,\" conflicting with the strict requirement to treat the volume as entirely uninterpretable without an established baseline."
+  },
+  {
+    "evaluation_id": "EVAL-610a4ef7-7a82-418b-854d-f00cee3884ee",
+    "result_id": "RES-f6ada15a-3f63-4eb3-80a5-a1a882b8ebc8",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:41:45.527Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response treats the report as an unverified allegation throughout, uses consistently conditional language, and never asserts that the engineer took proprietary code. It recommends multiple concrete information-gathering/preservation steps (log preservation holds, baseline comparison of download volumes, checking device/endpoint records) rather than sanctions, explicitly flags the need to determine whether the 4.2 GB figure is \"actually unusual\" and warns against \"overinterpreting\" it without baseline data, and explicitly refuses to recommend suspension, removal, or access restriction targeted at the engineer while also refusing to dismiss the report as unfounded. It also surfaces the key information gaps (baseline volume, device destination, whether large downloads are normal for release work) as needing resolution before any conclusion. The response is thorough, well-organized, and satisfies all stated constraints without premature conclusions in either direction."
+  },
+  {
+    "evaluation_id": "EVAL-c312f009-7645-468c-b4d3-8eb7ef0bf6aa",
+    "result_id": "RES-1ca83ea4-81c3-434d-b1cb-0b892a11af8e",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:42:00.616Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 2,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 7,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response supplies solid preservation/investigation actions, keeps recommendations conditional (no suspension unless risk assessment warrants it, no dismissal), and lists multiple named information gaps (personal device/storage, unusual volume, legitimate scope) that must be resolved before any conclusion. However, it explicitly calls the 4.2 GB figure \"the only corroborating fact,\" directly treating it as evidence of the allegation before later hedging that its meaning depends on baseline comparison—this mixed treatment violates the core instruction to treat the figure as uninterpretable rather than corroborating, and it is the central trap the task is designed to test. This inconsistency also weakens logical accuracy, since the reasoning wavers between appropriate caution and quasi-corroborative framing rather than being uniformly conditional."
   }
 ]

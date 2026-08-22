@@ -3594,5 +3594,439 @@
     "retry_count": 0,
     "retry_log": [],
     "notes": ""
+  },
+  {
+    "result_id": "RES-ccc6bcdb-9b5d-4bed-b107-56eb31c43a09",
+    "task_id": "T030",
+    "task_version": "v1-8f055a37db33c6caf453889d41d7052c",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T07:35:20.051Z",
+    "raw_model_output": "## Short answer\n\nThe two policies as written **directly conflict** in this scenario, and neither text gives an explicit tie-breaker (no \"except where,\" no reference to the other policy, no stated hierarchy). This is not something support should resolve on their own — it needs a compliance/legal call. But I can tell you what the most defensible interim path looks like and why.\n\n## Where the conflict actually bites\n\n- Policy 1 requires retention for 24 months, full stop.\n- Policy 2 requires erasure within 30 days of a verified request, full stop.\n- The transcripts here are 8 months old (within the 24-month window) and are the subject of a verified deletion request (triggering the 30-day clock).\n\nNeither policy subordinates itself to the other. So on the literal text, the org is contractually/procedurally obligated to do two mutually exclusive things at once.\n\n## The fact that matters most: the active dispute\n\nMost data-minimization frameworks that \"verified deletion request → erase in 30 days\" language is modeled on (GDPR Art. 17, CCPA, etc.) carry a standard exception: personal data doesn't have to be erased if it's needed to **establish, exercise, or defend a legal claim** — and a customer-initiated, unresolved billing dispute where the transcript is cited as evidence is a textbook case of that.\n\nThe catch: **that exception isn't written into either policy text you gave me.** So I can't tell you \"policy 2 obviously yields here\" as a matter of the text — I can tell you it's the standard, defensible interpretation under the legal frameworks these policies typically implement. That distinction matters, because if I just told the support lead \"retain it, no problem,\" I'd be inventing an exception that isn't actually in front of me.\n\n## What I'd advise doing inside the 30-day window\n\n1. **Escalate now, don't decide at the support-lead level.** This is a genuine policy conflict with legal exposure either way (deletion could destroy evidence in an active dispute; non-deletion could violate a privacy commitment). Get legal/privacy compliance to sign off, in writing.\n\n2. **Segregate rather than fully resolve on day 1.** As an interim, defensible action:\n   - Retain *only* the specific transcript content actually tied to the active dispute, under a documented \"legal claim\" hold.\n   - Erase or anonymize any other personal data covered by the request that is *not* relevant to the dispute, to stay within the spirit of the 30-day requirement for everything else.\n\n3. **Document the rationale contemporaneously**: verified deletion request received [date], active dispute initiated by same customer, transcript cited as evidence, dispute resolution scheduled [date], legal hold applied to dispute-relevant data only. This paper trail is what would justify not fully complying with the literal 30-day erasure.\n\n4. **Notify the customer** that data directly relevant to their open dispute is being retained pending resolution (per legal-claims exception), with a firm commitment to delete it once the dispute closes or the 24-month cap is reached, whichever is sooner — and that unrelated personal data has been erased.\n\n5. **Set a hard trigger** for the dispute resolution date (~90 days out) to re-run the deletion request automatically once the legal basis for retention lapses.\n\n## Bottom line for the support lead\n\nDon't erase the dispute-relevant transcripts on day 30 based on Policy 2 alone, and don't sit on the entire deletion request based on Policy 1 alone. Get legal sign-off, segregate what's actually needed for the dispute, delete everything else on schedule, and document the exception being invoked — because that exception is an inference from how these policies are normally implemented, not something stated in the text you gave me.",
+    "anonymized_output_id": "OUT-0139",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-32a64dcc-d790-4376-8dec-d90c3dee7d52",
+    "task_id": "T030",
+    "task_version": "v1-8f055a37db33c6caf453889d41d7052c",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T07:35:48.689Z",
+    "raw_model_output": "## Position Under Each Policy\n\n**Policy 1 (Retention):** Requires these transcripts be kept for 24 months. At 8 months old, they fall squarely within the mandatory retention period, and their status as active evidence in an unresolved dispute reinforces the rationale for keeping them — they may be needed for regulatory audit or adjudication of the dispute the customer themselves initiated.\n\n**Policy 2 (Minimisation):** Requires erasure within 30 days of a verified deletion request. Taken alone, this transcript falls within scope and the clock is already running.\n\nThese two policies directly conflict on these facts. Neither text contains an exception for the other, so the conflict cannot be resolved by reading alone.\n\n## Advice\n\nDo not delete the transcripts within the 30-day window, and do not treat the deletion request as fully actioned. The active, unresolved billing dispute — initiated by this same customer — is a strong operational and legal reason to preserve the data as evidence; erasing it could prejudice the dispute process itself, potentially harming the customer's own position, and could breach retention/audit obligations. Acknowledge the deletion request to the customer within the window and explain that the transcripts tied to the open dispute are being held pending its resolution, with any other unrelated personal data actioned for deletion now. This is a genuine policy conflict, not a routine call — it should not be resolved unilaterally by the support lead.\n\n## Who Should Be Involved\n\nThis decision sits above the support lead's authority. It should be escalated to **Legal/Compliance** (to resolve the retention-vs-erasure conflict and confirm regulatory position) and the **Data Protection Officer or equivalent privacy lead** (to ensure the deletion-request response is compliant and properly documented). The support lead should log the escalation and hold action until guidance is received, well within the 30-day window.",
+    "anonymized_output_id": "OUT-0140",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-7e5a0942-2981-4c7d-9612-bceca37b36dd",
+    "task_id": "T030",
+    "task_version": "v1-8f055a37db33c6caf453889d41d7052c",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T07:36:18.903Z",
+    "raw_model_output": "The two policies conflict as written in this situation.\n\n- **Policy 1** requires retaining support transcripts for **24 months** for dispute resolution and audit.\n- **Policy 2** requires erasing **all personal data relating to the requester within 30 days** after a verified deletion request.\n- Here, the transcripts are both:\n  - personal data relating to the requester, and\n  - active evidence in a billing dispute initiated by that same requester.\n\nSo the support lead should **not simply delete the transcripts within 30 days without escalation**, because doing so could undermine the active dispute record and violate the retention policy. But they also should not ignore the deletion request.\n\nRecommended course within the 30-day window:\n\n1. **Escalate immediately to Legal/Privacy/DPO or the policy owner**\n   - This is a direct policy conflict.\n   - The support lead should ask for a formal decision or exception, especially because the transcripts are evidence in an active dispute.\n\n2. **Preserve the transcripts needed for the active billing dispute**\n   - Place them under a restricted “dispute/legal hold” or equivalent access control.\n   - Do not delete or alter evidence needed for the scheduled review unless Legal/Privacy approves.\n\n3. **Minimise where possible**\n   - Review whether any personal data in the transcripts is irrelevant to the billing dispute.\n   - Redact, segregate, or delete unnecessary personal data if doing so does not compromise the dispute evidence.\n   - Limit access to only those handling the dispute, audit, or compliance need.\n\n4. **Delete other personal data not needed for the dispute**\n   - If the customer has other personal data outside the transcripts that is not subject to a retention need, erase it within the 30-day window.\n\n5. **Document the decision**\n   - Record the deletion request date, verification, the active dispute status, the affected transcripts, the retention rationale, who approved the exception/hold, and what data was deleted or restricted.\n\n6. **Respond to the customer within the 30-day window**\n   - Inform them that their deletion request has been processed where possible, but certain support transcripts are being retained temporarily because they are needed for the active billing dispute they initiated.\n   - State that access has been restricted and the data will be reviewed again after the dispute is resolved.\n\nIn short: **do not fully erase the dispute-related transcripts inside the 30-day window without legal/privacy approval. Preserve only what is necessary for the active dispute, restrict access, delete everything else that can be deleted, and document the exception.**",
+    "anonymized_output_id": "OUT-0141",
+    "truncated": false,
+    "reasoning_tokens": 180,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-cee80bf3-5bd1-4bbb-b2b8-6bcb4e44da4f",
+    "task_id": "T030",
+    "task_version": "v1-8f055a37db33c6caf453889d41d7052c",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T07:36:51.842Z",
+    "raw_model_output": "## The position under each policy\n\n**Data Retention:** The support transcripts should be retained for 24 months because they support dispute resolution and regulatory audit. They are also currently evidence in an active billing dispute.\n\n**Data Minimisation:** The customer’s verified deletion request triggers a requirement to erase all personal data relating to the requester within 30 days.\n\n## The advice\n\nDo not treat this as a routine operational deletion. The two policies conflict on these facts: one requires retention of the transcripts for the active dispute, while the other requires erasure within 30 days.\n\nWithin the 30-day window, preserve the transcripts, restrict access to those handling the dispute, and escalate for a formal decision before the deadline. Do not delete the transcripts unless the authorised decision-makers confirm that deletion overrides retention in this case.\n\n## Who should be involved\n\nThe decision should involve Legal, Privacy/Data Protection, Compliance, and the billing dispute owner. The support lead should not decide this alone.",
+    "anonymized_output_id": "OUT-0142",
+    "truncated": false,
+    "reasoning_tokens": 0,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-5941c8af-3376-426a-9991-fc3ecb5b6646",
+    "task_id": "T031",
+    "task_version": "v1-740c0b9cf98e14ed6e286217f8306173",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T07:37:21.865Z",
+    "raw_model_output": "# Recommended Decision Process and Documentation Requirements\n\n## Step 1: Frame the Decision Question\n**Process:** Before debating positions, formally agree on what is actually being decided (e.g., \"Should the council approve, reject, or approve-with-conditions the proposed agreement?\"). Clarify the decision threshold (majority, supermajority, etc.) and who holds authority to approve.\n\n**Document:**\n- The exact decision question(s) before council\n- Applicable voting/quorum rules\n- Any statutory or charter constraints on council authority here\n\n## Step 2: Disclose Interests and Prior Positions\n**Process:** Members who have publicly committed to a position should disclose this on the record before deliberation, along with any financial, professional, or personal interests relevant to either party (transit authority or mobility company).\n\n**Document:**\n- Each member's disclosed interests\n- Prior public statements or commitments, with dates/context\n- Any recusal decisions and their stated rationale\n\n## Step 3: Establish Evaluation Criteria in Advance\n**Process:** Before reviewing specific proposal details, agree on the criteria by which the agreement will be judged (e.g., privacy safeguards, fiscal impact, equity effects, legal risk, precedent-setting concerns). This should happen *before* re-engaging with arguments for/against, to reduce motivated reasoning.\n\n**Document:**\n- The agreed criteria list\n- Rationale for inclusion/exclusion of criteria\n- Any dissent about the criteria themselves, with reasoning\n\n## Step 4: Gather and Present Evidence Against Each Criterion\n**Process:** Commission or request neutral staff analysis (legal, privacy/data protection, financial) addressing each criterion. Allow both proponents and skeptics to submit questions or request specific analyses in advance.\n\n**Document:**\n- All staff/expert reports, including authorship and methodology\n- Questions submitted by council members and responses given\n- Any data or analysis that was requested but not obtained, and why\n\n## Step 5: Public and Stakeholder Input\n**Process:** Provide a structured opportunity for public comment, ideally with advance notice of the criteria so input is responsive to them rather than freeform.\n\n**Document:**\n- Summary of input received, categorized by theme/criterion\n- How many submissions addressed each concern\n- Any input that changed the framing of criteria or raised new issues\n\n## Step 6: Deliberation\n**Process:** Structure discussion around the pre-agreed criteria rather than open-ended advocacy. Require members to explain how their position relates to the evidence and criteria, not just restate prior commitments.\n\n**Document:**\n- Key arguments made, attributed to criteria (not just \"member X said Y\")\n- Points of factual disagreement (not just value disagreement) and whether these were resolved\n- Any changes in position during deliberation, and stated reasons\n\n## Step 7: Decision and Rationale\n**Process:** Vote on the clearly framed question. Require (or invite) each member to state the primary basis for their vote, especially where it diverges from the majority.\n\n**Document:**\n- Final vote tally, by member\n- Stated rationale for each vote, particularly dissents\n- Any conditions attached to approval, and enforcement/review mechanism\n- A written decision record explaining how the outcome relates to the criteria established in Step 3\n\n## Step 8: Review Mechanism\n**Process:** Since two members had prior committed positions, consider building in a review point (e.g., 12-month audit of privacy compliance and fare-subsidy impact) to test whether the decision's assumptions held.\n\n**Document:**\n- Review triggers and metrics\n- Who is responsible for conducting the review\n- What would constitute grounds for revisiting the agreement\n\n---\n\n**Why this structure matters for defensibility:** The core vulnerability here is that two members' public commitments predate the evidence-gathering process. A defensible decision doesn't require those members to recuse or change their minds—but it does require that the *record* shows criteria were set before conclusions were revisited, that evidence was engaged with on its merits, and that the final rationale is traceable to something other than the pre-existing commitment. This protects the council's decision from legitimate challenge regardless of which way the vote goes.",
+    "anonymized_output_id": "OUT-0143",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-bedd0a3e-d087-487f-8621-dd059de3cada",
+    "task_id": "T031",
+    "task_version": "v1-740c0b9cf98e14ed6e286217f8306173",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T07:37:37.463Z",
+    "raw_model_output": "# Advice on Process for a Defensible Decision\n\nThe council has asked a process question, not a merits question. I answer only that. The following steps constitute a process capable of withstanding legal, public, and political scrutiny regardless of the outcome reached.\n\n---\n\n**1. Confirm the decision-making authority and threshold for approval.**\nEstablish whether this agreement requires full council vote, committee delegation, or executive approval under existing procurement or data-governance rules, and what majority or quorum applies.\n*Record:* The specific legal or charter provision relied upon, and the decision route confirmed before substantive debate begins.\n\n**2. Address the two publicly committed members before deliberation starts.**\nDetermine whether prior public statements amount to pre-determination (unlawful closed mind) or merely a disclosed leaning (lawful predisposition). Seek a ruling — from the monitoring officer, city solicitor, or standards body — on whether either member should recuse or may participate with a declared position.\n*Record:* The nature of each member's prior statement, the test applied, the ruling given, and the reasoning for permitting or excluding participation.\n\n**3. Define the decision-relevant criteria in advance of receiving evidence.**\nAgree publicly what factors will determine the outcome — e.g., privacy risk, re-identification risk of \"anonymised\" data, fiscal value of the subsidy, contractual exit terms, equity impacts on non-app users — before hearing arguments for or against.\n*Record:* The finalised criteria list, dated and minuted prior to the evidence session, so it cannot later be seen as reverse-engineered to fit a preferred outcome.\n\n**4. Commission independent technical and legal input.**\nObtain an independent assessment of the anonymisation methodology (re-identification risk), data protection compliance, and contractual/commercial terms, separate from information supplied by the private company or by staff advocating a position.\n*Record:* Who was commissioned, their terms of reference, their independence from both the company and interested council factions, and their findings in full — including caveats and dissenting technical opinions.\n\n**5. Hold a structured public evidence session, separate from the debate/vote.**\nReceive submissions from transit authority staff, the private company, privacy/data experts, and affected public groups (e.g., riders without smartphones, disability advocates) in a session focused on fact-gathering, not persuasion or rebuttal by council members.\n*Record:* All submissions received, questions asked by members, and answers given — verbatim minutes or transcript, not summary.\n\n**6. Circulate a written staff report applying the criteria to the evidence.**\nStaff should produce a report that maps the agreed criteria (Step 3) against the evidence gathered (Steps 4–5), stating clearly where evidence is contested, incomplete, or where risks cannot be fully quantified.\n*Record:* The report itself, its date of circulation (must precede the vote by a fixed minimum period per council rules), and any member requests for further information.\n\n**7. Conduct deliberation as a discrete, minuted agenda item.**\nMembers state their reasoning against the criteria, not general position statements. The chair should require members to reference which criterion their remarks address.\n*Record:* A substantive minute of each member's stated reasoning — not just attendance and vote — sufficient to reconstruct why the decision was made, criterion by criterion.\n\n**8. Take the vote and record it individually.**\n*Record:* Each member's vote by name, any declared interests or recusals actioned from Step 2, and any abstentions with reasons if given.\n\n**9. Issue a written decision notice with reasons.**\nThe notice should state the decision, the criteria applied, how the evidence was weighed against each, and how any conflicting expert or public input was resolved.\n*Record:* The published decision notice itself, retained as the primary document against which any future legal challenge or public inquiry will test the decision's defensibility.\n\n**10. Set a review or exit mechanism into the agreement, and set a review date for the process itself.**\nGiven contested implications, build in a scheduled review of the agreement's actual privacy and equity impact.\n*Record:* The review date, the metrics to be assessed at that review, and who is responsible for reporting back to council.\n\n---\n\n**Summary point:** A defensible decision is not defined by which way the vote falls, but by whether an outside reviewer — court, ombudsman, or the public — can reconstruct from the record *why* the council decided as it did, using criteria fixed before the outcome was known, on evidence tested independently of the parties with a stake in the result.",
+    "anonymized_output_id": "OUT-0144",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-b21461d7-6ffa-4d68-b1ae-07a1097b4de9",
+    "task_id": "T031",
+    "task_version": "v1-740c0b9cf98e14ed6e286217f8306173",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T07:38:02.734Z",
+    "raw_model_output": "The council should follow a process that is lawful, transparent, evidence-based, and demonstrably focused on the relevant decision-making criteria. The key is not only to make a reasonable decision, but to create a clear record showing how the decision was reached.\n\n## Recommended process and documentation\n\n### 1. Define the decision to be made\n\nThe council should first state precisely what is before it.\n\n**Process**\n- Identify the proposed agreement, its parties, duration, scope, and legal form.\n- Clarify whether the council is being asked to approve, reject, amend, defer, or authorize further negotiation.\n- Identify any statutory or policy framework governing the decision.\n\n**Document**\n- The exact resolution or motion to be considered.\n- A summary of the proposed agreement.\n- The legal authority under which the council is acting.\n- Any relevant council policies, procurement rules, data governance policies, privacy obligations, or transit mandates.\n\n---\n\n### 2. Identify relevant decision criteria\n\nThe council should agree on the factors it may properly consider before debating the outcome.\n\n**Process**\nRelevant criteria may include:\n- Public benefit, including affordability and transit access.\n- Privacy and data protection.\n- Adequacy of anonymisation and safeguards against re-identification.\n- Equity impacts, including effects on low-income riders and vulnerable communities.\n- Financial implications for the city and transit authority.\n- Contractual protections, audit rights, enforcement mechanisms, and termination rights.\n- Compliance with applicable law.\n- Public trust and transparency.\n- Alternatives reasonably available.\n- Risks and mitigations.\n\nThe council should also identify irrelevant considerations, such as personal hostility to a party, political advantage, or factors outside the council’s legal mandate.\n\n**Document**\n- A list of relevant criteria.\n- A note of any excluded or irrelevant considerations.\n- The source of each criterion, where applicable: statute, policy, legal advice, prior council direction, or public interest mandate.\n\n---\n\n### 3. Check conflicts of interest and predetermination concerns\n\nBecause some members have publicly committed to positions, the council should address participation issues before substantive deliberation.\n\n**Process**\n- Ask all members to declare financial, personal, institutional, or other conflicts of interest.\n- Distinguish between a member having a public position and being unlawfully closed-minded, if that distinction exists under the applicable law.\n- Members who have expressed views should confirm whether they can still consider the evidence, listen to debate, and decide according to the relevant criteria.\n- If legal advice is needed on recusal or participation, obtain it before the vote.\n\n**Document**\n- Conflict declarations.\n- Any recusals and reasons.\n- Any legal advice received, at least in privileged summary form if appropriate.\n- Statements from members with prior public positions confirming their ability, or inability, to approach the decision with an open mind according to the evidence and applicable criteria.\n\n---\n\n### 4. Gather and disclose the evidence base\n\nThe council should ensure it has enough reliable information to make a reasoned decision.\n\n**Process**\nRequest or compile evidence on:\n- The data to be shared: categories, granularity, frequency, retention, and permitted uses.\n- The anonymisation method and residual re-identification risk.\n- Privacy impact assessment or equivalent analysis.\n- Security standards and access controls.\n- Subsidy structure and projected fiscal impact.\n- Expected ridership, affordability, and equity effects.\n- Contract terms, including restrictions on onward sharing, commercialization, audit, breach notification, penalties, and termination.\n- Alternatives considered.\n- Views of the transit authority, privacy officer, legal counsel, finance staff, and affected communities.\n\n**Document**\n- Staff reports.\n- Technical privacy or data protection assessments.\n- Legal and financial analyses.\n- Equity or impact assessments.\n- Public submissions.\n- Expert advice or external reports.\n- A record of what information was requested but unavailable.\n\n---\n\n### 5. Provide procedural fairness and public participation where required or appropriate\n\nThe council should give affected stakeholders a fair opportunity to comment, especially where the agreement implicates public data, transit access, and public subsidy.\n\n**Process**\n- Publish non-confidential materials in advance.\n- Hold a public meeting or consultation if required by law or appropriate given the significance of the issue.\n- Protect legitimately confidential information, such as security-sensitive data or privileged legal advice, while providing enough public information for meaningful input.\n- Allow the company, transit authority, riders, privacy advocates, community groups, and other stakeholders to make submissions.\n\n**Document**\n- Notice of meeting or consultation.\n- Materials made public.\n- Reasons for withholding any confidential material.\n- Written submissions received.\n- Minutes or transcript of oral submissions.\n- A summary of key themes raised in consultation.\n\n---\n\n### 6. Test the proposal against the decision criteria\n\nThe council should evaluate the proposal systematically rather than moving directly to political debate.\n\n**Process**\nFor each criterion, ask:\n- What evidence supports approval?\n- What evidence weighs against approval?\n- What uncertainty remains?\n- Can risks be mitigated through amendments, conditions, monitoring, or review?\n- Are there less intrusive or more effective alternatives?\n\nThis step should include explicit consideration of whether the public benefits justify the risks and obligations being accepted.\n\n**Document**\n- A decision matrix or structured analysis against each criterion.\n- Identified risks and proposed mitigations.\n- Any recommended amendments or conditions.\n- Areas of disagreement among staff, experts, or council members.\n- The treatment of alternatives.\n\n---\n\n### 7. Consider amendments, conditions, or safeguards\n\nIf the council is not limited to a simple yes/no vote, it should consider whether the agreement can be modified to address concerns.\n\n**Process**\nPossible safeguards to consider include:\n- Data minimisation.\n- Stronger anonymisation standards.\n- Prohibition on re-identification attempts.\n- Limits on use, resale, onward sharing, or combination with other datasets.\n- Independent audits.\n- Breach notification obligations.\n- Sunset clauses.\n- Periodic reporting.\n- Termination rights.\n- Public transparency reports.\n- Review after a pilot period.\n\n**Document**\n- Proposed amendments or conditions.\n- Whether each was accepted or rejected.\n- Reasons for accepting or rejecting significant safeguards.\n- Any revised agreement or term sheet.\n\n---\n\n### 8. Deliberate in a properly convened meeting\n\nThe council should ensure the actual decision is taken in accordance with applicable meeting, notice, quorum, and voting rules.\n\n**Process**\n- Confirm proper notice and agenda.\n- Confirm quorum.\n- Separate public and closed-session discussion appropriately.\n- Keep closed-session discussion limited to legally permitted topics, such as privileged legal advice or confidential commercial terms.\n- Ensure members address relevant factors and avoid relying on irrelevant considerations.\n- Permit debate before voting.\n\n**Document**\n- Agenda and notice.\n- Attendance and quorum.\n- Minutes.\n- Any closed-session basis or statutory authority.\n- Motions, amendments, and votes.\n- Any member abstentions or recusals.\n\n---\n\n### 9. Give reasons for the decision\n\nThe council should record reasons sufficient to show that it considered the relevant issues and reached a rational decision.\n\n**Process**\nThe reasons need not be lengthy, but they should explain:\n- The decision made.\n- The principal evidence relied on.\n- The main benefits considered.\n- The main risks considered.\n- How privacy, equity, financial, and public-interest issues were weighed.\n- Why any key safeguards, amendments, or alternatives were accepted or rejected.\n- Any monitoring or review requirements.\n\n**Document**\n- A written statement of reasons, either in the resolution, minutes, staff report adopted by council, or a separate decision document.\n- The final approved resolution.\n- Any conditions attached to the approval or rejection.\n- The vote tally.\n\n---\n\n### 10. Preserve the record\n\nA defensible decision depends on a complete administrative record.\n\n**Process**\nMaintain a clear file showing what was before the council when it decided.\n\n**Document**\n- Final agreement or rejected proposal.\n- Staff reports and appendices.\n- Legal, privacy, financial, technical, and equity assessments.\n- Public submissions.\n- Meeting notices, agendas, minutes, and recordings if applicable.\n- Motions and voting records.\n- Conflict declarations and recusals.\n- Written reasons.\n- Any implementation, monitoring, or reporting requirements.\n\n---\n\n## In short\n\nThe council should:\n\n1. Define the decision and legal authority.  \n2. Identify the relevant criteria.  \n3. Address conflicts and predetermination.  \n4. Assemble the evidence.  \n5. Allow required or appropriate public input.  \n6. Evaluate the proposal against the criteria.  \n7. Consider safeguards, amendments, and alternatives.  \n8. Deliberate and vote under proper meeting procedures.  \n9. Give clear reasons.  \n10. Preserve a complete record.\n\nThat process would help show that the council did not simply act on pre-existing positions, political pressure, or generalized views about data sharing, but instead made a reasoned decision based on relevant evidence, lawful considerations, and a documented balancing of public benefits and risks.",
+    "anonymized_output_id": "OUT-0145",
+    "truncated": false,
+    "reasoning_tokens": 15,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-ae2b449b-9197-4c4c-ac86-52aa24969a20",
+    "task_id": "T031",
+    "task_version": "v1-740c0b9cf98e14ed6e286217f8306173",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T07:39:10.646Z",
+    "raw_model_output": "1. **Confirm the council’s remit and the decision to be made.**  \n   The council should first identify the precise decision before it: whether to approve the proposed data-sharing agreement on the terms presented, approve it subject to specified conditions, defer it for further work, or reject it. It should also confirm the legal source of its authority to make the decision.  \n   **Record:** the decision-making power relied on, the exact proposal under consideration, the available decision options, and any limits on the council’s authority.\n\n2. **Set out the applicable legal, policy, and governance framework.**  \n   The council should identify the rules and policies governing the decision, including public-sector governance requirements, procurement or subsidy considerations if relevant, data protection and privacy obligations, equality or accessibility duties, and any local transport, digital, or open-data policies.  \n   **Record:** the legal and policy framework considered, including any mandatory requirements, discretionary criteria, and relevant internal policies.\n\n3. **Identify the relevant considerations and exclude irrelevant ones.**  \n   The council should determine what matters are relevant to the decision, such as the public benefit of reduced fares, the value and sensitivity of the data, safeguards around anonymisation, risks of re-identification, contractual controls, equity impacts, financial implications, public trust, operational consequences, and alternatives. It should also ensure that irrelevant considerations, such as party-political advantage or unrelated views about the private company, do not influence the decision.  \n   **Record:** the factors treated as relevant, any factors expressly excluded as irrelevant, and the basis for that distinction.\n\n4. **Obtain and present adequate information.**  \n   Members should receive a clear officer report or decision paper setting out the proposal, its purpose, benefits, risks, financial implications, legal implications, data governance arrangements, equality impacts, and options. Technical material should be explained in a way that enables non-specialist members to understand the practical effect of the agreement.  \n   **Record:** the reports, advice, data protection assessments, equality assessments, financial analysis, legal advice summaries where appropriate, and any technical appendices provided to members.\n\n5. **Undertake appropriate data protection and privacy assessment.**  \n   Because the proposal involves sharing anonymised ridership data, the council should be satisfied that the data is genuinely anonymised or otherwise handled lawfully, that the risk of re-identification has been assessed, and that safeguards are in place. Contractual terms should address permitted use, onward sharing, security, retention, audit, breach reporting, and termination.  \n   **Record:** the anonymisation assessment, any data protection impact assessment or equivalent analysis, the safeguards required, and the contractual controls proposed or mandated.\n\n6. **Assess public value, financial implications, and proportionality.**  \n   The council should examine whether the exchange of data access for reduced-fare subsidies represents a defensible use of public assets and authority. This includes assessing who benefits from the subsidies, whether the value exchange is transparent and proportionate, and whether alternative arrangements could achieve the same aims with fewer risks.  \n   **Record:** the financial appraisal, valuation or rationale for the exchange, expected public benefits, identified risks, considered alternatives, and reasons for accepting or rejecting those alternatives.\n\n7. **Consider equality, accessibility, and distributional impacts.**  \n   The council should assess whether the agreement would affect different groups differently, including low-income riders, disabled passengers, older people, students, and communities with lower digital access. It should consider whether the subsidy design promotes or undermines equitable access to transit.  \n   **Record:** the equality or equity assessment, the groups considered, any adverse impacts identified, mitigation measures, and how these matters influenced the decision.\n\n8. **Manage conflicts of interest, predetermination, and bias.**  \n   Members should declare any financial, personal, or institutional interests connected with the mobility company, the transit authority, or the agreement. Members who have publicly expressed views may participate if they remain open to persuasion and are able to consider the evidence with an open mind. Members who have irrevocably committed themselves, or who give the appearance of a closed mind, should not participate in the decision.  \n   **Record:** all declarations of interest, any advice given on participation, any recusals, and how concerns about predetermination or apparent bias were addressed.\n\n9. **Allow a fair opportunity for relevant input.**  \n   The council should follow any required consultation process and, where consultation is not legally required, consider whether targeted engagement is appropriate given the public interest and privacy implications. Input may be sought from the transit authority, privacy or data governance specialists, affected rider groups, equality bodies, and the company.  \n   **Record:** who was consulted or invited to comment, the information provided to them, responses received, key issues raised, and how those responses were taken into account.\n\n10. **Ensure members have sufficient time and access to advice.**  \n   Members should receive papers far enough in advance to review them properly. They should have access to legal, financial, technical, and data governance advice, and be able to ask questions before and during the meeting.  \n   **Record:** when papers were circulated, what advice was made available, questions raised by members, and responses given.\n\n11. **Conduct the meeting in a procedurally fair and orderly manner.**  \n   The chair should frame the decision, confirm the applicable procedure, manage declarations of interest, ensure relevant issues are addressed, and allow balanced debate. Members should confine themselves to relevant considerations and avoid relying on unsupported assertions.  \n   **Record:** attendance, declarations, procedural rulings, speakers or submissions heard, the substance of the debate, and any amendments or conditions proposed.\n\n12. **Test the proposed agreement against identified risks and safeguards.**  \n   Before voting, the council should consider whether identified risks can be adequately managed through conditions, revised contract terms, monitoring requirements, reporting duties, or review points. If approval is contemplated, the council should specify any conditions clearly.  \n   **Record:** the risks considered, safeguards accepted or rejected, proposed conditions, monitoring arrangements, and reasons for adopting or not adopting them.\n\n13. **Make the decision by the proper voting procedure.**  \n   The decision should be made by the body or committee with authority to decide, with quorum and voting rules observed. The motion should be clear, including whether approval is unconditional, conditional, deferred, or refused.  \n   **Record:** quorum, the motion voted on, any amendments, voting outcome, members voting for and against where required or appropriate, abstentions, and the final resolution.\n\n14. **Give clear reasons for the decision.**  \n   The council should state the principal reasons for its decision, showing that it considered the relevant evidence, weighed the benefits and risks, addressed privacy and equality implications, and acted within its powers. The reasons need not record every argument, but they should be sufficient to show a rational and lawful decision-making path.  \n   **Record:** the reasons for the decision, the main factors relied on, the weight given to key benefits and risks, and why the chosen option was preferred over the alternatives.\n\n15. **Document implementation, oversight, and review arrangements.**  \n   If the agreement is approved, the council should set out who is responsible for finalising and managing the agreement, what reporting is required, how compliance will be monitored, and when the arrangement will be reviewed. If the decision is to defer or reject, it should record any next steps or further work required.  \n   **Record:** delegated authorities, conditions precedent, contract finalisation requirements, monitoring and reporting arrangements, review dates, and any further actions directed by the council.",
+    "anonymized_output_id": "OUT-0146",
+    "truncated": false,
+    "reasoning_tokens": 0,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-959d31d4-c2e4-40ef-ae77-af73ffe35277",
+    "task_id": "T032",
+    "task_version": "v1-6c0755c497b19002f10cd795ed0e24ce",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T07:39:27.129Z",
+    "raw_model_output": "# Immediate Next Steps\n\nThe core discipline here: **separate investigative fact-finding from managerial action**, and don't let the ambiguity in \"what's not known\" turn into premature conclusions in either direction (guilt or dismissal).\n\n## 1. Do not investigate this yourself\nThis is now a matter for whoever handles insider threat / HR / legal investigations at your company (security team, HR, or outside counsel depending on size). The engineering manager's job today is to **route the allegation**, not resolve it. Acting alone risks:\n- Tipping off the employee before facts are gathered\n- Mishandling evidence in a way that limits future options (including termination or legal action)\n- Personal liability if this turns into an employment dispute\n\n**Action:** Escalate to HR/Legal/Security today, in writing, with the raw allegation and the log data. Let them decide investigative scope.\n\n## 2. Don't take unilateral action against the engineer yet\nWith current facts, there is:\n- No evidence of destination (company vs personal device)\n- No baseline to judge if 4.2GB is anomalous\n- An anonymous, unverified tip with unknown motive\n\nThis could be a legitimate leak, a disgruntled coworker, a misunderstanding of normal work patterns, or noise. **Removing the engineer from the release, restricting access, or confronting them today would be premature** and could constitute unjustified adverse action if the claim turns out to be baseless — which creates its own liability and morale/retaliation risk.\n\n## 3. Preserve evidence quietly\nAsk security/IT (not the manager personally) to:\n- Snapshot/preserve current access logs before they roll off retention\n- Hold off on any changes to the engineer's access that would look retaliatory absent cause\n- Begin quietly gathering comparative download data for peers in the same role, if feasible, to establish whether 4.2GB is in fact unusual\n\n## 4. Keep the manager's day job separate\nThe manager should continue managing the release normally. No behavioral changes toward the engineer, no leading questions, no informal \"checking in.\" Anything unusual in demeanor now looks like tipping off a target of an active review.\n\n## 5. Watch for reporter-motive complexity, but don't chase it today\nAnonymous + no evidence could mean retaliation, rivalry, or genuine concern. That's for the investigators to weigh — the manager shouldn't try to guess who sent it or interrogate team members informally.\n\n---\n\n**Bottom line for today:** Report up, preserve data, change nothing visibly, and let people with investigative authority and legal cover take it from here. The manager's job is containment and referral, not detection or judgment.",
+    "anonymized_output_id": "OUT-0147",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-68f0a154-7dae-406e-b849-a0f4136e0ddd",
+    "task_id": "T032",
+    "task_version": "v1-6c0755c497b19002f10cd795ed0e24ce",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T07:39:57.697Z",
+    "raw_model_output": "# Immediate Steps\n\n- Notify HR and Legal (or your designated investigations lead) before taking any other action — an allegation involving proprietary code exfiltration should be handled as a formal matter from the outset, not managed informally by the line manager alone.\n- Preserve the access logs and any related system records now, including requesting that IT suspend routine log rotation/deletion for this engineer's account.\n- Do not confront the engineer today. Any conversation before you have facts risks tipping off a potential bad actor or unfairly damaging a innocent employee's trust and standing.\n- Ask IT whether destination-device data can be reconstructed retrospectively (e.g. via endpoint logs, DLP tools, or proxy records), even though it isn't captured by default.\n- Ask IT or a data analyst to pull comparative download volumes for the rest of the team, or similarly-situated engineers, over the same period — this can likely be done today without alerting anyone.\n- Make no changes to the engineer's duties, access, or role on the release today. Removing them pending an unevidenced allegation is a significant step that should follow, not precede, at least a basic factual check.\n- Keep a written record of what you were told, when, and what actions you took — this protects both the process and the individual.\n\n# The Position on What Is Known\n\nYou have an anonymous, unevidenced allegation and one verifiable fact: a 4.2 GB download over a month. That download figure is not yet evidence of wrongdoing — it is a data point with no context. Anonymous reports must be taken seriously enough to check, but not seriously enough to act on directly. At this stage you have grounds to look, not grounds to conclude, and not grounds to act against the individual.\n\n# What Must Be Resolved Before Any Conclusion\n\n- Whether 4.2 GB is anomalous relative to a proper baseline for this role and team — without this, the headline figure is meaningless.\n- Where the data went: personal device, personal cloud account, or entirely within company-managed infrastructure. This is the single fact that would most change the picture, and it currently cannot be established from existing logs.\n- Whether the anonymous report has any correlation with the download activity, or is coincidental/unrelated — including consideration of motive (e.g. internal conflict, rivalry) that could indicate a malicious report.\n- Confirmation from Legal/HR on whether this meets the threshold for a formal investigation, and if so, that it proceeds through proper channels rather than the engineering manager acting unilaterally.\n\nUntil the device destination and baseline comparison are known, no inference of misconduct — or of innocence — is safe to draw.",
+    "anonymized_output_id": "OUT-0148",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-f6ada15a-3f63-4eb3-80a5-a1a882b8ebc8",
+    "task_id": "T032",
+    "task_version": "v1-6c0755c497b19002f10cd795ed0e24ce",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T07:40:43.030Z",
+    "raw_model_output": "Here’s a sensible “today” plan that protects the company without assuming guilt or unnecessarily disrupting the release.\n\n## Immediate principles\n\n- Treat this as an unverified allegation, not a finding.\n- Preserve evidence before changing anything.\n- Limit access to the matter to those with a need to know.\n- Avoid tipping off the engineer prematurely unless advised by Legal/HR/Security.\n- Do not rely on the engineering manager to investigate alone.\n\n## What to do today\n\n### 1. Escalate to the proper internal response group\n\nThe engineering manager should promptly notify:\n\n- Legal / General Counsel\n- HR or Employee Relations\n- Security / Insider Risk / IT\n- The engineer’s director or appropriate senior leader, if policy requires\n\nThis should be handled as a confidential intake, not as a normal management issue. The manager should not independently interview the engineer or the team today unless instructed.\n\n### 2. Preserve relevant evidence\n\nAsk Security/IT to place a preservation hold on relevant logs and records, including:\n\n- Source repository access logs\n- Authentication logs\n- VPN, SSO, MFA, endpoint management logs\n- DLP, proxy, email, cloud storage, and network logs if available\n- Device inventory and asset assignment records\n- Relevant ethics inbox metadata and original report\n\nDo not alter, delete, rotate, or “clean up” logs. Document who accessed what and when.\n\n### 3. Quietly establish basic context\n\nBefore taking action against the engineer, Security/Engineering Operations should determine whether the observed 4.2 GB is actually unusual.\n\nToday they can pull a quick comparison:\n\n- Download volumes for peer senior engineers over the same month\n- Download volumes for this engineer in prior months\n- Whether the release work required large repository syncs, build artifacts, submodules, binaries, or dependency pulls\n- Whether the downloads came from expected IP ranges, VPN locations, or corporate networks\n- Whether there were failed logins, unusual access times, new SSH keys/tokens, or access from unfamiliar geographies\n\nThe goal is not to prove misconduct today, but to decide whether urgent containment is justified.\n\n### 4. Determine whether company devices were involved\n\nSince destination devices are not logged at the repo level, check other sources:\n\n- MDM/endpoint records for assigned devices\n- VPN logs mapping device identifiers to sessions\n- EDR logs showing git clone, archive download, rsync, cloud-sync clients, USB activity, or compression tools\n- Browser/proxy logs showing uploads to personal storage providers\n- Corporate cloud access logs, if personal cloud services are blocked or monitored\n\nThis should be done by Security/IT under normal internal procedure and legal guidance.\n\n### 5. Avoid confronting the engineer today unless there is urgent risk\n\nThe engineering manager should not say: “We received an ethics complaint about you.”\n\nPremature confrontation can:\n\n- Alert a wrongdoer to destroy evidence\n- Create unfair reputational harm if the allegation is false\n- Complicate HR/legal handling\n- Disrupt the release unnecessarily\n\nIf an interview is needed, it should be planned by HR/Legal/Security, with a clear purpose and script.\n\n### 6. Consider proportionate, low-visibility risk reduction\n\nDepending on company policy and Legal/Security guidance, the company can take quiet steps that do not presume guilt, such as:\n\n- Ensuring the engineer’s access is limited to what is needed for the current release\n- Reviewing whether they have unnecessary admin or broad repository permissions\n- Increasing monitoring on repository and cloud-upload activity\n- Disabling stale tokens, unused SSH keys, or excessive privileges across the engineering org, not only this engineer\n- Confirming backups and build/release continuity\n\nAvoid highly visible actions like locking the engineer out, removing them from the release, or seizing devices unless preliminary evidence suggests urgent risk.\n\n### 7. Prepare a release continuity plan\n\nBecause the engineer leads a critical release, the manager should quietly ensure operational resilience:\n\n- Identify a backup technical lead\n- Confirm documentation and build/release steps are accessible\n- Ensure no single person controls credentials, deployment approvals, or release blockers\n- Keep this framed as normal release risk management, not as a disciplinary move\n\n### 8. Open a formal case record\n\nCreate a confidential case file documenting:\n\n- Date and time the allegation was received\n- Exact contents of the anonymous report\n- Known facts versus unknowns\n- People notified\n- Preservation steps taken\n- Decisions made and rationale\n- Any access changes or monitoring steps\n\nThis protects both the company and the employee.\n\n## What not to do today\n\nThe manager should not:\n\n- Accuse or confront the engineer\n- Search personal accounts or personal devices without legal authority and policy support\n- Tell the team or speculate about motives\n- Remove the engineer from the release solely based on the anonymous message\n- Ignore the report because it is anonymous\n- Overinterpret the 4.2 GB number without baseline data\n- Run an informal “quiet investigation” through peers\n\n## Recommended message to the engineering manager\n\n“You should treat this as a confidential, unverified security/HR/legal matter. Today, escalate to Legal, HR, and Security; preserve all relevant logs; ask Security to do a quick baseline and access-pattern review; and avoid confronting the engineer or disrupting the release unless preliminary facts show immediate risk. In parallel, create a release backup plan and ensure access is limited to business need.”",
+    "anonymized_output_id": "OUT-0149",
+    "truncated": false,
+    "reasoning_tokens": 29,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-1ca83ea4-81c3-434d-b1cb-0b892a11af8e",
+    "task_id": "T032",
+    "task_version": "v1-6c0755c497b19002f10cd795ed0e24ce",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T07:41:01.840Z",
+    "raw_model_output": "## The immediate steps\n\n- **Preserve relevant evidence now.** Instruct IT/security to retain repository access logs, authentication logs, endpoint records, VPN logs, DLP alerts, and any ethics inbox metadata. Do not alter the engineer’s account without preserving current access and activity records.\n\n- **Limit knowledge of the allegation.** Keep the matter to HR, legal/compliance, security, and the manager on a need-to-know basis. Do not discuss it with the engineer’s team or imply misconduct has occurred.\n\n- **Open a formal intake and triage.** Record the allegation, the known facts, what is not yet known, the potential risk, and the rationale for any immediate action taken.\n\n- **Assess immediate business and security risk.** Ask security to determine whether there is any current evidence of exfiltration, use of personal cloud services, unusual access times, abnormal repository patterns, or access to code outside the engineer’s normal responsibilities.\n\n- **Check whether the 4.2 GB figure is meaningful.** Obtain comparison data for similar engineers, similar repositories, and similar release periods if available. If not available, note that no conclusion can be drawn from volume alone today.\n\n- **Consider proportionate temporary safeguards.** If there is a credible current risk, apply targeted measures such as enhanced monitoring, restricting access to repositories not needed for the release, or requiring company-managed devices for repository access. Avoid suspension or broad access removal unless the risk assessment supports it.\n\n- **Protect the critical release without prejudging the engineer.** Identify contingency cover for key release tasks in case further action becomes necessary, but do not remove the engineer from the release solely on the current information.\n\n- **Plan an investigation.** Appoint an investigator or investigation lead, define the scope, identify records to review, and prepare an interview plan. Any interview with the engineer should occur after key technical records are preserved and reviewed.\n\n## The position on what is known\n\nAt present, there is an anonymous allegation without supporting evidence. The only corroborating fact is that the engineer downloaded 4.2 GB from the code repository over the past month. That fact may be significant or may be consistent with legitimate work, particularly given the engineer’s senior role and involvement in a critical release.\n\nThere is not yet evidence that the code was copied to a personal storage account, that the downloads went to a personal device, or that the engineer acted improperly. The manager should treat the matter as a security and conduct concern requiring prompt review, not as an established breach.\n\n## What must be resolved\n\nBefore any conclusion is reached, the investigation must establish:\n\n- whether the downloaded material was accessed or stored on company-managed systems or personal systems;\n- whether any transfer to a personal storage account occurred;\n- whether the engineer’s download volume and pattern were unusual for their role, team, repositories, and release activity;\n- whether the files accessed were within the engineer’s legitimate work responsibilities;\n- whether there are supporting technical indicators, such as cloud upload logs, endpoint activity, VPN activity, unusual access times, or access to unrelated repositories;\n- whether there is any credible information about the reporter’s basis of knowledge or possible motive;\n- whether the engineer has a legitimate explanation for the activity;\n- whether company policies clearly prohibited the conduct alleged and whether the engineer was aware of those policies.\n\nNo disciplinary or final employment conclusion should be made until these points have been investigated and assessed.",
+    "anonymized_output_id": "OUT-0150",
+    "truncated": false,
+    "reasoning_tokens": 0,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-4d8d0f7c-8a20-4016-b493-d85b27925e6a",
+    "task_id": "T033",
+    "task_version": "v1-c23f7fdb4b60e4bc3953c5f7bf029cdd",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T07:42:01.630Z",
+    "raw_model_output": "# Assessment: Rural Clinic Closure and Central Hospital Expansion Proposal\n\n## Summary of the Trade-off\n\nThis proposal presents a classic concentrated-cost, diffuse-benefit scenario. Before endorsing the \"clear overall benefit\" framing, the board should scrutinize several dimensions the raw figures don't capture.\n\n## Issues with the Aggregate Numbers\n\n**1. The 34,000 vs. 2,100 comparison is not apples-to-apples**\n- The 34,000 figure likely represents *improved* access (shorter waits, better equipment, expanded services) for people who *already have* some form of access.\n- The 2,100 figure represents patients who may face a **loss of access altogether**, not just reduced convenience.\n- A simple headcount comparison masks a difference in *kind*, not just degree, of impact.\n\n**2. The 65-minute average travel time likely hides a harmful distribution**\n- Averages can obscure a long tail. Some patients may face 20 extra minutes; others may face 2+ hours.\n- Board should ask for the **distribution** (median, 90th percentile, max), not just the mean.\n- 65 minutes each way is clinically significant for emergency conditions (stroke, cardiac events, obstetric complications) where \"time to treatment\" directly affects mortality/morbidity.\n\n**3. The 41% without private vehicle access is a critical red flag**\n- For this subgroup, \"65 minutes by car\" may translate to multiple hours via public transit, informal transport, or may be **effectively impossible**, amounting to a de facto denial of care.\n- This burden will not fall evenly — it will concentrate on lower-income, elderly, or disabled patients, raising equity and possibly legal/regulatory concerns (depending on jurisdiction's health equity obligations).\n\n**4. The savings figure is a proxy for benefit, not a measure of health outcomes**\n- $4.2M redirected to hospital capacity does not automatically equate to $4.2M (or any specific amount) of health benefit for the 34,000 patients.\n- The board should ask: what specifically will this funding buy (more beds? staff? equipment?), and what is the expected *clinical* impact per dollar?\n\n## What's Missing for a Genuine Cost-Benefit Assessment\n\nTo move from \"clear overall benefit\" to a defensible decision, the board should request:\n\n1. **Health outcome projections**, not just access/travel metrics — e.g., projected changes in delayed diagnoses, emergency outcomes, or preventable complications for the 2,100 rural patients.\n2. **Distributional breakdown** of the 65-minute figure and demographic profile of the 41% without vehicles (age, chronic conditions, income).\n3. **Mitigation options and their costs** — e.g., shuttle services, telehealth, mobile clinics — and whether these were costed against the $4.2M savings.\n4. **Counterfactual comparison**: What would the same $4.2M achieve if invested partially in rural transport/telehealth rather than fully redirected?\n5. **Time horizon and reversibility**: Clinic closures are hard to reverse; hospital expansion benefits may materialize gradually. Is there a phased or pilot approach?\n\n## Recommendation\n\nThe proposal should **not** be assessed as having a \"clear overall benefit\" based on the figures alone. The aggregate numbers favor the hospital expansion, but the *concentration* of severe harm on a vulnerable subgroup (particularly the ~860 patients without vehicle access) is not adequately weighed by a simple headcount comparison.\n\n**Suggested board action:** Request the outcome-level and distributional data above before approval. Consider whether a partial closure, phased timeline, or transport mitigation fund (carved out of the $4.2M) could preserve most of the efficiency gain while substantially reducing harm to the highest-risk rural patients.",
+    "anonymized_output_id": "OUT-0151",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-c787acf5-5247-4a20-a264-b914023db832",
+    "task_id": "T033",
+    "task_version": "v1-c23f7fdb4b60e4bc3953c5f7bf029cdd",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T07:42:15.786Z",
+    "raw_model_output": "# The Figures\n\n| Metric | Value |\n|---|---|\n| Patients gaining improved access (central hospital) | 34,000 |\n| Patients losing local access (rural clinics) | 2,100 |\n| Additional travel time, one way | 65 minutes |\n| Affected rural patients without private vehicle | 41% (≈861 patients) |\n| Annual savings redirected | £4.2 million |\n\n# The Assessment\n\nThe aggregate case is straightforward: 34,000 people gain against 2,100 who lose, and the funding released is substantial. On a simple numerical basis the proposal clears that bar easily.\n\nBut the board should not treat this as a single balance. The two groups are not experiencing the same kind of effect. The gain to the 34,000 is an improvement in service quality at a facility they already use — better capacity, likely shorter waits, more resource. The loss to the 2,100 is a change in the basic feasibility of access. A 65-minute additional journey each way is not an inconvenience of the same order as a marginal service gain; for patients managing chronic conditions, mobility limitations, or urgent needs, it can function as a denial of care rather than a delay of it.\n\nThe 41% without a private vehicle are the group that matters most in this assessment. For them, the 65-minute figure understates the real barrier, since it presumes a car journey; dependence on rural public transport, family, or paid transport will push effective travel time and cost considerably higher, and for some this will mean access failure rather than access difficulty. That is roughly 860 people for whom this proposal may not be a redistribution of service but a removal of it.\n\nSo the honest summary is: this is a strong proposal for the majority, financially sound, and defensible in aggregate terms — but it produces a serious, concentrated harm to a small, identifiable group who are disproportionately those least able to absorb it. The board should not approve this as if the aggregate benefit resolves that harm. It doesn't; it coexists with it. Approval, if given, should be paired with a mitigation obligation, not treated as a clean net positive.\n\n# What Would Change the Assessment\n\n- **Transport mitigation for the 41%**: A funded shuttle, subsidised transport scheme, or outreach/mobile clinic arrangement for those without a vehicle would materially change the calculus, since it addresses the group carrying the real risk rather than the average traveller.\n- **Evidence on clinical impact of delay**: If the 2,100 are mostly using the clinics for low-acuity or routine matters, the harm is inconvenience. If a meaningful share rely on them for urgent, chronic, or maternity-related care, the harm is materially greater than the headline figures suggest, and the assessment should shift accordingly.\n- **Reversibility and monitoring**: A commitment to monitor outcomes for the rural cohort (missed appointments, deteriorating conditions, A&E substitution) with a defined review point would justify proceeding on a provisional basis rather than a permanent one.\n- **Scale of the savings relative to mitigation cost**: If a meaningful fraction of the £4.2 million can fund transport or outreach mitigation without eroding the case for closure, that changes this from a trade-off the board must accept to a problem it can largely solve.\n\nAbsent any of these, the board is approving a proposal that helps many and materially harms a specific, disadvantaged few — and should decide that with its eyes open, not on the strength of the aggregate figures alone.",
+    "anonymized_output_id": "OUT-0152",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
   }
 ]
