@@ -92,6 +92,30 @@ describe("M1 — failures stay in the denominator", () => {
     assert.equal(st.primaryFailed, 1);
   });
 
+  test("per-judge reliability separates the primary from the secondaries", () => {
+    // The observed pattern: every retry is the primary judge, secondaries clean.
+    const st = computeEvalAttemptStats([
+      ...Array.from({ length: 5 }, () => mk("succeeded_after_retry", 1, true)),
+      mk("succeeded_first_try", 0, true),
+      ...Array.from({ length: 5 }, () => mk("succeeded_first_try", 0, false)),
+    ]);
+    const primary = st.byJudge.find((j) => j.evaluator_model === "gemini-3.7-flash")!;
+    const secondary = st.byJudge.find((j) => j.evaluator_model === "gpt-5.5-2026-04-23")!;
+    assert.equal(primary.role, "primary");
+    assert.equal(primary.attempts, 6);
+    assert.equal(primary.retried, 5);
+    assert.ok(Math.abs(primary.retryRate! - 5 / 6) < 1e-9);
+    assert.equal(secondary.role, "secondary");
+    assert.equal(secondary.retried, 0);
+    assert.equal(secondary.retryRate, 0);
+  });
+
+  test("a judge with no attempts of its own does not appear", () => {
+    const st = computeEvalAttemptStats([mk("succeeded_first_try", 0, true)]);
+    assert.equal(st.byJudge.length, 1);
+    assert.equal(st.byJudge[0].evaluator_model, "gemini-3.7-flash");
+  });
+
   test("an empty run has no rate rather than a zero rate", () => {
     const st = computeEvalAttemptStats([]);
     assert.equal(st.total, 0);

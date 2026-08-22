@@ -366,6 +366,32 @@ function main(): void {
         "        saved EvaluationRecord, so a rate computed over saved rows would drop\n" +
         "        failures from its own denominator and understate degradation."
     );
+
+    // Reportable instrument-reliability figure. The primary judge scored every
+    // cell in the study, so its retry rate is a property of the measurement,
+    // not an operational detail — it belongs in the methods section.
+    console.log("\n  JUDGE RELIABILITY  (all attempts on disk, for the methods section)");
+    console.log(
+      `    ${"judge".padEnd(22)} ${"role".padEnd(10)} ${"attempts".padEnd(9)} ` +
+        `${"retried".padEnd(16)} failed`
+    );
+    for (const j of st.byJudge) {
+      console.log(
+        `    ${j.evaluator_model.padEnd(22)} ${j.role.padEnd(10)} ` +
+          `${String(j.attempts).padEnd(9)} ` +
+          `${`${j.retried} (${((j.retryRate ?? 0) * 100).toFixed(1)}%)`.padEnd(16)} ` +
+          `${j.failed} (${((j.failureRate ?? 0) * 100).toFixed(1)}%)`
+      );
+    }
+    const primaryJudge = st.byJudge.find((j) => j.role === "primary");
+    if (primaryJudge) {
+      console.log(
+        `\n    PRIMARY JUDGE (${primaryJudge.evaluator_model}) retried on ` +
+          `${((primaryJudge.retryRate ?? 0) * 100).toFixed(1)}% of ${primaryJudge.attempts} calls\n` +
+          `    and failed outright on ${((primaryJudge.failureRate ?? 0) * 100).toFixed(1)}%. ` +
+          `Every score in the study passed through it.`
+      );
+    }
   }
 
   // -------------------------------------------------------------------- TIMING

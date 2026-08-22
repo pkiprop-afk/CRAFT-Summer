@@ -99,6 +99,42 @@ export interface EvalAttemptStats {
   primaryTotal: number;
   primaryRetried: number;
   primaryFailed: number;
+  /**
+   * Per-judge reliability. Reportable in its own right: the retry rate of the
+   * primary judge is a property of the instrument every score passed through,
+   * and belongs in the methods section rather than in an ops log.
+   */
+  byJudge: JudgeReliability[];
+}
+
+export interface JudgeReliability {
+  evaluator_model: string;
+  /** A judge is primary for some producing models and secondary for others. */
+  role: "primary" | "secondary" | "mixed";
+  attempts: number;
+  retried: number;
+  retryRate: number | null;
+  failed: number;
+  failureRate: number | null;
+}
+
+export function computeJudgeReliability(attempts: EvalAttemptRecord[]): JudgeReliability[] {
+  const models = [...new Set(attempts.map((a) => a.evaluator_model))].sort();
+  return models.map((model) => {
+    const rows = attempts.filter((a) => a.evaluator_model === model);
+    const asPrimary = rows.filter((r) => r.is_primary === true).length;
+    const retried = rows.filter((r) => r.retry_count > 0).length;
+    const failed = rows.filter((r) => FAILURE_OUTCOMES.has(r.outcome)).length;
+    return {
+      evaluator_model: model,
+      role: asPrimary === rows.length ? "primary" : asPrimary === 0 ? "secondary" : "mixed",
+      attempts: rows.length,
+      retried,
+      retryRate: rows.length === 0 ? null : retried / rows.length,
+      failed,
+      failureRate: rows.length === 0 ? null : failed / rows.length,
+    };
+  });
 }
 
 /**
@@ -140,5 +176,6 @@ export function computeEvalAttemptStats(attempts: EvalAttemptRecord[]): EvalAtte
     primaryTotal: primary.length,
     primaryRetried: primary.filter((a) => a.retry_count > 0).length,
     primaryFailed: primary.filter((a) => FAILURE_OUTCOMES.has(a.outcome)).length,
+    byJudge: computeJudgeReliability(attempts),
   };
 }
