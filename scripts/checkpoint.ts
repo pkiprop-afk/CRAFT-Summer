@@ -19,6 +19,7 @@ import {
   computeEvalAttemptStats,
   type EvalAttemptRecord,
 } from "../lib/evalTelemetry.ts";
+import { computeIrr } from "../lib/irr.ts";
 import type { EvaluationRecord, PromptCondition, ResultRecord } from "../types/index.ts";
 
 const REPO = process.cwd();
@@ -344,19 +345,45 @@ function main(): void {
         `   (scores kept; counted, not discarded)`
     );
     console.log(`    exhausted retries       ${st.exhausted}`);
+    console.log(
+      `    judge truncated         ${st.judgeTruncated}` +
+        `   (token limit hit before any text — a configuration defect)`
+    );
     console.log(`    unparseable             ${st.unparseable}`);
     console.log(`    failed (non-retryable)  ${st.failedNonRetryable}`);
     console.log("");
     // Reported separately and with raw counts: one measures instability, the
     // other measures loss. A run can be very retry-heavy and still lose nothing.
+    // Both denominators, explicitly labelled. The live gate uses the current
+    // leg; the cumulative figure spans every leg including earlier provider
+    // outages. They answer different questions and are not interchangeable.
+    const legStart = readJson<{ started_at?: string }>("current_leg.json", {}).started_at;
+    const legAttempts = legStart
+      ? attempts.filter((a) => Date.parse(a.recorded_at) >= Date.parse(legStart))
+      : [];
+    const legSt = computeEvalAttemptStats(legAttempts);
+
     console.log(
-      `  RETRY RATE                ${st.retried}/${st.total} = ` +
-        `${((st.retryRate ?? 0) * 100).toFixed(1)}%   (threshold 20%)`
+      `  RETRY RATE   current leg  ${legSt.retried}/${legSt.total} = ` +
+        `${((legSt.retryRate ?? 0) * 100).toFixed(1)}%   (threshold 60%, GATES the run)`
     );
     console.log(
-      `  FAILURE RATE              ${st.failed}/${st.total} = ` +
-        `${((st.failureRate ?? 0) * 100).toFixed(1)}%   (threshold 10%)`
+      `  RETRY RATE   all legs     ${st.retried}/${st.total} = ` +
+        `${((st.retryRate ?? 0) * 100).toFixed(1)}%   (reference only)`
     );
+    console.log(
+      `  FAILURE RATE current leg  ${legSt.failed}/${legSt.total} = ` +
+        `${((legSt.failureRate ?? 0) * 100).toFixed(1)}%   (threshold 10%, GATES the run)`
+    );
+    console.log(
+      `  FAILURE RATE all legs     ${st.failed}/${st.total} = ` +
+        `${((st.failureRate ?? 0) * 100).toFixed(1)}%   (reference only)`
+    );
+    if (legStart) {
+      console.log(`  current leg began ${legStart}`);
+    } else {
+      console.log("  (no current_leg.json — leg figures unavailable)");
+    }
     console.log(
       `  primary judge             ${st.primaryRetried}/${st.primaryTotal} retried, ` +
         `${st.primaryFailed}/${st.primaryTotal} failed`
@@ -392,6 +419,106 @@ function main(): void {
           `Every score in the study passed through it.`
       );
     }
+  }
+
+  // ------------------------------------------------------- PAIR-LEVEL MOVEMENT
+  const domainOf = new Map(
+    readJson<Array<{ task_id: string; domain: string }>>("tasks.json", []).map((t) => [
+      t.task_id,
+      t.domain,
+    ])
+  );
+  const delta = (p: Pair) => p.craft!.primaryTotal! - p.baseline!.primaryTotal!;
+  const wins = complete.filter((p) => delta(p) > 0).sort((a, b) => delta(b) - delta(a));
+  const losses = complete.filter((p) => delta(p) < 0).sort((a, b) => delta(a) - delta(b));
+
+  const pairLine = (p: Pair) =>
+    `    ${p.task_id.padEnd(5)} ${(domainOf.get(p.task_id) ?? "?").padEnd(15)} ` +
+    `${(tierOf.get(p.task_id) ?? "?").padEnd(7)} ${p.model.padEnd(21)} ` +
+    `${fmt(p.baseline!.primaryTotal, 0)} -> ${fmt(p.craft!.primaryTotal, 0)}  ` +
+    `${delta(p) > 0 ? "+" : ""}${delta(p)}`;
+
+  console.log(`\nPAIRS WHERE CRAFT > BASELINE  (${wins.length})`);
+  console.log(
+    `    ${"task".padEnd(5)} ${"domain".padEnd(15)} ${"tier".padEnd(7)} ` +
+      `${"model".padEnd(21)} base -> craft  delta`
+  );
+  if (wins.length === 0) console.log("    (none)");
+  for (const p of wins) console.log(pairLine(p));
+
+  console.log(`\nPAIRS WHERE CRAFT < BASELINE  (${losses.length})`);
+  console.log(
+    `    ${"task".padEnd(5)} ${"domain".padEnd(15)} ${"tier".padEnd(7)} ` +
+      `${"model".padEnd(21)} base -> craft  delta`
+  );
+  if (losses.length === 0) console.log("    (none)");
+  for (const p of losses) console.log(pairLine(p));
+
+  // Which subscore moved. The total can only fall because one or more of the
+  // three components fell, so attributing the loss says WHAT CRAFT cost.
+  if (losses.length > 0) {
+    console.log("\nWHAT DROVE THE LOSSES  (primary judge subscores, baseline -> craft)");
+    console.log(
+      `    ${"task".padEnd(5)} ${"model".padEnd(21)} ` +
+        `${"constraint/4".padEnd(14)} ${"logical/4".padEnd(14)} ${"complete/2".padEnd(14)} driver`
+    );
+    const driverTally = new Map<string, number>();
+    for (const p of losses) {
+      const b = p.baseline!;
+      const c = p.craft!;
+      const dCon = c.primaryConstraint! - b.primaryConstraint!;
+      const dLog = c.primaryLogical! - b.primaryLogical!;
+      const dCom = c.primaryCompleteness! - b.primaryCompleteness!;
+      const drops: Array<[string, number]> = [
+        ["constraint", dCon],
+        ["logical", dLog],
+        ["completeness", dCom],
+      ];
+      const worst = Math.min(...drops.map(([, v]) => v));
+      const drivers = drops.filter(([, v]) => v === worst && v < 0).map(([k]) => k);
+      const label = drivers.length === 0 ? "(none)" : drivers.join("+");
+      driverTally.set(label, (driverTally.get(label) ?? 0) + 1);
+      const cell = (from: number, to: number, d: number) =>
+        `${from}->${to} (${d > 0 ? "+" : ""}${d})`.padEnd(14);
+      console.log(
+        `    ${p.task_id.padEnd(5)} ${p.model.padEnd(21)} ` +
+          cell(b.primaryConstraint!, c.primaryConstraint!, dCon) +
+          cell(b.primaryLogical!, c.primaryLogical!, dLog) +
+          cell(b.primaryCompleteness!, c.primaryCompleteness!, dCom) +
+          label
+      );
+    }
+    console.log("\n  driver tally:");
+    for (const [k, v] of [...driverTally.entries()].sort((a, b) => b[1] - a[1])) {
+      console.log(`    ${k.padEnd(24)} ${v}`);
+    }
+  }
+
+  // ------------------------------------------------------------------------ IRR
+  const irr = computeIrr(mainScored);
+  console.log("\nINTER-RATER RELIABILITY  (primary vs secondary, complete cells only)");
+  console.log(`  n = ${irr.n} complete cells`);
+  console.log(
+    `\n  ${"metric".padEnd(34)} ${"max".padEnd(5)} ${"exact agreement".padEnd(17)} MAD`
+  );
+  for (const m of irr.metrics) {
+    console.log(
+      `  ${m.metric.padEnd(34)} ${String(m.max).padEnd(5)} ` +
+        `${`${m.percentExactAgreement}%`.padEnd(17)} ${m.meanAbsoluteDifference}`
+    );
+  }
+  console.log(`\n  ICC(3,1) on total_score_0_10: ${irr.icc31 ?? "not estimable"}`);
+  console.log(`  ${irr.iccNote}`);
+  console.log(
+    `\n  disagreements greater than ${irr.disagreementThreshold} points: ` +
+      `${irr.largeDisagreements.length}`
+  );
+  for (const d of irr.largeDisagreements) {
+    console.log(
+      `    ${d.task_id.padEnd(5)} ${d.model_name.padEnd(21)} ${d.prompt_condition.padEnd(9)} ` +
+        `primary ${d.primary_total} vs secondary ${d.secondary_total} (${d.secondary_model}) ` +
+        `= ${d.difference}`
+    );
   }
 
   // -------------------------------------------------------------------- TIMING
