@@ -4896,5 +4896,36 @@
     "retry_count": 0,
     "retry_log": [],
     "notes": ""
+  },
+  {
+    "result_id": "RES-64ee73ea-c2cf-4f47-b1ae-4e1905739fb8",
+    "task_id": "T040",
+    "task_version": "v1-7931538660a40975cdadedc2cb5e94d2",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T14:21:21.312Z",
+    "raw_model_output": "**Decision Scaffold: Choosing a Data Source**\n\nYour task is not just to pick a source, but to explain your thinking.\n\n1. **My chosen source is:**  \n   Source ___\n\n2. **This source is a good fit for the research question because:**  \n   “I chose this source because…”\n\n3. **The details in the source description that support my choice are:**  \n   -  \n   -  \n\n4. **I considered the other two sources. I did not choose them because:**  \n   - Source ___:  \n   - Source ___:  \n\n5. **If someone disagreed with my choice, I would defend it by saying:**  \n   “Although ___, I think ___ is the better choice because…”\n\nBefore submitting, check:\n\n- Have I explained *why* I chose this source?  \n- Have I used information from the source descriptions?  \n- Have I compared my choice with the other options?  \n- Have I given more than just “it is the biggest dataset” or “it has the most information”?",
+    "anonymized_output_id": "OUT-0181",
+    "truncated": false,
+    "reasoning_tokens": 117,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
   }
 ]
