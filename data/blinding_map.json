@@ -1251,5 +1251,12 @@
     "model_name": "claude-sonnet-5",
     "prompt_condition": "baseline",
     "allocated_at": "2026-08-22T14:15:44.704Z"
+  },
+  "OUT-0180": {
+    "token": "OUT-0180",
+    "task_id": "T040",
+    "model_name": "claude-sonnet-5",
+    "prompt_condition": "craft",
+    "allocated_at": "2026-08-22T14:18:32.777Z"
   }
 }

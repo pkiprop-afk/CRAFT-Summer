@@ -4865,5 +4865,36 @@
     "retry_count": 0,
     "retry_log": [],
     "notes": ""
+  },
+  {
+    "result_id": "RES-d36e6bf9-14e4-484c-8353-b3644c8fa636",
+    "task_id": "T040",
+    "task_version": "v1-7931538660a40975cdadedc2cb5e94d2",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T14:18:32.801Z",
+    "raw_model_output": "# Choosing Your Data Source: Working Sheet\n\nBefore you name a source, work through these steps. Write something for each one — you'll use these notes to build your explanation.\n\n**1. Read the research question again.**\nWrite down, in your own words, what it's actually asking you to find out.\n\n**2. List what you'd need from a data source to answer that question.**\nDon't look at the three sources yet. What would make a source useful *for this particular question* — not for research in general?\n\n**3. Now look at all three sources.**\nFor each one, note one way it matches something on your list from Step 2, and one way it falls short.\n\n**4. Check yourself.**\nIf one of your notes is \"it's bigger\" or \"it has more entries,\" ask: does size actually help answer *this* question, or just make the source look more thorough? Be honest about the difference.\n\n**5. Make your choice.**\nPick the source that matches the most of what you listed in Step 2 — not the one that seems most impressive.\n\n**6. Write your explanation using this frame:**\n\"I chose ___ because the question requires ___, and this source ___. The other sources fall short because ___.\"\n\nDo not skip to Step 6. Your reasoning has to come from Steps 1–4, not be invented afterward to justify a quick pick.",
+    "anonymized_output_id": "OUT-0180",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
   }
 ]
