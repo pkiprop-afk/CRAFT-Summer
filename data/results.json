@@ -3501,5 +3501,98 @@
     "retry_count": 0,
     "retry_log": [],
     "notes": ""
+  },
+  {
+    "result_id": "RES-0b6ee8d8-5479-4dbf-9a50-1ebb86775de0",
+    "task_id": "T029",
+    "task_version": "v1-4b9eb584b1091db75309e60f82942036",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T07:32:50.498Z",
+    "raw_model_output": "# Outcome\n\n**The application cannot be approved.** The applicant has completed 18 credit hours at the institution, falling short of the 24-hour threshold. This is not a borderline or ambiguous case requiring interpretation.\n\n# Reasoning\n\nThe rule sets a specific numeric threshold (24 credit hours \"at this institution\"), explicitly excludes transferred credits from that count, and closes with \"no exceptions.\" All three elements point the same direction: this is a bright-line eligibility rule, not a discretionary or holistic one.\n\nThe applicant's personal circumstances — first-generation status, work hours, GPA, financial need, risk of withdrawal — are genuinely sympathetic, but none of them bear on the question the rule asks, which is a mechanical count of institutional credit hours. The applicant has 18, not 24. The 30 transferred credits are explicitly disqualified from consideration, so the applicant is 6 hours short regardless of overall academic standing.\n\nThe stated misreading of the rule is understandable but does not change the credit count itself. Misunderstanding a rule does not satisfy it. If anything, the \"no exceptions\" clause anticipates and forecloses exactly this kind of case — a strong applicant who falls just short — because such cases are the ones administrators are most often asked to make exceptions for.\n\nApproving this application would not be applying the rule; it would be substituting a different rule (one that credits merit, hardship, or good-faith error) for the one actually written. That is a policy decision above the level of an individual application.\n\n# Options Remaining\n\n1. **Deny the application under the rule as written.** This is the outcome the rule compels.\n2. **Advise the applicant on re-application.** If they will reach 24 institutional credit hours before a future deadline, they can reapply then. Confirm whether this scholarship cycle recurs and when the next deadline falls.\n3. **Refer upward, not sideways.** If the administrator believes this case reveals the rule is too rigid or produces unjust results, the avenue is to raise it with whoever owns the scholarship policy — for prospective revision — not to grant an exception now. \"No exceptions\" means the administrator lacks authority to waive it unilaterally.\n4. **Point to other resources.** Given the stated financial hardship, check whether the institution has emergency aid, hardship funds, or other scholarships without this transfer-credit restriction that the applicant may qualify for immediately.\n5. **Document the denial reason clearly**, so the applicant understands it is a credit-hour shortfall rather than a judgment on their academic merit or effort — this matters given the emotional stakes they've described.",
+    "anonymized_output_id": "OUT-0136",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-0e1e8b68-5225-4b76-beeb-0fe9675e61c5",
+    "task_id": "T029",
+    "task_version": "v1-4b9eb584b1091db75309e60f82942036",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T07:33:22.631Z",
+    "raw_model_output": "Under the stated rule, the application **cannot be approved**.\n\nReason:\n\n- The rule requires applicants to have completed **at least 24 credit hours at this institution** by the application deadline.\n- It expressly says **transfer credits do not count**.\n- The applicant has completed only **18 credit hours at this institution**.\n- The additional **30 transferred credits** cannot be included.\n- The rule also says **“No exceptions.”**\n\nThe applicant’s strong GPA, financial hardship, first-generation status, work obligations, and misunderstanding of the rule are sympathetic factors, but they do not change the eligibility result under this rule.\n\n**Outcome:** Not eligible; the administrator should deny the application under the rule as written.",
+    "anonymized_output_id": "OUT-0137",
+    "truncated": false,
+    "reasoning_tokens": 14,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-728ca5fc-dbcb-4656-87ce-7b6124135f18",
+    "task_id": "T029",
+    "task_version": "v1-4b9eb584b1091db75309e60f82942036",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T07:34:18.896Z",
+    "raw_model_output": "## The outcome\n\nThe application cannot be approved under the rule as written.\n\n## The reasoning\n\nThe rule requires applicants to have completed **at least 24 credit hours at this institution by the application deadline**. It also states that **credits transferred from other institutions do not count** and that there are **no exceptions**.\n\nThis applicant has completed **18 credit hours at this institution**, which is **6 credit hours short** of the requirement. The applicant’s **30 transferred credits cannot be counted** toward the 24-credit threshold.\n\nThe applicant’s strong GPA, first-generation status, work obligations, financial need, and misunderstanding of the rule are all relevant circumstances from an equity or hardship perspective, but they do not change the result under this rule because the rule expressly excludes transfer credits and permits no exceptions.\n\n## The options remaining\n\n1. **Deny the application under this scholarship rule**, explaining that the applicant has not met the institutional credit-hour requirement.\n\n2. **Identify other available funding sources** for which the applicant may be eligible, such as emergency aid, retention grants, need-based institutional aid, departmental awards, donor-funded scholarships, or work-study adjustments.\n\n3. **Refer the applicant to financial aid advising** to review whether their aid package can be revised, including loans, grants, payment plans, emergency bursaries, or dependency/status-related considerations if applicable.\n\n4. **Encourage reapplication in a later cycle** if the applicant completes enough additional credits at the institution to meet the 24-credit requirement before a future deadline.\n\n5. **Consider prospective policy review**, if the institution believes the rule has unintended effects on transfer students or similarly situated applicants. Any change should be applied prospectively and consistently, not as an ad hoc exception in this case if the current rule remains in force.",
+    "anonymized_output_id": "OUT-0138",
+    "truncated": false,
+    "reasoning_tokens": 0,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
   }
 ]

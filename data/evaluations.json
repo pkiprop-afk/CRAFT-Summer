@@ -3987,5 +3987,97 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response clearly and unambiguously recommends Option B in a single sentence, satisfying the \"must not decline to choose\" requirement, and it offers an implicit reversal condition (running quick diagnostics before the deadline could justify submitting instead). However, it only clearly identifies one specific cost of Option B (risk to the student's funding renewal) rather than two distinct costs, and it never explicitly separates the question of research misconduct from the question of submission advisability, nor does it state that the facts indicate an honest processing error rather than fabrication—an omission the rubric flags as a required element. These two missing/incomplete constraints (sufficient costs, misconduct/advisability distinction) reduce the constraint-adherence score, and the logical-accuracy score is capped in the 2–3 range due to the missing misconduct discussion despite an otherwise coherent, decisive argument. Completeness is otherwise strong: a recommendation, at least one cost, and a reversal condition are all present."
+  },
+  {
+    "evaluation_id": "EVAL-c9436ea3-53dd-403f-8154-be51cfccbf37",
+    "result_id": "RES-85ece198-c9c9-45f5-9c16-ddc0b6c048a1",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:32:32.762Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 2,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      }
+    ],
+    "evaluator_justification": "The response adheres to all instructions and rubric constraints: it clearly denies the application in the first sentence, provides the exact credit arithmetic (18 vs. 24, shortfall of 6), firmly separates the strict application of the rule from policy design considerations, and suggests multiple valid non-waiver next steps for the administrator."
+  },
+  {
+    "evaluation_id": "EVAL-8cd0c91e-2273-4fa3-b755-59f2a044260d",
+    "result_id": "RES-85ece198-c9c9-45f5-9c16-ddc0b6c048a1",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:32:37.881Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response states the denial outcome in the first substantive sentence, gives the required arithmetic of 18 institutional credits against a 24-credit requirement with a 6-credit shortfall, and correctly excludes transfer credits. It clearly separates application of the rule from possible criticism or redesign of the policy, does not recommend approval, and offers non-waiver administrative options such as clearer communication, policy escalation, and alternative aid resources."
+  },
+  {
+    "evaluation_id": "EVAL-64a35684-5177-4f39-bbca-06654837af15",
+    "result_id": "RES-0e1e8b68-5225-4b76-beeb-0fe9675e61c5",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:33:49.718Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 2,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 5,
+    "retry_count": 3,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      },
+      {
+        "attempt": 3,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 8000
+      }
+    ],
+    "evaluator_justification": "The response correctly identifies the outcome within the first sentence, appropriately denies the application despite sympathetic factors, and notes the 18 vs. 24 credit requirement. However, it fails to state the exact shortfall of 6 credits, completely omits the required two non-waiver courses of action/alternatives for the administrator, and does not address the distinction regarding rule design."
+  },
+  {
+    "evaluation_id": "EVAL-2374d87c-22d4-4fe1-9e9b-66e345ed1811",
+    "result_id": "RES-0e1e8b68-5225-4b76-beeb-0fe9675e61c5",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:34:12.622Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 2,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 5,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly states the outcome (ineligible/deny) in the first sentence and does not recommend approval, and it appropriately separates sympathetic factors from the rule outcome without altering the result. However, it fails to state the specific shortfall figure (18 vs. 24, a deficit of 6) and, most significantly, offers no alternative courses of action for the administrator (e.g., hardship referral, future-cycle timing, alternative funding), which the rubric explicitly requires and flags as \"correct but unhelpful\" when absent. These two omissions reduce both constraint adherence and logical accuracy, and the missing alternatives also cost a completeness point."
   }
 ]

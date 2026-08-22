@@ -943,5 +943,26 @@
     "model_name": "claude-sonnet-5",
     "prompt_condition": "baseline",
     "allocated_at": "2026-08-22T07:31:41.635Z"
+  },
+  "OUT-0136": {
+    "token": "OUT-0136",
+    "task_id": "T029",
+    "model_name": "claude-sonnet-5",
+    "prompt_condition": "craft",
+    "allocated_at": "2026-08-22T07:32:50.488Z"
+  },
+  "OUT-0137": {
+    "token": "OUT-0137",
+    "task_id": "T029",
+    "model_name": "gpt-5.5-2026-04-23",
+    "prompt_condition": "baseline",
+    "allocated_at": "2026-08-22T07:33:22.623Z"
+  },
+  "OUT-0138": {
+    "token": "OUT-0138",
+    "task_id": "T029",
+    "model_name": "gpt-5.5-2026-04-23",
+    "prompt_condition": "craft",
+    "allocated_at": "2026-08-22T07:34:18.883Z"
   }
 }
