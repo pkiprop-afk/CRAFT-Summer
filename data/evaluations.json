@@ -11402,5 +11402,329 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response provides all four required figures, uses clear headings to separate executive and technical content, and includes a concrete follow-up action addressing the 3 uncovered certificates and the provisioning gap—strong points that satisfy constraints 2, 3, and 4, and give full completeness credit (executive summary, technical cause, and follow-up action are all present). However, the \"Executive Summary\" section explicitly names \"TLS certificate,\" \"renewal job,\" \"certificate inventory,\" and \"provisioning process\" within the first ~67 words—exactly the failure mode the task calls out as disqualifying for a non-technical reader—so both constraint 1 (impact/resolution/recurrence stated appropriately for the audience) and constraint 5 (no unexplained jargon in the first 100 words) are violated. This is the core \"averaging trap\" the task warns against: technical vocabulary leaks into the executive-facing opening, undermining the audience separation despite correct facts and honest treatment of recurrence risk (correctly stated as not fully prevented)."
+  },
+  {
+    "evaluation_id": "EVAL-2498c007-ecc2-4f88-bd26-1d82acf7b3c7",
+    "result_id": "RES-a207ca86-95cd-4b77-a982-39a880d19afc",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T19:50:43.719Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response perfectly satisfies all constraints by clearly identifying the order-of-operations bug (checking balance before adding the transaction), providing a clear step-by-step failing example, and supplying a clean, correct, runnable function without introducing edge-case bugs."
+  },
+  {
+    "evaluation_id": "EVAL-e3b9518c-8f6c-428e-b212-e2b0956abb64",
+    "result_id": "RES-7b79e645-e1c1-4e57-a33d-132112f768bc",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T19:50:46.150Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response satisfies all constraints flawlessly. It accurately calculates all four stratified hire rates and both aggregate rates, correctly identifies the reversal as Simpson's paradox driven by applicant mix, explains the underlying confounding mechanism clearly, and properly recommends Method B based on the department-level evidence while outlining appropriate caveats."
+  },
+  {
+    "evaluation_id": "EVAL-d1c1b8eb-8e34-4a8a-8abd-a0ac6813029e",
+    "result_id": "RES-a03e690d-0eb5-4616-a7d1-f792c10a44ed",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T19:50:49.431Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response adheres to all specified constraints, coming in under 300 words and clearly separating legal/policy permission from broader advisability. It identifies multiple affected parties (the company, the departed designer, the marketing team, and the public) and highlights unsupplied facts that could alter the recommendation (such as jurisdiction-specific moral rights laws and internal attribution decisions) without collapsing policy permission into ethical advisability."
+  },
+  {
+    "evaluation_id": "EVAL-8b73c694-0d2d-4198-8ff1-a8cf92b15060",
+    "result_id": "RES-8dbcfeee-afc0-4bf6-a5c0-868885dc7cb6",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T19:53:12.916Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 2,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      }
+    ],
+    "evaluator_justification": "The response adheres to all constraints by clearly citing the aggregate and distributional figures (34,000 vs. 2,100 non-overlapping patients), identifying the specific rural group characteristics (65-minute travel time increase and 41% vehicle-less rate), distinguishing aggregate net benefit from distributional acceptability, proposing viable mitigations (such as transport provision and phased/minimal presence), and avoiding both reflexive endorsement based on the ratio and blanket rejection based solely on the existence of harm."
+  },
+  {
+    "evaluation_id": "EVAL-02a73da2-7947-49f0-abef-09cf594d2555",
+    "result_id": "RES-82046da9-8386-4e60-98df-4e7bed5f90d9",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T19:53:28.725Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 2,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      }
+    ],
+    "evaluator_justification": "The response adheres to all instructions and constraints: it is fully student-facing and under 200 words (approx. 154 words), includes multiple open prompts that require students to generate reasoning rather than select options, supports the evaluation process without supplying evaluation criteria, and neutrally prompts students to examine the assumption of dataset size without labeling it as incorrect or providing worked examples."
+  },
+  {
+    "evaluation_id": "EVAL-384e786c-d31d-40e5-ad83-2254e0d30e35",
+    "result_id": "RES-a7d90623-341a-4421-b5e9-a141db03244b",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T19:53:39.734Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response perfectly adheres to all constraints by directly answering the question in the first sentence under the 100-word limit, providing the exact settlement date of 4 April, and maintaining strict scope discipline without raising contract renewals or scope expansions."
+  },
+  {
+    "evaluation_id": "EVAL-4577e2b3-9d14-47c1-a131-eb21090caec6",
+    "result_id": "RES-e22fc85e-df82-4789-91c8-69a933600987",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T19:53:44.589Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response successfully includes all four required figures, adheres to the length and structure constraints with clear sections for both audiences, accurately assesses recurrence risk, and details concrete follow-up actions for the provisioning gap. However, it fails the non-technical constraint for the executive summary by explicitly referencing \"TLS certificate\" expiry and the automated renewal system within the first 100 words, warranting a 1-point deduction in constraint adherence and logical accuracy."
+  },
+  {
+    "evaluation_id": "EVAL-8fee2cf8-2787-47a0-9d23-d2ec0303b781",
+    "result_id": "RES-adbf159c-33eb-40e6-b461-73c5448aae36",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T19:54:03.301Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 2,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      }
+    ],
+    "evaluator_justification": "The response adheres to the overall word count limit, provides all four required metrics, utilizes clear structural separation, and includes actionable follow-up steps for the provisioning gap. However, it violates Constraint 5 by mentioning certificate reissuance, automated renewal coverage, and certificate-related outages within the non-technical executive opening (the first 100 words)."
+  },
+  {
+    "evaluation_id": "EVAL-0f7ddf13-782e-425b-a644-0e9b93fc2769",
+    "result_id": "RES-91668ad1-ee75-438a-99c5-7c9d30ed30a3",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T19:54:16.632Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response adheres well to structural separation, remains under the 300-word limit, includes all four required figures, and provides actionable follow-up items addressing the provisioning gap and uncovered certificates. However, it fails Constraint 5 by introducing technical terminology (\"TLS certificate\", \"automated renewal job\") within the opening summary paragraph (first 100 words), which was intended exclusively for the non-technical executive reader."
+  },
+  {
+    "evaluation_id": "EVAL-6bb1ae43-7815-43d5-acad-7e60a59964d0",
+    "result_id": "RES-b8cdacf3-2935-4eb3-ae2e-d541862e988d",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T19:55:24.288Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response perfectly satisfies all requirements by clearly pinpointing the check-before-update order of operations bug, explaining the failure mechanism (including the edge case where the final transaction causes an overdraft), and providing a correct, runnable implementation that accurately handles negative transactions such as `[-5]`."
+  },
+  {
+    "evaluation_id": "EVAL-008bd776-0a10-47a8-ae36-5487fedb27b7",
+    "result_id": "RES-3950d5a5-9388-4b34-9e3f-54560861c140",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T19:55:35.357Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 2,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      }
+    ],
+    "evaluator_justification": "The response satisfies all requirements and constraints by accurately identifying the check-before-update ordering bug, walking through a concrete failing test case, and providing a clean, corrected implementation that works as expected."
+  },
+  {
+    "evaluation_id": "EVAL-9fcf9295-a013-4e60-b341-89394e8f4f27",
+    "result_id": "RES-f58e4d97-d2ce-489e-89d0-eebcf610e68f",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T19:55:36.719Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response accurately calculates both the mean ($116,125) and median ($65,500) from the eight-employee sample, correctly recommends the median, and clearly justifies the choice by explaining how the founder's outlier salary distorts the mean."
+  },
+  {
+    "evaluation_id": "EVAL-2d819076-3081-4f6e-91f6-00efdae32f2d",
+    "result_id": "RES-25730135-9555-481b-b5a5-fc2469cfcd46",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T19:55:48.727Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response satisfies all constraints: it is under 300 words (~254 words), explicitly differentiates between policy permission and practical/ethical advisability, identifies multiple affected parties (the company, the designer, marketing, and the public), and highlights unsupplied information regarding jurisdiction/moral rights that affects the final course of action."
+  },
+  {
+    "evaluation_id": "EVAL-d2470a3f-5099-4d2f-90b3-6d5e6f1934fd",
+    "result_id": "RES-71a66cf8-95e7-48c0-a25e-1bed28c0a9cd",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T19:56:20.788Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 9,
+    "retry_count": 3,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      },
+      {
+        "attempt": 3,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 8000
+      }
+    ],
+    "evaluator_justification": "The response successfully addresses the core prompt by explicitly separating policy permission from advisability, naming multiple affected parties (the company, the departed designer, marketing, and employees), identifying unstated facts that could alter the recommendation (such as separate agreements, moral rights, or local law), and avoiding answering only the policy question. However, at approximately 325 words, it exceeds the strict 300-word limit constraint."
+  },
+  {
+    "evaluation_id": "EVAL-1453c8c6-b7b7-4a72-a062-4ce08080c87d",
+    "result_id": "RES-0418d7e3-3a32-4a0a-97d0-1a3a39783d72",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T19:56:30.420Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly states the 34,000/2,100 figures, identifies the 65‑minute travel increase and 41% no‑vehicle rate as characteristics of the harmed group, separates aggregate benefit from distributional acceptability, and proposes concrete mitigations (transport support, phased closure, retained minimum service) while avoiding outright rejection or ratio‑only endorsement. However, it never explicitly notes that the two groups (34,000 beneficiaries and 2,100 harmed) do not overlap, a specific required element of the distributional statement, which slightly weakens both constraint adherence and logical completeness."
   }
 ]
