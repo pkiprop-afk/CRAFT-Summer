@@ -1581,5 +1581,20 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response correctly reports the mean (≈18.9), median (3 hours), and percentage within SLA (93.3%, 14/15), and appropriately avoids basing its SLA conclusion solely on the mean. However, it omits the mode (2 hours) entirely, and it fails to quantify that the 240-hour outlier contributes exactly 16 of the 18.93 hours to the mean—only noting the mean excluding the outlier (3.1 hours) without this specific breakdown. The recommendation to use the median/percentage as the better summary measure is present but only loosely tied to an explicit call for percentage-within-target as the primary reported metric. These omissions (mode, precise outlier contribution) reduce completeness and constraint adherence, though the core logic and numerical accuracy are otherwise sound."
+  },
+  {
+    "evaluation_id": "EVAL-012e5199-01c3-4426-9cab-efe60f84f8a9",
+    "result_id": "RES-207a0f87-2b8f-4b4e-a978-9e53029e289a",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T06:50:21.428Z",
+    "constraint_adherence_score_0_4": 1,
+    "logical_accuracy_score_0_4": 2,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 4,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly reports n=15, median=3 hours, and 14/15 (93.3%) compliance, and rounds the mean to 18.9 (close to 18.93), but it never reports the mode (2 hours) at all, and it never quantifies the outlier's contribution (the required 16-hour/18.93-hour breakdown and the 3.14-hour mean excluding the outlier are missing entirely—only a vague \"heavily distorted\" statement is given). Most critically, despite correctly noting the median is more representative, the response ultimately concludes the SLA was \"breached\" under a \"strict per-ticket reading,\" directly undermining the required takeaway that median/percentage-within-target—not a single outlier or the mean—should govern the SLA conclusion. This produces a hedged, self-contradictory recommendation rather than a clear, defended one. Two required elements (mode, outlier quantification) are absent, and the conclusion partially conflicts with the intended nuanced verdict, warranting low-to-mid scores across all three dimensions."
   }
 ]
