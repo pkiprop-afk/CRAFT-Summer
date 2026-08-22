@@ -8903,5 +8903,57 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response clearly pinpoints the check-before-add ordering as the specific bug, explains via a concrete example ([-10]) why checking balance<0 prior to applying the transaction causes a negative dip to go undetected (especially on the final transaction), and supplies a corrected, runnable function that checks balance after updating it. It preserves the original `< 0` condition without introducing a new off-by-one edge case, and the corrected function correctly returns True for [-5], satisfying all stated constraints."
+  },
+  {
+    "evaluation_id": "EVAL-4f5a4926-0c61-4ca7-b562-e9e6271efe21",
+    "result_id": "RES-3950d5a5-9388-4b34-9e3f-54560861c140",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T18:09:32.527Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly identifies the specific bug (checking balance before applying the current transaction), explains why this order is wrong with a concrete failing example ([100, -150]), provides a correct, runnable corrected function that uses the same `< 0` condition (no silent edge-case change), and verifies (implicitly, and correctly) that it returns True for [-5]. All required constraints and rubric components are satisfied fully."
+  },
+  {
+    "evaluation_id": "EVAL-153cc675-a956-4836-9899-cdfaa4e5a3ea",
+    "result_id": "RES-31e1d94a-c594-4cd3-a133-a3c0bc123b5f",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T18:09:51.126Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response perfectly satisfies all constraints: it correctly calculates the department-level rates and aggregate totals, explicitly identifies and explains Simpson's Paradox, attributes the reversal to the confounding applicant mix between departments, and correctly recommends Method B based on the stratified data."
+  },
+  {
+    "evaluation_id": "EVAL-1e33507e-61db-44b2-9bec-f059aee39eb4",
+    "result_id": "RES-31e1d94a-c594-4cd3-a133-a3c0bc123b5f",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T18:09:54.855Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response computes all required within-department rates and aggregate rates correctly, explicitly identifies the reversal as Simpson’s paradox, correctly explains that the differing department/applicant mix causes the misleading aggregate result, and recommends Method B based on the stratified evidence rather than the pooled rate."
   }
 ]
