@@ -2988,5 +2988,15 @@
     "retry_count": 1,
     "http_status": 200,
     "message": null
+  },
+  {
+    "evaluator_model": "gemini-3.7-flash",
+    "is_primary": true,
+    "anonymized_output_id": "OUT-0165",
+    "recorded_at": "2026-08-22T07:51:34.098Z",
+    "outcome": "succeeded_after_retry",
+    "retry_count": 4,
+    "http_status": 200,
+    "message": null
   }
 ]
