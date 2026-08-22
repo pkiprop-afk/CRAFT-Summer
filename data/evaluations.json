@@ -7227,5 +7227,132 @@
       }
     ],
     "evaluator_justification": "The response successfully identifies the impossibility before presenting a plan, shows accurate arithmetic (84 minutes for presentations + 10 minutes for intro/plenary exceeding the 40-minute limit), and explicitly avoids falsely claiming a complete plan. However, it fails to provide at least two alternative structures that each explicitly name which requirement they relax (such as multi-lesson delivery or group presentations), instead providing only a single truncated 40-minute plan."
+  },
+  {
+    "evaluation_id": "EVAL-1abfd31d-84d8-4be8-8770-deecdf6992be",
+    "result_id": "RES-44e3eb1f-eb83-4718-a11b-b31e7d6fe106",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T16:09:23.236Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 4,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      },
+      {
+        "attempt": 3,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 8000
+      },
+      {
+        "attempt": 4,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 16000
+      }
+    ],
+    "evaluator_justification": "The response perfectly satisfies all five constraints. It correctly identifies the 11 percentage point drop, clearly points out the confounding assessment format change from multiple-choice to extended-response, explicitly explains why the data cannot determine whether the teaching method caused the decline, provides multiple concrete methods to isolate the variables, and properly avoids concluding that the teaching change should be reverted or that it succeeded."
+  },
+  {
+    "evaluation_id": "EVAL-66cf1c64-306a-423b-b556-7d0ee433084f",
+    "result_id": "RES-1724c947-5dc0-473b-a850-017d9269ee66",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T16:09:36.732Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response adheres to all instructions: it is well under the 120-word limit, immediately leads with the required decision and deadline without introductory fluff, includes all three required figures (4 outages vs. 1 max, 12% cost increase, 3-week migration), clearly states the consequence of no response (12-month auto-renewal on the 30th), and offers a clear recommendation while leaving the final call to the director."
+  },
+  {
+    "evaluation_id": "EVAL-460f93b3-114a-4688-a848-b8707b7e0f38",
+    "result_id": "RES-bc07c705-ba7e-4e1b-8dbf-377316a86acd",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T16:10:02.449Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 2,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      }
+    ],
+    "evaluator_justification": "The response successfully remains under 130 words, provides an unambiguous refusal, explicitly includes both required reasons (two staff out next month and the committed deliverable on the 15th), preserves the relationship, and proposes a non-committal revisit in the quarter after next. However, it violates Constraint 3 by offering directive advice and suggesting next steps (\"might be worth checking if anyone else has capacity sooner\"), which breaches the peer register constraint."
+  },
+  {
+    "evaluation_id": "EVAL-cb48f722-58b8-4b0b-bc9d-1df6ed73fe82",
+    "result_id": "RES-95a0d839-43c7-4852-9d0e-58190c013448",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T16:10:31.375Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response strictly adheres to the under-150-word limit (147 words) and immediately clarifies non-confirmation in the second sentence. It specifically addresses the 18,000 funding, the September 1 engineer staffing, and the 12-month extension without rejecting the underlying proposals or accepting them conditionally. Finally, it clearly identifies the manager as the approving authority and provides a clear next step."
+  },
+  {
+    "evaluation_id": "EVAL-c1f42c32-557e-4259-8000-7cd9169b547b",
+    "result_id": "RES-fd6b74b9-45e4-420b-bbda-d294d2a18aa1",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T16:10:34.013Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response adheres to all constraints: it is under 150 words, declines confirmation in the second sentence, accurately addresses all three specific items, keeps the discussion open without confirming or outright rejecting the substance, and directs the partner to the manager and relevant approval processes."
   }
 ]
