@@ -8437,5 +8437,90 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The material is properly student-facing, stays under the word limit, and contains multiple genuine reasoning prompts (the \"what would a source need to help me find out\" stem, the three sentence completions, and the size-justification prompt), so it avoids supplying a worked example, a recommended answer, or a ranked-criteria list. The final \"check your answer\" list is a process-completion check rather than a source-appropriateness checklist, so it largely respects the process/criteria distinction. However, the treatment of dataset size (\"If your reason is mainly 'it has more data,' add another reason... or give a different reason\") leans toward implying size alone is insufficient rather than neutrally asking what size would or wouldn't reveal, so it edges toward supplying a soft criterion rather than purely surfacing the assumption. This partial slippage on the sharpest constraint accounts for the deduction in both constraint adherence and logical accuracy, while completeness is fully satisfied since all required elements are present."
+  },
+  {
+    "evaluation_id": "EVAL-8163845a-9431-4ce8-ae23-f0dc5575b70b",
+    "result_id": "RES-e71aa67b-0e98-4fc6-a02b-fe186a2ae3f4",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T17:49:51.697Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 4,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      },
+      {
+        "attempt": 3,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 8000
+      },
+      {
+        "attempt": 4,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 16000
+      }
+    ],
+    "evaluator_justification": "The response perfectly adheres to all constraints by directly answering the question in the first sentence, specifying the 4 April settlement date, remaining well under the 100-word limit, and entirely avoiding the trap of raising contract renewal or scope expansion during a quarter close."
+  },
+  {
+    "evaluation_id": "EVAL-72c888cd-9411-4871-befb-4c766ef854be",
+    "result_id": "RES-e71aa67b-0e98-4fc6-a02b-fe186a2ae3f4",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T17:49:55.372Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response is under 100 words, answers the March invoice question directly at the start, states the specific settlement date of 4 April, and keeps the reply tightly limited to the client’s quarter-close need. It does not raise the renewal, scope expansion, or other outstanding matters, and it does not use the reply for a sales or broader account-management purpose."
+  },
+  {
+    "evaluation_id": "EVAL-b49f835c-c7fd-4b09-91f4-69aeffc74a12",
+    "result_id": "RES-bb58a92b-4a37-4a1b-bd20-adca3454d7de",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T17:49:59.054Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 1,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 4,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "While the response correctly answers the March invoice question in the first sentence under 100 words and includes the specific settlement date of 4 April, it completely fails the scope discipline constraints. It raises all three extraneous matters, specifically introducing the contract renewal and pitching a scope expansion during a quarter close, which directly violates constraints 3, 4, and 5."
+  },
+  {
+    "evaluation_id": "EVAL-ae3cae9e-122c-4b26-9d2e-5fa8a478442e",
+    "result_id": "RES-bb58a92b-4a37-4a1b-bd20-adca3454d7de",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T17:50:08.101Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 1,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 4,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response answers the March invoice question in the first sentence and gives the specific settlement date of 4 April within 100 words. However, it violates scope discipline by raising more than one additional matter and specifically introducing the contract renewal and expanded scope pitch, which the constraints explicitly prohibit. While the direct answer is present, the opportunistic additions make it poorly aligned with the client’s stated need."
   }
 ]
