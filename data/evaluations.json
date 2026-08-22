@@ -6578,5 +6578,42 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The message satisfies all constraints: it is under 160 words, states the slip in the opening sentence, gives both 30 June and 15 August plus the six-week magnitude, clearly separates the factual report from the apology, states unambiguously that no plan delivers by 30 June, and explicitly says scope reduction was examined and does not recover the date. The wording does not leave the original date open to interpretation."
+  },
+  {
+    "evaluation_id": "EVAL-1f3ba8e3-4801-482a-b6cd-0e4f7ee50eef",
+    "result_id": "RES-ef633935-dbd4-412f-bf0d-7c7dd5b79b19",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T15:35:06.718Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response adheres to all constraints: it is under 160 words (154 words), states the slip, both dates (30 June and 15 August), and the 6-week magnitude within the first two sentences, explicitly notes that scope reduction was examined and cannot recover the date, and delivers the news unambiguously without apologies or hedging."
+  },
+  {
+    "evaluation_id": "EVAL-2af0d9e8-0036-46c5-9000-17af71fd1b82",
+    "result_id": "RES-ef633935-dbd4-412f-bf0d-7c7dd5b79b19",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T15:35:16.992Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 9,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response is under 160 words and states the slip in the first two sentences, with both required dates and the six-week magnitude. It plainly closes off 30 June and explicitly says scope reduction was examined and does not recover the date. It is logically clear enough for the sponsor to act. The only weakness is that it does not explicitly distinguish reporting the slip from apologising for it; it avoids apology language, but the required distinction is not directly made."
   }
 ]
