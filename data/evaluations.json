@@ -9291,5 +9291,246 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response reports the correct mean ($116,125) and median ($65,500), correctly averages the two central values for the even-sized sample, recommends the median as more representative, and clearly explains that the founder’s $480,000 compensation is a single outlier that distorts the mean. It also retains the founder’s salary in the dataset and notes that seven of eight salaries are far below the mean, making the justification complete and accurate."
+  },
+  {
+    "evaluation_id": "EVAL-3c596fb2-ff22-436e-acca-62e78e530845",
+    "result_id": "RES-dd585a18-8d84-4997-9780-5d648440b5a4",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T18:16:01.937Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 3,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      },
+      {
+        "attempt": 3,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 8000
+      }
+    ],
+    "evaluator_justification": "The response perfectly satisfies all constraints by reporting the exact mean ($116,125) and median ($65,500) derived from all eight employees, correctly recommending the median, and providing a thorough, logically sound justification highlighting how the founder's outlier salary skews the mean above seven of the eight employees."
+  },
+  {
+    "evaluation_id": "EVAL-bfbe144c-93e2-451b-b869-1e7db3bf007e",
+    "result_id": "RES-dd585a18-8d84-4997-9780-5d648440b5a4",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T18:16:04.996Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response reports the required mean of $116,125 and median of $65,500, correctly treating the even-sized sample by using the two central values implicitly. It recommends the median and clearly explains that the founder’s $480,000 compensation is a single outlier that pulls the mean upward, even noting that the mean exceeds all non-founder salaries. It includes both statistics, the recommendation, and a sound justification without improperly discarding the founder’s salary."
+  },
+  {
+    "evaluation_id": "EVAL-686bc582-ed02-4a8b-9b09-07653455f927",
+    "result_id": "RES-105a2ebc-c37a-4ca3-8ebb-40ef87a5f4e2",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T18:16:40.340Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 2,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      }
+    ],
+    "evaluator_justification": "The response satisfies all constraints by accurately calculating both the mean ($116,125) and median ($65,500) for the full 8-employee dataset, recommending the median, and providing a clear, well-reasoned explanation of how the founder's outlier salary distorts the mean."
+  },
+  {
+    "evaluation_id": "EVAL-0ee68285-dfc4-400d-823d-afb55ac19ce1",
+    "result_id": "RES-105a2ebc-c37a-4ca3-8ebb-40ef87a5f4e2",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T18:16:45.689Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response reports the exact required mean ($116,125) and median ($65,500), correctly reflecting proper averaging of the two central values in the even-sized sample. It explicitly recommends the median as more representative and justifies this by tying the founder's outlier salary ($480,000) to the upward distortion of the mean, without silently discarding the founder's data—instead it is kept in context. All constraints are satisfied, the arithmetic is correct, and the justification is clear and well-connected, meeting full completeness and logical accuracy standards."
+  },
+  {
+    "evaluation_id": "EVAL-0184f480-dde7-4eca-9740-c94a6d9457df",
+    "result_id": "RES-f58e4d97-d2ce-489e-89d0-eebcf610e68f",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T18:18:34.768Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response reports the exact required mean ($116,125) and median ($65,500), correctly implying proper averaging of the two central values for an even-sized sample, and does not improperly discard the founder's salary from the dataset. It explicitly recommends the median as the more representative measure and justifies this by linking the outlier (founder's package) to the distortion of the mean, satisfying all stated constraints. Both figures are accurate, the recommendation is clearly reasoned, and all required components (statistics, recommendation, justification) are present, meeting full completeness and logical accuracy criteria."
+  },
+  {
+    "evaluation_id": "EVAL-e11dcdd4-adec-4c5d-9426-6f3f32f18955",
+    "result_id": "RES-6104e5ed-4f01-41ff-b006-53c39fa049f6",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T18:19:54.643Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 9,
+    "retry_count": 3,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      },
+      {
+        "attempt": 3,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 8000
+      }
+    ],
+    "evaluator_justification": "The response exceeds the 300-word limit at approximately 326 words, failing that single constraint. However, it excels at all other criteria: it clearly separates policy permission from practical advisability, identifies the departed designer, the company, and the broader public/industry audience as affected parties, notes missing facts that could alter the decision (such as supplementary agreements or original design scope), and provides nuanced, actionable advice."
+  },
+  {
+    "evaluation_id": "EVAL-cc2ded18-7384-4489-a0e0-87407f1adcc7",
+    "result_id": "RES-6104e5ed-4f01-41ff-b006-53c39fa049f6",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T18:20:00.599Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response is under 300 words, identifies multiple affected parties including the departed designer, the company, and public/industry audiences, and clearly separates the policy-permission question from the advisability recommendation. It correctly states that the policy likely permits publication while advising caution based on reputational, moral-rights, and relationship risks. It also identifies missing facts that could change the recommendation, especially supplementary agreements and jurisdictional moral-rights issues, and it does not stop at the ownership/policy analysis."
+  },
+  {
+    "evaluation_id": "EVAL-37c5c940-621f-44a0-aeb5-374b342bdb32",
+    "result_id": "RES-25730135-9555-481b-b5a5-fc2469cfcd46",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T18:22:01.814Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response is under 300 words, identifies multiple affected parties including the departed designer, company, marketing/legal team, and public audience, and clearly separates policy permission from advisability. It explicitly states publication is legally/policy-permitted while also assessing whether it is prudent and recommending precautions. It also identifies missing facts that could affect the recommendation, especially jurisdiction-specific moral rights issues. It does not stop at ownership and addresses reputational and practical risks."
+  },
+  {
+    "evaluation_id": "EVAL-5498fb04-6c87-4e6f-a2e2-37c36c62feb9",
+    "result_id": "RES-490b80bc-64e3-470d-ad8c-01370a20da6f",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T18:23:48.362Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 4,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      },
+      {
+        "attempt": 3,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 8000
+      },
+      {
+        "attempt": 4,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 16000
+      }
+    ],
+    "evaluator_justification": "The response satisfies all instructions and constraints: it is under the 300-word limit (approximately 276 words), identifies multiple affected parties (the departed designer, the company, and the marketing team/Legal), explicitly separates policy permission from practical/advisability risks, and points to missing facts such as whether a specific employment agreement or local jurisdiction law governs moral rights and attribution."
+  },
+  {
+    "evaluation_id": "EVAL-2abd3cba-fb3e-4191-9b7d-c4268e09cc34",
+    "result_id": "RES-03157d77-8b37-490f-9617-a9b683cd2a77",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T18:27:48.397Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response perfectly adheres to all constraints: it cites the 34,000 to 2,100 non-overlapping figures, incorporates both key characteristics of the rural group (65-minute travel time and 41% without vehicle access), clearly separates aggregate utilitarian net benefit from ethical distributional equity, provides actionable mitigations (subsidized transport, mobile clinics, telehealth), and avoids both reflexive endorsement and reflexive rejection."
+  },
+  {
+    "evaluation_id": "EVAL-7daa856f-d01e-49f7-9a12-8df5d91ea80a",
+    "result_id": "RES-03157d77-8b37-490f-9617-a9b683cd2a77",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T18:27:55.482Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 9,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response gives the key aggregate figures, recognizes the favorable 34,000-to-2,100 ratio without treating it as decisive, identifies relevant rural-group characteristics including the 65-minute travel increase and 41% without vehicle access, distinguishes net aggregate benefit from distributional acceptability, and proposes mitigations such as transport support, mobile clinics, and telehealth. Its main omission is that it does not explicitly state that the benefiting and harmed groups do not overlap."
   }
 ]
