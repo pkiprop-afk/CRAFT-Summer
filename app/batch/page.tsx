@@ -458,14 +458,17 @@ export default function BatchRunnerPage() {
     const built = buildBatchJobs(tasks, selectedIds, conditionScope, selectedModels);
     if (built.length === 0) return;
 
-    // Resume semantics: a cell already generated is not re-run. The main study
-    // is n=1 and /api/run refuses duplicates, so without this every previously
-    // completed cell would come back as a 409 failure.
+    // Resume semantics: a MAIN cell already generated is not re-run — main is
+    // n=1 and /api/run refuses duplicates, so without this every previously
+    // completed cell would come back as a 409 failure. Stability cells are
+    // deliberately NOT skipped: repeats are the design (n=3), and run_number
+    // sequences 1..3 per cell via the seeded counter.
     const existing: ResultRecord[] = await fetch("/api/results")
       .then((r) => (r.ok ? r.json() : []))
       .catch(() => []);
     runNumberCounts.current = seedRunNumberCounts(existing);
-    const newJobs = markExistingCells(built, existing, runType);
+    const newJobs =
+      runType === "main" ? markExistingCells(built, existing, runType) : built;
 
     setJobs(newJobs);
     // The checkpoint is a one-time pause at CHECKPOINT_AFTER_GENERATIONS TOTAL

@@ -6198,5 +6198,501 @@
     "retry_count": 0,
     "retry_log": [],
     "notes": ""
+  },
+  {
+    "result_id": "RES-7710f3b1-72b3-4451-ba65-193089eaa99e",
+    "task_id": "T001",
+    "task_version": "v1-37c3cb178e4e701b4687767c19716261",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "stability",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T16:54:31.778Z",
+    "raw_model_output": "## The Bug\n\nYour function checks `balance < 0` **before** applying the current transaction, not after. This means it's always checking the balance from the *previous* iteration, so it never actually validates the balance after applying the last transaction in the list.\n\n**Example that breaks it:**\n```python\ncheck_account_balance([-5])\n```\n- `balance = 0`\n- Loop iteration: checks `balance < 0` → `0 < 0` → `False` (doesn't trigger)\n- Then applies `balance += -5` → `balance = -5`\n- Loop ends, function returns `False`\n\nBut the balance clearly went negative! The function just never checked it because the check happened *before* the update, and there was no iteration left afterward to catch it.\n\n## The Fix\n\nSimply swap the order: apply the transaction first, *then* check if the balance is negative.\n\n```python\ndef check_account_balance(transactions):\n    balance = 0\n    for amount in transactions:\n        balance += amount\n        if balance < 0:\n            return True\n    return False\n```\n\n### Verify the fix\n\n```python\nprint(check_account_balance([-5]))          # True  ✅ (was False before)\nprint(check_account_balance([100, -50, -60])) # True  ✅ (balance hits -10)\nprint(check_account_balance([100, -50, 10]))  # False ✅ (never goes negative)\n```\n\nThis version updates the balance immediately when a transaction occurs and checks the *current* balance right away, so it correctly catches every point where the account could go negative — including after the very last transaction.",
+    "anonymized_output_id": "OUT-0224",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-9214454c-256c-4771-b26d-e61de87c5ffc",
+    "task_id": "T001",
+    "task_version": "v1-37c3cb178e4e701b4687767c19716261",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "stability",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T16:54:38.303Z",
+    "raw_model_output": "# The Defect\n\nThe function checks whether `balance` is negative *before* applying the current transaction (`balance += amount`), rather than after. This means the balance is tested one step too early in the loop.\n\n# The Explanation\n\nWalk through the logic with a simple example: `transactions = [100, -150]`.\n\n- **Iteration 1:** `balance` is `0`. Check: `0 < 0` → False. Then `balance += 100` → `balance = 100`.\n- **Iteration 2:** `balance` is `100`. Check: `100 < 0` → False. Then `balance += -150` → `balance = -50`.\n- **Loop ends.** Function returns `False`.\n\nBut the account clearly went overdrawn (`balance = -50`) after the second transaction — the function simply never checked the balance *after* that transaction was applied, because there was no third iteration to catch it.\n\nThe root cause is that the check is testing the *previous* iteration's ending balance rather than the *current* iteration's ending balance. The check needs to happen **after** `balance += amount`, not before, so that every updated balance is actually evaluated.\n\n# The Corrected Function\n\n```python\ndef check_account_balance(transactions):\n    balance = 0\n    for amount in transactions:\n        balance += amount\n        if balance < 0:\n            return True\n    return False\n```",
+    "anonymized_output_id": "OUT-0225",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-a207ca86-95cd-4b77-a982-39a880d19afc",
+    "task_id": "T001",
+    "task_version": "v1-37c3cb178e4e701b4687767c19716261",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "stability",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T16:54:44.378Z",
+    "raw_model_output": "The issue is that the function checks whether `balance` is negative **before** applying the current transaction:\n\n```python\nif balance < 0:\n    return True\nbalance += amount\n```\n\nThat means it only notices a negative balance on the *next* loop iteration. If the balance goes below zero on the final transaction, the function never checks it and incorrectly returns `False`.\n\nFor example:\n\n```python\ncheck_account_balance([-10])\n```\n\nCurrent behavior:\n\n1. `balance = 0`\n2. Check `balance < 0` → `False`\n3. Add `-10`, so `balance = -10`\n4. Loop ends\n5. Return `False`\n\nBut the balance did go below zero, so it should return `True`.\n\nHere’s the fixed version:\n\n```python\ndef check_account_balance(transactions):\n    balance = 0\n\n    for amount in transactions:\n        balance += amount\n        if balance < 0:\n            return True\n\n    return False\n```\n\nNow the function applies each transaction first, then checks whether the balance has dropped below zero.",
+    "anonymized_output_id": "OUT-0226",
+    "truncated": false,
+    "reasoning_tokens": 55,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-cb492c38-7a95-475b-8190-c4731c670c9c",
+    "task_id": "T001",
+    "task_version": "v1-37c3cb178e4e701b4687767c19716261",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "stability",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T16:54:48.621Z",
+    "raw_model_output": "## the defect\n\nThe overdraft check is performed before applying the current transaction:\n\n```python\nif balance < 0:\n    return True\nbalance += amount\n```\n\nThis means the function only detects that the balance was negative at the start of an iteration, not immediately after a transaction causes it to go below zero.\n\n## the explanation\n\nThe function is intended to return `True` if the account balance ever dips below zero after processing transactions.\n\nWith the current ordering, a negative balance caused by a transaction is not detected until the next loop iteration. If the final transaction causes the overdraft, there is no next iteration, so the function incorrectly returns `False`.\n\nExample:\n\n```python\ncheck_account_balance([-10])\n```\n\nCurrent behavior:\n\n1. `balance` starts at `0`\n2. Check `balance < 0` → `False`\n3. Add `-10`, so `balance` becomes `-10`\n4. Loop ends\n5. Return `False`\n\nThat is incorrect because the account did dip below zero.\n\n## the corrected function\n\n```python\ndef check_account_balance(transactions):\n    balance = 0\n    for amount in transactions:\n        balance += amount\n        if balance < 0:\n            return True\n    return False\n```",
+    "anonymized_output_id": "OUT-0227",
+    "truncated": false,
+    "reasoning_tokens": 0,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-bd71900f-83cf-4d89-98ab-21c72a4aed85",
+    "task_id": "T009",
+    "task_version": "v1-bcadec214e198abea9348a5b8d8a614a",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "stability",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T16:55:02.491Z",
+    "raw_model_output": "## Short answer: This is a textbook case of **Simpson's Paradox** — and it matters a lot for your decision.\n\n### The raw numbers\n\n| | Method A | Method B |\n|---|---|---|\n| Engineering | 2/20 = **10%** | 12/80 = **15%** |\n| Support | 56/80 = **70%** | 15/20 = **75%** |\n| **Overall (pooled)** | 58/100 = **58%** | 27/100 = **27%** |\n\n### The paradox\n\nLook closely: **Method B has a higher hire rate in *every single department***. Yet when you pool everything together, Method A looks dramatically better (58% vs 27%).\n\nThis isn't a calculation error — it's because the two methods were tested on very different mixes of applicants:\n\n- Method A's applicant pool was mostly Support (80 of 100 applicants) — a department with an easy, high hire rate.\n- Method B's applicant pool was mostly Engineering (80 of 100 applicants) — a department with a tougher, low hire rate.\n\nSo Method A's aggregate score is inflated simply because it was tested more often on the \"easier\" department, not because it's a better recruiting method. The department (which acts as a **confounding variable**) is driving the overall result, not the method itself.\n\n### What the data actually supports\n\n- **Within each department, Method B outperforms Method A.**\n- The overall/pooled comparison is **misleading** and should not be used to pick a method, because the two methods weren't tested on comparable applicant distributions.\n- If you trust the department-level breakdown, **Method B is the better method**, all else equal.\n\n### Caveats before you fully commit to that conclusion\n\n1. **Sample sizes are small and uneven** (e.g., only 20 Method A Engineering applicants vs 80 for Method B) — worth checking statistical significance (e.g., a chi-square or Fisher's exact test per department) before declaring a winner.\n2. **Why did applicant distribution differ so much?** If the trial wasn't randomized by department, there could be other confounds (e.g., different time periods, different sourcing channels, different job postings) that also need ruling out.\n3. If you plan to use whichever method mostly for Support roles going forward, the overall Method A number becomes more relevant — the \"right\" comparison depends on your future applicant mix, not just which method wins pointwise.\n\n**Bottom line:** Don't use the pooled 58%-vs-27% comparison to decide. Compare like-for-like within each department — and there, Method B wins consistently.",
+    "anonymized_output_id": "OUT-0228",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-7b79e645-e1c1-4e57-a33d-132112f768bc",
+    "task_id": "T009",
+    "task_version": "v1-bcadec214e198abea9348a5b8d8a614a",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "stability",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T16:55:15.349Z",
+    "raw_model_output": "# The Figures\n\n| Method | Department | Hired | Applicants | Hire Rate |\n|--------|-----------|-------|------------|-----------|\n| A | Engineering | 2 | 20 | 10.0% |\n| A | Support | 56 | 80 | 70.0% |\n| A | **Total** | **58** | **100** | **58.0%** |\n| B | Engineering | 12 | 80 | 15.0% |\n| B | Support | 15 | 20 | 75.0% |\n| B | **Total** | **27** | **100** | **27.0%** |\n\n# The Finding\n\nMethod B has the higher hire rate in both departments individually — 15% vs. 10% in Engineering, 75% vs. 70% in Support. Despite this, Method A shows a higher *combined* hire rate (58% vs. 27%). This is not a contradiction; it is Simpson's paradox, driven by the fact that the two methods were applied to very different mixes of applicants. Method A's pool was weighted toward Support (80 of 100 applicants), the department with the higher baseline hire rate, while Method B's pool was weighted toward Engineering (80 of 100 applicants), the department with the lower baseline hire rate. The aggregate figures are therefore comparing different populations, not just different methods.\n\nBecause the department-level comparison holds the applicant pool constant and shows Method B ahead in both cases, **Method B is the better-performing method**. The overall totals should not be used to make this decision — they reflect the composition of applicants sent through each method as much as the method's actual effectiveness.\n\n# What the Data Does Not Establish\n\n- **Why** Method B produces higher hire rates in each department — whether it improves candidate quality, screening accuracy, or something else.\n- Whether the applicant pools within each department were otherwise comparable (e.g., same seniority level, same sourcing channels) or differed in ways that could still confound the department-level comparison.\n- Anything about the **quality or retention** of hires made through either method — the data covers hiring rate only, not downstream performance.\n- Whether these results would hold at different volumes, in other departments, or over a longer trial period — the sample sizes, especially Engineering under Method A (20 applicants) and Support under Method B (20 applicants), are small enough that the department-level rates carry meaningful uncertainty.\n- Cost, time-to-hire, or candidate experience differences between the two methods, none of which are captured here but may be relevant to the final decision.",
+    "anonymized_output_id": "OUT-0229",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-bf41c4d0-a894-45c1-9418-912b157669ee",
+    "task_id": "T009",
+    "task_version": "v1-bcadec214e198abea9348a5b8d8a614a",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "stability",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T16:55:32.341Z",
+    "raw_model_output": "This is a classic **Simpson’s paradox** situation: the overall result points one way, but the department-level results point the other way.\n\n### Hire rates by method and department\n\n| Department | Method A | Method B | Better |\n|---|---:|---:|---|\n| Engineering | 2 / 20 = **10%** | 12 / 80 = **15%** | **B** |\n| Support | 56 / 80 = **70%** | 15 / 20 = **75%** | **B** |\n\nWithin **both departments**, Method B had a higher hiring rate.\n\n### Overall hire rates\n\n| Method | Total hired | Total applicants | Overall hire rate |\n|---|---:|---:|---:|\n| Method A | 58 | 100 | **58%** |\n| Method B | 27 | 100 | **27%** |\n\nOverall, Method A looks much better: **58% vs 27%**.\n\nBut that is misleading because the applicant mix was very different:\n\n- Method A had mostly **Support** applicants, where hiring rates are high.\n- Method B had mostly **Engineering** applicants, where hiring rates are low.\n\nSo Method A’s overall rate is boosted because it was used more in the department where hiring is easier.\n\n### What the data supports\n\nIf you are comparing the methods **within comparable departments**, the data supports **Method B**: it did better in both Engineering and Support.\n\nHowever, the advantage is modest:\n\n- Engineering: B is 5 percentage points higher.\n- Support: B is 5 percentage points higher.\n\nGiven the sample sizes, especially the small 20-applicant groups, this is not overwhelming statistical evidence. But directionally, the department-adjusted comparison favors **Method B**.\n\n### Bottom line\n\n- **Naive overall comparison:** Method A looks better.\n- **Department-adjusted comparison:** Method B did better in both departments.\n- **Best conclusion:** The data supports adopting **Method B**, assuming future applicants will be compared within similar department mixes or you want the method that performs better department-by-department.  \n- If the method also changes which departments people apply to, then you would need to decide whether that applicant-mix effect is part of what you care about.",
+    "anonymized_output_id": "OUT-0230",
+    "truncated": false,
+    "reasoning_tokens": 469,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-a46fd5b7-42a7-4c63-bab1-ad3d46f4376f",
+    "task_id": "T009",
+    "task_version": "v1-bcadec214e198abea9348a5b8d8a614a",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "stability",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T16:55:41.070Z",
+    "raw_model_output": "## the figures\n\n| Department | Method A hired/applicants | Method A hire rate | Method B hired/applicants | Method B hire rate |\n|---|---:|---:|---:|---:|\n| Engineering | 2 / 20 | 10% | 12 / 80 | 15% |\n| Support | 56 / 80 | 70% | 15 / 20 | 75% |\n| **Overall** | **58 / 100** | **58%** | **27 / 100** | **27%** |\n\n## the finding\n\nMethod B performed better within each department:\n\n- Engineering: B hired 15% versus A’s 10%.\n- Support: B hired 75% versus A’s 70%.\n\nThe overall figures show Method A with a higher aggregate hire rate, 58% versus 27%, but that comparison is not like-for-like. Method A had most of its applicants in Support, where hire rates were high under both methods. Method B had most of its applicants in Engineering, where hire rates were low under both methods.\n\nThe data therefore supports adopting **Method B** if the relevant comparison is departmental performance or if the future applicant mix is expected to be comparable across methods. The pooled total alone would give the wrong impression.\n\n## what the data does not establish\n\nThe data does not establish that Method A is the better recruiting method, despite its higher overall hire rate in this trial.\n\nIt also does not establish:\n\n- that Method B will produce a higher overall hire rate under every future department mix;\n- that either method caused the observed differences, unless the trial design controlled assignment and applicant quality;\n- that hire rate alone captures recruiting performance, since quality of hire, cost, time to hire, retention, and candidate experience are not included;\n- whether the department-level differences are statistically reliable, especially given the small Engineering sample for Method A and Support sample for Method B.",
+    "anonymized_output_id": "OUT-0231",
+    "truncated": false,
+    "reasoning_tokens": 161,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-b02f9a98-7da7-4509-a65a-35e754a9286c",
+    "task_id": "T017",
+    "task_version": "v1-c0e192e10168904a85b15605c8c05f68",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "stability",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T16:55:52.532Z",
+    "raw_model_output": "## Short answer: ~15.5%, not 90%\n\nThis is a classic base-rate problem. The \"90% accurate\" figure describes the model's sensitivity and specificity — how well it performs against known outcomes. It does **not** tell you the conversion rate among flagged leads (that's the *precision* or *positive predictive value*, and it depends heavily on how rare conversions are in the first place).\n\n## The math\n\nStarting population: 10,000 leads, 2% historical conversion rate\n\n**Actual outcomes:**\n- True converters: 10,000 × 2% = **200**\n- True non-converters: 10,000 × 98% = **9,800**\n\n**Apply model performance to each group:**\n\n| | Flagged High-Intent | Flagged Low-Intent |\n|---|---|---|\n| **Will convert (200)** | 180 (90% sensitivity) | 20 (missed) |\n| **Won't convert (9,800)** | 980 (10% false positive rate) | 8,820 (90% specificity) |\n\n**Total flagged as high-intent:** 180 + 980 = **1,160 leads**\n\n**Of those, actual converters:** 180\n\n**Conversion rate among flagged leads = 180 / 1,160 ≈ 15.5%**\n\n## Why the intuition fails\n\nBecause true conversion is rare (2%), even a small false-positive rate (10%) applied to the *much larger* pool of non-converters generates far more false positives (980) than true positives (180). The non-converter population is simply massive relative to the converter population, so \"10% of a huge number\" swamps \"90% of a tiny number.\"\n\n## What this means for the team\n\n- If they work only flagged leads, they should expect roughly **1 in 6.4 conversions**, not 9 in 10.\n- That said, 15.5% is still **~7.7x better than the unfiltered baseline** of 2% — so the model may still be valuable for prioritization, just not for the reason being pitched.\n- Worth clarifying with whoever built/sold the model whether \"90% accurate\" meant sensitivity/specificity (likely) or was a sloppy conflation with precision (common mistake, easy to make in good faith).\n\nIf you want, I can also compute how the precision changes if the flagging threshold is tightened (e.g., trading sensitivity for specificity) — that's often the real lever your team can pull.",
+    "anonymized_output_id": "OUT-0232",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-d4e2d7d0-14e6-4d25-8d75-19c5c7f22092",
+    "task_id": "T017",
+    "task_version": "v1-c0e192e10168904a85b15605c8c05f68",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "stability",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T16:56:00.827Z",
+    "raw_model_output": "## Breakdown of the Leads\n\n| Category | Count |\n|---|---|\n| Total leads evaluated | 10,000 |\n| Actual converters | 200 |\n| Actual non-converters | 9,800 |\n| Converters correctly flagged (true positives) | 180 |\n| Converters missed by the model (false negatives) | 20 |\n| Non-converters correctly cleared (true negatives) | 8,820 |\n| Non-converters incorrectly flagged (false positives) | 980 |\n| **Total leads flagged by the model** | **1,160** |\n\n## Proportion That Will Convert\n\nOf the 1,160 leads the model flags, 180 will actually convert:\n\n180 / 1,160 = **15.5%**\n\n## Assessment of the Stated Expectation\n\nThe data does not support a 90% conversion rate among flagged leads. The 90% figures describe the model's sensitivity and specificity — how well it identifies converters and non-converters relative to their true status — not the conversion rate among leads it flags. Because actual converters are rare (2% base rate), even a small false-positive rate applied to the much larger pool of non-converters produces more false positives (980) than true positives (180).\n\nThe expectation of working only flagged leads and seeing roughly nine in ten convert is not supported. The correct expectation, given these operating characteristics and base rate, is that roughly one in six flagged leads (15.5%) will convert — nearly 8x the baseline 2% rate, which is a real improvement in targeting efficiency, but far short of the 90% figure being assumed.",
+    "anonymized_output_id": "OUT-0233",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-2ecfc022-ac48-4aa2-ba68-e3b2129449af",
+    "task_id": "T017",
+    "task_version": "v1-c0e192e10168904a85b15605c8c05f68",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "stability",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T16:56:06.296Z",
+    "raw_model_output": "Out of 10,000 leads:\n\n- Historical converters: 2% × 10,000 = 200\n- Non-converters: 9,800\n\nUsing the model characteristics:\n\n| Group | Count | Model behavior | Result |\n|---|---:|---|---:|\n| Leads that will convert | 200 | 90% flagged high intent | 180 true positives |\n| Leads that will not convert | 9,800 | 10% incorrectly flagged high intent | 980 false positives |\n\nSo the model flags:\n\n```text\n180 + 980 = 1,160 leads as high intent\n```\n\nOf those flagged leads, the number that actually convert is:\n\n```text\n180 / 1,160 = 15.5%\n```\n\nSo the proportion of flagged leads that will actually convert is approximately:\n\n```text\n15.5%\n```\n\nThe key point: even though the model is “90% accurate” in sensitivity and specificity terms, the base conversion rate is only 2%. Because non-converters massively outnumber converters, false positives dominate the flagged group. The team should not expect 9 in 10 flagged leads to convert; they should expect roughly 1.5 in 10.",
+    "anonymized_output_id": "OUT-0234",
+    "truncated": false,
+    "reasoning_tokens": 93,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-105591a8-f8cb-479b-96b9-83fccda4abe0",
+    "task_id": "T017",
+    "task_version": "v1-c0e192e10168904a85b15605c8c05f68",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "stability",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T16:56:12.010Z",
+    "raw_model_output": "## Breakdown of the leads\n\n| Lead group | Count | Model outcome |\n|---|---:|---|\n| Leads that would convert | 200 | 180 flagged, 20 cleared |\n| Leads that would not convert | 9,800 | 980 flagged, 8,820 cleared |\n| **Total flagged leads** | **1,160** | **180 converters, 980 non-converters** |\n| **Total cleared leads** | **8,840** | **20 converters, 8,820 non-converters** |\n\n## Proportion that will convert\n\nOf the **1,160 leads flagged by the model**, **180** are expected to convert.\n\n\\[\n\\frac{180}{1{,}160} = 15.5\\%\n\\]\n\nSo the expected conversion rate among flagged leads is **about 15.5%**, not 90%.\n\n## Assessment of the stated expectation\n\nThe data supports that the model has **90% sensitivity** and **90% specificity**, and an overall accuracy of **90%** in this lead population.\n\nIt does **not** support the expectation that around nine in ten flagged leads will convert. Because the base conversion rate is only **2%**, most flagged leads are still expected to be non-converters. The stated expectation therefore **does not hold**.",
+    "anonymized_output_id": "OUT-0235",
+    "truncated": false,
+    "reasoning_tokens": 93,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-5170dbde-29cc-419b-916d-fcef59d0dd34",
+    "task_id": "T021",
+    "task_version": "v1-f8551aa5a354c82984db3f4067fc7c98",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "stability",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T16:56:21.807Z",
+    "raw_model_output": "## Calculations\n\n**Mean:**\nSum = 52,000 + 58,000 + 61,000 + 64,000 + 67,000 + 71,000 + 76,000 + 480,000 = 929,000\nMean = 929,000 ÷ 8 = **$116,125**\n\n**Median:**\nWith 8 values sorted, the median is the average of the 4th and 5th values:\n(64,000 + 67,000) ÷ 2 = **$65,500**\n\n## Which one is more representative?\n\n**The median ($65,500) is the better representation of typical pay at this firm.**\n\n**Why:** The mean is heavily distorted by the founder's $480,000 salary — a single outlier that's roughly 6–9x higher than everyone else's pay. That one data point pulls the mean up to $116,125, a number that doesn't reflect what *any* actual employee earns. In fact, seven of the eight people make between $52,000 and $76,000 — all of them below the mean.\n\nThe median, by contrast, ignores the magnitude of that outlier and simply finds the middle of the distribution, landing right in the heart of where most salaries actually cluster ($65,500 is close to all seven \"regular\" salaries).\n\n**Rule of thumb:** Whenever a dataset has a skewed distribution or extreme outliers (like a founder's package, a CEO's pay, or a mansion in a neighborhood of average homes), the median is more robust and gives a more honest picture of the \"typical\" case. The mean is better suited for symmetric, outlier-free data.",
+    "anonymized_output_id": "OUT-0236",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-2ce1284a-6c48-497f-8469-de7e5c02a58f",
+    "task_id": "T021",
+    "task_version": "v1-f8551aa5a354c82984db3f4067fc7c98",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "stability",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T16:56:27.292Z",
+    "raw_model_output": "## The Two Figures\n\n| Measure | Value |\n|---|---|\n| Mean | $116,125 |\n| Median | $65,500 |\n\n## Measure Recommended\n\nThe median ($65,500) better represents typical pay at the firm.\n\n## Justification\n\nThe founder's salary of $480,000 is an extreme outlier relative to the other seven salaries, which cluster tightly between $52,000 and $76,000. The mean is heavily distorted by this single value, pulling the average to $116,125 — a figure higher than every other salary at the firm except the founder's own. This creates a misleading impression that \"typical\" pay is well above what any regular employee actually earns.\n\nThe median, by contrast, is calculated from the middle of the ordered dataset and is unaffected by the magnitude of the outlier — only its position matters. At $65,500, it falls squarely within the range of the seven non-founder salaries and accurately reflects what a typical employee at this firm is paid. For datasets with a small sample size and a significant outlier, as is the case here, the median is the appropriate measure of central tendency.",
+    "anonymized_output_id": "OUT-0237",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-c1acbab5-29ca-47eb-b306-32aea0bf7ea9",
+    "task_id": "T021",
+    "task_version": "v1-f8551aa5a354c82984db3f4067fc7c98",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "stability",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T16:56:31.743Z",
+    "raw_model_output": "- **Mean salary:** **$116,125**  \n  - Calculation: \\((52,000 + 58,000 + 61,000 + 64,000 + 67,000 + 71,000 + 76,000 + 480,000) / 8 = 116,125\\)\n\n- **Median salary:** **$65,500**  \n  - The middle two salaries are **$64,000** and **$67,000**, so the median is \\((64,000 + 67,000) / 2 = 65,500\\)\n\n**Better representation of typical pay:** **The median, $65,500.**\n\nThe founder’s package of **$480,000** is far above the rest and pulls the mean upward significantly. Most employees earn between **$52,000 and $76,000**, so the median better reflects what a typical person at the firm earns.",
+    "anonymized_output_id": "OUT-0238",
+    "truncated": false,
+    "reasoning_tokens": 79,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-4a6b7585-7899-42d2-9634-dcf2a24e3049",
+    "task_id": "T021",
+    "task_version": "v1-f8551aa5a354c82984db3f4067fc7c98",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "stability",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T16:56:35.140Z",
+    "raw_model_output": "## 1. The two figures\n\n| Measure | Annual salary |\n|---|---:|\n| Mean | $116,125 |\n| Median | $65,500 |\n\n## 2. Measure recommended\n\n**Median annual salary: $65,500**\n\n## 3. Justification\n\nThe median better represents typical pay at the firm because the founder’s $480,000 package is an extreme outlier relative to the other seven salaries. That outlier pulls the mean up to $116,125, which is well above nearly all employees’ salaries and therefore overstates typical compensation. The median is based on the midpoint of the salary distribution and is not materially distorted by the founder’s package, making it the more appropriate summary measure for typical pay.",
+    "anonymized_output_id": "OUT-0239",
+    "truncated": false,
+    "reasoning_tokens": 68,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
   }
 ]
