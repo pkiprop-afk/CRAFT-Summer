@@ -6911,5 +6911,98 @@
     "retry_count": 0,
     "retry_log": [],
     "notes": ""
+  },
+  {
+    "result_id": "RES-efc9414d-75f3-4a65-9f21-addd2f9c8e7a",
+    "task_id": "T033",
+    "task_version": "v1-c23f7fdb4b60e4bc3953c5f7bf029cdd",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "stability",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T16:58:16.160Z",
+    "raw_model_output": "## the figures\n\n| Measure | Projected effect |\n|---|---:|\n| Patients gaining improved access at the central hospital | 34,000 |\n| Patients losing local access at three rural clinics | 2,100 |\n| Average additional travel time for affected rural patients | 65 minutes each way |\n| Affected rural patients without access to a private vehicle | 41% |\n| Annual savings redirected to central hospital capacity | 4.2 million |\n\n## the assessment\n\nThe proposal produces a clear aggregate service gain: 34,000 patients are projected to benefit from improved access at the central hospital, funded by 4.2 million in redirected annual savings. On the figures provided, the number of patients gaining improved access substantially exceeds the number losing local access.\n\nThe distribution of effects is uneven. The benefit is spread across a large central-hospital catchment population, while the harm is concentrated on 2,100 rural patients who would lose nearby clinic access. For those patients, the additional burden is material: an average extra journey of 65 minutes each way is likely to affect attendance, continuity of care, timeliness of treatment, and carers’ ability to support appointments.\n\nThe impact is especially acute for the 41% of affected rural patients without access to a private vehicle. For that group, the closure is not simply an inconvenience; it creates a practical access barrier unless reliable transport alternatives are provided. The proposal therefore improves overall capacity but worsens geographic equity and access for a defined rural population.\n\nOn the projected figures, the proposal can be justified only if the board is prepared to accept a concentrated loss of local access in exchange for broader regional capacity gains, and only if mitigation for rural patients is built into the decision rather than treated as optional.\n\n## what would change it\n\nThe assessment would change if the proposal included credible mitigations for the 2,100 affected rural patients, particularly the 41% without private vehicle access. Relevant changes would include funded transport, mobile or outreach clinics, retained limited local services, telehealth with local diagnostic support, or patient travel reimbursement.\n\nIt would also change if further evidence showed that the central hospital expansion would deliver substantially better clinical outcomes, materially shorter waits, or access to services not safely or efficiently provided through the rural clinics.\n\nConversely, the assessment would become less favourable if the closures were expected to reduce attendance, delay diagnosis or treatment, increase emergency presentations, or disproportionately affect older, disabled, low-income, or chronically ill patients in the rural communities.",
+    "anonymized_output_id": "OUT-0247",
+    "truncated": false,
+    "reasoning_tokens": 0,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-ca699522-3646-4f39-8364-fb609b8e2d67",
+    "task_id": "T040",
+    "task_version": "v1-7931538660a40975cdadedc2cb5e94d2",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "stability",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T16:58:28.649Z",
+    "raw_model_output": "Here's a 200-word (or fewer) scaffold that structures the reasoning process without supplying the criteria or steering toward an answer:\n\n---\n\n**Before You Choose: Reasoning Scaffold**\n\nLook at all three sources before deciding. For each one, write one sentence describing what it actually contains or measures.\n\n- Source A: ___\n- Source B: ___\n- Source C: ___\n\nNow, for each source, write one sentence on how well it connects to the research question — not whether you like it, but whether it can actually help answer it.\n\n**Check yourself:** If your reasoning mentions only how much data a source has, that's not enough on its own. A large source can still be a poor fit for this question. What else about the source — beyond its size — makes it useful or limited for answering *this specific* question?\n\n**Do not select a source until you can complete this sentence:**\n\n\"I chose Source ___ because it ___, which matters for this question because ___. The other two sources are less suitable because ___.\"\n\nOnly submit your answer once all three blanks are filled with specifics from the sources themselves — not general statements like \"it's better\" or \"it has more data.\"\n\n---\n\nThis works by forcing engagement with all three sources, explicitly flagging size as an insufficient justification, and requiring comparative reasoning through sentence completion — all without naming what actually makes a source appropriate.",
+    "anonymized_output_id": "OUT-0248",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-49e68834-cebb-4c95-93f7-4702f20a88d8",
+    "task_id": "T040",
+    "task_version": "v1-7931538660a40975cdadedc2cb5e94d2",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "stability",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T16:58:47.724Z",
+    "raw_model_output": "# Source Selection Worksheet\n\nBefore you choose, work through these steps. You must complete Steps 1–3 for **all three sources** before moving to Step 4.\n\n**Step 1 — Describe each source**\nFor each source, write 1–2 sentences stating what it actually contains (who collected it, what it measures, when/where it's from). No judgments yet — just describe.\n\n**Step 2 — Match to the question**\nReread the research question. For each source, write one sentence answering: *What would this source let me say — or not say — about the question?*\n\n**Step 3 — List one limitation per source**\nFor each source, name one thing it can't tell you or one way it could mislead you, even if it looks strong at first glance. (Every source has at least one — including the biggest one.)\n\n**Step 4 — Make your choice**\nNow choose your source. Complete this sentence:\n\n> \"I chose [Source ___] because it [does something the others don't / avoids a limitation the others have], specifically: ___\"\n\n**Check before submitting:**\n- Does your reason refer to something *in* the source, not just its size or appearance?\n- Could someone disagree with your choice? If not, revisit Step 3.",
+    "anonymized_output_id": "OUT-0249",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
   }
 ]
