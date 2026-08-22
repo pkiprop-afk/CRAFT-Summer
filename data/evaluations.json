@@ -8845,5 +8845,63 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response correctly identifies the specific check-before-update ordering bug, explains why it is wrong with a concrete failing example `[-5]`, provides a corrected runnable function that checks after applying each transaction, and preserves the correct `< 0` condition without introducing an edge-case bug. It includes all required components: diagnosis, explanation, and corrected function."
+  },
+  {
+    "evaluation_id": "EVAL-20dcff47-db0b-4780-bc8d-c3e8c3a5e07b",
+    "result_id": "RES-b8cdacf3-2935-4eb3-ae2e-d541862e988d",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T18:06:41.331Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 9,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly identifies the bug as checking `balance < 0` before applying the current transaction, clearly explains why this makes the check one iteration behind and misses overdrafts on the final transaction, and provides a corrected runnable function that would return `True` for `[-5]` without introducing a new edge-case bug. The only shortcoming is that it does not provide an explicit concrete failing input example such as `transactions = [-5]`, though it describes the failing scenario accurately."
+  },
+  {
+    "evaluation_id": "EVAL-88abf31f-19ab-4090-864f-61eface56c1b",
+    "result_id": "RES-a6c62e8d-5c4b-4e10-af2f-e70954cad3d9",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T18:06:55.729Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 2,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      }
+    ],
+    "evaluator_justification": "The response perfectly satisfies all constraints and rubric criteria. It correctly identifies the check-before-update bug, thoroughly explains the logic error with a concrete failing example, provides a clean and runnable corrected implementation that behaves properly on negative single-element inputs without introducing new bugs, and includes all required components."
+  },
+  {
+    "evaluation_id": "EVAL-4d067e24-4200-4c29-8d51-3b7b3ec0af31",
+    "result_id": "RES-a6c62e8d-5c4b-4e10-af2f-e70954cad3d9",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T18:07:08.611Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response clearly pinpoints the check-before-add ordering as the specific bug, explains via a concrete example ([-10]) why checking balance<0 prior to applying the transaction causes a negative dip to go undetected (especially on the final transaction), and supplies a corrected, runnable function that checks balance after updating it. It preserves the original `< 0` condition without introducing a new off-by-one edge case, and the corrected function correctly returns True for [-5], satisfying all stated constraints."
   }
 ]
