@@ -8379,5 +8379,48 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response is student-facing, under 200 words, and includes multiple prompts requiring students to generate reasoning rather than select from supplied options. It avoids a worked example, recommended answer, or ranked criteria list. However, the “Check before submitting” item says the reason should not be “just its size,” which partially supplies the intended evaluation move and names size as inadequate rather than merely surfacing it as an assumption to examine. Overall, it is a strong process scaffold but slightly over-directive on the observed size-based failure."
+  },
+  {
+    "evaluation_id": "EVAL-55725608-65fa-45c5-8868-b3ac5e534446",
+    "result_id": "RES-2885fb92-eb62-4ea9-9848-904a9bce0864",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T17:45:14.449Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 2,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      }
+    ],
+    "evaluator_justification": "The response adheres to all five constraints: it is student-facing and under 200 words, includes multiple prompts requiring independent reasoning without supplying criteria checklists, non-directively prompts students to examine assumptions about data size without declaring size an invalid criterion, and avoids worked examples or recommended answers."
+  },
+  {
+    "evaluation_id": "EVAL-91ad41a3-4ead-4948-a640-3036408acaef",
+    "result_id": "RES-2885fb92-eb62-4ea9-9848-904a9bce0864",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T17:45:42.418Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 9,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The scaffold is student-facing, under 200 words, and includes multiple genuine reasoning prompts (restating the question, weighing each source's fit, justifying the final choice) rather than offering selectable options. It avoids a checklist of evaluation criteria, a worked example, a recommended answer, and a ranked criteria list, satisfying constraints 1, 2, 3, and 5. It also directly addresses the size-based failure by requiring students who cite data amount to explain its relevance to the specific question—surfacing the assumption for examination. However, the phrasing \"do not stop there\" mildly signals that size alone is insufficient, which edges toward supplying a partial judgment rather than the more neutral \"what would size tell you or not tell you\" approach the task notes favor; this slightly weakens the non-directive treatment of the assumption, costing a point on logical accuracy. All required elements (reasoning prompts, size-assumption engagement, and student-facing format) are present, supporting full completeness."
   }
 ]
