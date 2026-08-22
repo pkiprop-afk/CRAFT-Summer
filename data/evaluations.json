@@ -1845,5 +1845,152 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response correctly computes all required figures (1.0 percentage point, 50% relative increase, 1,000→1,500 conversions, +500) and frames the two descriptions as referring to the \"same underlying change,\" implicitly treating both as correct rather than declaring one wrong. It also gives a clear recommended phrasing that includes all key numbers. However, it never explicitly states that the disagreement is a matter of units (percentage points vs. relative percent) rather than fact, and it fails to explicitly call out \"increased conversion by 1 percent\" as the misleading formulation that invites a relative-change misreading—only vaguely noting that \"one needs more precise wording.\" These omissions cost points on constraint adherence and slightly weaken the logical accuracy regarding the units-of-measure explanation, though completeness is otherwise fully satisfied."
+  },
+  {
+    "evaluation_id": "EVAL-03069af7-9490-4e31-af79-22d3072aff1d",
+    "result_id": "RES-9c444cc6-c960-47e2-955f-8048e567e91d",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T06:56:14.078Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response successfully satisfies all required constraints and rubric criteria: it correctly highlights the ~100x sample size disparity, decomposes the 25% rate into 3 defects (noting that a single defect swings the rate by ~8%), explains the statistical instability/noise, refutes the claim of an established regional defect trend, and provides a well-calibrated, proportionate recommendation to investigate the specific 3 cases and gather more data."
+  },
+  {
+    "evaluation_id": "EVAL-f2eb5328-7558-4f29-86f1-a8d3bb6854d4",
+    "result_id": "RES-9c444cc6-c960-47e2-955f-8048e567e91d",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T06:56:22.336Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 7,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly identifies the tiny West sample, notes that 25% is 3/12, explains volatility from the small denominator, rejects the “explosion” framing, and recommends a proportionate next step focused on the three cases plus more monitoring. However, it does not explicitly state that one customer changes the rate by about 8.3 percentage points, and more importantly it does not make the required confidence-interval/overlap argument showing West is not statistically distinguishable from North and South. Its statistical discussion is directionally skeptical but incomplete and partly uses a less relevant comparison to 0/12."
+  },
+  {
+    "evaluation_id": "EVAL-4eaa1387-d6ac-48c3-8658-26e8f4ff48fe",
+    "result_id": "RES-46a52a7b-708c-47fd-8457-a5ac818a77a5",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T06:56:25.738Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response correctly identifies the sample size disparity (~100x / two orders of magnitude), correctly interprets the ~3 affected units, declines to treat the movement as a systemic trend, and offers proportionate next steps. However, it fails to explicitly note the specific single-customer sensitivity (8.3 percentage points per customer) and only qualitatively addresses noise rather than explicitly discussing confidence interval overlap or formal statistical indistinguishability from the other regions."
+  },
+  {
+    "evaluation_id": "EVAL-219cf81b-b1be-4ece-a777-89d3b4af5257",
+    "result_id": "RES-46a52a7b-708c-47fd-8457-a5ac818a77a5",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T06:56:34.599Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly identifies West’s very small sample, notes that 25% corresponds to about 3 affected customers, rejects treating the change as an established regional quality crisis, and recommends a proportionate follow-up rather than an urgent broad investigation or dismissal. However, it does not state that one customer changes the West rate by about 8.3 percentage points, and it does not explicitly support the statistical indistinguishability claim with a confidence interval or overlap with North/South rates."
+  },
+  {
+    "evaluation_id": "EVAL-36264548-1890-4ac9-8239-d9a86aedf935",
+    "result_id": "RES-e48e43f7-bce5-4c6a-a94e-6899b3671e0d",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T06:56:45.845Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 9,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response successfully breaks down the 25% figure into 3 out of 12 customers, calculates the 8.3 percentage point impact per customer, declines to call it an established regional trend, and provides an exceptionally well-calibrated, proportionate recommendation (targeted inspection of the 3 cases without launching a full-scale regional panic or dismissing the signal entirely). It loses one mark on constraint adherence for not explicitly highlighting that West's sample size is roughly 100 times smaller than North's and for calculating a Wilson-style confidence interval (9%–53%) that did not strictly overlap the ~4% baseline."
+  },
+  {
+    "evaluation_id": "EVAL-9988f4ec-c75e-4577-a7ff-4c3ad3a6dc9c",
+    "result_id": "RES-e48e43f7-bce5-4c6a-a94e-6899b3671e0d",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T06:57:11.922Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 2,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 6,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly decomposes the 25% rate into 3/12 defects and enumerates the per-customer percentage swings (8.3%, 16.7%, etc.), and it appropriately recommends investigating the three specific accounts rather than launching a full regional probe or dismissing the signal—satisfying constraints 2 and 5. However, it never explicitly states the ~100x sample-size disparity between West (12) and North (1,250), and its confidence-interval calculation (roughly 9%–53%) is inaccurate and, critically, is never shown to overlap North's (4.3%) and South's (4.0%) rates—in fact the response calls the West result \"elevated\" and \"a possible real signal,\" which undercuts the required conclusion of statistical indistinguishability. This produces a logically inconsistent middle position: it avoids full endorsement of the \"explosion\" narrative but also fails to correctly establish the statistical case for skepticism, landing in muddled territory rather than the calibrated conclusion the rubric requires. All three structural elements (sample-size discussion, statistical argument, and recommendation) are present, but the statistical reasoning is flawed enough to weaken the overall logical accuracy score."
+  },
+  {
+    "evaluation_id": "EVAL-08008dfa-5bda-4abf-a53f-b6f317e0807b",
+    "result_id": "RES-11993009-3cda-4a3c-b243-4e23ebbb2b1e",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T06:57:19.469Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 6,
+    "retry_count": 2,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      }
+    ],
+    "evaluator_justification": "The response correctly identifies that the 25% rate corresponds to 3 out of 12 customers, properly declines to treat the shift as an established regional trend, and provides an appropriately calibrated recommendation to review the 3 cases directly. However, it fails to explicitly state that each customer accounts for roughly 8.3 percentage points, does not quantify that the West sample is approximately 100 times smaller than the North, and omits the statistical confidence interval argument showing overlap with the other regions' baseline rates."
+  },
+  {
+    "evaluation_id": "EVAL-615402f0-1f74-4e62-8d20-75e4e28c79b7",
+    "result_id": "RES-11993009-3cda-4a3c-b243-4e23ebbb2b1e",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T06:57:37.554Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 2,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 5,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly decomposes the 25% rate into 3/12 customers, presents the raw n counts in a comparison table, and gives a calibrated, proportionate recommendation (review the 3 cases, avoid a broad urgent investigation, gather more data) without dismissing the signal outright. However, it never explicitly states the ~100x sample-size disparity between West and North, omits the single-customer-changes-the-rate-by-8.3pp observation, and entirely lacks any confidence-interval or statistical-distinguishability argument showing the West rate overlaps North/South — a core required constraint. These omissions leave the statistical reasoning underdeveloped even though the qualitative conclusion and recommendation are sound."
   }
 ]

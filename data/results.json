@@ -1672,5 +1672,129 @@
     "retry_count": 0,
     "retry_log": [],
     "notes": ""
+  },
+  {
+    "result_id": "RES-11993009-3cda-4a3c-b243-4e23ebbb2b1e",
+    "task_id": "T014",
+    "task_version": "v1-f962f768415a9fdb62a9dd74b5bc84e7",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T06:56:41.120Z",
+    "raw_model_output": "## the figures\n\n| Region | Customers | Q1 defect rate | Q2 defect rate | Implied Q1 defects | Implied Q2 defects | Change |\n|---|---:|---:|---:|---:|---:|---:|\n| North | 1,250 | 4.1% | 4.3% | ~51 | ~54 | +0.2 pp |\n| South | 1,180 | 3.9% | 4.0% | ~46 | ~47 | +0.1 pp |\n| West | 12 | 0.0% | 25.0% | 0 | 3 | +25.0 pp |\n\n## the assessment\n\nThe data does not support the conclusion that the West region has a clearly demonstrated regional quality deterioration requiring an urgent broad investigation.\n\nWhat the data supports is narrower: West had 3 defective cases out of 12 customers in Q2, compared with 0 out of 12 in Q1. The percentage increase is large because the customer count is very small. A movement from 0 to 3 defects produces a 25% rate, but the denominator is too limited to treat that rate as robust evidence of a systemic regional issue.\n\nBy contrast, North and South have much larger customer counts and show only minimal quarter-over-quarter movement: +0.2 and +0.1 percentage points respectively. Their rates are stable around 4%.\n\n## the recommended next step\n\nReview the 3 West Q2 defect cases directly before launching a broad regional investigation. Confirm that the defects are correctly classified, identify whether they share a common product, process, site, supplier, or staff cause, and check whether any are severe or customer-impacting.\n\nIf the 3 cases have a common cause or high severity, open a targeted quality investigation. If they are unrelated and low severity, continue monitoring West with additional periods or a larger customer base before treating the 25% rate as evidence of a regional quality problem.",
+    "anonymized_output_id": "OUT-0077",
+    "truncated": false,
+    "reasoning_tokens": 86,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-e48e43f7-bce5-4c6a-a94e-6899b3671e0d",
+    "task_id": "T014",
+    "task_version": "v1-f962f768415a9fdb62a9dd74b5bc84e7",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T06:56:42.051Z",
+    "raw_model_output": "The data **does not strongly support the conclusion that the West region’s quality has “exploded” in a reliable statistical sense** — mainly because the West sample size is extremely small.\n\n### What the numbers imply\n\nAssuming the customer count is the denominator for each quarter:\n\n| Region | Customers | Q1 rate | Approx. Q1 defects | Q2 rate | Approx. Q2 defects |\n|---|---:|---:|---:|---:|---:|\n| North | 1,250 | 4.1% | ~51 | 4.3% | ~54 |\n| South | 1,180 | 3.9% | ~46 | 4.0% | ~47 |\n| West | 12 | 0.0% | 0 | 25.0% | 3 |\n\nThe West region went from **0 defects out of 12 customers** to **3 defects out of 12 customers**.\n\nThat is worth noticing, but with only 12 customers, the rate is highly volatile. A change of just one or two customers dramatically moves the percentage. In Q2:\n\n- 1 defect would be **8.3%**\n- 2 defects would be **16.7%**\n- 3 defects is **25.0%**\n- 4 defects would be **33.3%**\n\nSo the “25%” figure sounds dramatic, but it represents only **three observed defects**.\n\n### Statistical perspective\n\nThe West Q2 rate of 25% is much higher than North and South, which are around 4%. So it may be a real signal. But the uncertainty is large because of the tiny denominator.\n\nA rough 95% confidence interval for West’s Q2 defect rate is very wide — approximately **9% to 53%** depending on method. Also, Q1’s 0% rate with only 12 customers does not prove the true defect rate was actually zero; with such a small sample, “0 defects observed” is compatible with a nontrivial underlying rate.\n\nSo I would say:\n\n> The West result is a potential warning signal, but the data is too sparse to justify saying the defect rate “exploded” based on the percentage alone.\n\n### What I would do next\n\nI would not launch a broad urgent regional quality investigation solely because the rate went from 0% to 25%. But I **would** do a targeted follow-up immediately.\n\nRecommended next steps:\n\n1. **Validate the raw counts**\n   - Confirm that West had exactly 12 customers in both quarters.\n   - Confirm that Q2 had exactly 3 defective cases.\n   - Check whether the rate is based on customers, orders, units, tickets, or some other denominator.\n\n2. **Inspect the three West defects**\n   - Are they from the same customer?\n   - Same product, process, supplier, employee, facility, or time period?\n   - Same defect type?\n   - Were they independent events or related to one incident?\n\n3. **Compare against historical West data**\n   - Was Q1 unusually clean?\n   - What were West’s rates in prior quarters?\n   - Is West always low-volume and therefore noisy?\n\n4. **Compare West to the company baseline**\n   - North and South are stable around 4%.\n   - West’s 3/12 is elevated versus that baseline, but the sample is small.\n   - If the next few West cases continue to show defects, concern should increase quickly.\n\n5. **Use counts and confidence intervals, not just percentages**\n   - Reporting “25% defect rate” without saying “3 out of 12 customers” is potentially misleading.\n   - Future reporting should show both.\n\n### Bottom line\n\nThe West region’s Q2 result is **not enough evidence to conclude a major regional quality collapse**, but it is enough to justify a **focused review of the three defect cases** and closer monitoring. I would treat it as a possible early signal, not yet as proof of a systemic West-region problem.",
+    "anonymized_output_id": "OUT-0078",
+    "truncated": false,
+    "reasoning_tokens": 511,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-1e2fc07a-5526-4508-86f9-f6c502814a96",
+    "task_id": "T015",
+    "task_version": "v1-4c5664f9d9fe2f70ffad898859f07451",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T06:57:23.765Z",
+    "raw_model_output": "## Average weekly revenue\n\nUsing the six stores with reported figures:\n\n| Store | Revenue |\n|---|---|\n| S1 | $41,200 |\n| S2 | $38,700 |\n| S4 | $45,100 |\n| S5 | $39,800 |\n| S7 | $42,600 |\n| S8 | $40,300 |\n\n**Sum:** $247,700\n**Count:** 6 stores\n**Average:** $247,700 / 6 = **$41,283.33**\n\n## How I handled S3 and S6\n\nI excluded them from both the numerator and denominator rather than treating \"not reported\" as zero or guessing a figure. Concretely:\n\n- **Not treated as $0** — that would badly understate the average, especially since you've confirmed both stores were trading normally.\n- **Not imputed with a placeholder** (e.g., the average of the other stores) — I didn't want to silently invent data without flagging it, since that could give false confidence in the number.\n- **Denominator adjusted to 6, not 8** — so the average reflects only stores with actual data, avoiding a downward bias from dividing by two extra stores with no revenue counted.\n\n## Caveat worth flagging\n\nThis $41,283.33 is the average *among reporting stores*, not a validated average across all eight. It implicitly assumes S3 and S6's revenue is similar in distribution to the other six — reasonable if there's no reason to think their outage correlates with unusually high or low sales, but still an assumption.\n\nIf you want a number that represents \"all 8 stores\" for something like total revenue projections, a common approach would be to impute S3 and S6 using this average ($41,283 each) — but I'd flag that as an estimate, not actual data, if you report it further upstream.\n\nLet me know if you'd like me to redo this with an imputed estimate instead, or if you can get the actual S3/S6 figures once systems are back online.",
+    "anonymized_output_id": "OUT-0079",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-94e2bf1a-2e0b-4c43-adbd-3f2c9ef43de7",
+    "task_id": "T015",
+    "task_version": "v1-4c5664f9d9fe2f70ffad898859f07451",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T06:57:44.395Z",
+    "raw_model_output": "# The Calculation\n\n| Store | Weekly Revenue |\n|-------|----------------|\n| S1 | $41,200 |\n| S2 | $38,700 |\n| S3 | not reported |\n| S4 | $45,100 |\n| S5 | $39,800 |\n| S6 | not reported |\n| S7 | $42,600 |\n| S8 | $40,300 |\n\nSum of reported figures: $247,700\nNumber of stores reporting: 6\n\n**Average weekly revenue = $247,700 / 6 = $41,283**\n\n# Treatment of the Missing Figures\n\nS3 and S6 are excluded from both the numerator and denominator. The average is calculated across six stores, not eight. No estimate, imputed value, or zero has been substituted for the missing figures — a system outage is not evidence of zero or reduced trading, and both stores are confirmed to have been trading normally.\n\n# Limitation of the Result\n\nThis figure is the average weekly revenue **for the six stores that reported**, not for the network of eight stores as a whole. It does not establish:\n\n- What S3 and S6 actually earned that week — normal trading could mean revenue above, below, or in line with the reported average.\n- The true average weekly revenue across all eight stores, which cannot be calculated from this data and should not be assumed equal to $41,283.\n- Any conclusion about store-level performance for S3 or S6 specifically; their absence is a data gap, not a data point.\n\nIf an eight-store average is required for reporting or comparison purposes, the outage should be flagged separately rather than resolved by omission, and the two figures should be obtained retrospectively if the reporting system retains transaction-level data.",
+    "anonymized_output_id": "OUT-0080",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
   }
 ]
