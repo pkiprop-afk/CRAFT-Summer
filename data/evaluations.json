@@ -6966,5 +6966,20 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The reply opens with an unambiguous non-confirmation within the first two sentences and stays well under the word limit, correctly distinguishing \"no commitment was made\" from refusing to engage, and it never slips into conditional or partial agreement. It also opens a path forward via \"my manager and the relevant teams,\" satisfying the authority-routing requirement, albeit generically rather than by explicit name/title. However, while the £18,000 funding and 12-month extension are addressed with their specific figures, the engineer item is only vaguely referenced (\"assigning data team engineers\") without the required specifics of \"two engineers from 1 September,\" slightly undercutting the requirement to address all three items with precision. This causes a minor deduction in constraint adherence and logical accuracy, though completeness remains intact since all three topics are at least referenced and the authority route is clearly named."
+  },
+  {
+    "evaluation_id": "EVAL-a5173265-591b-44fd-9bf3-7b9c13b8683f",
+    "result_id": "RES-fd6b74b9-45e4-420b-bbda-d294d2a18aa1",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T15:44:53.962Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 7,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The reply opens with a clear non-confirmation within the first two sentences, stays under the word limit, and explicitly names all three items (18,000 funding, two engineers from 1 September, 12‑month extension) without confirming any of them even conditionally, while keeping the door open for a follow‑up meeting. However, the authority route is only clearly named for the funding item (\"my manager\"); for the staffing and contract items it lapses into vague phrasing (\"appropriate internal approval,\" \"our contract process\") rather than naming a specific manager, leaving the partner without a full route forward for two of the three items. This partial gap weakens constraint 4 and the completeness of the authority identification, though it does not amount to a rejection or a softened partial agreement."
   }
 ]
