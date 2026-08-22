@@ -12,6 +12,7 @@
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 import { assembleCraftPrompt } from "../lib/craft.ts";
+import { REQUIRED_CONSTRAINT_COUNT } from "../lib/taskImport.ts";
 import { computeTaskVersion } from "../lib/taskVersion.ts";
 import { computeRunSettingsHash } from "../lib/runSettings.ts";
 import {
@@ -139,11 +140,33 @@ async function main(): Promise<void> {
     if (!Array.isArray(task.expected_constraints) || task.expected_constraints.length === 0) {
       err(`${task.task_id}: expected_constraints is empty`);
     } else {
+      // The rubric scores constraint adherence 0-4 against a five-constraint
+      // definition. A task carrying any other count is scored on a different
+      // denominator from every other task — silently wrong and structurally
+      // invisible, so it is an ERROR here as well as at the import boundary.
+      if (task.expected_constraints.length !== REQUIRED_CONSTRAINT_COUNT) {
+        err(
+          `${task.task_id}: expected_constraints has ${task.expected_constraints.length} ` +
+            `value(s), must be exactly ${REQUIRED_CONSTRAINT_COUNT} — the rubric assumes a ` +
+            `five-constraint denominator`
+        );
+      }
       task.expected_constraints.forEach((c, i) => {
         for (const hedge of HEDGES) {
           if (c.toLowerCase().includes(hedge)) {
             err(`${task.task_id}: expected_constraints[${i + 1}] contains hedge "${hedge}"`);
           }
+        }
+        // A stored value containing "(n)" means the numbered split either
+        // mis-keyed at import (fragment constraints) or the text will corrupt
+        // any future re-import round-trip — the is_locked(5) failure shape.
+        const stray = c.match(/\(\s*\d+\s*\)/);
+        if (stray) {
+          err(
+            `${task.task_id}: expected_constraints[${i + 1}] contains parenthesized digit ` +
+              `"${stray[0]}" — not a constraint marker; this corrupts the numbered split ` +
+              `on import round-trip`
+          );
         }
       });
     }

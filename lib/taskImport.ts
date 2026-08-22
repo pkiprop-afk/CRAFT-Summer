@@ -186,10 +186,16 @@ export function splitConstraints(raw: string | undefined): ConstraintSplit {
   }
 
   // "(1) …" — at least two markers, so a lone "(1)" is not treated as a list.
-  const paren = [...text.matchAll(/\(\s*\d+\s*\)\s*/g)];
+  const paren = [...text.matchAll(/\(\s*(\d+)\s*\)\s*/g)];
   if (paren.length >= 2) {
     const values = sliceByMarkers(text, paren).map((s) => s.trim()).filter(Boolean);
-    if (values.length > 1) return { values, method: "numbered" };
+    if (values.length > 1) {
+      return {
+        values,
+        method: "numbered",
+        markerDigits: paren.map((m) => Number(m[1])),
+      };
+    }
   }
 
   // "1. …" or "1) …" at start of line.
@@ -319,6 +325,15 @@ export function validateTaskRows(rawRows: TaskImportRow[]): TaskImportResult {
     }
 
     const split = splitConstraints(row.expected_constraints);
+    // A parenthesized digit that is not a true marker — e.g. a constraint
+    // quoting `is_locked(5)` — corrupts the numbered split: the cell imports
+    // with the wrong count and a fragment constraint, passing every other
+    // check. Detected from the marker digit sequence, which for true markers
+    // runs exactly 1..count.
+    const strayPositions =
+      split.method === "numbered" && split.markerDigits
+        ? strayMarkerPositions(split.markerDigits)
+        : [];
     if (split.values.length === 0) {
       reasons.push("missing expected_constraints");
     } else {
@@ -327,8 +342,29 @@ export function validateTaskRows(rawRows: TaskImportRow[]): TaskImportResult {
         task_id: taskId,
         count: split.values.length,
         method: split.method,
-        flagged: split.method === "unsplit",
+        flagged: split.method === "unsplit" || strayPositions.length > 0,
       });
+      // Exactly REQUIRED_CONSTRAINT_COUNT, whatever the split method: the
+      // rubric assumes a five-constraint denominator, so a 4- or 6-constraint
+      // task is silently scored on a different scale — invisible once stored.
+      if (split.values.length !== REQUIRED_CONSTRAINT_COUNT) {
+        reasons.push(
+          `expected_constraints split to ${split.values.length} value(s) via ` +
+            `${split.method} — exactly ${REQUIRED_CONSTRAINT_COUNT} required` +
+            (strayPositions.length > 0
+              ? ` (marker digits run (${split.markerDigits!.join("),(")}) — a ` +
+                `parenthesized digit inside constraint text is corrupting the split)`
+              : "")
+        );
+      } else if (strayPositions.length > 0) {
+        // Count happens to be right, but the split keyed on at least one digit
+        // that cannot be a true marker — the pieces are not the authored five.
+        reasons.push(
+          `expected_constraints contains a parenthesized digit that is not a ` +
+            `constraint marker (marker digits run (${split.markerDigits!.join("),(")})); ` +
+            `rewrite the offending text without a bare "(n)"`
+        );
+      }
     }
 
     const requiresExternalKnowledge = parseBooleanCell(row.requires_external_knowledge);
