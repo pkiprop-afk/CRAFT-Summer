@@ -1858,5 +1858,253 @@
     "retry_count": 0,
     "retry_log": [],
     "notes": ""
+  },
+  {
+    "result_id": "RES-bb7c3d9d-4827-45ca-a127-0cb240ababea",
+    "task_id": "T016",
+    "task_version": "v1-8f1610b9bc8696f4833601a77387d527",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T07:00:18.286Z",
+    "raw_model_output": "Short answer: **No, this data does not support a causal claim that coaching caused a 10‑point gain.** What you're looking at is a textbook setup for **regression to the mean**, and the pattern in the rest of the data actually argues against a real coaching effect.\n\n## What the raw deltas show\n\n| Rep | Q1 | Q2 | Δ | Coached |\n|---|---|---|---|---|\n| A | 92 | 83 | -9 | No |\n| B | 88 | 80 | -8 | No |\n| C | 85 | 84 | -1 | No |\n| D | 81 | 76 | -5 | No |\n| E | 78 | 77 | -1 | No |\n| F | 74 | 71 | -3 | No |\n| G | 71 | 72 | +1 | No |\n| H | 52 | 62 | +10 | Yes |\n| I | 48 | 58 | +10 | Yes |\n| J | 45 | 55 | +10 | Yes |\n\nNotice the shape: **every high scorer dropped, the mid scorer was flat, and the three lowest scorers all rose — by exactly the same amount.** That symmetry is the signature of regression to the mean, not of a targeted intervention.\n\n## Why this is regression to the mean, not a coaching effect\n\n1. **Selection on extreme values.** The three \"coached\" reps weren't a random sample — they were chosen *because* they had the lowest Q1 scores. Any single quarter's score is a mix of true skill plus noise (a bad month, a tough set of accounts, an off week). Reps who scored unusually low in Q1 are, almost by definition, more likely to have had a negative \"noise\" component that quarter — which tends to fade next quarter regardless of any intervention.\n\n2. **The mirror-image pattern among the untouched reps.** If coaching were the real driver, you'd expect the untouched group to hold roughly steady or drift with some randomness. Instead, the *highest* scorers all fell substantially (A: -9, B: -8, D: -5) — the same regression phenomenon working in the opposite direction on the other tail. High Q1 scores were probably partly luck too, and they're reverting downward.\n\n3. **The overall team average barely moved.** Total Q1 = 714 (avg 71.4); total Q2 = 718 (avg 71.8). Virtually no net change. If coaching had a real, additive +10 effect, you'd expect it to show up as a shift in the whole distribution, not just a reshuffling where the bottom moves up and the top moves down while the average stays flat.\n\n4. **Suspiciously uniform effect.** All three coached reps improved by *exactly* 10 points. Real interventions on humans essentially never produce identical effect sizes for different individuals — you'd expect scatter (maybe +6, +13, +9). An exact, identical delta across three people is a red flag that this is either a coincidence, a data artifact, or (if this is a hypothetical/teaching dataset) a deliberately constructed illustration of the regression-to-the-mean trap.\n\n## Bottom line\n\nThe director is committing a classic **before/after fallacy on a selected extreme group**: pick the worst performers, treat them, and any bounce-back toward the mean gets misattributed to the treatment. Nothing here rules out that coaching helped, but nothing here demonstrates it either — the same result would be expected even with zero coaching effect.\n\n## What would actually let you test the claim\n\n- **Comparison group:** Coach some low scorers and leave other similarly-low scorers uncoached; compare Q2 changes between the two groups.\n- **Regression-adjusted baseline:** Estimate the expected regression-to-mean bounce for reps starting at ~45–52 (e.g., from historical quarter-to-quarter variance) and see if the coached reps beat that expectation.\n- **Randomization:** If ever possible, randomly assign coaching among bottom-tier reps rather than coaching all of them — this is the cleanest fix.\n- **More data points:** A single quarter's swing is weak evidence; look at multiple quarters pre- and post-coaching to see if the improvement holds up or reverts again.\n\nUntil one of those is in place, I'd tell the director: \"The bottom three would likely have bounced back somewhat even without coaching — we can't yet distinguish real improvement from statistical regression.\"",
+    "anonymized_output_id": "OUT-0083",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-6a2e79e9-f912-4156-b508-a3245ea7078b",
+    "task_id": "T016",
+    "task_version": "v1-8f1610b9bc8696f4833601a77387d527",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T07:01:25.385Z",
+    "raw_model_output": "## The Figures\n\n| Rep | Q1 Score | Q2 Score | Change | Coached |\n|-----|----------|----------|--------|---------|\n| A   | 92       | 83       | −9     | No      |\n| B   | 88       | 80       | −8     | No      |\n| C   | 85       | 84       | −1     | No      |\n| D   | 81       | 76       | −5     | No      |\n| E   | 78       | 77       | −1     | No      |\n| F   | 74       | 71       | −3     | No      |\n| G   | 71       | 72       | +1     | No      |\n| H   | 52       | 62       | +10    | Yes     |\n| I   | 48       | 58       | +10    | Yes     |\n| J   | 45       | 55       | +10    | Yes     |\n\nCoached average change: +10.0\nUncoached average change: −3.7\n\n## The Assessment\n\nThe claim that coached reps' scores rose by ten points is numerically correct — all three improved by exactly ten points. But this does not, on its own, support extending the programme.\n\nTwo things in the data undercut a causal reading:\n\n1. **Every uncoached rep except one declined.** The average change across the uncoached group was −3.7 points, with six of seven falling. Something happened between Q1 and Q2 that pushed scores down generally — a harder assessment, market conditions, seasonality. Against that backdrop, the coached group didn't just improve; it moved in the opposite direction from almost everyone else. That's worth investigating, but it also means \"scores rose by ten points\" understates how unusual the pattern is, not confirms coaching caused it.\n\n2. **The coached reps were selected because they were the lowest scorers.** Extreme low scores in any noisy measure tend to be followed by higher scores next time, independent of any intervention — regression to the mean. The three coached reps were also the three lowest in Q1, which is exactly the population where this effect is strongest. An identical or larger bounce could plausibly have occurred without any coaching at all.\n\nThe uniform, identical +10 across all three coached reps is itself slightly unusual — real-world coaching effects are rarely that consistent — and worth checking for a data or scoring artefact before drawing conclusions either way.\n\n**What the data does support:** the three lowest-scoring reps improved after being coached, at a time when most other reps declined. That is a pattern worth taking seriously.\n\n**What it does not support:** that coaching caused the improvement, or that the programme should be extended on this evidence alone.\n\n## What Would Be Required to Answer the Question Properly\n\n- **A comparison group matched on Q1 score.** If low-scoring uncoached reps exist (or can be identified in a future cohort), their Q2 change would show how much of the +10 is regression to the mean versus a genuine coaching effect. Ideally, compare coached reps against similarly low scorers who weren't coached.\n- **An explanation for the overall Q2 decline.** Since most reps fell, understanding why (harder targets, market shift, seasonal dip) matters — it affects how the coached group's improvement should be interpreted, and whether \"ten points\" is a meaningful benchmark at all in Q2.\n- **A larger sample and/or repeated cohorts.** Three reps is too few to distinguish signal from noise, particularly given the suspiciously uniform result.\n- **Pre-registered success criteria.** What size of effect, over what comparison, would count as programme success — decided before running it, not after seeing this result.",
+    "anonymized_output_id": "OUT-0084",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-b2328154-0356-4128-a4de-0600529d25fb",
+    "task_id": "T016",
+    "task_version": "v1-8f1610b9bc8696f4833601a77387d527",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T07:02:14.518Z",
+    "raw_model_output": "Yes — the data shows the coached reps’ scores rose by 10 points, but it does **not** strongly support the claim that coaching caused that improvement.\n\n### 1. Raw changes\n\n| Group | Q1 avg | Q2 avg | Avg change |\n|---|---:|---:|---:|\n| Coached reps H–J | 48.3 | 58.3 | **+10.0** |\n| Uncoached reps A–G | 81.3 | 77.6 | **−3.7** |\n\nOn the surface, that looks like coaching helped: coached reps improved by 10, while others fell by about 4.\n\nBut there is a major issue.\n\n### 2. The coached reps were selected because they were the lowest scorers\n\nThe sales director picked the three lowest Q1 scorers. That creates a classic **regression to the mean** problem.\n\nWhen people are selected for having unusually low scores in one period, they often improve in the next period even without intervention, simply because some of the low score was due to temporary factors, noise, bad luck, or a poor quarter.\n\nSo the relevant question is not:\n\n> Did the coached reps improve?\n\nThey did.\n\nThe better question is:\n\n> Did they improve more than we would expect given their very low Q1 scores?\n\n### 3. Expected Q2 scores based on the uncoached reps\n\nUsing the relationship between Q1 and Q2 among the uncoached reps, the expected Q2 scores for the coached reps are approximately:\n\n| Rep | Q1 | Actual Q2 | Expected Q2 based on uncoached trend | Difference |\n|---|---:|---:|---:|---:|\n| H | 52 | 62 | ~60 | +2 |\n| I | 48 | 58 | ~58 | ~0 |\n| J | 45 | 55 | ~56 | −1 |\n\nSo their actual Q2 scores are very close to what we might expect from the Q1–Q2 pattern, even without assuming coaching had an effect.\n\nTheir average improvement was **+10**, but based on the uncoached trend, you would have expected roughly **+9.5** anyway for reps starting that low.\n\n### Conclusion\n\nThe director can truthfully say:\n\n> “The three coached reps improved by 10 points on average.”\n\nBut the stronger claim:\n\n> “Coaching raised their scores by 10 points, so we should roll it out to everyone”\n\nis **not supported by this data**.\n\nBecause the coached reps were chosen for being the lowest scorers, the result is heavily confounded by regression to the mean and selection bias. The data is consistent with coaching helping, but it is also consistent with little or no coaching effect.\n\nA better test would be to randomly assign similar low-scoring reps to coaching vs no coaching, or compare coached reps with a matched group of uncoached reps who had similar Q1 scores.",
+    "anonymized_output_id": "OUT-0085",
+    "truncated": false,
+    "reasoning_tokens": 512,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-51f206a3-4916-4a53-b561-269e3f311d72",
+    "task_id": "T016",
+    "task_version": "v1-8f1610b9bc8696f4833601a77387d527",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T07:02:17.986Z",
+    "raw_model_output": "## the figures\n\n| Rep | Q1 score | Q2 score | Change | Coached |\n|---|---:|---:|---:|---|\n| A | 92 | 83 | -9 | No |\n| B | 88 | 80 | -8 | No |\n| C | 85 | 84 | -1 | No |\n| D | 81 | 76 | -5 | No |\n| E | 78 | 77 | -1 | No |\n| F | 74 | 71 | -3 | No |\n| G | 71 | 72 | +1 | No |\n| H | 52 | 62 | +10 | Yes |\n| I | 48 | 58 | +10 | Yes |\n| J | 45 | 55 | +10 | Yes |\n\n| Group | Count | Mean Q1 | Mean Q2 | Mean change |\n|---|---:|---:|---:|---:|\n| Coached | 3 | 48.3 | 58.3 | +10.0 |\n| Not coached | 7 | 81.3 | 77.6 | -3.7 |\n| All representatives | 10 | 71.4 | 71.8 | +0.4 |\n\n## the assessment\n\nThe data supports the factual statement that the three coached representatives each improved by 10 points from Q1 to Q2, and that the coached group’s average score rose by 10 points.\n\nIt does not support the stronger claim that the coaching programme caused the improvement or that it should be extended. The three coached representatives were selected because they were the lowest scorers in Q1. That selection rule creates a strong risk of regression to the mean: unusually low performers in one period are likely to improve in the next period even without intervention. The comparison with the uncoached group is also not a valid treatment comparison, because the coached and uncoached representatives started from very different Q1 scores.\n\nThe figures therefore show an observed improvement among the coached low scorers, not evidence that the programme produced that improvement.\n\n## what would be required to answer the question\n\nTo assess whether the programme works, the company would need a proper counterfactual: what would have happened to similar low-scoring representatives without coaching.\n\nA suitable design would include:\n\n- a control group of comparable low-scoring representatives who do not receive coaching;\n- random assignment to coaching and no coaching, if operationally possible;\n- a pre-specified outcome measure and evaluation period;\n- enough representatives to distinguish programme effect from normal quarter-to-quarter variation;\n- analysis that accounts for baseline Q1 score and regression to the mean.\n\nWith those elements, the question would be whether coached representatives improve more from Q1 to Q2 than comparable uncoached representatives.",
+    "anonymized_output_id": "OUT-0086",
+    "truncated": false,
+    "reasoning_tokens": 69,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-4f13a735-afc0-4a68-86a0-307ab882db48",
+    "task_id": "T017",
+    "task_version": "v1-c0e192e10168904a85b15605c8c05f68",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T07:02:46.930Z",
+    "raw_model_output": "This is a classic base‑rate problem — \"90% accurate\" doesn't mean \"90% of flagged leads convert.\" Let's run the numbers.\n\n## The Math\n\n**Population (10,000 leads/month):**\n- Actual converters: 2% × 10,000 = **200**\n- Actual non-converters: 98% × 10,000 = **9,800**\n\n**Applying the model:**\n\n| | Will Convert (200) | Won't Convert (9,800) |\n|---|---|---|\n| **Flagged High-Intent** | 180 (90% sensitivity) | 980 (10% false positive rate) |\n| **Cleared/Low-Intent** | 20 (missed) | 8,820 (correctly cleared) |\n\n**Total flagged as high-intent:** 180 + 980 = **1,160 leads**\n\n**Actual conversion rate among flagged leads:**\n180 / 1,160 = **~15.5%**\n\n## The Disconnect\n\nYour ops lead is conflating two different things:\n\n- **Sensitivity/Specificity (90%)** — how well the model identifies known outcomes. This is a measure of the model's behavior *given the true label*.\n- **Precision/Positive Predictive Value (~15.5%)** — how often a *flag* actually corresponds to a real converter. This is what the team will experience in practice.\n\nBecause true conversion is rare (2%), even a small false-positive rate (10% of a *huge* non-converting pool) generates far more false positives (980) than true positives (180). The 9,800 non-converters simply dwarf the 200 converters, so \"10% of a big number\" beats \"90% of a small number.\"\n\n## What This Means for the Team\n\n- Working only flagged leads still nets a **~15.5% conversion rate** — a real improvement over the 2% baseline (about **7–8x lift**), which is genuinely valuable.\n- But it's nowhere near the \"9 in 10 convert\" expectation. Set that expectation now, or the team will feel the model is failing when in fact it's performing exactly as specified.\n\n## Suggested Next Steps\n\n1. **Reframe the metric internally** — talk about precision/lift, not \"accuracy,\" when discussing what reps should expect.\n2. **Consider the threshold** — if you can tolerate missing more converters, tightening the model's flagging threshold could raise precision at the cost of sensitivity (fewer flagged leads, but a higher hit rate among them). Worth testing where that tradeoff lands.\n3. **Reality-check with a pilot** — run the flagged list for a month and confirm actual conversion lands near 15%, then use that as the benchmark for ROI/capacity planning, not the 90% figure.",
+    "anonymized_output_id": "OUT-0087",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-0f3a5fce-0e4b-47f8-9ff8-cec1e957be26",
+    "task_id": "T017",
+    "task_version": "v1-c0e192e10168904a85b15605c8c05f68",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T07:03:11.718Z",
+    "raw_model_output": "**Breakdown of the leads**\n\n| Category | Count |\n|---|---|\n| Total leads evaluated | 10,000 |\n| Actual converters (2%) | 200 |\n| Actual non-converters (98%) | 9,800 |\n| Converters correctly flagged (90% sensitivity) | 180 |\n| Converters missed (flagged as non-converting) | 20 |\n| Non-converters correctly cleared (90% specificity) | 8,820 |\n| Non-converters incorrectly flagged | 980 |\n| **Total leads flagged by model** | **1,160** |\n\n**Proportion that will convert**\n\nOf the 1,160 leads the model flags, 180 are true converters. That gives a conversion rate among flagged leads of:\n\n180 / 1,160 = **15.5%**\n\n**Assessment of the stated expectation**\n\nThe expectation that \"around nine in ten\" flagged leads will convert does not hold. The 90% figure describes the model's sensitivity and specificity — its accuracy in classifying leads it has already seen the outcome for — not the conversion rate among leads it flags going forward. Because true converters are rare (2% of the base), even a small false-positive rate among the much larger pool of non-converters produces more false flags (980) than true ones (180).\n\nThe data supports a working conversion rate of roughly 15–16% among flagged leads — a meaningful lift over the 2% baseline (nearly 8x), but nowhere near 90%. If the team commits resources under the assumption of a 90% hit rate, they should expect the sales team to be surprised roughly 5 times out of 6 when a flagged lead doesn't convert. The model is worth using; the stated expectation of its output needs correcting before it's built into targets or staffing plans.",
+    "anonymized_output_id": "OUT-0088",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-3f9c6ce1-97cb-44bf-9a64-86e2dd03ecc4",
+    "task_id": "T017",
+    "task_version": "v1-c0e192e10168904a85b15605c8c05f68",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T07:03:52.376Z",
+    "raw_model_output": "Only about **15.5% of the leads flagged as high intent will actually convert**.\n\nBreakdown:\n\n| Category | Count |\n|---|---:|\n| Total leads | 10,000 |\n| Actual converters, 2% | 200 |\n| Actual non-converters | 9,800 |\n\nModel performance:\n\n- **Sensitivity 90%**: it correctly flags 90% of the 200 true converters  \n  - True positives = 180  \n  - Missed converters = 20\n\n- **Specificity 90%**: it correctly clears 90% of the 9,800 non-converters  \n  - True negatives = 8,820  \n  - False positives = 980\n\nSo the model flags as high intent:\n\n```text\nTrue positives + false positives = 180 + 980 = 1,160\n```\n\nOf those 1,160 flagged leads, only 180 actually convert:\n\n```text\n180 / 1,160 = 15.5%\n```\n\nSo the expected conversion rate among flagged leads is:\n\n```text\n15.5%\n```\n\nNot 90%.\n\nThe model can truthfully be “90% accurate” overall, but because the base conversion rate is only 2%, most flagged leads are still false positives. The model is still useful — it lifts conversion from 2% to about 15.5% among worked leads — but the sales team should not expect nine in ten flagged leads to convert.",
+    "anonymized_output_id": "OUT-0089",
+    "truncated": false,
+    "reasoning_tokens": 85,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-bc316489-6fe0-4d7f-9082-3384e9918f68",
+    "task_id": "T017",
+    "task_version": "v1-c0e192e10168904a85b15605c8c05f68",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T07:04:08.858Z",
+    "raw_model_output": "## 1. Breakdown of the leads\n\n| Lead outcome | Flagged by model | Cleared by model | Total |\n|---|---:|---:|---:|\n| Will convert | 180 | 20 | 200 |\n| Will not convert | 980 | 8,820 | 9,800 |\n| **Total** | **1,160** | **8,840** | **10,000** |\n\n## 2. Proportion of flagged leads that will convert\n\nOf the **1,160** leads flagged by the model, **180** are expected to convert.\n\n\\[\n\\frac{180}{1{,}160} = 15.5\\%\n\\]\n\nSo the expected conversion rate among flagged leads is **approximately 15.5%**, not 90%.\n\n## 3. Assessment of the stated expectation\n\nThe data supports that the model correctly identifies **90% of the leads that will convert** and correctly clears **90% of the leads that will not convert**. It also implies an overall accuracy of 90%.\n\nIt does **not** support the expectation that around nine in ten flagged leads will convert. Because the historical conversion rate is only **2%**, most flagged leads are false positives. The stated expectation does not hold.",
+    "anonymized_output_id": "OUT-0090",
+    "truncated": false,
+    "reasoning_tokens": 105,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
   }
 ]

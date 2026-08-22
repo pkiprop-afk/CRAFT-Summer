@@ -2132,5 +2132,263 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response correctly totals the six reporting stores at $247,700 and computes $41,283.33, explicitly states that S3 and S6 were excluded rather than zeroed, and links this to the fact that both were trading normally, which reasonably distinguishes \"absent\" from \"zero.\" It also raises a representativeness caveat, though phrased as uncertainty about performance rather than an explicit \"only valid if similar\" statement. However, it entirely omits the required quantification of the zero-substitution error ($30,962.50 and the ~25% understatement), which is a specific, non-negotiable constraint and a core demonstration of logical reasoning about the consequences of mishandling missing data. This omission caps logical accuracy despite otherwise strong, explicit reasoning."
+  },
+  {
+    "evaluation_id": "EVAL-83c4b07b-2dbe-4dc4-8cb9-b0b6f35cb38a",
+    "result_id": "RES-02861726-402a-48b2-88eb-2efb6ba111da",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:00:50.040Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 6,
+    "retry_count": 3,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      },
+      {
+        "attempt": 3,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 8000
+      }
+    ],
+    "evaluator_justification": "The response correctly calculated the six-store average weekly revenue as $41,283.33 (dividing $247,700 by 6) and explicitly stated that non-reporting stores were excluded because they were trading normally. However, it failed to quantify the numerical consequence of the zero-substitution error ($30,962.50, or a 25% understatement) and omitted the explicit limitation that the six-store average is only representative of the full chain if the non-reporting stores are similar to the reporting ones."
+  },
+  {
+    "evaluation_id": "EVAL-dde938c4-55ae-4cf1-928e-9588dc3ced22",
+    "result_id": "RES-02861726-402a-48b2-88eb-2efb6ba111da",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:01:07.871Z",
+    "constraint_adherence_score_0_4": 1,
+    "logical_accuracy_score_0_4": 2,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 4,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly computes 247,700 ÷ 6 = $41,283.33 and explicitly states that S3 and S6 were excluded rather than zeroed, satisfying the first two constraints. However, it never computes the $30,962.50 zero-substitution figure or the ~25% understatement, never explicitly frames the absent-vs-zero distinction as \"factually wrong rather than merely conservative,\" and omits the required caveat that the six-store average is only representative of all eight if the missing stores are similar. It also adds an unrequested and logically confused imputation claim (imputing S3/S6 at the reported average yields the \"same\" eight-store average of $41,283.33), which is not incorrect mathematically but is irrelevant and muddies the answer without addressing the actual limitation the task asks for. Overall the arithmetic and exclusion statement are solid, but three of the five required elements (quantified error, explicit absent/zero distinction, representativeness limitation) are missing, and the limitation section is entirely absent from completeness."
+  },
+  {
+    "evaluation_id": "EVAL-d977bb89-8515-4458-a344-780a2ecb8449",
+    "result_id": "RES-6a2e79e9-f912-4156-b508-a3245ea7078b",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:01:50.557Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 6,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly identifies regression to the mean as the explanatory mechanism, validates the +10 point increase for the coached group and the -3.7 point drop for the uncoached group, declines the causal claim, and proposes an appropriate matched-control design. However, it fails to calculate the whole-team mean (71.4 to 71.8) and misses the symmetric counterpart observation regarding the top three performers' decline (88.3 to 82.3)."
+  },
+  {
+    "evaluation_id": "EVAL-9b34781b-5e19-4e0d-bcd6-b08497c86897",
+    "result_id": "RES-6a2e79e9-f912-4156-b508-a3245ea7078b",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:01:58.024Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 6,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly rejects a causal conclusion, identifies selection of the lowest scorers and regression to the mean, and proposes an appropriate matched low-scoring control group. It also notes the coached group improved by +10 and the uncoached group declined by about −3.7. However, it does not report the required coached means of 48.3 to 58.3, the uncoached means of 81.3 to 77.6, or the whole-team mean being approximately flat from 71.4 to 71.8. Most importantly, it omits the required symmetry check that the top three Q1 performers declined from 88.3 to 82.3, which is key evidence for regression to the mean."
+  },
+  {
+    "evaluation_id": "EVAL-148159d2-4d3d-472d-a54c-105856cbfca1",
+    "result_id": "RES-51f206a3-4916-4a53-b561-269e3f311d72",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:02:21.422Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response accurately computes the group means for the coached, uncoached, and overall team, clearly names regression to the mean due to selection on lowest scores, declines the causal claim, and proposes proper study designs (matched control and randomization). However, it misses constraint 4 by failing to explicitly highlight the symmetric decline among the top Q1 performers as further evidence of regression to the mean."
+  },
+  {
+    "evaluation_id": "EVAL-03752a9e-7ef5-4675-90d2-035ce44cceda",
+    "result_id": "RES-51f206a3-4916-4a53-b561-269e3f311d72",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:02:35.205Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly reproduces the coached group's mean rise (+10.0), the uncoached group's decline (-3.7), and the flat whole-team mean (71.4→71.8), and it appropriately invokes regression to the mean, refuses the causal claim, and proposes a solid comparison design (control group, randomization, baseline adjustment). However, it never isolates the top three Q1 performers (A, B, C) to show their symmetric decline from 88.3 to 82.3, the single strongest piece of evidence that movement toward the mean occurs in both tails independent of coaching—this key insight from the rubric is entirely absent. This omission costs one constraint point and slightly weakens the logical depth, since the argument rests mainly on general regression-to-the-mean reasoning and lack of a control group rather than the more decisive tail-symmetry evidence. Completeness is otherwise satisfied, as all major elements—group means, mechanism, and design—are present."
+  },
+  {
+    "evaluation_id": "EVAL-f0d7f136-d23d-4867-8e5d-7894e207f026",
+    "result_id": "RES-4f13a735-afc0-4a68-86a0-307ab882db48",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:02:59.927Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response satisfies all five constraints flawlessly, providing the full confusion matrix for 10,000 leads (180 TP, 20 FN, 980 FP, 8,820 TN), calculating the positive predictive value as ~15.5% (180/1,160), and thoroughly explaining how base-rate neglect causes the false positives to dramatically outnumber true positives due to the rare 2% conversion rate."
+  },
+  {
+    "evaluation_id": "EVAL-70b0fc0b-9226-4fdc-97ea-e75b803845a9",
+    "result_id": "RES-4f13a735-afc0-4a68-86a0-307ab882db48",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:03:02.683Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly computes the full confusion matrix: 180 true positives, 20 false negatives, 980 false positives, and 8,820 true negatives. It correctly calculates 1,160 flagged leads and a positive predictive value of 180/1,160 ≈ 15.5%. It explicitly rejects the “9 in 10 convert” expectation, identifies base-rate neglect, and explains that the large non-converting population produces many false positives despite 90% specificity."
+  },
+  {
+    "evaluation_id": "EVAL-a472686a-be76-4889-8eda-a700a275cd37",
+    "result_id": "RES-b2328154-0356-4128-a4de-0600529d25fb",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:03:36.713Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 7,
+    "retry_count": 4,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      },
+      {
+        "attempt": 3,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 8000
+      },
+      {
+        "attempt": 4,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 16000
+      }
+    ],
+    "evaluator_justification": "The response correctly validates the coached and uncoached group means, identifies selection on extremes, explicitly names and models regression to the mean, and recommends sound experimental designs (randomized assignment and matched controls). However, it omits the whole-team mean calculation and fails to note the symmetric decline of the top performers (88.3 to 82.3), which is a key piece of supporting evidence."
+  },
+  {
+    "evaluation_id": "EVAL-88a0997c-dff7-4250-a568-de906d749f1e",
+    "result_id": "RES-0f3a5fce-0e4b-47f8-9ff8-cec1e957be26",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:03:41.521Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 3,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      },
+      {
+        "attempt": 3,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 8000
+      }
+    ],
+    "evaluator_justification": "The response perfectly satisfies all constraints and rubric criteria. It provides the complete confusion matrix for 10,000 leads (180 TP, 20 FN, 980 FP, 8,820 TN), calculates the exact positive predictive value of 15.5% (180/1,160), refutes the 90% conversion expectation, and clearly explains how the 2% base rate causes false positives from the large non-converting pool to outnumber true positives."
+  },
+  {
+    "evaluation_id": "EVAL-528bf8ac-8e42-401e-b8f2-2ee24b6ebba6",
+    "result_id": "RES-0f3a5fce-0e4b-47f8-9ff8-cec1e957be26",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:03:44.598Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly computes 200 converters and 9,800 non-converters, then derives 180 true positives, 20 false negatives, 980 false positives, and 8,820 true negatives, with 1,160 total flagged leads. It correctly calculates the positive predictive value as 180/1,160 = 15.5%, explicitly rejects the 90% conversion expectation, and explains the error as base-rate neglect driven by the much larger non-converting population generating many false positives even with 90% specificity."
+  },
+  {
+    "evaluation_id": "EVAL-8ecd9869-6e24-4ab5-992d-d404c21f202b",
+    "result_id": "RES-b2328154-0356-4128-a4de-0600529d25fb",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T07:04:03.907Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 6,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly reproduces the coached-group mean (48.3→58.3, +10) and uncoached-group mean (81.3→77.6, −3.7), explicitly names regression to the mean as the confounding mechanism, and recommends a randomized or matched-control design—covering three of the five required elements. However, it never computes the whole-team mean (≈71.4→71.8) and, more importantly, omits the symmetric top-performer evidence (88.3→82.3), which the rubric identifies as the strongest and least-obvious signal that movement toward the mean occurs independent of coaching. It also introduces fabricated per-rep Q1/Q2 values and an ad hoc \"expected Q2\" regression calculation not grounded in the given data, which weakens rigor. The scepticism is well-reasoned and goes beyond a generic \"no control group\" objection by naming regression to the mean specifically, but the missing symmetry argument and whole-team calculation keep it from full credit."
+  },
+  {
+    "evaluation_id": "EVAL-631945bb-4334-44d7-9ab8-8c01a86b40ff",
+    "result_id": "RES-bc316489-6fe0-4d7f-9082-3384e9918f68",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T07:04:12.166Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly provides the full 10,000-lead breakdown (180 TP, 20 FN, 980 FP, 8,820 TN), calculates the positive predictive value as 180/1,160 (15.5%), explicitly refutes the 90% expectation, and clearly explains how the 2% base conversion rate causes false positives from the non-converting majority to dominate the flagged pool."
   }
 ]
