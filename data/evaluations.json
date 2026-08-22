@@ -5592,5 +5592,39 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response validates the student's observation, keeps the tone second-person, stays near the word limit, and correctly identifies air resistance as the uncontrolled variable distinguishing observation from inference without calling the observation wrong. However, it never proposes a concrete test the student could personally perform to isolate the variable—it only cites that vacuum-tube and Moon experiments have already been done, which is an appeal to authority rather than an actionable observation for the student to make. This omission causes it to fail the \"propose a specific test\" constraint and lowers completeness, since the acknowledgement and diagnosis are present but the required student-facing test is missing."
+  },
+  {
+    "evaluation_id": "EVAL-69081b73-bfff-46ad-ae03-8bc4b6c643f9",
+    "result_id": "RES-0b6ee8d8-5479-4dbf-9a50-1ebb86775de0",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T14:50:14.418Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 3,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      },
+      {
+        "attempt": 3,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 8000
+      }
+    ],
+    "evaluator_justification": "The response perfectly adheres to all constraints by stating the denial outcome in the very first sentence, explicitly providing the required credit arithmetic (18 institutional credits vs. 24 required, shortfall of 6), firmly separating the application of the rule from sympathy or policy design, strictly avoiding any recommendation to approve, and offering multiple concrete non-waiver alternatives such as reapplication timing and alternative hardship resources."
   }
 ]
