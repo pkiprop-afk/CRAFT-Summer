@@ -8766,5 +8766,54 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response is structurally separated, includes all four required figures, clearly states impact/resolution/recurrence risk, and provides concrete follow-up actions addressing the 3 uncovered certificates and provisioning gap. However, it likely exceeds 300 words, and the executive-facing opening uses unexplained technical terminology within the first 100 words, including “expired TLS certificate” and “automated renewal system,” which violates a key constraint. Logical accuracy is otherwise strong, with honest residual risk and a clear technical cause."
+  },
+  {
+    "evaluation_id": "EVAL-78ba9d89-50fb-43d7-830a-93508e935c03",
+    "result_id": "RES-8e77851c-c2e5-4bf8-896b-9f273e76c506",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T18:00:15.250Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 3,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      },
+      {
+        "attempt": 3,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 8000
+      }
+    ],
+    "evaluator_justification": "The document satisfies the word count limit, structural separation, inclusion of all four required numerical figures, and thorough follow-up actions addressing the provisioning gap. It also correctly and honestly conveys the residual recurrence risk. However, it fails the non-technical constraint for the executive summary by explicitly referencing \"TLS certificate\" and the automated renewal process within the first 100 words instead of reserving technical terminology for the technical detail section."
+  },
+  {
+    "evaluation_id": "EVAL-9a27ff09-cb96-4d22-849d-ad61a008cc4c",
+    "result_id": "RES-8e77851c-c2e5-4bf8-896b-9f273e76c506",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T18:00:20.597Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response is under 300 words, includes all four required figures, separates executive and technical content structurally, and gives specific follow-up actions addressing the 3 uncovered certificates and provisioning gap. It also states impact, resolution, and recurrence risk early. However, the first 100 words include unexplained technical terminology (“expired TLS certificate”), which violates the non-technical executive-opening constraint and slightly weakens logical fit for the two-audience task."
   }
 ]
