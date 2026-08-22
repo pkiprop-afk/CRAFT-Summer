@@ -1238,5 +1238,129 @@
     "retry_count": 0,
     "retry_log": [],
     "notes": ""
+  },
+  {
+    "result_id": "RES-a049bc94-58d1-4073-be9f-e109194eb437",
+    "task_id": "T011",
+    "task_version": "v1-3cc182cdbca5ec631781088bb595e427",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T06:10:38.372Z",
+    "raw_model_output": "## The Statistics\n\n| Statistic | Value |\n|---|---|\n| n | 15 |\n| Mean | 18.9 hours |\n| Median | 3 hours |\n| Mode | 2 hours (4 occurrences) |\n| Range | 239 hours (1–240) |\n| Standard deviation (sample) | 61.2 hours |\n| Tickets ≤ 8 hours | 14 of 15 (93.3%) |\n| Tickets > 8 hours | 1 of 15 (6.7%) |\n\nThe gap between the mean (18.9) and the median (3) is the key feature here: it signals that a single extreme value — the 240-hour ticket — is distorting the average. The standard deviation of 61.2 hours, more than three times the mean itself, confirms that this dataset is not well described by mean and SD alone; median and mode are the more representative figures for the bulk of the tickets.\n\n## Finding on the Agreement\n\nThe team met the eight-hour target on 14 of 15 tickets (93.3%). Judged by typical performance, service was strong: the median resolution time was 3 hours, and the mode was 2 hours, both well inside the agreement.\n\nHowever, one ticket took 240 hours — thirty times the target — resulting in a clear breach. If the agreement is interpreted as applying to every ticket individually, it was not met, because a single failure at this magnitude does not become compliant by being outnumbered by successes. If the agreement is interpreted as a target for typical or average performance, the mean of 18.9 hours also falls outside it, though this figure is driven almost entirely by the one outlier rather than by general practice.\n\nEither interpretation lands on the same practical conclusion: routine performance was compliant, but the presence of one severe outlier means the agreement, taken at face value, was breached last week.\n\n## What the Data Does Not Establish\n\n- **Cause of the outlier.** The data gives no indication of why the 240-hour ticket took so long — whether it was misclassified, escalated, awaiting customer input, or a genuine failure of process. Without this, no corrective action can be justified from the numbers alone.\n- **Whether the outlier is typical or isolated.** One week of data cannot show whether such breaches occur regularly or are rare events. A trend judgment requires data from multiple periods.\n- **What the agreement is meant to measure.** The dataset doesn't clarify whether \"meeting the SLA\" means every ticket must resolve within 8 hours, or whether some aggregate threshold (e.g., 95% compliance) is the actual standard. The finding above depends on which definition applies.\n- **Ticket complexity or category.** No information here distinguishes simple from complex tickets, so it cannot be determined whether the outlier reflects a fair comparison against the same 8-hour standard or whether that standard was appropriate for the ticket in question.\n- **Statistical reliability.** With only 15 observations, and one extreme value, summary statistics (especially the mean and SD) are highly sensitive to that single point and should not be used to project future performance with confidence.",
+    "anonymized_output_id": "OUT-0062",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-e68020ca-6abd-4d38-a560-18884ae6b2ff",
+    "task_id": "T011",
+    "task_version": "v1-3cc182cdbca5ec631781088bb595e427",
+    "model_name": "claude-sonnet-5",
+    "model_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": null,
+      "effort": null
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ef1cad57f216cc9e",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "effort"
+    ],
+    "run_date": "2026-08-22T06:10:38.675Z",
+    "raw_model_output": "## Summary Statistics (n = 15)\n\n| Statistic | Value | Note |\n|---|---|---|\n| Median | 3 hrs | Best \"typical\" measure here |\n| Mode | 2 hrs (4 occurrences) | |\n| Q1 / Q3 | 2 hrs / 5 hrs | |\n| IQR | 3 hrs | |\n| Min / Max | 1 hr / 240 hrs | |\n| Mean | ~18.9 hrs | Heavily skewed — see below |\n| Std. Deviation | ~59–61 hrs | Dominated by one extreme value |\n| % resolved within 8 hrs | 14/15 = **93.3%** | Direct SLA compliance rate |\n\n## Why I'm leading with the median, not the mean\n\nFourteen of your fifteen tickets clustered tightly between 1–8 hours, but one ticket took **240 hours (10 days)** — a massive outlier that's more than 30x any other value. That single case drags the mean up to ~19 hours and inflates the standard deviation to ~60 hours, making both look like the team is performing poorly on average, when in reality only one ticket was the problem. The median (3 hrs) and IQR (2–5 hrs) reflect the \"typical\" ticket experience far more honestly.\n\n## Did they meet the SLA?\n\n**On a per-ticket basis: yes, essentially — 93.3% of tickets (14/15) were resolved within the 8-hour window**, and the typical ticket was resolved in just 3 hours, well under target.\n\nHowever, **one ticket badly breached the SLA** (240 hours vs. an 8-hour target — 30x over). Whether the *team* \"met the agreement\" depends on how the SLA is defined:\n\n- If the SLA is stated as a **percentage compliance target** (e.g., \"95% of tickets resolved within 8 hours\"), they narrowly **missed it** at 93.3%.\n- If the SLA is a **hard rule** (\"every ticket within 8 hours\"), they **failed** due to the one outlier.\n- If judged by **central tendency/typical performance**, they're doing very well.\n\n## Recommendation\n\nI'd flag the 240-hour ticket for root-cause review rather than let it get buried in an average — it's likely a special case (escalation, backlog, miscategorized ticket, etc.) rather than representative of team performance. Excluding it, the team's performance is excellent (mean ~3.1 hrs, all within SLA).",
+    "anonymized_output_id": "OUT-0063",
+    "truncated": false,
+    "reasoning_tokens": null,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-47953007-76df-4e53-b0cb-580c0d782247",
+    "task_id": "T011",
+    "task_version": "v1-3cc182cdbca5ec631781088bb595e427",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "baseline",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T06:11:06.081Z",
+    "raw_model_output": "Summary for 15 tickets:\n\n| Statistic | Value |\n|---|---:|\n| Count | 15 |\n| Minimum | 1 hour |\n| Q1 | 2 hours |\n| Median | 3 hours |\n| Q3 | 5 hours |\n| Maximum | 240 hours |\n| IQR | 3 hours |\n| Mean | 18.9 hours |\n| Mean excluding 240-hour outlier | 3.1 hours |\n\nSLA performance:\n\n- SLA threshold: resolved within 8 hours\n- Tickets resolved within 8 hours: 14 of 15\n- Tickets breaching SLA: 1 of 15\n- SLA attainment rate: 93.3%\n\nThe 240-hour ticket is a major outlier and heavily distorts the mean. The median of 3 hours and IQR of 2–5 hours better describe the typical ticket experience.\n\nConclusion: the team did not fully meet the agreement if the SLA requires every ticket to be resolved within 8 hours. They achieved 93.3% compliance, with one ticket breaching the SLA.",
+    "anonymized_output_id": "OUT-0064",
+    "truncated": false,
+    "reasoning_tokens": 405,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
+  },
+  {
+    "result_id": "RES-207a0f87-2b8f-4b4e-a978-9e53029e289a",
+    "task_id": "T011",
+    "task_version": "v1-3cc182cdbca5ec631781088bb595e427",
+    "model_name": "gpt-5.5-2026-04-23",
+    "model_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "prompt_condition": "craft",
+    "run_number": 1,
+    "run_type": "main",
+    "decoding_params": {
+      "temperature": 1,
+      "reasoning_effort": "low"
+    },
+    "max_tokens": 4000,
+    "system_prompt": "You are a helpful assistant.",
+    "run_settings_hash": "rs2-ea649ed6f1735a29",
+    "run_settings_fields": [
+      "temperature",
+      "max_tokens",
+      "system_prompt",
+      "reasoning_effort"
+    ],
+    "run_date": "2026-08-22T06:11:11.927Z",
+    "raw_model_output": "## The statistics\n\n| Statistic | Value |\n|---|---:|\n| Number of tickets | 15 |\n| Minimum resolution time | 1 hour |\n| Lower quartile | 2 hours |\n| Median resolution time | 3 hours |\n| Upper quartile | 5 hours |\n| Maximum resolution time | 240 hours |\n| Mean resolution time | 18.9 hours |\n| Tickets resolved within 8 hours | 14 of 15 |\n| SLA compliance rate | 93.3% |\n| Tickets over 8 hours | 1 of 15 |\n\n## The finding on the agreement\n\nThe team did **not** meet the eight-hour resolution agreement for all tickets. Fourteen tickets were resolved within 8 hours, including the ticket resolved exactly at 8 hours, but one ticket took 240 hours and therefore breached the SLA.\n\nThe mean resolution time is heavily distorted by the 240-hour case. The median of 3 hours is the more representative summary of typical ticket resolution time for this sample.\n\n## What the data does not establish\n\nThis data does not establish why the 240-hour ticket breached the SLA, whether it was an exceptional case, or whether it reflects a recurring process issue.\n\nIt also does not establish the team’s overall long-term SLA performance, because the sample covers only fifteen tickets closed in one week.\n\nIf the SLA is governed by a formal compliance threshold, such as “95% of tickets within 8 hours” rather than “every ticket within 8 hours,” that threshold is not provided here. Under a strict per-ticket reading, the SLA was breached.",
+    "anonymized_output_id": "OUT-0065",
+    "truncated": false,
+    "reasoning_tokens": 144,
+    "retry_count": 0,
+    "retry_log": [],
+    "notes": ""
   }
 ]

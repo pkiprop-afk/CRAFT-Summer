@@ -1098,5 +1098,70 @@
       }
     ],
     "evaluator_justification": "The response correctly identifies the strong positive associations among all three variables, explicitly rejects the causal claim, and accurately pinpoints sales headcount as a confounding variable that cannot be separated from advertising spend. However, it completely fails to propose a concrete method (such as an A/B test, holdout region, or staggered rollout) to test the causal claim."
+  },
+  {
+    "evaluation_id": "EVAL-a43a4e50-f5d6-46c4-a3f5-ac1ef837496e",
+    "result_id": "RES-a049bc94-58d1-4073-be9f-e109194eb437",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T06:10:55.079Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 7,
+    "retry_count": 2,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 1000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response accurately provides the mean (18.9 hours), median (3 hours), mode (2 hours), and compliance rate (14 of 15 tickets, 93.3%), while recommending robust summary statistics over the mean. However, it fails to quantify the outlier's numerical impact on the mean (specifically omitting that the 240-hour ticket contributes 16.0 hours to the mean and that the mean without it is approximately 3.14 hours)."
+  },
+  {
+    "evaluation_id": "EVAL-39cf4934-e0d4-44e1-b392-2d86e51d559f",
+    "result_id": "RES-a049bc94-58d1-4073-be9f-e109194eb437",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T06:11:05.421Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly reports n, mean, median, mode, and 14/15 tickets within target, and it identifies the 240-hour ticket as an extreme outlier. However, it does not quantify the outlier’s effect as required: it omits that the outlier contributes 16 hours to the mean and that the mean excluding it is about 3.14 hours. It appropriately warns against relying on the mean alone and recommends more representative measures, but its final SLA conclusion is somewhat hedged and leans toward breach based on one ticket rather than clearly centering the percentage-within-target/median framing expected by the task."
+  },
+  {
+    "evaluation_id": "EVAL-3a12c907-ddd9-4b79-b24e-251c2aa291d4",
+    "result_id": "RES-47953007-76df-4e53-b0cb-580c0d782247",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T06:11:13.906Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 7,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 1000
+      }
+    ],
+    "evaluator_justification": "The model correctly calculated the mean, median, SLA percentage (93.3%), and the mean excluding the outlier, while properly recommending robust statistics over the mean. However, it omitted the mode (2 hours) and did not explicitly quantify the outlier's specific contribution to the mean (16 hours)."
   }
 ]
