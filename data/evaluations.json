@@ -8181,5 +8181,87 @@
       }
     ],
     "evaluator_justification": "The response adheres to all constraints by staying under 300 words (276 words), identifying multiple affected parties (the company, the designer, marketing, and the public/employees), and structurally separating policy permission from practical advisability. It also identifies relevant unsupplied facts (such as external contract terms and third-party asset licenses) that could alter the recommendation, providing a well-reasoned and complete evaluation."
+  },
+  {
+    "evaluation_id": "EVAL-b39c723d-d6a3-40ec-80a9-aaa46477899e",
+    "result_id": "RES-f221a7aa-af2e-4e81-b962-96a8e1e1e710",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T17:39:45.022Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response satisfies all rubric constraints accurately. It details both the aggregate and distributional figures (34,000 vs. 2,100 non-overlapping patients), includes the required rural characteristics (65-minute travel time and 41% lacking vehicle access), clearly separates aggregate net benefit from distributional fairness, proposes specific mitigations (such as shuttle services and mobile clinics), and avoids both simplistic ratio-based endorsement and reflexive rejection."
+  },
+  {
+    "evaluation_id": "EVAL-01407429-1e2c-4ca7-92f7-d6f5f99db895",
+    "result_id": "RES-f221a7aa-af2e-4e81-b962-96a8e1e1e710",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T17:39:53.437Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 9,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response includes the core aggregate figures, identifies the concentrated rural harm, cites two specific relevant characteristics—the 65-minute travel increase and 41% without vehicle access—and avoids endorsing the proposal solely on the 34,000-to-2,100 ratio or rejecting it merely because harm exists. It also distinguishes aggregate benefit from distributional acceptability in substance and proposes concrete mitigations such as shuttle service, telehealth, and mobile clinics. The main omission is that it does not explicitly state that the 34,000 beneficiaries and 2,100 harmed patients do not overlap."
+  },
+  {
+    "evaluation_id": "EVAL-fde6d923-168b-4844-9b9e-f22b595a77ab",
+    "result_id": "RES-8dbcfeee-afc0-4bf6-a5c0-868885dc7cb6",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T17:41:52.383Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response states the key aggregate figures, including 34,000 beneficiaries and 2,100 harmed, and clearly notes the groups do not overlap. It identifies multiple relevant characteristics of the rural group, especially the 65-minute travel increase and 41% without private vehicle access. It explicitly separates net aggregate benefit from distributional acceptability and avoids relying on the 16:1 ratio alone. It also gives several concrete mitigations, including transport provision, staged closure, and retained minimum service."
+  },
+  {
+    "evaluation_id": "EVAL-7c2989d8-6b9c-4da2-bd6b-a72c150711b5",
+    "result_id": "RES-e3e43faf-7dc1-4b75-b861-c0563709a92a",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T17:42:05.373Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response adheres to all instructions and constraints. It correctly incorporates the 34,000 to 2,100 figures and notes the non-overlapping distributional impact, cites both the 65-minute travel increase and the 41% lack of private vehicle access, clearly separates the aggregate efficiency question from the distributional equity issue, and provides concrete, well-reasoned mitigations (such as transport support and phased implementation) while avoiding reflexive endorsement or rejection."
+  },
+  {
+    "evaluation_id": "EVAL-ad56ad8d-a089-4160-a4a6-b975dbfba13c",
+    "result_id": "RES-e3e43faf-7dc1-4b75-b861-c0563709a92a",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T17:42:17.715Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 9,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response states both aggregate figures (34,000 vs 2,100), cites the two required rural characteristics (65-minute travel increase, 41% without vehicle access), clearly separates the net-benefit question from the distributional-fairness question, and offers multiple concrete mitigations (transport subsidies, phased closure, outreach clinics) leading to a conditional-approval stance rather than endorsing or rejecting outright. The main shortfall is that it never explicitly states that the two groups (beneficiaries and harmed) do not overlap, which is a specified sub-requirement of the first constraint, so a partial deduction is warranted there."
   }
 ]
