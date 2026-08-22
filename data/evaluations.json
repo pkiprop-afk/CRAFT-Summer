@@ -7574,5 +7574,20 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response stays under the word limit, addresses the student directly throughout, and names all four criteria (A–D) with specific, criterion-tied reasons (clear thesis for A, two connected studies for B, missing rebuttal for C, clean mechanics/incomplete citations for D). It correctly frames Criterion C as a structural omission (\"the essay does not state or answer an opposing view... no marks could be awarded\") rather than as weak or careless work, satisfying the key discriminator. It also provides a concrete additive next step for C—include a stated counterargument (e.g., fewer interruptions, more flexibility) and respond to it with reasoning or evidence—rather than a vague exhortation to improve. The feedback avoids any language about the student's effort, ability, or attitude, and refrains from asserting a position on remote work's actual productivity effects, only describing the essay's stance and needed structural content. All five constraint elements, the logical distinctions required, and the completeness requirements (four criteria, reasons, and next step) are fully met."
+  },
+  {
+    "evaluation_id": "EVAL-edb76e6d-e9f5-4c03-a798-cbb5b58e1c40",
+    "result_id": "RES-a0e7ac38-b940-4da2-a166-254c282c5ed4",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T16:26:58.261Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 9,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response leads with an explicit impossibility statement, then shows the required arithmetic (28×3=84 vs. 30 minutes available after the 5+5 fixed blocks) before any plan is given, satisfying the core ordering and math requirements. It offers three alternative structures (group presentations with shortened time, extending the lesson, splitting across multiple lessons), each explicitly naming what requirement is relaxed, and it avoids presenting any 40-minute plan that falsely claims to satisfy all four original requirements—Option 1 explicitly flags what it fails to meet. The main shortfall is that it never explicitly separates \"fixed by the brief\" versus \"planner's to trade off\" as a distinct analytical step; this distinction is only implied through the options' captions rather than stated directly, which is why logical accuracy falls short of a perfect score despite otherwise rigorous reasoning."
   }
 ]
