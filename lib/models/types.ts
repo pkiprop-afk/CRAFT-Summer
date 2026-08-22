@@ -18,4 +18,10 @@ export interface ModelCallResult {
    * back in the response.
    */
   reasoning_tokens: number | null;
+  /**
+   * Concatenated thinking-block text, present ONLY when the caller explicitly
+   * requested capture (post-run T034-class remedy diagnostics). Never persisted
+   * to study records; absent on every ordinary call.
+   */
+  thinking?: string;
 }
