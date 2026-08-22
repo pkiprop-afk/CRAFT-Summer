@@ -20,7 +20,8 @@ import { decodingParamsFor } from "@/lib/decoding";
 import { LATENCY_FAIL_MS } from "@/lib/callability";
 import { runWithConcurrency } from "@/lib/concurrency";
 import { claimRunNumber, seedRunNumberCounts, type RunNumberScope } from "@/lib/runNumber";
-import { generateEvaluationId, generateResultId } from "@/lib/anonymize";
+import { generateResultId } from "@/lib/anonymize";
+import { buildEvaluationRecord } from "@/lib/evaluationRecord";
 import {
   buildBatchJobs,
   CHECKPOINT_AFTER_GENERATIONS,
@@ -69,6 +70,17 @@ export default function BatchRunnerPage() {
   // The study is 50 tasks x 2 conditions x BOTH models, so both are selected by
   // default and a single pass covers the whole design.
   const [selectedModels, setSelectedModels] = useState<TestModel[]>([...TEST_MODELS]);
+  /**
+   * G1 — generate only, defer judging. OFF by default.
+   *
+   * When the judge providers are degraded, inline judging strands cells whose
+   * generation already succeeded. This mode runs generations exactly as normal
+   * — same prompts, decoding, blinding allocation, settings hash, run_type —
+   * and writes ResultRecords with zero evaluations; judging happens later via
+   * evaluate-pending, which drives the same /api/evaluate path inline judging
+   * uses, so a deferred evaluation is indistinguishable from an inline one.
+   */
+  const [generateOnly, setGenerateOnly] = useState(false);
   const [maxTokens, setMaxTokens] = useState(DEFAULT_MAX_TOKENS);
   const [systemPrompt, setSystemPrompt] = useState("You are a helpful assistant.");
 
@@ -246,6 +258,14 @@ export default function BatchRunnerPage() {
       });
       if (!saveResponse.ok) throw new Error("Failed to save result");
 
+      // G1 — deferred judging: the run is saved and the job is complete. No
+      // evaluation is attempted; the cell is intentionally unevaluated until
+      // an evaluate-pending pass fills it through the identical API path.
+      if (generateOnly) {
+        updateJob({ status: "done" });
+        return;
+      }
+
       updateJob({ status: "evaluating" });
 
       // Both judges of the rotation score every run.
@@ -274,21 +294,14 @@ export default function BatchRunnerPage() {
           throw new Error(`${judge.model}: ${evalData.error ?? "Evaluation failed"}`);
         }
 
-        const evalRecord: EvaluationRecord = {
-          evaluation_id: generateEvaluationId(),
+        // G2 — record assembly is shared with evaluate-pending, so a deferred
+        // evaluation is structurally identical to this inline one.
+        const evalRecord: EvaluationRecord = buildEvaluationRecord({
           result_id: result.result_id,
           evaluator_model: judge.model,
-          evaluator_provenance_fingerprint: evalData.evaluator_provenance_fingerprint,
           is_primary: judge.isPrimary,
-          evaluated_at: new Date().toISOString(),
-          constraint_adherence_score_0_4: evalData.constraint_adherence,
-          logical_accuracy_score_0_4: evalData.logical_accuracy,
-          completeness_score_0_2: evalData.completeness,
-          total_score_0_10: evalData.total,
-          retry_count: evalData.evaluator_retry_count ?? 0,
-          retry_log: evalData.evaluator_retry_log ?? [],
-          evaluator_justification: evalData.justification,
-        };
+          response: evalData,
+        });
 
         const saveEval = await fetch("/api/evaluations", {
           method: "POST",
@@ -628,6 +641,29 @@ export default function BatchRunnerPage() {
             <p className="text-xs text-error">
               Only {selectedModels.length} of {TEST_MODELS.length} test models selected — this
               pass will not cover the full design.
+            </p>
+          ) : null}
+        </div>
+
+        <div className="rounded-lg border border-cream-border bg-cream-card px-3 py-2 space-y-1">
+          <label className="flex items-center gap-2 text-sm text-text-body">
+            <input
+              type="checkbox"
+              checked={generateOnly}
+              onChange={(e) => setGenerateOnly(e.target.checked)}
+              disabled={isRunning}
+            />
+            Generate only (defer judging)
+          </label>
+          <p className="text-xs text-text-muted">
+            Runs generations exactly as normal — same prompts, decoding, blinding allocation,
+            settings hash, and run_type — but attempts no evaluations. Cells are judged later by
+            <span className="font-mono"> npm run evaluate-pending</span>, which uses the identical
+            evaluation path. For when judge providers are degraded but generation is healthy.
+          </p>
+          {generateOnly ? (
+            <p className="text-xs text-warning">
+              Judging deferred: this pass will leave every cell it generates unevaluated.
             </p>
           ) : null}
         </div>

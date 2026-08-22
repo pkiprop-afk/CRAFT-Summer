@@ -20,12 +20,12 @@
 
 import { readFileSync, existsSync } from "node:fs";
 import path from "node:path";
-import { randomUUID } from "node:crypto";
 import {
   findPendingEvaluations,
   stillIncomplete,
   type PendingJudge,
 } from "../lib/pendingEvaluations.ts";
+import { buildEvaluationRecord } from "../lib/evaluationRecord.ts";
 import type { EvaluationRecord, ResultRecord, TaskRecord } from "../types/index.ts";
 
 const REPO = process.cwd();
@@ -62,6 +62,36 @@ async function main(): Promise<void> {
     console.error(`REFUSED: ${err instanceof Error ? err.message : String(err)}`);
     process.exitCode = 1;
     return;
+  }
+
+  // G5 — deterministic judge_truncated cases are NOT retried here: the failure
+  // is a function of the prompt and the output budget, so re-attempting burns
+  // calls to fail identically and inflates the truncation count with repeats
+  // of known cells. They belong to the post-run remedy (thinking-block capture
+  // + transport fix, then re-run).
+  const attempts = readJson<
+    Array<{ outcome?: string; anonymized_output_id?: string; evaluator_model?: string }>
+  >("eval_attempts.json", []);
+  const truncatedPairs = new Set(
+    attempts
+      .filter((a) => a.outcome === "judge_truncated")
+      .map((a) => `${a.anonymized_output_id}::${a.evaluator_model}`)
+  );
+  const skipped = pending.filter((p) =>
+    truncatedPairs.has(`${p.anonymized_output_id}::${p.evaluator}`)
+  );
+  pending = pending.filter(
+    (p) => !truncatedPairs.has(`${p.anonymized_output_id}::${p.evaluator}`)
+  );
+  if (skipped.length > 0) {
+    console.log(`deferred to post-run remedy (known judge_truncated, deterministic):`);
+    for (const p of skipped) {
+      console.log(
+        `  ${p.task_id.padEnd(5)} ${p.prompt_condition.padEnd(9)} ${p.model_name.padEnd(21)} -> ` +
+          `${p.evaluator} ${p.is_primary ? "PRIMARY" : "secondary"}`
+      );
+    }
+    console.log("");
   }
 
   const incompleteBefore = stillIncomplete(results, evaluations);
@@ -124,21 +154,14 @@ async function main(): Promise<void> {
         continue;
       }
 
-      const record: EvaluationRecord = {
-        evaluation_id: `EVAL-${randomUUID()}`,
+      // G2 — record assembly shared with the inline batch path, so a deferred
+      // evaluation is structurally identical to an inline one.
+      const record: EvaluationRecord = buildEvaluationRecord({
         result_id: p.result_id,
         evaluator_model: p.evaluator,
-        evaluator_provenance_fingerprint: data.evaluator_provenance_fingerprint,
         is_primary: p.is_primary,
-        evaluated_at: new Date().toISOString(),
-        constraint_adherence_score_0_4: data.constraint_adherence,
-        logical_accuracy_score_0_4: data.logical_accuracy,
-        completeness_score_0_2: data.completeness,
-        total_score_0_10: data.total,
-        retry_count: data.evaluator_retry_count ?? 0,
-        retry_log: data.evaluator_retry_log ?? [],
-        evaluator_justification: data.justification,
-      };
+        response: data,
+      });
 
       const save = await fetch(`${BASE}/api/evaluations`, {
         method: "POST",
