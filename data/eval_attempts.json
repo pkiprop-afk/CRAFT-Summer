@@ -4518,5 +4518,15 @@
     "retry_count": 0,
     "http_status": 200,
     "message": null
+  },
+  {
+    "evaluator_model": "claude-sonnet-5",
+    "is_primary": false,
+    "anonymized_output_id": "OUT-0223",
+    "recorded_at": "2026-08-22T15:50:14.215Z",
+    "outcome": "unparseable",
+    "retry_count": 0,
+    "http_status": 200,
+    "message": "Constraint adherence:"
   }
 ]
