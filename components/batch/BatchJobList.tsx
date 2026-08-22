@@ -41,6 +41,12 @@ function StatusBadge({ status }: { status: BatchJob["status"] }) {
           <Ban size={14} /> Aborted
         </span>
       );
+    case "skipped_existing":
+      return (
+        <span className="inline-flex items-center gap-1 text-xs text-text-muted">
+          <Check size={14} /> Already run
+        </span>
+      );
   }
 }
 
@@ -52,6 +58,7 @@ export function BatchJobList({ jobs }: BatchJobListProps) {
   const done = jobs.filter((j) => j.status === "done").length;
   const aborted = jobs.filter((j) => j.status === "aborted").length;
   const failed = jobs.filter((j) => j.status === "failed").length;
+  const skipped = jobs.filter((j) => j.status === "skipped_existing").length;
   const inProgress = jobs.filter((j) => j.status === "running" || j.status === "evaluating").length;
 
   return (
@@ -61,6 +68,7 @@ export function BatchJobList({ jobs }: BatchJobListProps) {
         {failed > 0 && <span className="text-error"> · {failed} failed</span>}
         {inProgress > 0 && <span> · {inProgress} in progress</span>}
         {aborted > 0 && <span className="text-warning"> · {aborted} aborted</span>}
+        {skipped > 0 && <span> · {skipped} already run</span>}
       </p>
 
       <div className="overflow-x-auto rounded-lg border border-cream-border">

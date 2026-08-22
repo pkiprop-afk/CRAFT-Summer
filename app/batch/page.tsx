@@ -24,6 +24,7 @@ import { generateEvaluationId, generateResultId } from "@/lib/anonymize";
 import {
   buildBatchJobs,
   CHECKPOINT_AFTER_GENERATIONS,
+  markExistingCells,
   isTaskReadyForScope,
   isUnpairedScope,
   PAIRED_SCOPE,

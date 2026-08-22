@@ -257,6 +257,77 @@ function main(): void {
     }
   }
 
+  // ------------------------------------------------------- BY DIFFICULTY TIER
+  // The cut that answers whether the task set discriminates ANYWHERE. A ceiling
+  // in aggregate is uninformative if it is driven by the Easy tier; what matters
+  // is whether Hard tasks separate the conditions.
+  const tasks = readJson<Array<{ task_id: string; difficulty_level: string }>>("tasks.json", []);
+  const tierOf = new Map(tasks.map((t) => [t.task_id, t.difficulty_level]));
+  const TIERS = ["Easy", "Medium", "Hard"];
+
+  console.log("\nBY DIFFICULTY TIER  (primary judge, complete pairs only)");
+  console.log(
+    `  ${"tier".padEnd(8)} ${"model".padEnd(22)} ${"pairs".padEnd(6)} ` +
+      `${"baseline".padEnd(9)} ${"craft".padEnd(9)} ${"delta".padEnd(8)} ` +
+      `${"tied".padEnd(6)} ${"@10/10".padEnd(7)} up  down`
+  );
+  for (const tier of TIERS) {
+    const tierPairs = complete.filter((p) => tierOf.get(p.task_id) === tier);
+    if (tierPairs.length === 0) {
+      console.log(`  ${tier.padEnd(8)} ${"—".padEnd(22)} no complete pairs yet`);
+      continue;
+    }
+    for (const m of [...TEST_MODELS, null]) {
+      const ps = m === null ? tierPairs : tierPairs.filter((p) => p.model === m);
+      if (ps.length === 0) continue;
+      const b = mean(ps.map((p) => p.baseline!.primaryTotal!));
+      const c = mean(ps.map((p) => p.craft!.primaryTotal!));
+      const d = b !== null && c !== null ? c - b : null;
+      const tied = ps.filter((p) => p.baseline!.primaryTotal === p.craft!.primaryTotal);
+      const ceil = tied.filter((p) => p.baseline!.primaryTotal === 10).length;
+      const up = ps.filter((p) => p.craft!.primaryTotal! > p.baseline!.primaryTotal!).length;
+      const down = ps.filter((p) => p.craft!.primaryTotal! < p.baseline!.primaryTotal!).length;
+      console.log(
+        `  ${tier.padEnd(8)} ${(m ?? "ALL").padEnd(22)} ${String(ps.length).padEnd(6)} ` +
+          `${fmt(b).padEnd(9)} ${fmt(c).padEnd(9)} ` +
+          `${(d === null ? "—" : (d >= 0 ? "+" : "") + d.toFixed(2)).padEnd(8)} ` +
+          `${String(tied.length).padEnd(6)} ${String(ceil).padEnd(7)} ` +
+          `${String(up).padEnd(3)} ${down}`
+      );
+    }
+  }
+
+  console.log("\nSCORE DISTRIBUTION BY TIER x MODEL x CONDITION  (primary judge)");
+  for (const tier of TIERS) {
+    const rows = mainScored.filter(
+      (s) => tierOf.get(s.result.task_id) === tier && s.primaryTotal !== null
+    );
+    if (rows.length === 0) {
+      console.log(`\n  ${tier}: none scored yet`);
+      continue;
+    }
+    console.log(`\n  ${tier}  (n=${rows.length} scored cells)`);
+    for (const m of TEST_MODELS) {
+      for (const cond of CONDITIONS) {
+        const cells = rows.filter(
+          (s) => s.result.model_name === m && s.result.prompt_condition === cond
+        );
+        if (cells.length === 0) continue;
+        const totals = cells.map((s) => s.primaryTotal!);
+        const counts = new Map<number, number>();
+        for (const t of totals) counts.set(t, (counts.get(t) ?? 0) + 1);
+        const hist = [...counts.entries()]
+          .sort((a, b) => b[0] - a[0])
+          .map(([score, k]) => `${score}:${k}`)
+          .join("  ");
+        console.log(
+          `    ${m.padEnd(22)} ${cond.padEnd(9)} n=${String(totals.length).padEnd(4)} ` +
+            `mean ${fmt(mean(totals))}   ${hist}`
+        );
+      }
+    }
+  }
+
   // ------------------------------------------------- EVALUATION ATTEMPTS (M2)
   const attempts = readJson<EvalAttemptRecord[]>("eval_attempts.json", []);
   const st = computeEvalAttemptStats(attempts);
