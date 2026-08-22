@@ -226,7 +226,15 @@ export default function ResultsPage() {
                   } in the CRAFT condition, so the truncation in this data cuts against CRAFT.`
                 : `${truncationByCondition.baseline} baseline vs ${truncationByCondition.craft} CRAFT
                   — the bias direction is mixed; judge per-pair.`}{" "}
-            Re-run these with a higher max_tokens.
+            {/* Deliberately NO re-run advice: re-running one cell at a higher
+                max_tokens would give it different decoding parameters from its
+                pair — exactly what run_settings_hash exists to prevent — and
+                re-running both conditions would put one cell of the study on
+                different parameters from the other 199. This is a recorded,
+                reportable limitation of the affected pair, not a task. */}
+            These runs are retained as-is: a re-run at a higher token limit would break the
+            pair&apos;s identical-settings binding. Recorded as a limitation of the affected
+            pair{truncatedResults.length === 1 ? "" : "s"}.
           </p>
           <ul className="mt-2 font-mono text-xs text-error/90 max-h-32 overflow-y-auto">
             {truncatedResults.map((s) => (

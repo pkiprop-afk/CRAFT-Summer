@@ -5895,5 +5895,27 @@
     "retry_count": 0,
     "retry_log": [],
     "evaluator_justification": "The response is under 180 words, addresses the student directly, and references all four criteria by name. It gives specific reasons for the marks in at least three criteria: the claim is clear and consistent, one evidence link is underexplained, the counterargument is absent, and citation formatting lacks page numbers. It correctly treats Criterion C/Counterargument as a structural omission rather than weak execution and gives an additive next step: add a counterargument and rebuttal. It does not critique the student’s effort or ability and does not evaluate the merits of the remote-work argument itself."
+  },
+  {
+    "evaluation_id": "EVAL-583dd1e7-4959-40ac-b73a-c97a47adb86a",
+    "result_id": "RES-e7b27e99-e455-4536-bbc4-7558170845b5",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T15:12:58.239Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response adheres to all instructions and negative constraints: it stays under 180 words (168 words), addresses the student directly, references Criteria A through D by name with specific reasons for each mark, correctly treats Criterion C as a structural omission rather than poor effort/execution, provides a concrete additive next step for Criterion C, and avoids personal judgments or debates on the topic."
   }
 ]
