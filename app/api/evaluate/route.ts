@@ -11,6 +11,7 @@ import {
   JUDGE_RETRY_POLICY,
   NonRetryableError,
   RetriesExhaustedError,
+  TruncatedResponseError,
   type RetryAttempt,
 } from "@/lib/retry";
 import {
@@ -26,6 +27,27 @@ import {
 import type { ModelCallResult } from "@/lib/models/types";
 
 const EVALUATOR_SYSTEM_PROMPT = "You are a rigorous, unbiased benchmark evaluator.";
+
+/**
+ * Judge output budget, raised 1024 -> 4000 to match the generation budget.
+ *
+ * At 1024, claude-sonnet-5 spent the entire budget on thinking tokens for
+ * complex responses and returned zero text blocks — verified directly:
+ * stop_reason "max_tokens", output_tokens 1024, thinking_tokens 1024,
+ * content [{type:"thinking"}]. That surfaced as a generic empty response and
+ * stranded the cell after five retries.
+ *
+ * It failed deterministically on HARDER inputs, because those make a judge
+ * think longer, so the missing data was not missing at random — it was
+ * filtered by task difficulty, which biases inter-rater reliability rather
+ * than merely shrinking it.
+ *
+ * This is a transport fix, not a tuning change: a model is not shown its
+ * max_tokens, so evaluations that already fit are unchanged at the higher cap.
+ * Only calls that produced no text at all behave differently, and those had no
+ * score to preserve.
+ */
+const EVALUATOR_MAX_TOKENS = 4000;
 
 interface EvaluateRequestBody {
   /**
@@ -117,10 +139,18 @@ export async function POST(request: Request) {
     const outcome = await callWithRetry(
       () =>
         evaluator === GOOGLE_MODEL_ID
-          ? callGemini(prompt)
+          ? callGemini(prompt, EVALUATOR_MAX_TOKENS)
           : evaluator === ANTHROPIC_MODEL_ID
-            ? callClaude({ prompt, systemPrompt: EVALUATOR_SYSTEM_PROMPT, maxTokens: 1024 })
-            : callOpenAI({ prompt, systemPrompt: EVALUATOR_SYSTEM_PROMPT, maxTokens: 1024 }),
+            ? callClaude({
+                prompt,
+                systemPrompt: EVALUATOR_SYSTEM_PROMPT,
+                maxTokens: EVALUATOR_MAX_TOKENS,
+              })
+            : callOpenAI({
+                prompt,
+                systemPrompt: EVALUATOR_SYSTEM_PROMPT,
+                maxTokens: EVALUATOR_MAX_TOKENS,
+              }),
       // Judges are the failing leg, not generation — see JUDGE_RETRY_POLICY.
       JUDGE_RETRY_POLICY
     );
@@ -146,6 +176,29 @@ export async function POST(request: Request) {
         {
           error: `Evaluation failed after ${err.attempts.length} attempts: ${err.message}`,
           retry_log: err.attempts,
+        },
+        { status: 502 }
+      );
+    }
+    // Checked before NonRetryableError — TruncatedResponseError extends it, and
+    // it must be counted as the configuration defect it is, not folded into a
+    // generic provider failure.
+    if (err instanceof TruncatedResponseError) {
+      await recordEvalAttempt({
+        ...attemptBase,
+        recorded_at: new Date().toISOString(),
+        outcome: "judge_truncated",
+        retry_count: 0,
+        http_status: 200,
+        message: err.message.slice(0, 300),
+      });
+      return NextResponse.json(
+        {
+          error:
+            `Judge output was truncated at the token limit before producing a score. ` +
+            `This is a configuration defect, not provider flakiness: it is deterministic ` +
+            `for this prompt and correlates with task difficulty. ${err.message}`,
+          judge_truncated: true,
         },
         { status: 502 }
       );

@@ -16,8 +16,14 @@ function getClient(): GoogleGenerativeAI {
  * Google exposes no temperature control we set and no effort parameter, so
  * nothing decoding-related is sent. Runs record temperature: null.
  */
-export async function callGemini(prompt: string): Promise<ModelCallResult> {
-  const model = getClient().getGenerativeModel({ model: GOOGLE_MODEL_ID });
+export async function callGemini(
+  prompt: string,
+  maxOutputTokens?: number
+): Promise<ModelCallResult> {
+  const model = getClient().getGenerativeModel({
+    model: GOOGLE_MODEL_ID,
+    ...(maxOutputTokens !== undefined ? { generationConfig: { maxOutputTokens } } : {}),
+  });
   const result = await model.generateContent(prompt);
   const finishReason = result.response.candidates?.[0]?.finishReason ?? null;
 

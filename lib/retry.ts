@@ -67,6 +67,22 @@ export class NonRetryableError extends Error {
   }
 }
 
+/**
+ * The provider stopped at its token limit before emitting usable text.
+ *
+ * Deliberately NOT retryable: it is deterministic for a given prompt and
+ * budget, so retrying burns the budget and still strands the cell. It is also
+ * deliberately its own error type — this previously surfaced as a generic
+ * "empty response body", which hid a systematic, difficulty-correlated defect
+ * behind what looked like provider flakiness.
+ */
+export class TruncatedResponseError extends NonRetryableError {
+  constructor(message: string) {
+    super(message, 200);
+    this.name = "TruncatedResponseError";
+  }
+}
+
 export class RetriesExhaustedError extends Error {
   readonly attempts: RetryAttempt[];
   constructor(message: string, attempts: RetryAttempt[]) {
@@ -159,6 +175,15 @@ export async function callWithRetry(
 
     try {
       result = await call();
+      // A token-limit stop with no usable text is deterministic — fail fast and
+      // name it, rather than spending the retry budget on a certainty.
+      if (result.text.trim().length === 0 && result.truncated) {
+        throw new TruncatedResponseError(
+          `provider stopped at its token limit (stop_reason ${JSON.stringify(
+            result.stop_reason
+          )}) before emitting any text — the output budget is too small for this prompt`
+        );
+      }
       // I4 — an empty 200 is a failure.
       if (result.text.trim().length === 0) {
         reason = "empty response body (HTTP 200 with no text)";
@@ -168,6 +193,9 @@ export async function callWithRetry(
         return { value: result, attempts };
       }
     } catch (err) {
+      // Ours, and already a final verdict — must not be re-classified into a
+      // generic non-retryable error, which would erase the diagnosis.
+      if (err instanceof TruncatedResponseError) throw err;
       decision = classifyCallError(err);
       status = statusOf(err);
       reason = `${decision.reason}: ${

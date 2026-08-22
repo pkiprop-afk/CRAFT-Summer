@@ -360,6 +360,30 @@ async function main(): Promise<void> {
     }
   }
 
+  // A truncated judge call is an ERROR, not a warning: it is a defect in our
+  // own configuration, it is deterministic, and it correlates with task
+  // difficulty — so it removes data selectively rather than at random, which
+  // biases inter-rater reliability instead of merely shrinking the sample.
+  const attempts = readJson<Array<{ outcome?: string; evaluator_model?: string }>>(
+    "data/eval_attempts.json",
+    []
+  );
+  const truncatedJudge = attempts.filter((a) => a.outcome === "judge_truncated");
+  if (truncatedJudge.length > 0) {
+    const byJudge = new Map<string, number>();
+    for (const a of truncatedJudge) {
+      const k = a.evaluator_model ?? "(unknown)";
+      byJudge.set(k, (byJudge.get(k) ?? 0) + 1);
+    }
+    for (const [judge, count] of byJudge) {
+      err(
+        `${judge}: ${count} evaluation(s) truncated at the judge token limit before ` +
+          `producing a score. This is a configuration defect, not provider flakiness — ` +
+          `raise the evaluator output budget and re-run those cells.`
+      );
+    }
+  }
+
   for (const r of results) {
     const evals = evalsByResult.get(r.result_id) ?? [];
     const primaries = evals.filter((e) => e.is_primary).length;

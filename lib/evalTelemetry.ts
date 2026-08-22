@@ -35,7 +35,16 @@ export type EvalAttemptOutcome =
   /** Provider answered, but the reply did not match the rubric format. */
   | "unparseable"
   /** Failed on something retrying cannot fix (credit, auth, bad request). */
-  | "failed_non_retryable";
+  | "failed_non_retryable"
+  /**
+   * The judge stopped at its token limit before emitting usable text.
+   *
+   * Its own outcome because it is a DEFECT in our configuration, not provider
+   * flakiness: deterministic for a given prompt and budget, and correlated with
+   * task difficulty, so it filters data rather than merely losing it. It must
+   * never again be counted as a generic empty response.
+   */
+  | "judge_truncated";
 
 export interface EvalAttemptRecord {
   recorded_at: string;
@@ -89,6 +98,7 @@ export interface EvalAttemptStats {
   exhausted: number;
   unparseable: number;
   failedNonRetryable: number;
+  judgeTruncated: number;
   succeeded: number;
   failed: number;
   /** Attempts that consumed at least one retry, over ALL attempts. */
@@ -145,6 +155,7 @@ const FAILURE_OUTCOMES = new Set<EvalAttemptOutcome>([
   "exhausted",
   "unparseable",
   "failed_non_retryable",
+  "judge_truncated",
 ]);
 
 export function computeEvalAttemptStats(attempts: EvalAttemptRecord[]): EvalAttemptStats {
@@ -154,7 +165,8 @@ export function computeEvalAttemptStats(attempts: EvalAttemptRecord[]): EvalAtte
   const exhausted = n((a) => a.outcome === "exhausted");
   const unparseable = n((a) => a.outcome === "unparseable");
   const failedNonRetryable = n((a) => a.outcome === "failed_non_retryable");
-  const failed = exhausted + unparseable + failedNonRetryable;
+  const judgeTruncated = n((a) => a.outcome === "judge_truncated");
+  const failed = exhausted + unparseable + failedNonRetryable + judgeTruncated;
   // Counted from retry_count, not from the outcome label, so an attempt that
   // retried and then failed to parse is still counted as a retry.
   const retried = n((a) => a.retry_count > 0);
@@ -168,6 +180,7 @@ export function computeEvalAttemptStats(attempts: EvalAttemptRecord[]): EvalAtte
     exhausted,
     unparseable,
     failedNonRetryable,
+    judgeTruncated,
     succeeded: total - failed,
     failed,
     retried,

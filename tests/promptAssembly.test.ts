@@ -7,7 +7,12 @@ import {
   composedPromptFor,
   taskInputBlock,
 } from "../lib/promptAssembly.ts";
-import { callWithRetry, classifyCallError, MAX_ATTEMPTS } from "../lib/retry.ts";
+import {
+  callWithRetry,
+  classifyCallError,
+  JUDGE_RETRY_POLICY,
+  MAX_ATTEMPTS,
+} from "../lib/retry.ts";
 
 const tasks = JSON.parse(
   readFileSync(path.join(process.cwd(), "data", "tasks.json"), "utf-8")
@@ -197,6 +202,80 @@ describe("I3/I4 — retry behaviour", () => {
       /quota\/credit/
     );
     assert.equal(calls, 1, "credit failures must not be retried");
+  });
+
+  test("a token-limit stop with no text fails FAST and is named", async () => {
+    // The claude-sonnet-5 judge failure: stop_reason max_tokens, all budget
+    // spent on thinking, zero text blocks. Retrying is futile — it is
+    // deterministic — so it must not consume the retry budget.
+    let calls = 0;
+    await assert.rejects(
+      () =>
+        callWithRetry(
+          async () => {
+            calls++;
+            return { text: "", stop_reason: "max_tokens", truncated: true, reasoning_tokens: null };
+          },
+          { sleepFn: noSleep }
+        ),
+      (e: Error) => {
+        assert.equal(e.name, "TruncatedResponseError");
+        assert.match(e.message, /token limit/);
+        return true;
+      }
+    );
+    assert.equal(calls, 1, "a deterministic truncation must not be retried");
+  });
+
+  test("an empty response that is NOT truncated is still retried", async () => {
+    // The two must stay distinguishable: one is provider flakiness, the other
+    // is our own budget being too small.
+    let calls = 0;
+    const outcome = await callWithRetry(
+      async () => {
+        calls++;
+        if (calls === 1)
+          return { text: "", stop_reason: "end_turn", truncated: false, reasoning_tokens: null };
+        return ok;
+      },
+      { sleepFn: noSleep }
+    );
+    assert.equal(calls, 2);
+    assert.equal(outcome.attempts.length, 1);
+  });
+
+  test("judge policy is more patient than generation policy", async () => {
+    const delays: number[] = [];
+    await assert.rejects(() =>
+      callWithRetry(
+        async () => {
+          throw Object.assign(new Error("overloaded"), { status: 503 });
+        },
+        { ...JUDGE_RETRY_POLICY, sleepFn: async (ms) => { delays.push(ms); } }
+      )
+    );
+    assert.deepEqual(delays, [2000, 4000, 8000, 16000]);
+  });
+
+  test("the total-wait cap stops retrying before the attempt budget runs out", async () => {
+    const delays: number[] = [];
+    await assert.rejects(
+      () =>
+        callWithRetry(
+          async () => {
+            throw Object.assign(new Error("overloaded"), { status: 503 });
+          },
+          {
+            maxAttempts: 10,
+            baseDelayMs: 2000,
+            totalWaitCapMs: 10_000,
+            sleepFn: async (ms) => { delays.push(ms); },
+          }
+        ),
+      /total backoff would exceed/
+    );
+    // 2000 + 4000 = 6000; the next 8000 would exceed 10000, so it stops.
+    assert.deepEqual(delays, [2000, 4000]);
   });
 
   test("backoff grows exponentially", async () => {
