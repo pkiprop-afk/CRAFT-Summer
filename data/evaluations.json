@@ -7183,5 +7183,49 @@
       }
     ],
     "evaluator_justification": "The response adheres to all specified constraints: it is under 180 words, addresses the student directly, references all four criteria by name, and provides clear, specific reasons for the marks awarded across all criteria. It correctly frames the Criterion C mark as a structural omission (\"does not include an opposing view\") rather than an execution or effort flaw, and offers a concrete, additive next step. Furthermore, it strictly evaluates the submission against the rubric criteria without commenting on the student's personal attributes or arguing the real-world merits of remote work."
+  },
+  {
+    "evaluation_id": "EVAL-da9fc5e7-1446-4895-90e2-c6438404aae1",
+    "result_id": "RES-3575818d-6c0f-427a-9157-c035a6f15758",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T16:07:00.838Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response explicitly identifies the impossibility of the brief prior to presenting any timetable, shows the core arithmetic (28 students × 3 minutes = 84 minutes), clearly distinguishes fixed constraints from negotiable trade-offs, and provides viable alternative structures (parallel small-group presentations and multi-lesson spreading) without falsely claiming a standard 40-minute sequential plan could work."
+  },
+  {
+    "evaluation_id": "EVAL-35a42b58-a14b-4358-9e9a-9f49304acdd9",
+    "result_id": "RES-4cc5afd7-889d-46e6-84bf-acff254e1e38",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T16:07:12.113Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 7,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response successfully identifies the impossibility before presenting a plan, shows accurate arithmetic (84 minutes for presentations + 10 minutes for intro/plenary exceeding the 40-minute limit), and explicitly avoids falsely claiming a complete plan. However, it fails to provide at least two alternative structures that each explicitly name which requirement they relax (such as multi-lesson delivery or group presentations), instead providing only a single truncated 40-minute plan."
   }
 ]
