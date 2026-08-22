@@ -8,6 +8,7 @@ import { checkJudgeAllowed } from "@/lib/blindingGuard";
 import { recordEvalAttempt } from "@/lib/evalTelemetry";
 import {
   callWithRetry,
+  JUDGE_RETRY_POLICY,
   NonRetryableError,
   RetriesExhaustedError,
   type RetryAttempt,
@@ -113,12 +114,15 @@ export async function POST(request: Request) {
     // I3/I4 — judges get the same retry policy as generations. The primary
     // judge carries every evaluation in the study, so a transient 503 there
     // would otherwise strand runs as singly-judged.
-    const outcome = await callWithRetry(() =>
-      evaluator === GOOGLE_MODEL_ID
-        ? callGemini(prompt)
-        : evaluator === ANTHROPIC_MODEL_ID
-          ? callClaude({ prompt, systemPrompt: EVALUATOR_SYSTEM_PROMPT, maxTokens: 1024 })
-          : callOpenAI({ prompt, systemPrompt: EVALUATOR_SYSTEM_PROMPT, maxTokens: 1024 })
+    const outcome = await callWithRetry(
+      () =>
+        evaluator === GOOGLE_MODEL_ID
+          ? callGemini(prompt)
+          : evaluator === ANTHROPIC_MODEL_ID
+            ? callClaude({ prompt, systemPrompt: EVALUATOR_SYSTEM_PROMPT, maxTokens: 1024 })
+            : callOpenAI({ prompt, systemPrompt: EVALUATOR_SYSTEM_PROMPT, maxTokens: 1024 }),
+      // Judges are the failing leg, not generation — see JUDGE_RETRY_POLICY.
+      JUDGE_RETRY_POLICY
     );
     call = outcome.value;
     retries = outcome.attempts;

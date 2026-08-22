@@ -22,6 +22,30 @@ import type { ModelCallResult } from "@/lib/models/types";
 export const MAX_ATTEMPTS = 3;
 const BASE_DELAY_MS = 1000;
 
+/**
+ * Judges get a more patient policy than generations.
+ *
+ * Generation is not what fails — across the run its retry count is 0. The judge
+ * providers are, and a 3-attempt budget with 1s/2s backoff is too short for a
+ * provider that is answering in ~10s: the budget is spent before the degraded
+ * window passes, and the cell is stranded with a generation already paid for.
+ *
+ * 5 attempts at 2s/4s/8s/16s absorbs a ~30s window. TOTAL_WAIT_CAP_MS bounds the
+ * damage a single hung evaluation can do to the queue.
+ *
+ * This changes only how patiently we wait. Same judges, same prompt, same
+ * rubric, same scores.
+ */
+export const JUDGE_MAX_ATTEMPTS = 5;
+export const JUDGE_BASE_DELAY_MS = 2000;
+export const JUDGE_TOTAL_WAIT_CAP_MS = 60_000;
+
+export const JUDGE_RETRY_POLICY = {
+  maxAttempts: JUDGE_MAX_ATTEMPTS,
+  baseDelayMs: JUDGE_BASE_DELAY_MS,
+  totalWaitCapMs: JUDGE_TOTAL_WAIT_CAP_MS,
+} as const;
+
 export interface RetryAttempt {
   attempt: number;
   reason: string;
@@ -103,20 +127,29 @@ export function classifyCallError(err: unknown): RetryDecision {
   return { retryable: false, reason: status ? `${status} not retryable` : "not retryable" };
 }
 
-function backoffMs(attempt: number): number {
-  // 1s, 2s, 4s …
-  return BASE_DELAY_MS * 2 ** (attempt - 1);
+function backoffMs(attempt: number, baseDelayMs: number): number {
+  // base, 2x, 4x … — 1s/2s for generations, 2s/4s/8s/16s for judges.
+  return baseDelayMs * 2 ** (attempt - 1);
 }
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export async function callWithRetry(
   call: () => Promise<ModelCallResult>,
-  options: { maxAttempts?: number; sleepFn?: (ms: number) => Promise<void> } = {}
+  options: {
+    maxAttempts?: number;
+    baseDelayMs?: number;
+    /** Stops retrying once cumulative backoff would exceed this. */
+    totalWaitCapMs?: number;
+    sleepFn?: (ms: number) => Promise<void>;
+  } = {}
 ): Promise<RetryOutcome> {
   const maxAttempts = options.maxAttempts ?? MAX_ATTEMPTS;
+  const baseDelayMs = options.baseDelayMs ?? BASE_DELAY_MS;
+  const totalWaitCapMs = options.totalWaitCapMs ?? Infinity;
   const wait = options.sleepFn ?? sleep;
   const attempts: RetryAttempt[] = [];
+  let waitedMs = 0;
 
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     let result: ModelCallResult | null = null;
@@ -145,16 +178,25 @@ export async function callWithRetry(
       }
     }
 
-    const isLast = attempt === maxAttempts;
-    const delay = isLast ? 0 : backoffMs(attempt);
+    const nextDelay = backoffMs(attempt, baseDelayMs);
+    // Stop if this is the last attempt, or if waiting again would push the
+    // cumulative backoff past the cap — one call must not hold the queue open
+    // indefinitely just because the budget allows more attempts.
+    const wouldExceedCap = waitedMs + nextDelay > totalWaitCapMs;
+    const isLast = attempt === maxAttempts || wouldExceedCap;
+    const delay = isLast ? 0 : nextDelay;
     attempts.push({ attempt, reason, http_status: status, delay_ms: delay });
 
     if (isLast) {
       throw new RetriesExhaustedError(
-        `All ${maxAttempts} attempts failed. Last: ${reason}`,
+        wouldExceedCap && attempt < maxAttempts
+          ? `Stopped after ${attempt} attempt(s): total backoff would exceed ` +
+            `${totalWaitCapMs} ms. Last: ${reason}`
+          : `All ${maxAttempts} attempts failed. Last: ${reason}`,
         attempts
       );
     }
+    waitedMs += delay;
     await wait(delay);
   }
 
