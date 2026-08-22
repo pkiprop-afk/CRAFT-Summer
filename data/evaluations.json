@@ -1163,5 +1163,338 @@
       }
     ],
     "evaluator_justification": "The model correctly calculated the mean, median, SLA percentage (93.3%), and the mean excluding the outlier, while properly recommending robust statistics over the mean. However, it omitted the mode (2 hours) and did not explicitly quantify the outlier's specific contribution to the mean (16 hours)."
+  },
+  {
+    "evaluation_id": "EVAL-1e6e9697-5489-4eb9-935b-916090bc8e93",
+    "result_id": "RES-eb65785c-9b34-4a98-9c30-8edd9f14abe0",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T06:24:00.945Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 2,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      }
+    ],
+    "evaluator_justification": "The response perfectly satisfies all constraints and prompt requirements. It precisely identifies the check-before-add ordering bug, walks through a concrete failing example step-by-step, explains both logical consequences of the bug, and provides a correct, runnable function that handles edge cases properly."
+  },
+  {
+    "evaluation_id": "EVAL-efc42219-0feb-4ebd-8b73-cc98f0d01e86",
+    "result_id": "RES-eb65785c-9b34-4a98-9c30-8edd9f14abe0",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T06:24:04.157Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly identifies the specific bug as checking `balance < 0` before applying the current transaction, explains why this checks the wrong state and misses the final transaction, and gives a concrete failing example. It provides a corrected runnable function that updates the balance before checking, would return `True` for `transactions = [-5]`, and does not introduce a new edge-case bug such as using `<= 0`."
+  },
+  {
+    "evaluation_id": "EVAL-170630e4-2aa6-46a5-bb27-fd6cd514fd0b",
+    "result_id": "RES-216496e1-ba34-4a8d-a97c-f69794adc4ba",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T06:24:14.282Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 9,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response accurately identifies the root cause of the bug, explains the persistence of state, uses `float('-inf')` to properly handle negative numbers and empty lists, and provides correct Python implementations. It misses only one minor constraint: providing a concrete input/output example demonstrating the buggy behavior failing."
+  },
+  {
+    "evaluation_id": "EVAL-e1039cfa-f79b-44bf-85e9-40d9701e7e30",
+    "result_id": "RES-216496e1-ba34-4a8d-a97c-f69794adc4ba",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T06:24:19.820Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 9,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly identifies that `current_peak` is reset to the current reading each iteration, explains that the running maximum must persist across iterations and be non-decreasing, and provides corrected runnable functions that handle empty lists and would produce the required output for the given readings. However, it does not explicitly show the required test case `[1,2,3,2,3,4,2] -> [1,2,3,3,3,4,4]` or give a concrete failing example of the buggy behavior, so constraint adherence is slightly reduced."
+  },
+  {
+    "evaluation_id": "EVAL-7b33c011-f5cd-4c0d-900a-80c6522a5665",
+    "result_id": "RES-bdbc3ba2-3e06-46a0-a01e-4b8f29b50ac2",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T06:25:58.182Z",
+    "constraint_adherence_score_0_4": 0,
+    "logical_accuracy_score_0_4": 0,
+    "completeness_score_0_2": 0,
+    "total_score_0_10": 0,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response addresses an entirely different median/average bug rather than the specified repeated-value filtering bug. It does not identify first-occurrence deduplication versus removal of all repeated values, does not explain why a running seen set is insufficient because counts are unknown until traversal completes, does not provide the required corrected function, does not show the required output `[1,3,4]` for `[1,2,3,2,4]`, and does not address preserving original order for that specification."
+  },
+  {
+    "evaluation_id": "EVAL-3e1fec2a-2257-48fd-8abc-4d6b20e8277f",
+    "result_id": "RES-8b0e14a4-cc99-42f5-bbf4-de5309d491e9",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T06:26:03.147Z",
+    "constraint_adherence_score_0_4": 1,
+    "logical_accuracy_score_0_4": 0,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 3,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response failed four of the five specified constraints: it did not identify deduplication behavior, did not explain the limitation of a running seen set, did not preserve input order, and its function does not return [1, 3, 4] for the required test case. Under logical accuracy, it receives 0/4 because it completely failed to address the required specification mismatch regarding occurrence counting prior to filtering. Completeness receives 2/2 as a diagnosis, explanation, and corrected function are all structurally present."
+  },
+  {
+    "evaluation_id": "EVAL-c3e116c1-2526-4705-bade-4fc01a6fe160",
+    "result_id": "RES-8b0e14a4-cc99-42f5-bbf4-de5309d491e9",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T06:26:09.272Z",
+    "constraint_adherence_score_0_4": 0,
+    "logical_accuracy_score_0_4": 0,
+    "completeness_score_0_2": 0,
+    "total_score_0_10": 0,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response completely misidentifies the task, treating it as a median-calculation bug (odd vs. even length) rather than the actual specification issue involving deduplication of repeated values (items = [1,2,3,2,4] → [1,3,4]). It never addresses the first-occurrence dedup bug, never explains why a single-pass \"seen\" set fails due to unknown total counts, and the corrected function it provides computes a median, not a deduplicated list—failing to reproduce the required output entirely. All five required constraints are unmet, and the explanation, while internally coherent for a different problem, is irrelevant to the actual task."
+  },
+  {
+    "evaluation_id": "EVAL-bfb41da4-5b07-4d87-aa27-9c290dbbee78",
+    "result_id": "RES-e8664c09-635b-4251-8ebd-9938eb0289dd",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T06:26:16.428Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response accurately identifies the `ZeroDivisionError` caused by a zero denominator when `highest == lowest`, correctly notes the absence of a range to rescale across, and provides a working function that correctly handles both standard and degenerate inputs. However, it omits a concrete failing input example in its explanation, and its justification for choosing `0.0` over other valid degenerate defaults (such as `0.5` or `1.0`) is only briefly mentioned as a common choice rather than thoroughly defended."
+  },
+  {
+    "evaluation_id": "EVAL-e9a96056-bfb4-4508-be6e-9294941b99cb",
+    "result_id": "RES-e8664c09-635b-4251-8ebd-9938eb0289dd",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T06:27:13.938Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 2,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 7,
+    "retry_count": 3,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "empty response body (HTTP 200 with no text)",
+        "http_status": 200,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "empty response body (HTTP 200 with no text)",
+        "http_status": 200,
+        "delay_ms": 4000
+      },
+      {
+        "attempt": 3,
+        "reason": "empty response body (HTTP 200 with no text)",
+        "http_status": 200,
+        "delay_ms": 8000
+      }
+    ],
+    "evaluator_justification": "The response correctly identifies the zero denominator as the crash cause, explains why the ZeroDivisionError occurs, and supplies a corrected function that meets both required test cases. However, it lacks a concrete tra"
+  },
+  {
+    "evaluation_id": "EVAL-ac7c3c4e-038c-4900-a33f-8ae0fe43f410",
+    "result_id": "RES-2980d8d5-a7d5-4405-89b7-f2d1c482cad5",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T06:27:34.737Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "empty response body (HTTP 200 with no text)",
+        "http_status": 200,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response correctly diagnoses the early-return bug, provides a genuine multi-descent failing example ([1,3,2,5,4] with descents at indices 2 and 4) showing the function returns the wrong (non-maximal) index, supplies two corrected, runnable implementations (reverse-scan and forward-accumulator) that both correctly return 3 for [1,2,4,3,5] and -1 for [1,2,3], and preserves the -1 sentinel throughout. The explanation for the reverse-scan approach appropriately justifies why the first match when iterating backward is the largest index, satisfying the logical accuracy rubric's exception for that strategy. All required elements—diagnosis, explanation, and corrected code—are present."
+  },
+  {
+    "evaluation_id": "EVAL-d37fe110-546a-428f-8229-deee1eaa2dab",
+    "result_id": "RES-cbf507a4-90da-43f6-876b-0d4e4df48eaa",
+    "evaluator_model": "claude-sonnet-5",
+    "evaluator_provenance_fingerprint": "created_at:2026-06-29T00:00:00Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T06:28:11.601Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 9,
+    "retry_count": 2,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "empty response body (HTTP 200 with no text)",
+        "http_status": 200,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "empty response body (HTTP 200 with no text)",
+        "http_status": 200,
+        "delay_ms": 4000
+      }
+    ],
+    "evaluator_justification": "The response correctly identifies the early-return bug, uses a genuine multi-descent example ([1,3,2,4,6,5]) to demonstrate the flaw, supplies a corrected function that passes both required test cases, and preserves the -1 sentinel—satisfying all five constraints. However, while the model clearly explains why the original forward-scanning function fails (stopping at the first match forecloses later candidates), it does not expl"
+  },
+  {
+    "evaluation_id": "EVAL-76c33841-19dc-4bd2-89d3-f3479b54ef81",
+    "result_id": "RES-8aef545d-9f37-4d3d-9a72-4ce173293462",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T06:28:21.293Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 1,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      }
+    ],
+    "evaluator_justification": "The response satisfies all constraints perfectly: it accurately calculates the stratified and aggregate hire rates, explicitly identifies and explains Simpson's paradox via the confounding applicant mix, and correctly recommends Method B based on the stratified evidence rather than the misleading aggregate figure."
+  },
+  {
+    "evaluation_id": "EVAL-2a55b2c1-c6fb-4979-8108-2f2ff05953a8",
+    "result_id": "RES-8aef545d-9f37-4d3d-9a72-4ce173293462",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T06:28:23.999Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly computes all within-department rates and aggregate rates, explicitly identifies the reversal as Simpson’s paradox, explains the mechanism as differing applicant mix with Method A concentrated in the higher-baseline Support department, and appropriately recommends Method B based on stratified evidence rather than the misleading aggregate figure."
+  },
+  {
+    "evaluation_id": "EVAL-89e7e9ca-79bc-48e1-bc29-f3323c342df3",
+    "result_id": "RES-c6d2f69f-c6cc-4eed-aedd-c5c0f3fdf066",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T06:29:49.944Z",
+    "constraint_adherence_score_0_4": 4,
+    "logical_accuracy_score_0_4": 4,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 10,
+    "retry_count": 3,
+    "retry_log": [
+      {
+        "attempt": 1,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 2000
+      },
+      {
+        "attempt": 2,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 4000
+      },
+      {
+        "attempt": 3,
+        "reason": "503 provider overload: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.7-flash:generateContent: [503 Service Unavailable] This model is currently experiencing",
+        "http_status": 503,
+        "delay_ms": 8000
+      }
+    ],
+    "evaluator_justification": "The response satisfies all constraints by accurately reporting the near-perfect correlation (~0.999) between ad spend and revenue, identifying sales headcount as a key confounding variable moving in lockstep, explicitly refusing the causal claim due to observational limitations and multicollinearity, and proposing concrete experimental testing methods (such as regional controlled tests)."
+  },
+  {
+    "evaluation_id": "EVAL-c838dd02-5a24-49c2-ac06-cd139661d448",
+    "result_id": "RES-e68020ca-6abd-4d38-a560-18884ae6b2ff",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T06:32:46.959Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The model correctly identified the key summary statistics (mean ~18.9 hrs, median 3 hrs, mode 2 hrs), calculated SLA compliance (14/15 or 93.3%), recommended the median, and noted the trimmed mean of ~3.1 hrs. However, it did not fully quantify the outlier's exact contribution to the overall mean (16 of the 18.93 hours), which slightly impacts constraint adherence and logical accuracy."
+  },
+  {
+    "evaluation_id": "EVAL-5cd5856d-17e6-4f60-9b3e-af5389fab01b",
+    "result_id": "RES-e68020ca-6abd-4d38-a560-18884ae6b2ff",
+    "evaluator_model": "gpt-5.5-2026-04-23",
+    "evaluator_provenance_fingerprint": "created_at:2026-04-22T06:27:21.000Z",
+    "is_primary": false,
+    "evaluated_at": "2026-08-22T06:32:52.875Z",
+    "constraint_adherence_score_0_4": 3,
+    "logical_accuracy_score_0_4": 3,
+    "completeness_score_0_2": 2,
+    "total_score_0_10": 8,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response reports the mean, median, mode, and 93.3% within target correctly, identifies the 240-hour outlier, recommends median/within-target reporting, and avoids declaring failure based on the mean alone. However, it does not explicitly quantify the outlier’s contribution as 16 of the 18.93 mean hours, and the mean excluding the outlier is only given approximately as ~3.1 rather than ~3.14."
+  },
+  {
+    "evaluation_id": "EVAL-41354456-7b60-4a26-bea4-6d7c7d6934cd",
+    "result_id": "RES-207a0f87-2b8f-4b4e-a978-9e53029e289a",
+    "evaluator_model": "gemini-3.7-flash",
+    "evaluator_provenance_fingerprint": "version:3.7-flash-08-2026|description:Gemini 3.7 Flash",
+    "is_primary": true,
+    "evaluated_at": "2026-08-22T06:34:40.916Z",
+    "constraint_adherence_score_0_4": 2,
+    "logical_accuracy_score_0_4": 2,
+    "completeness_score_0_2": 1,
+    "total_score_0_10": 5,
+    "retry_count": 0,
+    "retry_log": [],
+    "evaluator_justification": "The response correctly identifies the median (3 hours), mean (~18.9 hours), and the 93.3% SLA compliance rate, recommending the median as the representative metric. However, it fails to report the mode (2 hours), does not mathematically quantify the outlier's specific contribution to the mean (16 hours / 3.14 hours adjusted mean), and omits the full outlier analysis required by the prompt."
   }
 ]
