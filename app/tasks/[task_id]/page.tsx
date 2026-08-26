@@ -6,6 +6,7 @@ import { ArrowLeft } from "lucide-react";
 import { TaskForm } from "@/components/tasks/TaskForm";
 import { CRAFTMeter } from "@/components/craft/CRAFTMeter";
 import { Button } from "@/components/ui/Button";
+import { useReviewMode } from "@/components/review/ReviewModeContext";
 import { changedVersionedFields, versionedFieldsEqual } from "@/lib/taskVersion";
 import { joinResults } from "@/lib/resultsJoin";
 import type { EvaluationRecord, ResultRecord, TaskRecord } from "@/types";
@@ -20,6 +21,9 @@ export default function TaskDetailPage() {
   const [evaluations, setEvaluations] = useState<EvaluationRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
+  // Saving PUTs the task, which review mode refuses at the API. The editor is
+  // therefore disabled outright rather than left live over a 403.
+  const reviewMode = useReviewMode();
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
@@ -123,23 +127,33 @@ export default function TaskDetailPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-[60%_40%] gap-8">
         <div>
-          <TaskForm
-            task={task}
-            onChange={(next) => {
-              setTask(next);
-              setSaved(false);
-              setSaveError(null);
-              setValidationErrors([]);
-              setPendingInvalidation(null);
-            }}
-          />
+          {/* A disabled fieldset switches off every control it contains, so the
+              task stays fully readable while nothing in it can be edited. */}
+          <fieldset disabled={reviewMode} className="min-w-0 m-0 p-0 border-0">
+            <TaskForm
+              task={task}
+              onChange={(next) => {
+                setTask(next);
+                setSaved(false);
+                setSaveError(null);
+                setValidationErrors([]);
+                setPendingInvalidation(null);
+              }}
+            />
+          </fieldset>
           <div className="mt-6 space-y-3">
-            <div className="flex items-center gap-3">
-              <Button onClick={requestSave} disabled={saving || pendingInvalidation !== null}>
-                {saving ? "Saving…" : "Save Changes"}
-              </Button>
-              {saved && <span className="text-sm text-success">Saved</span>}
-            </div>
+            {reviewMode ? (
+              <p className="text-xs text-text-muted">
+                Read-only archive — task definitions are shown as they stood during the run.
+              </p>
+            ) : (
+              <div className="flex items-center gap-3">
+                <Button onClick={requestSave} disabled={saving || pendingInvalidation !== null}>
+                  {saving ? "Saving…" : "Save Changes"}
+                </Button>
+                {saved && <span className="text-sm text-success">Saved</span>}
+              </div>
+            )}
 
             {pendingInvalidation && (
               <div className="rounded-lg border border-error/40 bg-error/10 px-4 py-3 space-y-2">
