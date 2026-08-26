@@ -23,6 +23,14 @@ const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
 });
 
+/**
+ * REVIEW_MODE is a safety gate, so it is read per request rather than baked in
+ * at build time. Without this the app prerenders statically and a deployment
+ * built without the flag would keep serving the runners even once the flag is
+ * set in the environment.
+ */
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "CRAFT Benchmark",
   description: "Assessing the CRAFT prompt engineering framework — a benchmark research app.",
