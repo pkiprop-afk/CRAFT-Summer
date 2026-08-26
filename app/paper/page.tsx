@@ -207,8 +207,9 @@ export default function PaperPage() {
         The second enhancement is provenance capture. Neither Anthropic nor Google provides dated
         snapshot identifiers for the models used, so the identifiers are bare and repointable. To
         address this, timestamped provider manifests were captured before and after each dispatch
-        period. Every result includes that of its judge. A drift check compares live provenance
-        against the most recent manifest and flags any changes.
+        period. Every result carries its producing model&rsquo;s provenance fingerprint, and
+        every evaluation carries its judge&rsquo;s. A drift check compares live provenance against
+        the most recent manifest and flags any changes.
       </P>
 
       <H2 id="known-limitations">Known limitations</H2>
@@ -219,9 +220,9 @@ export default function PaperPage() {
         limitation arises from the provider ecosystem rather than from the study design.
       </P>
       <P>
-        Cross-model comparisons are descriptive only, as the secondary varies depending on the
-        producing model and the two models operate under different decoding regimes. The baseline
-        versus CRAFT comparison within each model remains unaffected by these factors.
+        Cross-model comparisons are descriptive only, as the secondary varies by producing model
+        and the two models operate under different decoding regimes. The baseline versus CRAFT
+        comparison within each model remains unaffected by these factors.
       </P>
       <P>
         Evaluator reliability was limited for the primary judge, although no data was lost as a
@@ -244,7 +245,7 @@ export default function PaperPage() {
         instead of 4,000 after the judge exhausted its budget on reasoning and produced no text.
         All instances involved Claude-sonnet-5 as the secondary judge on GPT-produced output.
         Since all headline figures are based solely on primary-judge scores and no primary
-        evaluation used to a non-standard budget, this issue affects only inter-rater agreement
+        evaluation ran at a non-standard budget, this issue affects only inter-rater agreement
         figures. It influenced which cells qualified as complete but did not impact any headline
         results.
       </P>
@@ -267,8 +268,7 @@ export default function PaperPage() {
         The baseline condition achieved a score of 9.12 out of 10 when pooled across 100 paired
         cells, with scores of 9.28 for Claude and 8.96 for GPT. Additionally, 54% of all pairs
         tied at 10/10. Under these circumstances, the CRAFT condition has minimal headroom, as it
-        only matches or underperforms relative to baseline, with little opportunity for further
-        improvement.
+        matches or underperforms baseline, with little opportunity for further improvement.
       </P>
       <P>
         Difficulty labels did not correspond to judged difficulty. Tasks labeled as Hard outscored
@@ -286,27 +286,28 @@ export default function PaperPage() {
       <H2 id="results">Results</H2>
       <P>
         All figures presented below are calculated over paired tasks by model cells, using
-        primary-judge scores exclusively. Deltas represent CRAFT minus baseline. Notably, an
-        earlier aggregation defect, which grouped results by task alone and computed condition
-        means over unequal task sets, had previously favored the CRAFT condition. Correcting this
-        defect shifted the observed delta from &minus;0.34 to &minus;0.41, indicating that the
-        correction was conservative with respect to CRAFT.
+        primary-judge scores exclusively. Deltas represent CRAFT minus baseline. An aggregation
+        defect found mid-run had been flattering the CRAFT condition: results were grouped by task
+        alone, pooling the two models&rsquo; runs as repeat runs of a single task and computing
+        condition means over unequal task sets. Correcting it moved the delta observed at that
+        checkpoint from &minus;0.34 to &minus;0.41, so the correction went against CRAFT rather
+        than toward it. All figures below are computed on the corrected basis across the full set
+        of 100 paired cells.
       </P>
       <DataTable head={HEADLINE_TABLE.head} rows={HEADLINE_TABLE.rows} />
       <P>
         For Claude-Sonnet-5, CRAFT produced a statistically significant but small-to-medium
         negative effect. For gpt-5.5, the effect is null across all measures. The pooled
-        significant result averages one real effect and one null effect, which is why per-model
-        figures serve as the primary reporting unit, with the pooled column providing contextual
-        information. That asymmetry appears in three analyses that do not share a computation
-        path.
+        significant result averages one real effect and one null effect, so per-model figures
+        serve as the primary reporting unit, with the pooled column providing context. That
+        asymmetry appears in three analyses that do not share a computation path.
       </P>
       <DataTable head={ASYMMETRY_TABLE.head} rows={ASYMMETRY_TABLE.rows} />
       <P>
-        In each analysis, the pooled figure represents an average of one real effect and one null
-        or opposite effect, indicating that the observed asymmetry is not attributable to any
-        single analytical choice. By difficulty tier, the delta is negative in eight of nine
-        cells, with the only positive value being Easy on GPT at +0.33 across six pairs.
+        In each analysis, the pooled figure averages one real effect and one null or opposite
+        effect, indicating that the observed asymmetry is not attributable to any single
+        analytical choice. By difficulty tier, the delta is negative in eight of nine cells, with
+        the only positive value being Easy on GPT (+0.33 across six pairs).
       </P>
 
       <H2 id="what-drove-the-losses">What drove the losses</H2>
@@ -350,9 +351,9 @@ export default function PaperPage() {
         The intraclass correlation coefficient (ICC (3,1)) for total scores was 0.821 (two-way
         mixed, single measure, consistency). The judges are fixed and identified, so no
         generalization to a broader population of judges is claimed. Fourteen of 200 cells show
-        disagreements greater than two points, and twelve of these cases involve the secondary
-        judge assigning a lower score when the primary judge is systematically more generous at
-        the upper end of the scale.
+        disagreements greater than two points, and twelve of these involve the secondary judge
+        scoring lower against a primary score of 9 or 10, which indicates that the primary judge
+        is systematically more generous at the upper end of the scale.
       </P>
 
       <H2 id="stability-subset">Stability subset</H2>

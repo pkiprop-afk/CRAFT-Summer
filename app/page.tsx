@@ -32,11 +32,13 @@ const STUDY_DESIGN = [
   },
   {
     title: "Test Models",
-    body: "Claude 3.5 Sonnet, GPT-4o (the models being prompted)",
+    body: "claude-sonnet-5 and gpt-5.5 (the models being prompted)",
   },
   {
     title: "Evaluation",
-    body: "Blind scoring by LLM judge using a fixed three-metric rubric",
+    body:
+      "Blind scoring against a fixed three-metric rubric by two judges — gemini-3.7-flash " +
+      "primary for every output, plus a family-neutral rotating secondary",
   },
 ];
 
@@ -81,8 +83,8 @@ export default async function Home() {
             consistency and constraint adherence relative to unstructured prompts of equivalent
             intent. {taskCount} benchmark {taskCount === 1 ? "task" : "tasks"} spanning{" "}
             {domainCount} professional domains are each run under
-            two prompt conditions — baseline and CRAFT — against the same test model. Outputs
-            are anonymized and scored by an LLM judge against a fixed three-metric rubric,
+            two prompt conditions — baseline and CRAFT — against each of two test models. Outputs
+            are anonymized and scored by two LLM judges against a fixed three-metric rubric,
             enabling a within-task paired comparison of the two conditions.
           </p>
         </div>

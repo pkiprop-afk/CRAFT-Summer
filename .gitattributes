@@ -1,0 +1,6 @@
+# Shell scripts must keep LF endings: they run inside the Linux devcontainer,
+# and CRLF would make the shebang unparseable there. Authored on Windows.
+*.sh text eol=lf
+
+# Devcontainer config is read by Linux tooling too.
+.devcontainer/* text eol=lf

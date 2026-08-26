@@ -3,11 +3,11 @@
  * Prof. Vlad Veksler), the study report supplied as
  * public/paper/craft-results-methods-deviations.pdf.
  *
- * The text follows the source document. Two figures in the source tables are
- * typographic slips contradicted by their own surrounding text; they are
- * corrected here and every correction is listed in TRANSCRIPTION_NOTES at the
- * foot of the page, so the rendered version never diverges from the PDF
- * silently.
+ * Synced against the 26 August 2026 revision of the PDF, which carries no
+ * substantive discrepancies: the text and every figure below match the source.
+ * TRANSCRIPTION_NOTES records what an earlier revision required so the edit
+ * history stays legible; if a future revision needs a correction, add it there
+ * rather than letting the rendered page diverge from the PDF silently.
  */
 
 export const PAPER_TITLE = "Results, Methods, and Deviations";
@@ -109,7 +109,7 @@ export const STABILITY_TABLE = {
 };
 
 export const TRANSCRIPTION_NOTES = [
-  "Headline table, Delta for claude-sonnet-5: the source PDF prints \u201c-0/54\u201d. Rendered here as \u22120.54, which is what the cell's own column implies (9.28 \u2212 8.74) and what the asymmetry table below reports as the mean delta.",
-  "Asymmetry table, Significance for claude-sonnet-5: the source PDF prints \u201cd_x = -0.42\u201d. Rendered here as d_z, matching Cohen\u2019s d_z of \u22120.416 in the headline table and the statistic used throughout.",
-  "No other figure, claim, or wording has been changed. Where the source is ambiguous or incomplete, it is transcribed as written.",
+  "This page matches the current PDF. No figure, claim, or wording differs from the source; only typographic normalization is applied — a true minus sign (−) for negative numbers, consistent spacing around operators, and a lowercase p for the one p-value the source capitalizes.",
+  "For the record: the revision of 22 August 2026 contained two typographic slips in its tables — the claude-sonnet-5 Delta printed as “-0/54” rather than −0.54, and the asymmetry table labelled Cohen’s d_z as “d_x”. Both were carried as corrections on this page at the time and were fixed at source in the 26 August revision, so no correction is being applied any longer.",
+  "Also fixed at source in the 26 August revision: the −0.34 → −0.41 figure in Results is now explicitly scoped to the mid-run checkpoint rather than reading as a final headline delta; the Provenance paragraph states in full that every result carries its producing model’s fingerprint and every evaluation its judge’s; and the inter-rater paragraph no longer inverts its reasoning about which judge is the more generous.",
 ];
