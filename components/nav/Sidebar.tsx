@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BookOpen, LayoutGrid, ListChecks, Play, Layers, BarChart2, Download, FileText, type LucideIcon } from "lucide-react";
+import { BookOpen, LayoutGrid, ListChecks, Play, Layers, BarChart2, Download, FileText, BookMarked, type LucideIcon } from "lucide-react";
 import { useReviewMode } from "@/components/review/ReviewModeContext";
 
 interface NavItem {
@@ -21,6 +21,7 @@ const NAV_ITEMS: NavItem[] = [
   { label: "Batch Runner", href: "/batch", icon: Layers, mutating: true },
   { label: "Results", href: "/results", icon: BarChart2 },
   { label: "Paper", href: "/paper", icon: FileText },
+  { label: "References", href: "/references", icon: BookMarked },
   { label: "Export", href: "/export", icon: Download },
 ];
 

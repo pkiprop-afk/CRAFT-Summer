@@ -91,6 +91,14 @@ Prompt Runner and Batch Runner are hidden in review mode. They are the only page
 
 The in-app version is a transcription of that PDF. A short *Transcription notes* block at the foot of the page records any difference between the two, so the rendered page can never diverge from the source document without saying so.
 
+## References
+
+Every source the study draws on — task sourcing, framework literature, evaluation methodology, models, and software — is listed in **[REFERENCES.md](REFERENCES.md)**, and rendered in the app under **References** (`/references`).
+
+`REFERENCES.md` is **generated** from [`lib/references.ts`](lib/references.ts), which is the single source of truth behind the markdown, the `/references` route, and the reference block at the foot of the paper. Edit the module, then run `npm run references`; `npm run references -- --check` fails if the markdown has drifted.
+
+Entries are APA 7. Citations that the source documents left thin are marked *incomplete* rather than repaired, and citations still owed are marked **outstanding** — nothing has been completed from outside the researcher's own documents.
+
 ## CSV exports
 
 Available from the **Export** page, or directly from a running instance:

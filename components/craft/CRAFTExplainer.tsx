@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 interface CraftComponent {
   letter: string;
   name: string;
@@ -85,16 +87,16 @@ export function CRAFTExplainer() {
         ))}
       </div>
 
-      <div className="rounded-lg bg-navy-100 border border-navy-500/30 px-5 py-4 text-sm text-text-body">
-        <p>
-          This study uses the term <strong>Actions</strong>{" "}
-          in place of the ACM/SIGCSE source framework&apos;s <strong>Audience</strong>{" "}
-          parameter. This substitution is a deliberate methodological choice that redirects the
-          framework&apos;s focus from audience description to explicit output instruction — better
-          suited to professional task benchmarking. See the research proposal for the full
-          rationale.
-        </p>
-      </div>
+      <p className="text-sm text-text-muted">
+        The CRAFT framework is due to Joshi et al. (2026).{" "}
+        <Link
+          href="/references#framework-literature"
+          className="text-navy-700 hover:text-navy-900 underline"
+        >
+          See References
+        </Link>
+        .
+      </p>
     </section>
   );
 }

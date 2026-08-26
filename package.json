@@ -15,6 +15,7 @@
     "check-callable": "node scripts/checkCallable.ts",
     "checkpoint": "node scripts/checkpoint.ts",
     "stability-report": "node scripts/stabilityReport.ts",
+    "references": "node scripts/generateReferences.ts",
     "evaluate-pending": "node scripts/evaluatePending.ts",
     "test": "node --test \"tests/**/*.test.ts\""
   },

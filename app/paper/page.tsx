@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
-import { Download, FileText } from "lucide-react";
+import Link from "next/link";
+import { BookMarked, Download, FileText } from "lucide-react";
 import { DataTable } from "./DataTable";
+import { REFERENCE_SECTIONS } from "@/lib/references";
 import {
   ASYMMETRY_TABLE,
   CHANGES_TABLE,
@@ -379,6 +381,48 @@ export default function PaperPage() {
         captured during the approximately 18-hour study window, with captures bracketing each
         dispatch period. The manifest files confirmed that no model changed during the study.
       </P>
+
+      {/* References — rendered from lib/references.ts, the same module behind
+          /references and REFERENCES.md, so the three cannot drift apart.
+          The source report itself carries no reference list; these are the
+          study's sources as recorded for the repository. */}
+      <section id="references" className="scroll-mt-6 space-y-3 pt-4 border-t border-cream-border">
+        <h2 className="text-2xl font-display font-bold text-text-heading">References</h2>
+        <p className="text-sm text-text-muted">
+          The report above carries no reference list of its own. The study&rsquo;s sources are
+          recorded for the repository and listed in full, with what each was used for, on the{" "}
+          <Link href="/references" className="text-navy-700 hover:text-navy-900 underline">
+            References
+          </Link>{" "}
+          page.
+        </p>
+        {REFERENCE_SECTIONS.map((section) => (
+          <div key={section.id} className="space-y-1">
+            <h3 className="text-sm font-semibold text-text-heading">{section.title}</h3>
+            <ul className="space-y-1 pl-5 list-disc">
+              {section.entries.map((e) => (
+                <li key={e.id} className="text-xs leading-relaxed text-text-muted">
+                  <span className={e.placeholder ? "italic" : ""}>{e.citation}</span>
+                  {e.placeholder ? (
+                    <span className="ml-1 text-warning">(outstanding)</span>
+                  ) : null}
+                  {e.incomplete ? (
+                    <span className="ml-1 text-warning">(incomplete)</span>
+                  ) : null}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+        <p className="pt-1">
+          <Link
+            href="/references"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-navy-700 hover:text-navy-900 hover:underline"
+          >
+            <BookMarked size={15} /> Full reference list, models, and software
+          </Link>
+        </p>
+      </section>
 
       {/* Transcription notes */}
       <section className="pt-6 border-t border-cream-border space-y-2">
