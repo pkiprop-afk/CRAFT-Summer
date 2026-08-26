@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { Card } from "@/components/ui/Card";
 import { CRAFTExplainer } from "@/components/craft/CRAFTExplainer";
 import { getTasks } from "@/lib/db";
@@ -69,6 +71,56 @@ export default async function Home() {
           <div className="rounded-lg bg-cream-card border border-cream-border px-4 py-2 text-sm font-medium text-text-heading">
             {domainCount} Domains
           </div>
+        </div>
+      </section>
+
+      {/* Headline result — the first thing a reader arriving cold should see.
+          Deliberately terse: it orients, the paper argues. */}
+      <section className="rounded-xl border border-navy-700/25 bg-cream-card px-5 py-5 space-y-4">
+        <h2 className="text-xs font-semibold uppercase tracking-wide text-text-muted">
+          Headline result
+        </h2>
+
+        <div className="space-y-2">
+          <p className="text-base text-text-body">
+            CRAFT scored{" "}
+            <strong className="font-semibold text-text-heading">
+              significantly lower than baseline
+            </strong>{" "}
+            for claude-sonnet-5{" "}
+            <span className="font-mono text-sm text-text-muted">
+              (&Delta; &minus;0.54, d_z = &minus;0.42, p = 0.0028)
+            </span>{" "}
+            and showed{" "}
+            <strong className="font-semibold text-text-heading">no effect</strong> for gpt-5.5{" "}
+            <span className="font-mono text-sm text-text-muted">
+              (&Delta; &minus;0.06, d_z = &minus;0.04, p = 0.55)
+            </span>
+            .
+          </p>
+          <p className="text-sm text-text-muted">
+            Per-model figures are the reporting unit — the pooled result averages one real effect
+            and one null.
+          </p>
+          <p className="text-sm text-text-muted">
+            The study ran at a pronounced ceiling: baseline scored 9.12/10 and 54% of pairs tied
+            at 10/10.
+          </p>
+        </div>
+
+        <div className="flex flex-wrap gap-x-5 gap-y-2 pt-1">
+          <Link
+            href="/results"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-navy-700 hover:text-navy-900 hover:underline"
+          >
+            See the results <ArrowRight size={15} />
+          </Link>
+          <Link
+            href="/paper"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-navy-700 hover:text-navy-900 hover:underline"
+          >
+            Read the paper <ArrowRight size={15} />
+          </Link>
         </div>
       </section>
 

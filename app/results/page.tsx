@@ -247,6 +247,36 @@ export default function ResultsPage() {
         </div>
       )}
 
+      {/* The two panels below only render when their count is non-zero, so on a
+          clean record the active filters would otherwise be invisible. This
+          states them unconditionally, with live counts, for a reader who
+          arrives without context. */}
+      <div className="rounded-lg border border-cream-border bg-cream-card px-4 py-3 space-y-1.5">
+        <p className="text-sm font-semibold text-text-heading">How these figures are filtered</p>
+        <p className="text-xs text-text-body">
+          Stale runs (task edited after the run) and single-judge runs are excluded from every
+          figure below by default. A run scored by only one judge is an incomplete cell, not a low
+          score; including it would bias the mean. A run recorded against since-edited task
+          content is not comparable with current runs.
+        </p>
+        <p className="text-xs text-text-body">
+          {staleResults.length === 0 && incompleteResults.length === 0 ? (
+            <>
+              In this record both filters currently exclude{" "}
+              <strong className="font-semibold text-text-heading">nothing</strong> — 0 stale and 0
+              single-judge runs out of {allScored.length}. Every recorded run is included below.
+            </>
+          ) : (
+            <>
+              They currently exclude {staleResults.length} stale and{" "}
+              {incompleteResults.length} single-judge run
+              {staleResults.length + incompleteResults.length === 1 ? "" : "s"} out of{" "}
+              {allScored.length}. Unticking either box below changes the counts.
+            </>
+          )}
+        </p>
+      </div>
+
       {incompleteResults.length > 0 && (
         <div className="rounded-lg border border-warning/40 bg-warning/10 px-4 py-3">
           <p className="text-sm font-semibold text-warning">
