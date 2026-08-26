@@ -252,10 +252,6 @@ npm run lint
 
 ---
 
-## Status
-
-- **Phase 1 — complete.** Full main study (200 generations) and stability subset (120 generations) executed and evaluated on 22 August 2026, over an approximately 18-hour window. All results in this repository are Phase 1.
-- **Phase 2 — authored, not yet run.** Pending.
 
 ## A note on the commit history
 
