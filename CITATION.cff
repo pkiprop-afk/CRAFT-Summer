@@ -1,0 +1,40 @@
+# Citation metadata (Citation File Format 1.2.0 — https://citation-file-format.github.io)
+#
+# CFF 1.2.0 has no field for a supervisory role: `authors` is the only person
+# list the schema accepts at the top level, and adding an `advisors` key would
+# make the file fail validation and break GitHub's "Cite this repository"
+# widget. The advisor is therefore named in `abstract` rather than listed as an
+# author, which would misstate authorship.
+cff-version: 1.2.0
+title: >-
+  Assessing the CRAFT Prompt Engineering Framework: A Paired Benchmark Study
+message: >-
+  If you refer to this study, its data, or this application, please cite it
+  using the metadata in this file.
+type: software
+authors:
+  - family-names: Kiprop
+    given-names: Peter
+abstract: >-
+  A within-task paired benchmark study testing whether prompts structured with
+  the CRAFT framework (Context, Role, Actions, Format, Tone) outperform baseline
+  prompts of equivalent intent. Fifty tasks across six professional domains were
+  run under both prompt conditions on two frontier models (claude-sonnet-5 and
+  gpt-5.5), producing 320 generations scored by two LLM judges under a blinded,
+  family-neutral rotation for 640 evaluations. Against a pronounced ceiling
+  (baseline 9.12/10 pooled), CRAFT produced a statistically significant small
+  negative effect on claude-sonnet-5 (d_z = -0.42, p = 0.0028) and no effect on
+  gpt-5.5 (d_z = -0.04, p = 0.55). The repository contains the benchmark
+  application, the task registry, and the complete run and evaluation record.
+  Research advised by Prof. Vlad Veksler.
+keywords:
+  - prompt engineering
+  - CRAFT framework
+  - large language models
+  - LLM-as-judge
+  - benchmark study
+  - paired comparison
+repository-code: https://github.com/pkiprop-afk/CRAFT-Summer
+version: 0.1.0
+# Date the Phase 1 run and evaluation record was completed.
+date-released: "2026-08-22"
