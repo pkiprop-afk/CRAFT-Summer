@@ -5,6 +5,7 @@ import { Upload } from "lucide-react";
 import { TaskCard } from "@/components/tasks/TaskCard";
 import { ImportDiffPreview, type ImportPreview } from "@/components/tasks/ImportDiffPreview";
 import { Button } from "@/components/ui/Button";
+import { useReviewMode } from "@/components/review/ReviewModeContext";
 import type { ImportMode } from "@/lib/taskDiff";
 import {
   DOMAIN_LABELS,
@@ -30,6 +31,9 @@ export default function TaskLibraryPage() {
   const [evaluations, setEvaluations] = useState<EvaluationRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
+  // Import writes tasks.json, so the whole control is withdrawn in review mode
+  // rather than left in place to fail against the 403 on /api/tasks/import.
+  const reviewMode = useReviewMode();
   const [importError, setImportError] = useState<string | null>(null);
   const [importMode, setImportMode] = useState<ImportMode>("merge");
   const [preview, setPreview] = useState<ImportPreview | null>(null);
@@ -194,38 +198,42 @@ export default function TaskLibraryPage() {
         <div className="flex items-center gap-3">
           <span className="text-sm text-text-muted">{filteredTasks.length} tasks</span>
 
-          <label className="flex items-center gap-1.5 text-xs text-text-body">
-            <span className="text-text-muted">Mode</span>
-            <select
-              value={importMode}
-              onChange={(e) => setImportMode(e.target.value as ImportMode)}
-              disabled={previewing || confirming}
-              className={`rounded-lg border bg-white px-2 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-navy-500 ${
-                importMode === "replace"
-                  ? "border-error/50 text-error font-semibold"
-                  : "border-cream-border text-text-body"
-              }`}
-            >
-              <option value="merge">merge (upsert, never deletes)</option>
-              <option value="replace">replace (destructive)</option>
-            </select>
-          </label>
+          {reviewMode ? null : (
+            <>
+              <label className="flex items-center gap-1.5 text-xs text-text-body">
+                <span className="text-text-muted">Mode</span>
+                <select
+                  value={importMode}
+                  onChange={(e) => setImportMode(e.target.value as ImportMode)}
+                  disabled={previewing || confirming}
+                  className={`rounded-lg border bg-white px-2 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-navy-500 ${
+                    importMode === "replace"
+                      ? "border-error/50 text-error font-semibold"
+                      : "border-cream-border text-text-body"
+                  }`}
+                >
+                  <option value="merge">merge (upsert, never deletes)</option>
+                  <option value="replace">replace (destructive)</option>
+                </select>
+              </label>
 
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept=".csv,.xlsx"
-            className="hidden"
-            onChange={handleFileSelected}
-          />
-          <Button
-            variant="secondary"
-            onClick={() => fileInputRef.current?.click()}
-            disabled={previewing || confirming}
-          >
-            <Upload size={16} />
-            {previewing ? "Reading…" : "Import"}
-          </Button>
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept=".csv,.xlsx"
+                className="hidden"
+                onChange={handleFileSelected}
+              />
+              <Button
+                variant="secondary"
+                onClick={() => fileInputRef.current?.click()}
+                disabled={previewing || confirming}
+              >
+                <Upload size={16} />
+                {previewing ? "Reading…" : "Import"}
+              </Button>
+            </>
+          )}
         </div>
       </div>
 
