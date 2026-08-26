@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { AlertCircle, BookMarked, ExternalLink } from "lucide-react";
 import {
   MODELS,
@@ -6,9 +7,11 @@ import {
   REFERENCE_SECTIONS,
   SOFTWARE,
   SOFTWARE_NOTE,
-  SOURCE_DOCUMENTS,
+  DOCUMENTS,
   SOURCE_DOC_LABEL,
   STYLE_NOTE,
+  originHref,
+  originLabel,
   VALIDATION_NOTE,
   VALIDATION_SOURCES,
   type Reference,
@@ -50,10 +53,15 @@ function Entry({ entry }: { entry: Reference }) {
       </p>
 
       <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
-        {entry.originalRef ? (
-          <span className="rounded bg-cream-card border border-cream-border px-1.5 py-0.5 text-[11px] font-mono text-text-muted">
-            {entry.originalRef}
-          </span>
+        {entry.origin ? (
+          // Links back to the numbered entry on the source document's own
+          // route — the point of serving those documents in the app.
+          <Link
+            href={originHref(entry.origin)}
+            className="rounded bg-cream-card border border-cream-border px-1.5 py-0.5 text-[11px] font-mono text-navy-700 hover:bg-navy-100 hover:text-navy-900"
+          >
+            {originLabel(entry.origin)} &rarr;
+          </Link>
         ) : null}
         {entry.appearsIn.map((d) => (
           <span
@@ -111,9 +119,12 @@ export default function ReferencesPage() {
         <p className="text-xs text-text-body">{STYLE_NOTE}</p>
         <p className="pt-1 text-xs font-semibold text-text-heading">Source documents</p>
         <ul className="space-y-0.5 text-xs text-text-muted">
-          {SOURCE_DOCUMENTS.map((d) => (
-            <li key={d.title}>
-              <span className="text-text-body">{d.kind}:</span> {d.title} — {d.note}
+          {Object.values(DOCUMENTS).map((d) => (
+            <li key={d.slug}>
+              <Link href={d.route} className="text-navy-700 hover:text-navy-900 underline">
+                {d.shortTitle}
+              </Link>
+              : {d.title}
             </li>
           ))}
         </ul>

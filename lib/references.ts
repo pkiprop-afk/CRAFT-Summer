@@ -370,24 +370,139 @@ export const REFERENCE_SECTIONS: ReferenceSection[] = [
   CONSIDERED_NOT_USED,
 ];
 
-/** Sources the researcher supplied, from which every entry above was drawn. */
-export const SOURCE_DOCUMENTS = [
-  {
-    title: "Structured Prompt Engineering Framework: Assessing the Effectiveness of the CRAFT Framework",
-    kind: "Research proposal",
-    note: "IEEE-numeric reference list, entries [1]–[7].",
-  },
-  {
-    title: "Reflection Paper",
-    kind: "Reflection",
-    note: "APA 7 reference list, entries [1]–[6].",
-  },
-  {
-    title: "Results, Methods, and Deviations",
-    kind: "Study report",
-    note: "No reference list. Available in this app under Paper.",
-  },
-];
-
 export const STYLE_NOTE =
   "APA 7 throughout. The reflection paper's list was already APA 7 and is reproduced as written; the proposal's IEEE-numeric entries were converted and are marked “converted from IEEE” so the conversion can be checked against the original. Nothing has been completed from outside the three supplied documents: thin citations are marked incomplete rather than filled in.";
+
+// ---------------------------------------------------------------------------
+// SOURCE DOCUMENT ROUTES
+//
+// The three documents are served in the app so a reader can follow a citation
+// back to the text that made it. Each document route renders its own reference
+// list EXACTLY as that document prints it — typos, BibTeX artefacts and all.
+// That is deliberate: the /references route carries the cleaned APA 7 version,
+// and the two must be comparable for the editorial notes to be checkable.
+
+export type DocSlug = "proposal" | "reflection" | "report";
+
+export interface SourceDocument {
+  slug: DocSlug;
+  /** Title as printed in the PDF, verified by text extraction, not by filename. */
+  title: string;
+  shortTitle: string;
+  route: string;
+  pdf: string;
+  byline: string;
+  summary: string;
+  /** Reference list verbatim as the document prints it. Empty if it has none. */
+  referenceList: { num: number; text: string }[];
+  referenceListNote?: string;
+}
+
+export const DOCUMENTS: Record<DocSlug, SourceDocument> = {
+  proposal: {
+    slug: "proposal",
+    title:
+      "Structured Prompt Engineering Framework: Assessing The Effectiveness of The CRAFT Framework",
+    shortTitle: "Research proposal",
+    route: "/proposal",
+    pdf: "/paper/craft-research-proposal.pdf",
+    byline: "Student Researcher: Peter Kiprop · Advisor: Prof. Vlad Veksler",
+    summary:
+      "The original proposal: the research question, the planned methodology, and the rubric. Several elements changed before execution — the model substitutions and parameter changes are documented in the study report.",
+    referenceListNote:
+      "IEEE-numeric, reproduced exactly as the proposal prints it. The APA 7 conversions are on the References page; comparing the two is how the conversions can be checked.",
+    referenceList: [
+      {
+        num: 1,
+        text: 'R. Anam, "Prompt Engineering and the Effectiveness of Large Language Models in Enhancing Human Productivity: A Preprint," 2025.',
+      },
+      {
+        num: 2,
+        text: 'S. Schulhoff et al., "The Prompt Report: A Systematic Survey of Prompt Engineering Techniques, " arXiv preprint arXiv:2406.06608, 2024.',
+      },
+      {
+        num: 3,
+        text: 'F. Dell\u2019acqua et al., "Navigating the Jagged Technological Frontier: Field Experimental Evidence of the Effects of AI on Knowledge Worker Productivity and Quality," Harvard Business School Technology & Operations Mgt. Unit Working Paper, 2024.',
+      },
+      {
+        num: 4,
+        text: 'N. Kulkarni and P. Tupsakhare, "Crafting Effective Prompts: Enhancing AI Performance Through Structured Input Design," Journal of Recent Trends in Computer Science Engineering, vol. 12, no. 1, pp. 1-10, 2024.',
+      },
+      {
+        num: 5,
+        text: 'G. Robino, "Conversation Routines: A Prompt Engineering Framework for Task-Oriented Dialog Systems," arXiv preprint arXiv:2501.11613, 2025.',
+      },
+      {
+        num: 6,
+        text: 'K. Ramnath et al., "A systematic survey of automatic prompt optimization techniques," arXiv preprint arXiv:2502.16923, 2025.',
+      },
+      {
+        num: 7,
+        text: 'Joshi, Deepti, et al. "CRAFT Prompt Generation Framework for Teachers." Proceedings of the 57th ACM Technical Symposium on Computer Science Education V. 2. 2026.',
+      },
+    ],
+  },
+
+  reflection: {
+    slug: "reflection",
+    title: "Reflection Paper",
+    shortTitle: "Reflection paper",
+    route: "/reflection",
+    pdf: "/paper/craft-reflection-paper.pdf",
+    byline: "Advisor: Prof. Vlad Veksler · Researcher: Peter Kiprop",
+    summary:
+      "How the benchmark was constructed and what the researcher took from the project. This is the document that records where the task set came from — HumanEval adaptation, the documented statistical phenomena, and why QRData was considered and rejected.",
+    referenceListNote:
+      "APA 7, reproduced exactly as the reflection prints it — including the truncated first author in [1] and the BibTeX artefacts in [4]. Both are corrected on the References page, with an editorial note recording the change.",
+    referenceList: [
+      {
+        num: 1,
+        text: "hen, M., Tworek, J., Jun, H., Yuan, Q., Pinto, H. P. de O., Kaplan, J., Edwards, H., Burda, Y., Joseph, N., Brockman, G., Ray, A., Puri, R., Krueger, G., Petrov, M., Khlaaf, H., Sastry, G., Mishkin, P., Chan, B., Gray, S., \u2026 Zaremba, W. (2021). Evaluating large language models trained on code. arXiv:2107.03374 [Cs]. https://arxiv.org/abs/2107.03374",
+      },
+      {
+        num: 2,
+        text: "Bickel, P. J., Hammel, E. A., & O\u2019Connell, J. W. (1975). Sex bias in graduate admissions: Data from Berkeley. Science, 187(4175), 398\u2013404. https://doi.org/10.1126/science.187.4175.398",
+      },
+      {
+        num: 3,
+        text: "Tversky, A., & Kahneman, D. (1974). Judgment under uncertainty: Heuristics and Biases. Science, 185(4157), 1124\u20131131. https://www.science.org/doi/10.1126/science.185.4157.1124",
+      },
+      {
+        num: 4,
+        text: "Liu, X., Wu, Z., Wu, X., Lu, P., Chang, K.-W., & Feng, Y. (2024). Are {LLM}s capable of data-based statistical and causal reasoning? Benchmarking advanced quantitative reasoning with data. In L.-W. Ku, A. Martins, & V. Srikumar (Eds.), Findings of the Association for Computational Linguistics: ACL 2024 (pp. 9215--9235). Association for Computational Linguistics. https://doi.org/10.18653/v1/2024.findings-acl.548",
+      },
+      {
+        num: 5,
+        text: "Anthropic. (2025b). Prompt engineering overview. Anthropic. Claude API Docs. https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview",
+      },
+      {
+        num: 6,
+        text: "Anthropic. (2025a). Effective context engineering for AI agents. Anthropic. Anthropic.Com. https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents",
+      },
+    ],
+  },
+
+  report: {
+    slug: "report",
+    title: "Results, Methods, and Deviations",
+    shortTitle: "Study report",
+    route: "/paper",
+    pdf: "/paper/craft-results-methods-deviations.pdf",
+    byline: "Advisor: Prof. Vlad Veksler · Researcher: Peter Kiprop",
+    summary:
+      "The study report: every deviation from the proposal and why, what was retained unchanged, the known limitations, and the full results.",
+    referenceList: [],
+    referenceListNote: "This report carries no reference list of its own.",
+  },
+};
+
+/** "Proposal [7]" / "Reflection [1]" — the label shown on a reference entry. */
+export function originLabel(origin: { doc: DocSlug; num: number }): string {
+  const name = origin.doc === "proposal" ? "Proposal" : "Reflection";
+  return `${name} [${origin.num}]`;
+}
+
+/** Deep link to that numbered entry on the document's own route. */
+export function originHref(origin: { doc: DocSlug; num: number }): string {
+  return `${DOCUMENTS[origin.doc].route}#ref-${origin.num}`;
+}

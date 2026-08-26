@@ -18,9 +18,11 @@ import {
   REFERENCE_SECTIONS,
   SOFTWARE,
   SOFTWARE_NOTE,
-  SOURCE_DOCUMENTS,
   SOURCE_DOC_LABEL,
   STYLE_NOTE,
+  DOCUMENTS,
+  originHref,
+  originLabel,
   VALIDATION_NOTE,
   VALIDATION_SOURCES,
   type Reference,
@@ -34,7 +36,7 @@ function entryMd(e: Reference): string {
   if (e.url) lines.push(`  <${e.url}>`);
 
   const tags: string[] = [];
-  if (e.originalRef) tags.push(`\`${e.originalRef}\``);
+  if (e.origin) tags.push(`[\`${originLabel(e.origin)}\`](${originHref(e.origin)})`);
   for (const d of e.appearsIn) tags.push(SOURCE_DOC_LABEL[d]);
   if (e.convertedFromIEEE) tags.push("**converted from IEEE — verify**");
   if (e.placeholder) tags.push("**OUTSTANDING**");
@@ -67,7 +69,9 @@ function render(): string {
   out.push("");
   out.push("### Source documents");
   out.push("");
-  for (const d of SOURCE_DOCUMENTS) out.push(`- **${d.kind}:** ${d.title} — ${d.note}`);
+  for (const d of Object.values(DOCUMENTS)) {
+    out.push(`- **${d.shortTitle}** ([\`${d.route}\`](${d.route})): ${d.title}`);
+  }
   out.push("");
 
   for (const s of REFERENCE_SECTIONS) {

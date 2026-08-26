@@ -76,6 +76,9 @@ npm start
 | **Progress** | Cell-by-cell completion of the design grid |
 | **Results** | Overview, By Model, By Domain, By Submetric, and **Judge Agreement** |
 | **Paper** | The full study report, in-page and as a PDF download |
+| **Proposal** | The original research proposal, with its reference list and the PDF |
+| **Reflection** | The reflection paper — where the task set came from, and what was learned |
+| **References** | Every source, organized by function, with what each was used for |
 | **Export** | CSV and JSONL downloads of the underlying records |
 
 Prompt Runner and Batch Runner are hidden in review mode. They are the only pages that spend money.
@@ -88,6 +91,13 @@ Prompt Runner and Batch Runner are hidden in review mode. They are the only page
 
 - In the app: the **Paper** entry in the sidebar (`/paper`)
 - Direct PDF: [`public/paper/craft-results-methods-deviations.pdf`](public/paper/craft-results-methods-deviations.pdf)
+
+The two supporting documents are served alongside it, so a citation can be followed back to the text that made it:
+
+- **Research proposal** — `/proposal` · [`public/paper/craft-research-proposal.pdf`](public/paper/craft-research-proposal.pdf)
+- **Reflection paper** — `/reflection` · [`public/paper/craft-reflection-paper.pdf`](public/paper/craft-reflection-paper.pdf)
+
+Each renders its own reference list exactly as that document prints it, with `#ref-N` anchors. The origin marker on every entry of the References page links to the matching line.
 
 The in-app version is a transcription of that PDF. A short *Transcription notes* block at the foot of the page records any difference between the two, so the rendered page can never diverge from the source document without saying so.
 

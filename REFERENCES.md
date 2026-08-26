@@ -14,9 +14,9 @@ APA 7 throughout. The reflection paper's list was already APA 7 and is reproduce
 
 ### Source documents
 
-- **Research proposal:** Structured Prompt Engineering Framework: Assessing the Effectiveness of the CRAFT Framework — IEEE-numeric reference list, entries [1]–[7].
-- **Reflection:** Reflection Paper — APA 7 reference list, entries [1]–[6].
-- **Study report:** Results, Methods, and Deviations — No reference list. Available in this app under Paper.
+- **Research proposal** ([`/proposal`](/proposal)): Structured Prompt Engineering Framework: Assessing The Effectiveness of The CRAFT Framework
+- **Reflection paper** ([`/reflection`](/reflection)): Reflection Paper
+- **Study report** ([`/paper`](/paper)): Results, Methods, and Deviations
 
 ---
 
@@ -26,23 +26,23 @@ Where the 50 benchmark tasks came from. Seventeen tasks adapt problems from a pu
 
 - Chen, M., Tworek, J., Jun, H., Yuan, Q., Pinto, H. P. de O., Kaplan, J., Edwards, H., Burda, Y., Joseph, N., Brockman, G., Ray, A., Puri, R., Krueger, G., Petrov, M., Khlaaf, H., Sastry, G., Mishkin, P., Chan, B., Gray, S., … Zaremba, W. (2021). Evaluating large language models trained on code. arXiv:2107.03374 [Cs].
   <https://arxiv.org/abs/2107.03374>
-  — `Reflection [1]` · Reflection paper
+  — [`Reflection [1]`](/reflection#ref-1) · Reflection paper
   - **Used for:** HumanEval — the source benchmark for 17 tasks. Coding (T001–T008) adapt nine HumanEval problems (/3, /9, /21, /26, /47, /52, /61, /110, /135) as applied scenarios with original injected bugs; Finance (T018–T026) transpose the same computational structures into financial framings. The task-to-problem mapping is recorded per task in the source_or_origin field of data/tasks.json.
   - **Editorial note:** The supplied reference list prints the first author as “hen, M.”; corrected to “Chen, M.” on the researcher's confirmation.
 
 - Bickel, P. J., Hammel, E. A., & O’Connell, J. W. (1975). Sex bias in graduate admissions: Data from Berkeley. Science, 187(4175), 398–404.
   <https://doi.org/10.1126/science.187.4175.398>
-  — `Reflection [2]` · Reflection paper
+  — [`Reflection [2]`](/reflection#ref-2) · Reflection paper
   - **Used for:** Cited jointly with Tversky & Kahneman (1974) for the documented statistical and decision-making phenomena behind the Data Analysis tasks: Simpson's paradox, survivorship bias, regression to the mean, and base-rate neglect. Four tasks invoke these (T009, T012, T016, T017); the numbers in each are original.
 
 - Tversky, A., & Kahneman, D. (1974). Judgment under uncertainty: Heuristics and Biases. Science, 185(4157), 1124–1131.
   <https://www.science.org/doi/10.1126/science.185.4157.1124>
-  — `Reflection [3]` · Reflection paper
+  — [`Reflection [3]`](/reflection#ref-3) · Reflection paper
   - **Used for:** Cited jointly with Bickel et al. (1975) — see above. Underpins the base-rate and heuristics reasoning tested in the Data Analysis tasks.
 
 - Liu, X., Wu, Z., Wu, X., Lu, P., Chang, K.-W., & Feng, Y. (2024). Are LLMs capable of data-based statistical and causal reasoning? Benchmarking advanced quantitative reasoning with data. In L.-W. Ku, A. Martins, & V. Srikumar (Eds.), Findings of the Association for Computational Linguistics: ACL 2024 (pp. 9215–9235). Association for Computational Linguistics.
   <https://doi.org/10.18653/v1/2024.findings-acl.548>
-  — `Reflection [4]` · Reflection paper
+  — [`Reflection [4]`](/reflection#ref-4) · Reflection paper
   - **Used for:** QRData — evaluated as a possible source for the Data Analysis tasks and rejected. Its questions rely on separate data sheets, whereas this study required self-contained text inputs that could be presented identically under both prompt conditions. Retained as related work.
   - **Editorial note:** Stray BibTeX braces in “Are {LLM}s” removed, and the page range “9215--9235” normalised to an en dash, on the researcher's confirmation.
 
@@ -53,47 +53,49 @@ Where the 50 benchmark tasks came from. Seventeen tasks adapt problems from a pu
 The CRAFT framework itself, and the prior work situating it. Entries drawn from the research proposal were converted from IEEE to APA 7 and are flagged accordingly.
 
 - Joshi, D., et al. (2026). CRAFT prompt generation framework for teachers. In Proceedings of the 57th ACM Technical Symposium on Computer Science Education (Vol. 2).
-  — `Proposal [7]` · Research proposal · **converted from IEEE — verify**
+  — [`Proposal [7]`](/proposal#ref-7) · Research proposal · **converted from IEEE — verify**
   - **Used for:** The source of the CRAFT framework (Context, Role, Actions, Format, Tone) that this study evaluates.
   - **Incomplete:** No page range, DOI, or publisher in the supplied proposal. The full author list is given only as “Joshi, Deepti, et al.”
 
 - Schulhoff, S., et al. (2024). The prompt report: A systematic survey of prompt engineering techniques. arXiv:2406.06608.
-  — `Proposal [2]` · Research proposal · **converted from IEEE — verify**
+  <https://arxiv.org/abs/2406.06608>
+  — [`Proposal [2]`](/proposal#ref-2) · Research proposal · **converted from IEEE — verify**
   - **Used for:** The taxonomy of prompting techniques, and the observation that the field lacks a unified vocabulary and standardised frameworks for non-expert users — the gap this study addresses.
-  - **Incomplete:** Full author list not given in the proposal (“S. Schulhoff et al.”). No URL supplied; the arXiv identifier is reproduced as printed rather than expanded into a link.
+  - **Incomplete:** Full author list not given in the proposal (“S. Schulhoff et al.”).
 
 - Anam, R. (2025). Prompt engineering and the effectiveness of large language models in enhancing human productivity: A preprint.
-  — `Proposal [1]` · Research proposal · **converted from IEEE — verify**
+  — [`Proposal [1]`](/proposal#ref-1) · Research proposal · **converted from IEEE — verify**
   - **Used for:** The working definition of prompt engineering used in the proposal's introduction.
   - **Incomplete:** No venue, publisher, DOI, or URL in the supplied proposal.
 
 - Dell’acqua, F., et al. (2024). Navigating the jagged technological frontier: Field experimental evidence of the effects of AI on knowledge worker productivity and quality (Harvard Business School Technology & Operations Mgt. Unit Working Paper).
-  — `Proposal [3]` · Research proposal · **converted from IEEE — verify**
+  — [`Proposal [3]`](/proposal#ref-3) · Research proposal · **converted from IEEE — verify**
   - **Used for:** The BCG field-experiment findings quoted in the proposal — 12.2% more tasks completed, 25.1% faster, and the parallel MIT figures of 40% time reduction and 18% quality increase.
   - **Incomplete:** No working-paper number, DOI, or URL in the supplied proposal. Full author list not given (“F. Dell’acqua et al.”).
 
 - Kulkarni, N., & Tupsakhare, P. (2024). Crafting effective prompts: Enhancing AI performance through structured input design. Journal of Recent Trends in Computer Science Engineering, 12(1), 1–10.
-  — `Proposal [4]` · Research proposal · **converted from IEEE — verify**
+  — [`Proposal [4]`](/proposal#ref-4) · Research proposal · **converted from IEEE — verify**
   - **Used for:** Prior work on general structured input design.
 
 - Robino, G. (2025). Conversation routines: A prompt engineering framework for task-oriented dialog systems. arXiv:2501.11613.
-  — `Proposal [5]` · Research proposal · **converted from IEEE — verify**
+  <https://arxiv.org/abs/2501.11613>
+  — [`Proposal [5]`](/proposal#ref-5) · Research proposal · **converted from IEEE — verify**
   - **Used for:** Prior work on prompt engineering frameworks.
-  - **Incomplete:** No URL supplied; the arXiv identifier is reproduced as printed.
 
 - Ramnath, K., et al. (2025). A systematic survey of automatic prompt optimization techniques. arXiv:2502.16923.
-  — `Proposal [6]` · Research proposal · **converted from IEEE — verify**
+  <https://arxiv.org/abs/2502.16923>
+  — [`Proposal [6]`](/proposal#ref-6) · Research proposal · **converted from IEEE — verify**
   - **Used for:** Prior work on automatic prompt optimization.
-  - **Incomplete:** Full author list not given in the proposal (“K. Ramnath et al.”). No URL supplied.
+  - **Incomplete:** Full author list not given in the proposal (“K. Ramnath et al.”).
 
 - Anthropic. (2025a). Effective context engineering for AI agents. Anthropic. Anthropic.Com.
   <https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents>
-  — `Reflection [6]` · Reflection paper
+  — [`Reflection [6]`](/reflection#ref-6) · Reflection paper
   - **Used for:** Context-engineering guidance: use the smallest high-signal set of information that supports the expected behaviour, then add instructions or examples in response to observed failure modes. Also cited for the point that context engineering is broader than prompt engineering.
 
 - Anthropic. (2025b). Prompt engineering overview. Anthropic. Claude API Docs.
   <https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview>
-  — `Reflection [5]` · Reflection paper
+  — [`Reflection [5]`](/reflection#ref-5) · Reflection paper
   - **Used for:** Evaluation-first guidance: define success criteria, test against them, and recognise that not every failure should be solved by adding more prompt engineering.
 
 ---
