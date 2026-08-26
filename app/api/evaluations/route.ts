@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { reviewModeBlock } from "@/lib/reviewMode";
 import { appendEvaluation, getEvaluations, getResults } from "@/lib/db";
 import type { EvaluationRecord } from "@/types";
 
@@ -7,6 +8,11 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  // REVIEW_MODE: refuse before the body is read, so a blocked request can
+  // never reach a provider call or a write to data/.
+  const blocked = reviewModeBlock();
+  if (blocked) return blocked;
+
   const evaluation: EvaluationRecord = await request.json();
 
   // Referential integrity: an evaluation without its run is unanalysable.

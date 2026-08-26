@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { reviewModeBlock } from "@/lib/reviewMode";
 import { ENV_VAR_BY_FAMILY, isKeyConfigured } from "@/lib/env";
 import {
   probeAnthropic,
@@ -49,6 +50,11 @@ function notConfigured(family: ModelFamily, modelId: string): CallabilityResult 
 }
 
 export async function POST() {
+  // REVIEW_MODE: refuse before the body is read, so a blocked request can
+  // never reach a provider call or a write to data/.
+  const blocked = reviewModeBlock();
+  if (blocked) return blocked;
+
   const results = await Promise.all([
     isKeyConfigured("anthropic")
       ? probeAnthropic(keyOf("anthropic"), ANTHROPIC_MODEL_ID)

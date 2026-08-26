@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AlertTriangle } from "lucide-react";
+import { useReviewMode } from "@/components/review/ReviewModeContext";
 import type { ModelFamily } from "@/lib/models/registry";
 
 export interface KeyStatusDto {
@@ -13,13 +14,18 @@ export interface KeyStatusDto {
 
 export function useKeyStatuses() {
   const [statuses, setStatuses] = useState<KeyStatusDto[] | null>(null);
+  // Under REVIEW_MODE every key is expected to be blank, so the preflight check
+  // has nothing to report — skip the request entirely rather than fetch a
+  // result whose only use would be to raise an alarm about a non-problem.
+  const reviewMode = useReviewMode();
 
   useEffect(() => {
+    if (reviewMode) return;
     fetch("/api/health/keys")
       .then((r) => r.json())
       .then((data) => setStatuses(data.statuses))
       .catch(() => setStatuses(null));
-  }, []);
+  }, [reviewMode]);
 
   return statuses;
 }
@@ -36,6 +42,10 @@ interface ApiKeyBannerProps {
 }
 
 export function ApiKeyBanner({ statuses, families }: ApiKeyBannerProps) {
+  const reviewMode = useReviewMode();
+  // No keys are needed to read a stored study, so a "missing key" warning would
+  // be noise on a page that is working exactly as intended.
+  if (reviewMode) return null;
   if (!statuses) return null;
   const missing = statuses.filter((s) => families.includes(s.family) && !s.configured);
   if (missing.length === 0) return null;

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { reviewModeBlock } from "@/lib/reviewMode";
 import { callClaude } from "@/lib/models/claude";
 import { callOpenAI } from "@/lib/models/openai";
 import { getResults, getTask } from "@/lib/db";
@@ -50,6 +51,11 @@ interface RunRequestBody {
 }
 
 export async function POST(request: Request) {
+  // REVIEW_MODE: refuse before the body is read, so a blocked request can
+  // never reach a provider call or a write to data/.
+  const blocked = reviewModeBlock();
+  if (blocked) return blocked;
+
   const body: RunRequestBody = await request.json();
   const {
     task_id,

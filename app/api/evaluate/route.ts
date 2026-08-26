@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { reviewModeBlock } from "@/lib/reviewMode";
 import { callClaude } from "@/lib/models/claude";
 import { callGemini } from "@/lib/models/gemini";
 import { callOpenAI } from "@/lib/models/openai";
@@ -64,6 +65,11 @@ interface EvaluateRequestBody {
 }
 
 export async function POST(request: Request) {
+  // REVIEW_MODE: refuse before the body is read, so a blocked request can
+  // never reach a provider call or a write to data/.
+  const blocked = reviewModeBlock();
+  if (blocked) return blocked;
+
   const body: EvaluateRequestBody = await request.json();
   const {
     anonymized_output_id,

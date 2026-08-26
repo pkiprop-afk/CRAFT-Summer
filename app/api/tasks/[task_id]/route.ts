@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { reviewModeBlock } from "@/lib/reviewMode";
 import { getTask, updateTask } from "@/lib/db";
 import { validateSingleTask } from "@/lib/taskImport";
 
@@ -16,6 +17,11 @@ export async function GET(_request: Request, { params }: RouteContext) {
 }
 
 export async function PUT(request: Request, { params }: RouteContext) {
+  // REVIEW_MODE: refuse before the body is read, so a blocked request can
+  // never reach a provider call or a write to data/.
+  const blocked = reviewModeBlock();
+  if (blocked) return blocked;
+
   const { task_id } = await params;
 
   let body: unknown;

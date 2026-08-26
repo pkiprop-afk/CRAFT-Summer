@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { reviewModeBlock } from "@/lib/reviewMode";
 import { getRegistryMeta, getResults, getTasks, saveTasks, setRegistryMeta } from "@/lib/db";
 import { parseCsv } from "@/lib/csv";
 import { parseXlsxRows } from "@/lib/xlsxParse";
@@ -7,6 +8,11 @@ import { computeTaskDiff, parseImportMode } from "@/lib/taskDiff";
 import { computeImportInvalidation } from "@/lib/invalidation";
 
 export async function POST(request: Request) {
+  // REVIEW_MODE: refuse before the body is read, so a blocked request can
+  // never reach a provider call or a write to data/.
+  const blocked = reviewModeBlock();
+  if (blocked) return blocked;
+
   const url = new URL(request.url);
   const dryRun = url.searchParams.get("dryRun") === "true";
   const mode = parseImportMode(url.searchParams.get("mode"));

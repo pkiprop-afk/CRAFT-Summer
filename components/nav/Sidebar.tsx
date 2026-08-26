@@ -2,21 +2,25 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BookOpen, LayoutGrid, ListChecks, Play, Layers, BarChart2, Download, type LucideIcon } from "lucide-react";
+import { BookOpen, LayoutGrid, ListChecks, Play, Layers, BarChart2, Download, FileText, type LucideIcon } from "lucide-react";
+import { useReviewMode } from "@/components/review/ReviewModeContext";
 
 interface NavItem {
   label: string;
   href: string;
   icon: LucideIcon;
+  /** Dispatches model calls or writes to the run record — hidden under REVIEW_MODE. */
+  mutating?: boolean;
 }
 
 const NAV_ITEMS: NavItem[] = [
   { label: "CRAFT Framework", href: "/", icon: BookOpen },
   { label: "Task Library", href: "/tasks", icon: LayoutGrid },
   { label: "Progress", href: "/progress", icon: ListChecks },
-  { label: "Prompt Runner", href: "/run", icon: Play },
-  { label: "Batch Runner", href: "/batch", icon: Layers },
+  { label: "Prompt Runner", href: "/run", icon: Play, mutating: true },
+  { label: "Batch Runner", href: "/batch", icon: Layers, mutating: true },
   { label: "Results", href: "/results", icon: BarChart2 },
+  { label: "Paper", href: "/paper", icon: FileText },
   { label: "Export", href: "/export", icon: Download },
 ];
 
@@ -27,16 +31,23 @@ function isActive(pathname: string, href: string) {
 
 export function Sidebar() {
   const pathname = usePathname();
+  const reviewMode = useReviewMode();
+  const navItems = reviewMode ? NAV_ITEMS.filter((item) => !item.mutating) : NAV_ITEMS;
 
   return (
     <aside className="w-16 md:w-60 shrink-0 bg-navy-900 text-cream flex flex-col">
       <div className="px-2 md:px-5 py-6 border-b border-white/10">
         <p className="hidden md:block text-sm font-semibold leading-tight">CRAFT Benchmark</p>
         <p className="hidden md:block text-xs text-cream/60 leading-tight mt-1">Peter Kiprop</p>
+        {reviewMode ? (
+          <p className="hidden md:block text-[10px] uppercase tracking-wide text-cream/50 leading-tight mt-2">
+            Read-only archive
+          </p>
+        ) : null}
         <p className="md:hidden text-center text-sm font-semibold leading-tight">CB</p>
       </div>
       <nav className="flex-1 px-2 md:px-3 py-4 space-y-1">
-        {NAV_ITEMS.map((item) => {
+        {navItems.map((item) => {
           const active = isActive(pathname, item.href);
           const Icon = item.icon;
           return (
