@@ -41,8 +41,8 @@ export interface Reference {
   usedFor: string;
   /** Which supplied document(s) the citation appears in. */
   appearsIn: SourceDoc[];
-  /** Original document numbering, e.g. "Proposal [7]" — for cross-checking. */
-  originalRef?: string;
+  /** Where the citation sits in the source document, so the marker can link to it. */
+  origin?: { doc: DocSlug; num: number };
   /** Converted from the proposal's IEEE format; verify against the original. */
   convertedFromIEEE?: boolean;
   /** What the supplied citation is missing. Rendered as a visible caveat. */
@@ -76,7 +76,7 @@ export const TASK_SOURCING: ReferenceSection = {
       usedFor:
         "HumanEval — the source benchmark for 17 tasks. Coding (T001–T008) adapt nine HumanEval problems (/3, /9, /21, /26, /47, /52, /61, /110, /135) as applied scenarios with original injected bugs; Finance (T018–T026) transpose the same computational structures into financial framings. The task-to-problem mapping is recorded per task in the source_or_origin field of data/tasks.json.",
       appearsIn: ["reflection"],
-      originalRef: "Reflection [1]",
+      origin: { doc: "reflection", num: 1 },
       editorialNote:
         "The supplied reference list prints the first author as “hen, M.”; corrected to “Chen, M.” on the researcher's confirmation.",
     },
@@ -88,7 +88,7 @@ export const TASK_SOURCING: ReferenceSection = {
       usedFor:
         "Cited jointly with Tversky & Kahneman (1974) for the documented statistical and decision-making phenomena behind the Data Analysis tasks: Simpson's paradox, survivorship bias, regression to the mean, and base-rate neglect. Four tasks invoke these (T009, T012, T016, T017); the numbers in each are original.",
       appearsIn: ["reflection"],
-      originalRef: "Reflection [2]",
+      origin: { doc: "reflection", num: 2 },
     },
     {
       id: "tversky-1974",
@@ -98,7 +98,7 @@ export const TASK_SOURCING: ReferenceSection = {
       usedFor:
         "Cited jointly with Bickel et al. (1975) — see above. Underpins the base-rate and heuristics reasoning tested in the Data Analysis tasks.",
       appearsIn: ["reflection"],
-      originalRef: "Reflection [3]",
+      origin: { doc: "reflection", num: 3 },
     },
     {
       id: "liu-2024",
@@ -108,7 +108,7 @@ export const TASK_SOURCING: ReferenceSection = {
       usedFor:
         "QRData — evaluated as a possible source for the Data Analysis tasks and rejected. Its questions rely on separate data sheets, whereas this study required self-contained text inputs that could be presented identically under both prompt conditions. Retained as related work.",
       appearsIn: ["reflection"],
-      originalRef: "Reflection [4]",
+      origin: { doc: "reflection", num: 4 },
       editorialNote:
         "Stray BibTeX braces in “Are {LLM}s” removed, and the page range “9215--9235” normalised to an en dash, on the researcher's confirmation.",
     },
@@ -128,7 +128,7 @@ export const FRAMEWORK_LITERATURE: ReferenceSection = {
       usedFor:
         "The source of the CRAFT framework (Context, Role, Actions, Format, Tone) that this study evaluates.",
       appearsIn: ["proposal"],
-      originalRef: "Proposal [7]",
+      origin: { doc: "proposal", num: 7 },
       convertedFromIEEE: true,
       incomplete:
         "No page range, DOI, or publisher in the supplied proposal. The full author list is given only as “Joshi, Deepti, et al.”",
@@ -137,13 +137,14 @@ export const FRAMEWORK_LITERATURE: ReferenceSection = {
       id: "schulhoff-2024",
       citation:
         "Schulhoff, S., et al. (2024). The prompt report: A systematic survey of prompt engineering techniques. arXiv:2406.06608.",
+      url: "https://arxiv.org/abs/2406.06608",
       usedFor:
         "The taxonomy of prompting techniques, and the observation that the field lacks a unified vocabulary and standardised frameworks for non-expert users — the gap this study addresses.",
       appearsIn: ["proposal"],
-      originalRef: "Proposal [2]",
+      origin: { doc: "proposal", num: 2 },
       convertedFromIEEE: true,
       incomplete:
-        "Full author list not given in the proposal (“S. Schulhoff et al.”). No URL supplied; the arXiv identifier is reproduced as printed rather than expanded into a link.",
+        "Full author list not given in the proposal (“S. Schulhoff et al.”).",
     },
     {
       id: "anam-2025",
@@ -151,7 +152,7 @@ export const FRAMEWORK_LITERATURE: ReferenceSection = {
         "Anam, R. (2025). Prompt engineering and the effectiveness of large language models in enhancing human productivity: A preprint.",
       usedFor: "The working definition of prompt engineering used in the proposal's introduction.",
       appearsIn: ["proposal"],
-      originalRef: "Proposal [1]",
+      origin: { doc: "proposal", num: 1 },
       convertedFromIEEE: true,
       incomplete: "No venue, publisher, DOI, or URL in the supplied proposal.",
     },
@@ -162,7 +163,7 @@ export const FRAMEWORK_LITERATURE: ReferenceSection = {
       usedFor:
         "The BCG field-experiment findings quoted in the proposal — 12.2% more tasks completed, 25.1% faster, and the parallel MIT figures of 40% time reduction and 18% quality increase.",
       appearsIn: ["proposal"],
-      originalRef: "Proposal [3]",
+      origin: { doc: "proposal", num: 3 },
       convertedFromIEEE: true,
       incomplete:
         "No working-paper number, DOI, or URL in the supplied proposal. Full author list not given (“F. Dell’acqua et al.”).",
@@ -173,29 +174,30 @@ export const FRAMEWORK_LITERATURE: ReferenceSection = {
         "Kulkarni, N., & Tupsakhare, P. (2024). Crafting effective prompts: Enhancing AI performance through structured input design. Journal of Recent Trends in Computer Science Engineering, 12(1), 1–10.",
       usedFor: "Prior work on general structured input design.",
       appearsIn: ["proposal"],
-      originalRef: "Proposal [4]",
+      origin: { doc: "proposal", num: 4 },
       convertedFromIEEE: true,
     },
     {
       id: "robino-2025",
       citation:
         "Robino, G. (2025). Conversation routines: A prompt engineering framework for task-oriented dialog systems. arXiv:2501.11613.",
+      url: "https://arxiv.org/abs/2501.11613",
       usedFor: "Prior work on prompt engineering frameworks.",
       appearsIn: ["proposal"],
-      originalRef: "Proposal [5]",
+      origin: { doc: "proposal", num: 5 },
       convertedFromIEEE: true,
-      incomplete: "No URL supplied; the arXiv identifier is reproduced as printed.",
     },
     {
       id: "ramnath-2025",
       citation:
         "Ramnath, K., et al. (2025). A systematic survey of automatic prompt optimization techniques. arXiv:2502.16923.",
+      url: "https://arxiv.org/abs/2502.16923",
       usedFor: "Prior work on automatic prompt optimization.",
       appearsIn: ["proposal"],
-      originalRef: "Proposal [6]",
+      origin: { doc: "proposal", num: 6 },
       convertedFromIEEE: true,
       incomplete:
-        "Full author list not given in the proposal (“K. Ramnath et al.”). No URL supplied.",
+        "Full author list not given in the proposal (“K. Ramnath et al.”).",
     },
     {
       id: "anthropic-2025a",
@@ -205,7 +207,7 @@ export const FRAMEWORK_LITERATURE: ReferenceSection = {
       usedFor:
         "Context-engineering guidance: use the smallest high-signal set of information that supports the expected behaviour, then add instructions or examples in response to observed failure modes. Also cited for the point that context engineering is broader than prompt engineering.",
       appearsIn: ["reflection"],
-      originalRef: "Reflection [6]",
+      origin: { doc: "reflection", num: 6 },
     },
     {
       id: "anthropic-2025b",
@@ -214,7 +216,7 @@ export const FRAMEWORK_LITERATURE: ReferenceSection = {
       usedFor:
         "Evaluation-first guidance: define success criteria, test against them, and recognise that not every failure should be solved by adding more prompt engineering.",
       appearsIn: ["reflection"],
-      originalRef: "Reflection [5]",
+      origin: { doc: "reflection", num: 5 },
     },
   ],
 };
