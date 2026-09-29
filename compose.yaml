@@ -1,0 +1,6 @@
+services:
+  craftsummer:
+    image: craftsummer
+    build:
+      context: .
+      dockerfile: ./Dockerfile
